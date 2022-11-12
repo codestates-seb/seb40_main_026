@@ -9,9 +9,9 @@
     <td align="center"><a href="https://github.com/ALSRUD29"><img src=https://avatars.githubusercontent.com/u/107922059?v=4 width="100px;" alt=""/><br /><sub><b>@ALSRUD29</b></sub></a><br /></td>
 
 </tr>
-      <td align="center">FE이혜린</td>
-      <td align="center">FE김지수</td>
-      <td align="center">FE박민경</td>
+      <td align="center">[FE]이혜린</td>
+      <td align="center">[FE]김지수</td>
+      <td align="center">[FE]박민경</td>
   
       
 </tr>
@@ -25,9 +25,9 @@
 
 </tr>
 <tr>
-      <td align="center">BE김현욱</td>
-      <td align="center">BE허성은</td>
-      <td align="center">BE김영훈</td>
+      <td align="center">[BE]김현욱</td>
+      <td align="center">[BE]허성은</td>
+      <td align="center">[BE]김영훈</td>
    
 </tr>
 
@@ -35,11 +35,14 @@
 
 ## 🐥 기술스택
 
-프론트엔드
+### 프론트엔드
 
 * ![image](https://user-images.githubusercontent.com/97659846/201456871-b8573861-d422-4401-9b31-4971c471e1ae.png)
 * ![image](https://user-images.githubusercontent.com/97659846/201456885-b7a0cf4c-bfe9-4ed6-a66a-e4cf75a8a2eb.png)
 * ![image](https://user-images.githubusercontent.com/97659846/201456889-8a8ec98e-a4f2-4f4e-a9ae-afeea0825f4f.png)
+
+### 백엔드
+
 
 
 ## 🌟 커밋 컨벤션
