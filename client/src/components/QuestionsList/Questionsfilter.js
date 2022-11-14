@@ -26,7 +26,6 @@ const Filterwrap = styled.div`
   }
 `;
 const Quesfilter = () => {
-  const [filterClick, setfilterClick] = useState(false);
   const [TitleId, setTitleId] = useState(3);
   const filterdata = [
     {
