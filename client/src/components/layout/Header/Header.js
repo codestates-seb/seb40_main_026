@@ -25,4 +25,7 @@ const Container = styled.div`
   align-items: center;
   padding: 10px 30px;
   border-bottom: 1px gray solid;
+  z-index: 100;
+  position: relative;
+  background-color: white;
 `;
