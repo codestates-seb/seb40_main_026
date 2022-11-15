@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { useState } from 'react';
 const Searchwrap = styled.div`
   .Searchwrap {
     width: 1000px;
@@ -27,7 +27,12 @@ const Searchwrap = styled.div`
     }
   }
 `;
-const QuesSearch = () => {
+const QuesSearch = ({ SearchOn, SetSearchOn }) => {
+  const [Searchtitle, SetSearchtitle] = useState('');
+  const SearchChange = (event) => {
+    SetSearchtitle(event.target.value);
+    SetSearchOn(!SearchOn);
+  };
   return (
     <Searchwrap>
       <div className="Searchwrap">
@@ -35,6 +40,7 @@ const QuesSearch = () => {
           <input
             className="Searchinput"
             placeholder="질문을 입력해 주세요."
+            onChange={SearchChange}
           ></input>
         </div>
         <div>

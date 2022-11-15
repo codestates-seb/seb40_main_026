@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import Quesfilter from './Questionsfilter';
-import QuesSearch from './QuesSearch';
+
 const QuesListWrap = styled.div`
   width: 100%;
   .QuesListMain {
     padding-top: 0.5rem;
     border-radius: 1rem;
     padding-bottom: 2rem;
-    box-shadow: grey 0px 0px 3px;
+
     .QuestionsList {
       width: 1000px;
       margin: auto;
@@ -76,8 +75,6 @@ const QuestionView = () => {
   return (
     <QuesListWrap>
       <div className="QuesListMain">
-        <QuesSearch />
-        <Quesfilter />
         <ul className="QuestionsList">
           {DummyQuestions.map((items) => {
             return (
