@@ -72,7 +72,6 @@ export default Footer;
 const Container = styled.footer`
   width: 100%;
   bottom: 0;
-  position: absolute;
   background-color: white;
   display: flex;
   height: 150px;
@@ -83,6 +82,8 @@ const Container = styled.footer`
   justify-content: space-around;
   color: var(--theme-footer-text-color);
   text-align: center;
+  position: relative;
+  z-index: 100;
 
   @media ${tablet} {
     flex-direction: column;
