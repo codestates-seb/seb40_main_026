@@ -5,12 +5,16 @@ const Searchwrap = styled.div`
   .Searchwrap {
     width: 70%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin: auto;
     align-items: center;
     margin-top: 2rem;
 
     .SearchbarWrap {
-      width: 85%;
+      width: 900px;
+      background-color: blue;
+      padding: 1rem;
       > input {
         box-shadow: grey 0px 0px 3px;
         margin-bottom: 10px;
@@ -21,12 +25,11 @@ const Searchwrap = styled.div`
       }
     }
     .ButtonWrap {
-      width: 15%;
-      margin-right: 2rem;
+      background-color: red;
 
       > button {
-        width: 100%;
-        font-size: 1.2rem;
+        width: 150px;
+        font-size: 1.5rem;
         border-radius: 1rem;
         margin-right: 0;
         background-color: #ffc149;
@@ -46,7 +49,6 @@ const Searchwrap = styled.div`
         }
       }
       .ButtonWrap {
-        width: 25%;
         margin-right: 0;
         background-color: blue;
         > button {

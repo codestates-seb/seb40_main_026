@@ -14,13 +14,16 @@ const QuesListWrap = styled.div`
       .QuestionWrap {
         text-align: center;
 
-        width: 100%;
         background-color: white;
         border-radius: 1rem;
         margin-top: 2rem;
         box-shadow: grey 0px 0px 3px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
         .Sectionleft {
-          width: 80%;
           font-size: 1.2rem;
           padding: 2rem;
           text-align: left;
@@ -36,14 +39,20 @@ const QuesListWrap = styled.div`
           }
         }
         .Sectionright {
-          margin: auto;
-          padding: 2rem;
-          background-color: #00c0d1;
+          .AnswerCircle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
 
-          border-radius: 0%;
-          > span {
+            background-color: #00c0d1;
+            margin-right: 2rem;
             font-size: 1.5rem;
             color: #fff;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
           }
         }
       }
@@ -51,13 +60,11 @@ const QuesListWrap = styled.div`
   }
   @media ${tablet} {
     .Sectionright {
-      width: 10px;
       font-size: 0.1rem;
     }
   }
   @media ${mobile} {
     .Sectionright {
-      width: 0.5rem;
       font-size: 1px;
     }
   }
@@ -107,8 +114,11 @@ const QuestionView = () => {
                   <span> ♥{items.thums}</span>
                 </div>
                 <div className="Sectionright">
-                  <span className="Sectionright_span">답변</span> <br />
-                  <span>{items.answerlength}</span>
+                  <div className="AnswerCircle">
+                    <div className="Sectionright_span">답변 </div>
+
+                    <span>{items.answerlength}</span>
+                  </div>
                 </div>
               </li>
             );
