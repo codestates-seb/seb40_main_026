@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import HeaderHamburger from './HeaderHamburger';
 import HeaderLogin from './HeaderLogin';
 import HeaderLogo from './HeaderLogo';
 import HeaderMenu from './HeaderMenu';
@@ -9,6 +10,7 @@ const Header = () => {
       <HeaderLogo />
       <HeaderMenu />
       <HeaderLogin />
+      <HeaderHamburger />
     </Container>
   );
 };
