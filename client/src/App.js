@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from './components/layout/Footer';
+import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import GlobalStyle from './styles/GlobalStyle';
 
