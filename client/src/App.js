@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer';
-import Header from './components/layout/Header';
-import GlobalStyle from './GlobalStyle';
+import Header from './components/layout/Header/Header';
+import GlobalStyle from './styles/GlobalStyle';
+import './index.css';
 
 function App() {
   return (
