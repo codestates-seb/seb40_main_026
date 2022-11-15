@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.exception.BusinessException;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BoastService {
     private final BoastRepository boastRepository;
@@ -55,6 +57,7 @@ public class BoastService {
     }
 
     //유효한 Boast 게시글이 있는지 확인하는 메서드 (Business custom exception use)
+    @Transactional(readOnly = true)
     public Boast findVerifiedBoast(long boastId){
         Optional<Boast> optionalBoast =
                 boastRepository.findById(boastId);

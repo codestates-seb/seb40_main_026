@@ -17,7 +17,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/boast")
+@RequestMapping("/boasts")
 @RequiredArgsConstructor
 public class BoastController {
     private final BoastMapper mapper;
