@@ -21,6 +21,6 @@ const Container = styled.div`
   justify-content: space-around;
   height: 100px;
   align-items: center;
-  padding: 10px;
+  padding: 10px 30px;
   border-bottom: 1px gray solid;
 `;

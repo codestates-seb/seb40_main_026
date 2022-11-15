@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import codingLogo from '../../../assets/images/codingLogo.png';
 
 const HeaderLogo = () => {
   return (
     <Container>
-      <img src={codingLogo} alt="logo" />
+      <Link to={'/'}>
+        <img src={codingLogo} alt="logo" />
+      </Link>
     </Container>
   );
 };
@@ -12,8 +15,8 @@ const HeaderLogo = () => {
 export default HeaderLogo;
 
 const Container = styled.div`
-  > img {
-    width: 300px;
+  img {
+    width: 270px;
     cursor: pointer;
   }
 `;
