@@ -72,7 +72,7 @@ export default Footer;
 const Container = styled.footer`
   width: 100%;
   bottom: 0;
-  position: absolute;
+
   background-color: white;
   display: flex;
   height: 150px;
