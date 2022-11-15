@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
+import Boast from './pages/Boast';
 import GlobalStyle from './GlobalStyle';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Header />
+      <Boast />
       <Routes>
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<div>회원가입</div>} />
