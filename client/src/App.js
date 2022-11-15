@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
+import SignupPage from './pages/SignupPage';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<div>홈</div>} />
-        <Route path="/signup" element={<div>회원가입</div>} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<div>로그인</div>} />
         <Route path="/mypage" element={<div>마이페이지</div>} />
         <Route path="/questions" element={<div>궁금해요페이지</div>} />
