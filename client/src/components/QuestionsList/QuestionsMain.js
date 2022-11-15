@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import { useState } from 'react';
 const Container = styled.div`
   margin-top: 2rem;
-
-  background-color: blue;
 `;
 const QuestionsMain = () => {
   const [SearchOn, SetSearchOn] = useState(false);

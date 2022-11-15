@@ -3,7 +3,7 @@ import { desktop, tablet, mobile } from '../../styles/Responsive';
 
 const QuesListWrap = styled.div`
   .QuesListMain {
-    padding-top: 0.5rem;
+    padding-top: 1.5rem;
     border-radius: 1rem;
     padding-bottom: 2rem;
 
@@ -13,8 +13,6 @@ const QuesListWrap = styled.div`
       width: 70%;
       .QuestionWrap {
         text-align: center;
-        display: flex;
-        align-items: center;
 
         width: 100%;
         background-color: white;
@@ -39,15 +37,12 @@ const QuesListWrap = styled.div`
         }
         .Sectionright {
           margin: auto;
-
-          width: 150px;
-          height: 150px;
+          padding: 2rem;
           background-color: #00c0d1;
-          border-radius: 50%;
+
+          border-radius: 0%;
           > span {
-            font-size: 1.2rem;
-            width: 15rem;
-            height: 15rem;
+            font-size: 1.5rem;
             color: #fff;
           }
         }
@@ -56,17 +51,14 @@ const QuesListWrap = styled.div`
   }
   @media ${tablet} {
     .Sectionright {
-      color: #fff;
-      background-color: #00c0d1;
+      width: 10px;
+      font-size: 0.1rem;
     }
   }
   @media ${mobile} {
     .Sectionright {
-      > span {
-        font-size: 0.2rem;
-        color: #fff;
-        background-color: #00c0d1;
-      }
+      width: 0.5rem;
+      font-size: 1px;
     }
   }
 `;
@@ -115,7 +107,8 @@ const QuestionView = () => {
                   <span> ♥{items.thums}</span>
                 </div>
                 <div className="Sectionright">
-                  <span>답변{items.answerlength}</span>
+                  <span className="Sectionright_span">답변</span> <br />
+                  <span>{items.answerlength}</span>
                 </div>
               </li>
             );
