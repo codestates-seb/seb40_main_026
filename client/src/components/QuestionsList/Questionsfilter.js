@@ -7,7 +7,7 @@ const Filterwrap = styled.div`
 
   .filter-main {
     margin: auto;
-    width: 1000px;
+    width: 70%;
     background-color: blue;
     > span > button {
       float: right;
