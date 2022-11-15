@@ -28,6 +28,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 35px;
   font-family: 'Dongle', sans-serif;
+  font-weight: 700;
   color: black;
   cursor: pointer;
 

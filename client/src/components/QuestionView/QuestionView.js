@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
-import AnswerCreate from './AnswerCreate';
-import Answer from './Answer';
+
 const Question = styled.div`
   width: 100%;
 
@@ -91,8 +90,6 @@ const QuestionView = () => {
             );
           })}
         </section>
-        <AnswerCreate />
-        <Answer />
       </Question>
     </>
   );

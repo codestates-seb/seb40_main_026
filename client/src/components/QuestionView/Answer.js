@@ -17,6 +17,7 @@ const AnswerView = styled.div`
       .AnswerTop {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
       }
       .AnswerBot {
         margin-top: 1rem;
