@@ -2,6 +2,7 @@ package seb40main026.mainproject.boastLike.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boast.service.BoastService;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoastLikeService {
     private final BoastLikeRepository boastLikeRepository;
     private final BoastService boastService;
@@ -27,13 +29,13 @@ public class BoastLikeService {
         if(findLike.isEmpty()){
             BoastLike boastLike = BoastLike.of(findBoast.getBoastId(),0L);
             boastLikeRepository.save(boastLike);
-            findBoast.setLike_count(findBoast.getLike_count()+1);
+            findBoast.setLikeCount(findBoast.getLikeCount()+1);
         }
         else{
             boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
-            findBoast.setLike_count(findBoast.getLike_count()-1);
+            findBoast.setLikeCount(findBoast.getLikeCount()-1);
         }
         boastRepository.save(findBoast);
-        return findBoast.getLike_count();
+        return findBoast.getLikeCount();
     }
 }
