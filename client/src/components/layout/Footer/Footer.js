@@ -83,7 +83,6 @@ const Container = styled.footer`
   color: var(--theme-footer-text-color);
   text-align: center;
   position: relative;
-  z-index: 100;
 
   @media ${tablet} {
     flex-direction: column;
