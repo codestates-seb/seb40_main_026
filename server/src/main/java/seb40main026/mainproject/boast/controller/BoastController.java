@@ -3,6 +3,7 @@ package seb40main026.mainproject.boast.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class BoastController {
     @GetMapping
     public ResponseEntity getBoasts(@Positive @RequestParam int page,
                                     @Positive @RequestParam int size){
-        Page<Boast> pageBoast = boastService.findBoasts(page,size-1);
+        Page<Boast> pageBoast = boastService.findBoasts(PageRequest.of(page-1,size,Sort.by("boastId").descending()));
         List<Boast> listBoast = pageBoast.getContent();
         return new ResponseEntity(mapper.boastToBoastResponseDtos(listBoast), HttpStatus.OK);
     }
@@ -58,6 +59,14 @@ public class BoastController {
         boastService.deleteBoast(boastId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    //좋아요 갯수가 1등, 2등, 3등인 게시글만 리턴 해주는 Get Method 컨트롤러
+    @GetMapping("/populars")
+    public ResponseEntity getPopular(){
+        return new ResponseEntity(mapper.boastToBoastResponseDtos(boastService.findPopularBoast()), HttpStatus.OK);
+    }
+
+
 
 //    //search 컨트롤러 ex) localhost:8080/boast/search?keyword=keyword&page=0&size=10
 //    @GetMapping("/search")

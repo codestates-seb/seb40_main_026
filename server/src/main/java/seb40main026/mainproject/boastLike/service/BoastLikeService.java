@@ -27,13 +27,13 @@ public class BoastLikeService {
         if(findLike.isEmpty()){
             BoastLike boastLike = BoastLike.of(findBoast.getBoastId(),0L);
             boastLikeRepository.save(boastLike);
-            findBoast.setLike_count(findBoast.getLike_count()+1);
+            findBoast.setLikeCount(findBoast.getLikeCount()+1);
         }
         else{
             boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
-            findBoast.setLike_count(findBoast.getLike_count()-1);
+            findBoast.setLikeCount(findBoast.getLikeCount()-1);
         }
         boastRepository.save(findBoast);
-        return findBoast.getLike_count();
+        return findBoast.getLikeCount();
     }
 }

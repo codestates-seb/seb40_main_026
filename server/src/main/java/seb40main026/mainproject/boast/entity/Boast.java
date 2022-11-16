@@ -36,10 +36,10 @@ public class Boast {
     private LocalDateTime boardModifiedAt;
 
     @Column(nullable = false)
-    private long view_count = 0;
+    private long viewCount = 0;
 
     @Column(nullable = false)
-    private long like_count;
+    private long likeCount;
 
 //    @Column(nullable = false)
 //    private Long report_count;
