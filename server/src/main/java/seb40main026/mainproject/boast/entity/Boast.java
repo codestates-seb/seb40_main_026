@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
 
 import javax.persistence.*;
@@ -29,14 +30,16 @@ public class Boast {
 
     @Column
     @CreatedDate
+    @DateTimeFormat(pattern = "yy-MM-dd")
     private LocalDateTime boardCreatedAt;
 
     @Column
     @LastModifiedDate
+    @DateTimeFormat(pattern = "yy-MM-dd")
     private LocalDateTime boardModifiedAt;
 
     @Column(nullable = false)
-    private long viewCount = 0;
+    private long viewCount;
 
     @Column(nullable = false)
     private long likeCount;
@@ -49,10 +52,10 @@ public class Boast {
     private List<BoastReply> replies = new ArrayList<>();
 
     //BoastReply type List -> boastReply 객체를 set(add) 해주는 메서드
-    public void addReplies(BoastReply boastReply){
+    public void addReplies(BoastReply boastReply) {
         this.replies.add(boastReply);
-        if(boastReply.getBoast() != this)
-        boastReply.setBoast(this);
+        if (boastReply.getBoast() != this) {
+            boastReply.setBoast(this);
+        }
     }
-
 }

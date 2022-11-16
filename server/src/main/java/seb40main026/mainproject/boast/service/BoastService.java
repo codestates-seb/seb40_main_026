@@ -77,10 +77,10 @@ public class BoastService {
                 optionalBoast.orElseThrow(() -> new BusinessException(ExceptionCode.BOAST_NOT_FOUND));
         return findBoast;
     }
-//    keyword 를 입력받아 제목에 해당 키워드가 포함되는 boast 게시글만 가져오는 서비스
-//    public Page<Boast> searchBoast(String keyword, Pageable pageable){
-//        Page<Boast> searchResult = boastRepository.findByTitleContaining(keyword,pageable);
-//        return searchResult;
-//    }
+    //keyword 를 입력받아 제목에 해당 키워드가 포함되는 boast 게시글만 가져오는 서비스
+    public Page<Boast> searchBoast(String keyword, Pageable pageable){
+        Page<Boast> searchResult = boastRepository.findByTitleContaining(keyword,pageable);
+        return searchResult;
+    }
 
 }

@@ -2,6 +2,7 @@ package seb40main026.mainproject.boastLike.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boast.service.BoastService;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoastLikeService {
     private final BoastLikeRepository boastLikeRepository;
     private final BoastService boastService;

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import seb40main026.mainproject.boast.entity.Boast;
 
 import javax.persistence.*;
@@ -26,10 +27,12 @@ public class BoastReply {
 
     @Column
     @CreatedDate
+    @DateTimeFormat(pattern = "yy-MM-dd")
     private LocalDateTime replyCreatedAt;
 
     @Column
     @LastModifiedDate
+    @DateTimeFormat(pattern = "yy-MM-dd")
     private LocalDateTime replyModifiedAt;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
