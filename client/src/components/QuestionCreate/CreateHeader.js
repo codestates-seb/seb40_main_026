@@ -9,7 +9,6 @@ const Container = styled.header`
     color: #ffc149;
     margin: auto;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #ffc149;
   }
 `;
 const CreateHeader = () => {

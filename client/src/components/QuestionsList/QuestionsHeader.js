@@ -3,11 +3,12 @@ const Container = styled.header`
   margin-bottom: 1rem;
   width: 100%;
   margin: auto;
+
   .TitleWrap {
     width: 70%;
     margin: auto;
+    color: #ffc149;
     padding-bottom: 1rem;
-    border-bottom: 2px solid grey;
   }
 `;
 const QuestionsHeader = () => {

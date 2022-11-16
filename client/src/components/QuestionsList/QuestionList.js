@@ -113,6 +113,7 @@ const QuestionView = () => {
                   <span> {items.nickname}</span>
                   <span> ♥{items.thums}</span>
                 </div>
+
                 <div className="Sectionright">
                   <div className="AnswerCircle">
                     <div className="Sectionright_span">답변 </div>
