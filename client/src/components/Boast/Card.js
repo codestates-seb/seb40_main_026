@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import LikeButton from '../Shared/LikeButton';
 import lineimg from '../../assets/images/lineimg.png';
-import { tablet } from '../../styles/Responsive';
+import { tablet, desktop } from '../../styles/Responsive';
 
 function Card() {
   const Container = styled.ul`
@@ -9,6 +9,10 @@ function Card() {
     flex-wrap: wrap;
     padding: 50px;
     width: 100%;
+    @media ${desktop} {
+      display: flex;
+      margin: 40px;
+    }
     @media ${tablet} {
       display: flex;
       flex-wrap: wrap;
@@ -21,16 +25,22 @@ function Card() {
     justify-content: space-between;
     background-color: #ffc149;
     border-radius: 20px;
-    width: 300px;
-    height: 240px;
-    margin: 50px 100px 50px 100px;
+    width: 400px;
+    height: 340px;
+    margin: 50px 50px 50px 100px;
     box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
 
+    @media ${desktop} {
+      display: flex;
+      width: 500px;
+      height: 440px;
+      margin: 30px;
+    }
     @media ${tablet} {
       display: flex;
       width: 600px;
       height: 540px;
-      margin: 50px;
+      margin: 30px;
     }
   `;
 
@@ -43,7 +53,7 @@ function Card() {
 
   const Word = styled.div`
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 30px;
     color: white;
     font-weight: bold;
     @media ${tablet} {
@@ -57,7 +67,8 @@ function Card() {
     width: 550px;
     margin: 17px 10px 0px 10px;
     color: white;
-    font-weight: lighter;
+    font-weight: 16px;
+    font-size: 20px;
     @media ${tablet} {
       font-size: 28px;
       margin-top: 70px;
@@ -70,8 +81,11 @@ function Card() {
 
   const LineImg = styled.img`
     position: relative;
-    top: 350px;
-    width: 1500px;
+    top: 450px;
+    width: 1700px;
+    @media ${desktop} {
+      display: none;
+    }
     @media ${tablet} {
       display: none;
     }
@@ -81,7 +95,7 @@ function Card() {
     {
       boastId: 1,
       title: 'popular test 1 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:46.871873',
@@ -92,7 +106,7 @@ function Card() {
     {
       boastId: 3,
       title: 'popular test 3 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:51.425265',
@@ -103,7 +117,7 @@ function Card() {
     {
       boastId: 5,
       title: 'popular test 5 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:56.920637',
@@ -114,7 +128,7 @@ function Card() {
     {
       boastId: 7,
       title: 'popular test 7 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:10:04.384021',
@@ -125,7 +139,7 @@ function Card() {
     {
       boastId: 6,
       title: 'popular test 6 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:10:01.038183',
@@ -136,7 +150,7 @@ function Card() {
     {
       boastId: 5,
       title: 'popular test 5 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:56.920637',
@@ -147,7 +161,7 @@ function Card() {
     {
       boastId: 4,
       title: 'popular test 4 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:54.249867',
@@ -158,7 +172,7 @@ function Card() {
     {
       boastId: 3,
       title: 'popular test 3 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:51.425265',
@@ -169,7 +183,7 @@ function Card() {
     {
       boastId: 2,
       title: 'popular test 2 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:49.206095',
@@ -180,7 +194,7 @@ function Card() {
     {
       boastId: 1,
       title: 'popular test 1 ',
-      Src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
       nickName: '둘리',
       // content: 'boast mapping Test !!',
       boardCreatedAt: '2022-11-16T14:09:46.871873',
@@ -196,7 +210,7 @@ function Card() {
       {obj.map((item, id) => {
         return (
           <CardBox key={id}>
-            <CardImg src={item.Src} alt={item.alt} />
+            <CardImg src={item.src} alt={item.alt} />
             <Word>{item.title}</Word>
             <Word2>
               <div>{item.nickName}</div>

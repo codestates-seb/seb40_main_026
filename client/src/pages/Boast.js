@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { tablet } from '../styles/Responsive';
+import { tablet, desktop } from '../styles/Responsive';
 import Card from '../components/Boast/Card';
 import top3 from '../assets/images/top3.png';
 
@@ -22,8 +22,12 @@ function Boast() {
   const TopLogo = styled.img`
     position: relative;
     top: 170px;
-    width: 130px;
+    width: 140px;
     @media ${tablet} {
+      display: none;
+    }
+
+    @media ${desktop} {
       display: none;
     }
   `;
