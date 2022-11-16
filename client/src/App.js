@@ -3,7 +3,7 @@ import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import GlobalStyle from './styles/GlobalStyle';
 import QuestionsMain from './components/QuestionsList/QuestionsMain';
-
+import QuestionViewMain from './components/QuestionView/QuestionViewMain';
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +16,7 @@ function App() {
         <Route path="/login" element={<div>로그인</div>} />
         <Route path="/mypage" element={<div>마이페이지</div>} />
         <Route path="/questions" element={<QuestionsMain />} />
-        <Route path={`/questions/:id`} element={<div>궁금해요 상세</div>} />
+        <Route path={`/questions/:id`} element={<QuestionViewMain />} />
         <Route path="/boast" element={<div>자랑할래요</div>} />
         <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
         <Route path="/members" element={<div>친구들</div>} />
