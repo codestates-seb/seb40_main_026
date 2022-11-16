@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-import MediumButton from '../shared/MediumButton';
-import SelectButton from '../shared/SelectButton';
+import MediumButton from '../Shared/MediumButton';
+import SelectButton from '../Shared/SelectButton';
 
 const Signup = () => {
   const navigate = useNavigate();

@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-import HorizonLine from '../shared/HorizonLine';
-import MediumButton from '../shared/MediumButton';
-import SelectButton from '../shared/SelectButton';
+import HorizonLine from '../Shared/HorizonLine';
+import MediumButton from '../Shared/MediumButton.js';
+import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
   const [student, setStudent] = useState(true);
