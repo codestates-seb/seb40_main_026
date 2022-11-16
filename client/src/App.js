@@ -7,8 +7,8 @@ import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
 import BoastCreate from './pages/BoastCreate';
-import CommentCreate from './components/CommentCreate';
-import Commentlist from './components/Commentlist';
+import Mypage from './components/Mypage/Mypage';
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<div>회원가입</div>} />
         <Route path="/login" element={<div>로그인</div>} />
-        <Route path="/mypage" element={<div>마이페이지</div>} />
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/questions" element={<QuestionsMain />} />
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
         <Route path="/ask" element={<QuestionCreate />} />
@@ -33,8 +33,7 @@ function App() {
         />
         <Route path="/study" element={<div>모여봐요</div>} />
       </Routes>
-      <CommentCreate />
-      <Commentlist />
+
       <Footer />
     </BrowserRouter>
   );
