@@ -27,6 +27,9 @@ const HeaderHamburgerModal = ({ setOpen }) => {
           </button>
           <button onClick={handleLogout}>로그아웃</button>
           <HrLine />
+          <button onClick={handleClick} value={'/questions'}>
+            궁금해요
+          </button>
           <button onClick={handleClick} value={'/boast'}>
             자랑할래요
           </button>
@@ -49,6 +52,9 @@ const HeaderHamburgerModal = ({ setOpen }) => {
             회원가입
           </button>
           <HrLine />
+          <button onClick={handleClick} value={'/questions'}>
+            궁금해요
+          </button>
           <button onClick={handleClick} value={'/boast'}>
             자랑할래요
           </button>
