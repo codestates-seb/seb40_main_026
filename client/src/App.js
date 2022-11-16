@@ -2,21 +2,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import SignupPage from './pages/SignupPage';
+import Boast from './pages/Boast';
 import GlobalStyle from './styles/GlobalStyle';
+import QuestionsMain from './components/QuestionsList/QuestionsMain';
 
 function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
       <Header />
+
       <Routes>
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<div>로그인</div>} />
         <Route path="/mypage" element={<div>마이페이지</div>} />
-        <Route path="/questions" element={<div>궁금해요페이지</div>} />
+        <Route path="/questions" element={<QuestionsMain />} />
         <Route path={`/questions/:id`} element={<div>궁금해요 상세</div>} />
-        <Route path="/boast" element={<div>자랑할래요</div>} />
+        <Route path="/boast" element={<Boast />} />
         <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
         <Route path="/members" element={<div>친구들</div>} />
         <Route
