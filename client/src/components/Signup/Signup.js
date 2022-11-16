@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-import SignupSelectButton from './SignupSelectButton';
+import MediumButton from '../shared/MediumButton';
+import SelectButton from '../shared/SelectButton';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -17,12 +20,32 @@ const Signup = () => {
     email: email,
     password: password,
   };
+  //토스티파일 팝업함수
+  const errorAlarm = (message) => toast.error(message);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
-
-    if (password !== passwordConfirm) {
+    //인풋요소 유효성검사...util로 만들기!
+    if (
+      displayName === '' ||
+      displayName.length > 15 ||
+      displayName.length < 4
+    ) {
+      errorAlarm('닉네임은 4자 이상 15자 이하만 가능합니다');
+      return;
+    } else if (!(email.includes('@') && email.includes('.'))) {
+      console.log('이메일 유효성검사: @랑 .이 없음');
+      errorAlarm('유효하지 않은 이메일주소입니다.');
+      return;
+    } else if (password.length === 0) {
+      errorAlarm('비밀번호를 입력해주세요.');
+      return;
+    } else if (password.length > 20) {
+      console.log('비밀번호 유효성검사: 20자 미만');
+      errorAlarm('비밀번호는 20자 미만만 가능합니다.');
+      return;
+    } else if (password !== passwordConfirm) {
+      errorAlarm('비밀번호가 일치하지 않습니다.');
       return;
     }
 
@@ -33,14 +56,17 @@ const Signup = () => {
           navigate('/login');
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        errorAlarm('에러');
+        console.log(error);
+      });
   };
 
   return (
     <Container>
       <h1>회원가입</h1>
-      <SignupSelectButton student={student} setStudent={setStudent} />
-      <InputWrapper onSubmit={handleSubmit}>
+      <SelectButton student={student} setStudent={setStudent} />
+      <InputWrapperForm onSubmit={handleSubmit}>
         <input
           placeholder="닉네임을 입력해 주세요."
           onChange={(e) => {
@@ -65,16 +91,8 @@ const Signup = () => {
             setPasswordConfirm(e.target.value);
           }}
         ></input>
-      </InputWrapper>
-      <ButtonWrapper>
-        <button
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          확인
-        </button>
-      </ButtonWrapper>
+        <MediumButton text={'확인'} color={'rgb(252, 60, 178)'} />
+      </InputWrapperForm>
     </Container>
   );
 };
@@ -99,7 +117,7 @@ const Container = styled.div`
   }
 `;
 
-const InputWrapper = styled.form`
+const InputWrapperForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -108,17 +126,5 @@ const InputWrapper = styled.form`
     padding: 5px 10px;
     width: 250px;
     border-radius: 10px;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  margin: 30px 50px;
-  > button {
-    margin: auto;
-    width: 200px;
-    border-radius: 20px;
-    padding: 10px;
-    cursor: pointer;
   }
 `;
