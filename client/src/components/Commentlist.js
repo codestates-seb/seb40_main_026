@@ -11,7 +11,7 @@ const CommentContainer = styled.div`
       width: 100%;
       background-color: #ffc149;
       border-radius: 1rem;
-      padding: 0.5rem;
+      padding: 1rem;
     }
     .CommentWrap {
       display: flex;
