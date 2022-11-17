@@ -40,12 +40,13 @@ function Boast() {
   `;
 
   const PostLink = styled(Link)`
-    border-radius: 15%;
+    border-radius: 20%;
     width: 150px;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    padding-top: 12px;
     cursor: pointer;
     background-color: #ff9fd7;
     color: white;
