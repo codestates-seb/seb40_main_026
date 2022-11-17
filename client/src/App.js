@@ -7,12 +7,10 @@ import Boast from './pages/Boast';
 import LoginPage from './pages/Loginpage';
 import SignupPage from './pages/SignupPage';
 import GlobalStyle from './styles/GlobalStyle';
-import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
 import BoastCreate from './pages/BoastCreate';
 import Mypage from './components/Mypage/Mypage';
-
 
 function App() {
   return (
