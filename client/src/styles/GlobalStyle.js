@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
 ol, ul {
 	list-style: none;
 }
+a{
+  text-decoration:none;
+  color:#000;
+}
+input:focus {outline: none;}
 :root {
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;

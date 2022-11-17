@@ -13,7 +13,6 @@ const QuesListWrap = styled.div`
       width: 70%;
       .QuestionWrap {
         text-align: center;
-
         background-color: white;
         border-radius: 1rem;
         margin-top: 2rem;
@@ -22,7 +21,6 @@ const QuesListWrap = styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
         .Sectionleft {
           font-size: 1.2rem;
           padding: 2rem;
@@ -113,6 +111,7 @@ const QuestionView = () => {
                   <span> {items.nickname}</span>
                   <span> ♥{items.thums}</span>
                 </div>
+
                 <div className="Sectionright">
                   <div className="AnswerCircle">
                     <div className="Sectionright_span">답변 </div>

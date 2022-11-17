@@ -7,6 +7,12 @@ import Boast from './pages/Boast';
 import LoginPage from './pages/Loginpage';
 import SignupPage from './pages/SignupPage';
 import GlobalStyle from './styles/GlobalStyle';
+import QuestionsMain from './pages/Questionlist';
+import QuestionViewMain from './pages/QuestionView';
+import QuestionCreate from './pages/QuestionCreate';
+import BoastCreate from './pages/BoastCreate';
+import Mypage from './components/Mypage/Mypage';
+
 
 function App() {
   return (
@@ -21,13 +27,15 @@ function App() {
 
       <Routes>
         <Route path="/" element={<div>홈</div>} />
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/mypage" element={<div>마이페이지</div>} />
         <Route path="/questions" element={<QuestionsMain />} />
-        <Route path={`/questions/:id`} element={<div>궁금해요 상세</div>} />
+        <Route path={`/questions/:id`} element={<QuestionViewMain />} />
+        <Route path="/ask" element={<QuestionCreate />} />
         <Route path="/boast" element={<Boast />} />
         <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
+        <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<div>친구들</div>} />
         <Route
           path="/contents"
@@ -35,6 +43,7 @@ function App() {
         />
         <Route path="/study" element={<div>모여봐요</div>} />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );

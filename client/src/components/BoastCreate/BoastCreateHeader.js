@@ -3,23 +3,23 @@ const Container = styled.header`
   margin-bottom: 1rem;
   width: 100%;
   margin: auto;
-
+  margin-top: 1rem;
   .TitleWrap {
     width: 70%;
-    margin: auto;
     color: #ffc149;
+    margin: auto;
     padding-bottom: 1rem;
   }
 `;
-const QuestionsHeader = () => {
+const CreateHeader = () => {
   return (
     <>
       <Container>
         <div className="TitleWrap">
-          <h1>궁금해요</h1>
+          <h1>자랑할래요</h1>
         </div>
       </Container>
     </>
   );
 };
-export default QuestionsHeader;
+export default CreateHeader;
