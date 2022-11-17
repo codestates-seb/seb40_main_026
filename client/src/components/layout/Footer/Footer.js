@@ -5,6 +5,15 @@ import codingLogo from '../../../assets/images/codingLogo.png';
 import { tablet } from '../../../styles/Responsive';
 
 const Footer = () => {
+  const contributers = [
+    { name: '이혜린', github: 'https://github.com/hyeleeeeen' },
+    { name: '김지수', github: 'https://github.com/Powkim' },
+    { name: '박민경', github: 'https://github.com/ALSRUD29' },
+    { name: '김영훈', github: 'https://github.com/Kimdumchit' },
+    { name: '김현욱', github: 'https://github.com/oasis791' },
+    { name: '허성은', github: 'https://github.com/heoseongeun' },
+  ];
+
   return (
     <Container>
       <FooterLogo>
@@ -20,33 +29,21 @@ const Footer = () => {
         </Category>
         <Category>
           <div className="title">Frontend</div>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/hyeleeeeen">이혜린</a>
-          </Contributers>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/Powkim">김지수</a>
-          </Contributers>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/ALSRUD29">박민경</a>
-          </Contributers>
+          {contributers.slice(0, 3).map((ele) => (
+            <Contributers key={ele.name}>
+              <AiOutlineGithub />
+              <a href={ele.github}>{ele.name}</a>
+            </Contributers>
+          ))}
         </Category>
         <Category>
           <div className="title">Backend</div>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/Kimdumchit">김영훈</a>
-          </Contributers>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/oasis791">김현욱</a>
-          </Contributers>
-          <Contributers>
-            <AiOutlineGithub />
-            <a href="https://github.com/heoseongeun">허성은</a>
-          </Contributers>
+          {contributers.slice(3, 6).map((ele) => (
+            <Contributers key={ele.name}>
+              <AiOutlineGithub />
+              <a href={ele.github}>{ele.name}</a>
+            </Contributers>
+          ))}
         </Category>
       </FooterText>
       <Etc>
@@ -82,6 +79,7 @@ const Container = styled.footer`
   justify-content: space-around;
   color: var(--theme-footer-text-color);
   text-align: center;
+  position: relative;
 
   @media ${tablet} {
     flex-direction: column;
