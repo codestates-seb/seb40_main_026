@@ -40,6 +40,7 @@ public class QuestionDto {
         private Integer viewCount;
         private Integer likeCount;
         private Integer reportCount;
+        private Integer answerCount;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }

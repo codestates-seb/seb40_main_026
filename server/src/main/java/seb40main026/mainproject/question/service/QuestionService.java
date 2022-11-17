@@ -82,37 +82,25 @@ public class QuestionService {
 
         QuestionReport findQuestionReport = questionReportRepository.findByQuestionAndMember(question, member);
 
-        QuestionReport questionReport = new QuestionReport();
         if(findQuestionReport == null) { // 신고 처음 누르는 경우
+            QuestionReport questionReport = new QuestionReport();
             questionReport.setQuestion(question);
             questionReport.setMember(member);
-        } else { // 신고 취소했다가 다시 누르는 경우 (QuestionReport 존재)
-            questionReport = findQuestionReport;
+            questionReport.setQuestionReport(true);
+            question.setReportCount(question.getReportCount() + 1);
+            questionRepository.save(question);
+            return questionReportRepository.save(questionReport);
+        } else {
+            if(findQuestionReport.getQuestionReport() == true) { // 신고 취소
+                findQuestionReport.setQuestionReport(false);
+                question.setReportCount(question.getReportCount() - 1);
+            } else { // 신고
+                findQuestionReport.setQuestionReport(true);
+                question.setReportCount(question.getReportCount() + 1);
+            }
+            questionRepository.save(question);
+            return questionReportRepository.save(findQuestionReport);
         }
-        questionReport.setQuestionReport(1);
-        questionReportRepository.save(questionReport);
-        question.setReportCount(getReports(questionId)); // 해당 질문 신고 수 갱신
-        questionRepository.save(question);
-        return questionReport;
-    }
-
-    // 신고 취소
-    public QuestionReport deleteReport(long questionId) {
-        Member member = memberService.getLoginMember();
-        Question question = findVerifiedQuestion(questionId);
-
-        QuestionReport questionReport = questionReportRepository.findByQuestionAndMember(question, member);
-
-        questionReport.setQuestionReport(0);
-        questionReportRepository.save(questionReport);
-        question.setReportCount(getReports(questionId)); // 해당 질문 신고 수 갱신
-        questionRepository.save(question);
-        return questionReport;
-    }
-
-    // 전체 신고 수 조회
-    public int getReports(long questionId) {
-        return questionReportRepository.findQuestionReports(questionId);
     }
 
     // 특정 질문 좋아요
@@ -122,36 +110,27 @@ public class QuestionService {
 
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
 
-        QuestionLike questionLike = new QuestionLike();
         if(findQuestionLike == null) { // 좋아요를 처음 누르는 경우
+            QuestionLike questionLike = new QuestionLike();
             questionLike.setQuestion(question);
             questionLike.setMember(member);
-        } else { // 좋아요를 취소했다가 다시 누르는 경우 (QuestionLike 존재)
-            questionLike = findQuestionLike;
+            questionLike.setQuestionLike(true);
+            question.setLikeCount(question.getLikeCount() + 1);
+            question.setCheckLike(true);
+            questionRepository.save(question);
+            return questionLikeRepository.save(questionLike);
+        } else {
+            if(findQuestionLike.getQuestionLike() == true) { // 좋아요 취소
+                findQuestionLike.setQuestionLike(false);
+                question.setLikeCount(question.getLikeCount() - 1);
+                question.setCheckLike(true);
+            } else { // 좋아요
+                findQuestionLike.setQuestionLike(true);
+                question.setLikeCount(question.getLikeCount() + 1);
+                question.setCheckLike(true);
+            }
+            questionRepository.save(question);
+            return questionLikeRepository.save(findQuestionLike);
         }
-        questionLike.setQuestionLike(1);
-        questionLikeRepository.save(questionLike);
-        question.setLikeCount(getLikes(questionId)); // 해당 질문 좋아요 수 갱신
-        questionRepository.save(question);
-        return questionLike;
-    }
-
-    // 좋아요 취소
-    public QuestionLike deleteLike(long questionId) {
-        Member member = memberService.getLoginMember();
-        Question question = findVerifiedQuestion(questionId);
-
-        QuestionLike questionLike = questionLikeRepository.findByQuestionAndMember(question, member);
-
-        questionLike.setQuestionLike(0);
-        questionLikeRepository.save(questionLike);
-        question.setLikeCount(getLikes(questionId)); // 해당 질문 좋아요 수 갱신
-        questionRepository.save(question);
-        return questionLike;
-    }
-
-    // 전체 좋아요 수 조회
-    public int getLikes(long questionId) {
-        return questionLikeRepository.findQuestionLikes(questionId);
     }
 }

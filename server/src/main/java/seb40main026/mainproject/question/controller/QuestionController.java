@@ -43,26 +43,10 @@ public class QuestionController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    // 좋아요 취소
-    @DeleteMapping("/{question-id}/like")
-    public ResponseEntity likeDeleteQuestion(@PathVariable("question-id") @Positive long questionId) {
-        QuestionLike questionLike = questionService.deleteLike(questionId);
-        QuestionLikeResponseDto response = mapper.questionLikeToQuestionLikeResponse(questionLike);
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
-
     // 특정 질문 신고
     @PostMapping("/{question-id}/report")
     public ResponseEntity reportQuestion(@PathVariable("question-id") @Positive long questionId) {
         QuestionReport questionReport = questionService.report(questionId);
-        QuestionReportResponseDto response = mapper.questionReportToQuestionReportResponse(questionReport);
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
-
-    // 신고 취소
-    @DeleteMapping("/{question-id}/report")
-    public ResponseEntity reportDeleteQuestion(@PathVariable("question-id") @Positive long questionId) {
-        QuestionReport questionReport = questionService.deleteReport(questionId);
         QuestionReportResponseDto response = mapper.questionReportToQuestionReportResponse(questionReport);
         return new ResponseEntity(response, HttpStatus.OK);
     }

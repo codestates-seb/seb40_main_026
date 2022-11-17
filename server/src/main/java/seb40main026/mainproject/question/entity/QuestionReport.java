@@ -15,7 +15,7 @@ public class QuestionReport {
     private Long id;
 
     @Column
-    private int questionReport = 0;
+    private Boolean questionReport = false;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
