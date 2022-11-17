@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { tablet, desktop } from '../styles/Responsive';
 import Card from '../components/Boast/Card';
 import top3 from '../assets/images/top3.png';
+import { Link } from 'react-router-dom';
 
 function Boast() {
   const Container = styled.div`
@@ -38,12 +39,13 @@ function Boast() {
     margin: 0px 60px 20px 0px;
   `;
 
-  const PostBtn = styled.button`
+  const PostLink = styled(Link)`
     border-radius: 15%;
     width: 150px;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
     cursor: pointer;
     background-color: #ff9fd7;
     color: white;
@@ -59,7 +61,7 @@ function Boast() {
         <Title>자랑할래요</Title>
         <TopLogo src={top3} alt="logo" />
         <BtnBox>
-          <PostBtn>나도 자랑하기 </PostBtn>
+          <PostLink to="/boastCreate">나도 자랑하기 </PostLink>
         </BtnBox>
         <Card />
       </Container>
