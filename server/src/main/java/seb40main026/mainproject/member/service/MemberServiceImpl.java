@@ -1,4 +1,4 @@
-package seb40main026.mainproject.member.service;
+package seb40main026.mainproject.member.unit;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
