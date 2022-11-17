@@ -32,5 +32,6 @@ public class AnswerDto {
         private Integer reportCount;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private Boolean checkLike;
     }
 }

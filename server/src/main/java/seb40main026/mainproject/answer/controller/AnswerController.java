@@ -43,26 +43,10 @@ public class AnswerController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    // 좋아요 취소
-    @DeleteMapping("/answers/{answer-id}/like")
-    public ResponseEntity likeDeleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        AnswerLike answerLike = answerService.deleteLike(answerId);
-        AnswerLikeResponseDto response = mapper.answerLikeToAnswerLikeResponse(answerLike);
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
-
     // 특정 답변 신고
     @PostMapping("/answers/{answer-id}/report")
     public ResponseEntity reportAnswer(@PathVariable("answer-id") @Positive long answerId) {
         AnswerReport answerReport = answerService.report(answerId);
-        AnswerReportResponseDto response = mapper.answerReportToAnswerReportResponse(answerReport);
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
-
-    // 신고 취소
-    @DeleteMapping("/answers/{answer-id}/report")
-    public ResponseEntity deleteReportAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        AnswerReport answerReport = answerService.deleteReport(answerId);
         AnswerReportResponseDto response = mapper.answerReportToAnswerReportResponse(answerReport);
         return new ResponseEntity(response, HttpStatus.OK);
     }

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class AnswerReportResponseDto {
     private long answerId;
-    private int report;
+    private boolean report;
     private long totalReports;
 }

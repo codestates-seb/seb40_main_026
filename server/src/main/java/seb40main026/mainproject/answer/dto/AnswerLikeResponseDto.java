@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class AnswerLikeResponseDto {
     private long answerId;
-    private int like;
+    private boolean like;
     private long totalLikes;
 }

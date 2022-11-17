@@ -28,6 +28,7 @@ public interface AnswerMapper {
         response.setReportCount(answer.getReportCount());
         response.setCreatedAt(answer.getCreatedAt());
         response.setModifiedAt(answer.getModifiedAt());
+        response.setCheckLike(answer.getCheckLike());
         return response;
     }
 

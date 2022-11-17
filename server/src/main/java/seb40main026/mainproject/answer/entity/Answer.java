@@ -32,6 +32,9 @@ public class Answer {
     @Column(nullable = false)
     private Integer reportCount = 0;
 
+    @Column
+    private Boolean checkLike = false;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;

@@ -15,7 +15,7 @@ public class AnswerLike {
     private Long answerLikeId;
 
     @Column
-    private Integer answerLike = 0;
+    private Boolean answerLike;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

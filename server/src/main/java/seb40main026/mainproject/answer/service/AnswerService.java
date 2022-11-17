@@ -82,37 +82,25 @@ public class AnswerService {
 
         AnswerReport findAnswerReport = answerReportRepository.findByAnswerAndMember(answer, member);
 
-        AnswerReport answerReport = new AnswerReport();
-        if(findAnswerReport == null) {
+        if(findAnswerReport == null) { // 신고
+            AnswerReport answerReport = new AnswerReport();
             answerReport.setAnswer(answer);
             answerReport.setMember(member);
+            answerReport.setAnswerReport(true);
+            answer.setReportCount(answer.getReportCount() + 1);
+            answerRepository.save(answer);
+            return answerReportRepository.save(answerReport);
         } else {
-            answerReport = findAnswerReport;
+            if(findAnswerReport.getAnswerReport() == true) {
+                findAnswerReport.setAnswerReport(false); // 신고 취소
+                answer.setReportCount(answer.getReportCount() - 1);
+            } else { // 신고
+                findAnswerReport.setAnswerReport(true);
+                answer.setReportCount(answer.getReportCount() + 1);
+            }
+            answerRepository.save(answer);
+            return answerReportRepository.save(findAnswerReport);
         }
-        answerReport.setAnswerReport(1);
-        answerReportRepository.save(answerReport);
-        answer.setReportCount(getReports(answerId));
-        answerRepository.save(answer);
-        return answerReport;
-    }
-
-    // 신고 취소
-    public AnswerReport deleteReport(long answerId) {
-        Member member = memberService.getLoginMember();
-        Answer answer = findVerifiedAnswer(answerId);
-
-        AnswerReport answerReport = answerReportRepository.findByAnswerAndMember(answer, member);
-
-        answerReport.setAnswerReport(0);
-        answerReportRepository.save(answerReport);
-        answer.setReportCount(getReports(answerId));
-        answerRepository.save(answer);
-        return answerReport;
-    }
-
-    // 전체 신고 수 조회
-    public int getReports(long answerId) {
-        return answerReportRepository.findAnswerReports(answerId);
     }
 
     // 특정 답변 좋아요
@@ -122,35 +110,27 @@ public class AnswerService {
 
         AnswerLike findAnswerLike = answerLikeRepository.findByAnswerAndMember(answer, member);
 
-        AnswerLike answerLike = new AnswerLike();
-        if(findAnswerLike == null) {
+        if(findAnswerLike == null) { // 좋아요
+            AnswerLike answerLike = new AnswerLike();
             answerLike.setAnswer(answer);
             answerLike.setMember(member);
+            answerLike.setAnswerLike(true);
+            answer.setLikeCount(answer.getLikeCount() + 1);
+            answer.setCheckLike(true);
+            answerRepository.save(answer);
+            return answerLikeRepository.save(answerLike);
         } else {
-            answerLike = findAnswerLike;
+            if(findAnswerLike.getAnswerLike() == true) { // 좋아요 취소
+                findAnswerLike.setAnswerLike(false);
+                answer.setLikeCount(answer.getLikeCount() - 1);
+                answer.setCheckLike(true);
+            } else { // 좋아요
+                findAnswerLike.setAnswerLike(true);
+                answer.setLikeCount(answer.getLikeCount() + 1);
+                answer.setCheckLike(true);
+            }
+            answerRepository.save(answer);
+            return answerLikeRepository.save(findAnswerLike);
         }
-        answerLike.setAnswerLike(1);
-        answerLikeRepository.save(answerLike);
-        answer.setLikeCount(getLikes(answerId));
-        answerRepository.save(answer);
-        return answerLike;
-    }
-
-    // 좋아요 취소
-    public AnswerLike deleteLike(long answerId) {
-        Member member = memberService.getLoginMember();
-        Answer answer = findVerifiedAnswer(answerId);
-
-        AnswerLike answerLike = answerLikeRepository.findByAnswerAndMember(answer, member);
-        answerLike.setAnswerLike(0);
-        answerLikeRepository.save(answerLike);
-        answer.setLikeCount(getLikes(answerId));
-        answerRepository.save(answer);
-        return answerLike;
-    }
-
-    // 전체 좋아요 수 조회
-    public int getLikes(long answerId) {
-        return answerLikeRepository.findAnswerLikes(answerId);
     }
 }
