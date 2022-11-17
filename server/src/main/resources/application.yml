@@ -1,1 +1,7 @@
-
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2     # (1) Context path 변경
+  datasource:
+    url: jdbc:h2:mem:test     # (2) JDBC URL 변경
