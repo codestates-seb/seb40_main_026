@@ -1,4 +1,4 @@
-package seb40main026.mainproject.member.slice;
+package seb40main026.mainproject.member.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import seb40main026.mainproject.member.dto.MemberDto;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.mapper.MemberMapper;
-import seb40main026.mainproject.member.unit.MemberService;
+import seb40main026.mainproject.member.service.MemberService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

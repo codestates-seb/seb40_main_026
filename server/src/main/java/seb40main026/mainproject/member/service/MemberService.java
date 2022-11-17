@@ -1,4 +1,4 @@
-package seb40main026.mainproject.member.unit;
+package seb40main026.mainproject.member.service;
 
 import seb40main026.mainproject.member.entity.Member;
 

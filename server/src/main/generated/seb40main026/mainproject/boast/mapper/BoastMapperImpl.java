@@ -9,8 +9,8 @@ import seb40main026.mainproject.boast.entity.Boast;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-14T11:32:50+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
+    date = "2022-11-17T04:25:22+0900",
+    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 @Component
 public class BoastMapperImpl implements BoastMapper {
