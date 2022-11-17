@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
   border:0;
   margin:0;
   padding:0;
+  .toast {
+  top: 200px;
+}
 }
 ol, ul {
 	list-style: none;

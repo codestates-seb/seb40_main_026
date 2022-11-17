@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import HeaderHamburger from './HeaderHamburger';
 import HeaderLogin from './HeaderLogin';
 import HeaderLogo from './HeaderLogo';
 import HeaderMenu from './HeaderMenu';
+import HeaderProfile from './HeaderProfile';
 
 const Header = () => {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Container>
       <HeaderLogo />
       <HeaderMenu />
-      <HeaderLogin />
+      {isLogin ? <HeaderProfile /> : <HeaderLogin />}
       <HeaderHamburger />
     </Container>
   );
@@ -25,4 +28,7 @@ const Container = styled.div`
   align-items: center;
   padding: 10px 30px;
   border-bottom: 1px gray solid;
+  position: relative;
+  background-color: white;
+  z-index: 10;
 `;
