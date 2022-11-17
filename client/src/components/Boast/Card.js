@@ -87,6 +87,11 @@ function Card() {
     border-radius: 20px;
     margin: 50px 50px 50px 100px;
     box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+    transform: scale(1);
+    transition: all 0.5s;
+    :hover {
+      transform: scale(1.1);
+    }
   `;
 
   const CardImg = styled.img`
