@@ -9,7 +9,7 @@ const CommentContainer = styled.div`
     justify-content: space-between;
     .CommentUl {
       width: 100%;
-      background-color: #ffc149;
+      box-shadow: grey 0px 0px 3px;
       border-radius: 1rem;
       padding: 1rem;
     }
@@ -18,8 +18,8 @@ const CommentContainer = styled.div`
       justify-content: space-between;
       align-items: center;
       background-color: #fff;
-      border-radius: 1rem;
 
+      border-bottom: 1px solid #cecece;
       padding: 0.5rem;
       margin-bottom: 0.5rem;
       > div > button {

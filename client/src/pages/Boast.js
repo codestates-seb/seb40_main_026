@@ -1,7 +1,7 @@
 // import styled from 'styled-components';
-import Card from '../components/layout/Card';
+// import Card from '../components/layout/Card';
 function Boast() {
-  return <Card />;
+  return <></>;
 }
 
 export default Boast;

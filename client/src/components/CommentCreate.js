@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 const CreateWrap = styled.div`
+  margin-top: 1rem;
   margin-bottom: 1rem;
   .ComInputWrap {
     width: 70%;
@@ -17,6 +18,7 @@ const CreateWrap = styled.div`
       padding: 0.5rem;
       border-radius: 1rem;
       background-color: #00d2ff;
+      color: #fff;
     }
   }
 `;
