@@ -32,7 +32,7 @@ function Boast() {
     }
   `;
 
-  const S_div = styled.div`
+  const BtnBox = styled.div`
     display: flex;
     justify-content: flex-end;
     margin: 0px 60px 20px 0px;
@@ -58,9 +58,9 @@ function Boast() {
       <Container>
         <Title>자랑할래요</Title>
         <TopLogo src={top3} alt="logo" />
-        <S_div>
+        <BtnBox>
           <PostBtn>나도 자랑하기 </PostBtn>
-        </S_div>
+        </BtnBox>
         <Card />
       </Container>
     </>
