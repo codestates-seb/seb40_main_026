@@ -1,8 +1,8 @@
 import MypageHeader from './MypageHeader';
 import MypageMain from './MypageMain';
 import CommentHeader from './CommentHeader';
-import CommentCreate from '../CommentCreate';
-import Commentlist from '../Commentlist';
+import CommentCreate from '../Shared/CommentCreate';
+import Commentlist from '../Shared/Commentlist';
 const Mypage = () => {
   return (
     <>
