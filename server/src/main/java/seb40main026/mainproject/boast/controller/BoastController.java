@@ -54,10 +54,10 @@ public class BoastController {
                                     @Positive @RequestParam int size){
         Page<Boast> pageBoast = boastService.findBoasts(PageRequest.of(page-1,size,Sort.by("boastId").descending()));
         List<Boast> listBoast = pageBoast.getContent();
-        List<Boast> popular = boastService.findPopularBoast();
-        List<Boast> result = Stream.concat(popular.stream(),listBoast.stream())
-                .collect(Collectors.toList());
-        return new ResponseEntity(mapper.boastToBoastResponseDtos(result), HttpStatus.OK);
+        //List<Boast> popular = boastService.findPopularBoast();
+        //List<Boast> result = Stream.concat(popular.stream(),listBoast.stream())
+        //        .collect(Collectors.toList());
+        return new ResponseEntity(mapper.boastToBoastResponseDtos(listBoast), HttpStatus.OK);
     }
 
     @DeleteMapping("/{boast-id}")
@@ -67,10 +67,10 @@ public class BoastController {
     }
 
     //좋아요 갯수가 1등, 2등, 3등인 게시글만 리턴 해주는 Get Method 컨트롤러
-//    @GetMapping("/populars")
-//    public ResponseEntity getPopular(){
-//        return new ResponseEntity(mapper.boastToBoastResponseDtos(boastService.findPopularBoast()), HttpStatus.OK);
-//    }
+    @GetMapping("/populars")
+    public ResponseEntity getPopular(){
+        return new ResponseEntity(mapper.boastToBoastResponseDtos(boastService.findPopularBoast()), HttpStatus.OK);
+    }
 
     //search 컨트롤러 ex) localhost:8080/boast/search?keyword=keyword&page=0&size=10
     @GetMapping("/search")
