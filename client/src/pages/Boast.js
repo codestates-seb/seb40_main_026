@@ -46,6 +46,7 @@ function Boast() {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    padding-top: 14px;
     cursor: pointer;
     background-color: #ff9fd7;
     color: white;
