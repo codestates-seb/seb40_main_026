@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
-const Bnt = styled.button`
+const Btn = styled.button`
   background-color: white;
   width: 60px;
   height: 32px;
@@ -41,14 +41,14 @@ function LikeButton({ likeCount }) {
   };
 
   return (
-    <Bnt onClick={toggle}>
+    <Btn onClick={toggle}>
       {isLiked ? (
         <AiFillHeart className="Heart" />
       ) : (
         <AiOutlineHeart className="Heart" />
       )}
       <Count>{likeCount}</Count>
-    </Bnt>
+    </Btn>
   );
 }
 

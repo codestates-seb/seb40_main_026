@@ -55,5 +55,7 @@ public class BoastDto {
 
         private Long likeCount;
 
+        private Boolean checkLike;
+
     }
 }
