@@ -109,6 +109,43 @@ const MypageContainer = styled.div`
       }
       .MypageRight {
         width: 100%;
+        margin: auto;
+        .Userinfo {
+          margin-left: 1rem;
+          box-shadow: grey 0px 0px 3px;
+
+          font-size: 0.8rem;
+          padding: 2rem;
+          border-radius: 1rem;
+        }
+        .UserIntro {
+          width: 100%;
+          margin-right: 0rem;
+          padding: 1rem;
+          .btnWrap {
+            display: flex;
+            font-size: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            > div > button {
+              padding: 0.5rem;
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media ${mobile} {
+    .MypageMainwrap {
+      font-size: 0.8rem;
+      flex-direction: column;
+      .MypageTitle {
+        font-size: 1rem;
+        color: #ffa800;
+      }
+      .MypageRight {
+        width: 100%;
         flex-direction: column;
         margin: auto;
         .Userinfo {
@@ -137,8 +174,6 @@ const MypageContainer = styled.div`
         }
       }
     }
-  }
-  @media ${mobile} {
   }
 `;
 

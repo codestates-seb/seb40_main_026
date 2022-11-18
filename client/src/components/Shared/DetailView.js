@@ -34,6 +34,10 @@ const Detail = styled.div`
           background-color: #fff;
           box-shadow: grey 0px 0px 3px;
           border-radius: 2rem;
+          cursor: pointer;
+        }
+        > button:hover {
+          color: grey;
         }
       }
     }

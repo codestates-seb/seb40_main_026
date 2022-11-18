@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { tablet, mobile } from '../../styles/Responsive';
+
 const CreateWrap = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;

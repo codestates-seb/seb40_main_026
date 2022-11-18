@@ -1,13 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
+import Mypage from './components/Mypage/Mypage';
 import Boast from './pages/Boast';
+import BoastCreate from './pages/BoastCreate';
+import LoginPage from './pages/Loginpage';
+import SignupPage from './pages/SignupPage';
+import StudyListPage from './pages/StudyListPage';
 import GlobalStyle from './styles/GlobalStyle';
 import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
-import BoastCreate from './pages/BoastCreate';
-import Mypage from './components/Mypage/Mypage';
 
 function App() {
   return (
@@ -30,7 +33,7 @@ function App() {
           path="/contents"
           element={<div>배울래요 라우팅주소이름 정해야 함</div>}
         />
-        <Route path="/study" element={<div>모여봐요</div>} />
+        <Route path="/study" element={<StudyListPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

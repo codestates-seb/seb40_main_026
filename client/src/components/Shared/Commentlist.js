@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { tablet, mobile } from '../../styles/Responsive';
 const CommentContainer = styled.div`
   margin-bottom: 1rem;
   .ComInputWrap {
@@ -18,7 +19,6 @@ const CommentContainer = styled.div`
       justify-content: space-between;
       align-items: center;
       background-color: #fff;
-
       border-bottom: 1px solid #cecece;
       padding: 0.5rem;
       margin-bottom: 0.5rem;
@@ -51,6 +51,52 @@ const CommentContainer = styled.div`
         }
       }
     }
+    @media ${tablet} {
+      .CommentWrap{
+      .BtnWrap{
+        width:100%;
+        >button{
+        font-size:0.5rem
+        
+      }}
+      .dateWrap>div>span{  font-size:0.8rem}
+      >div{
+          >span{font-size:0.8rem};
+   
+          >p{
+      font-size:0.8rem
+    }
+ 
+  .bodyWrap>span{
+    font-size:0.8rem
+  }
+ 
+  }
+}
+    
+      }
+@media ${mobile} {
+  .CommentWrap>div>span{font-size:0.5rem};
+  .CommentWrap{
+    .BtnWrap{
+      width:100%;
+      >button{
+      font-size:0.5rem
+      
+    }}
+    .dateWrap>div>span{  font-size:0.8rem}
+    >div{
+        >span{font-size:0.8rem};
+ 
+        >p{
+    font-size:0.8rem
+  }
+
+.bodyWrap>span{
+  font-size:0.8rem
+}
+
+}
   }
 `;
 const Commentlist = () => {
@@ -99,7 +145,7 @@ const Commentlist = () => {
                       {' '}
                       <span>{items.date}</span>
                     </div>
-                    <div>
+                    <div className="BtnWrap">
                       {' '}
                       <button className="Canclebtn">수정하기</button>{' '}
                       <button className="Deletebtn">삭제하기</button>

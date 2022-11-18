@@ -44,8 +44,9 @@ public class Boast {
     @Column(nullable = false)
     private long likeCount;
 
-//    @Column(nullable = false)
-//    private Long report_count;
+    // default checkLike = false
+    @Column
+    private Boolean checkLike = false;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "boast")
     @JsonManagedReference
