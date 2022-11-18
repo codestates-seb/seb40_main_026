@@ -26,7 +26,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<BoastDetail />} />
+        <Route path="/" element={<div>홈</div>} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -34,7 +34,7 @@ function App() {
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
         <Route path="/ask" element={<QuestionCreate />} />
         <Route path="/boast" element={<Boast />} />
-        <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
+        <Route path={`/boast/:id`} element={<BoastDetail />} />
         <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<div>친구들</div>} />
         <Route path="/contents" element={<Reference />} />
