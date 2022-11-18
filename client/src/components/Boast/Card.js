@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import LikeButton from '../Shared/LikeButton';
 import { tablet, desktop } from '../../styles/Responsive';
 
-function Card() {
+function Card({ className, classNameA, likeButton }) {
   const Container = styled.ul`
     display: flex;
     flex-direction: column;
@@ -20,11 +20,11 @@ function Card() {
     }
   `;
 
-  const TopMapBox = styled.section`
+  const TopListBox = styled.section`
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
-    background-color: #f7f7f7;
+    background: #f7f7f7;
     border-radius: 30px;
     justify-content: center;
 
@@ -53,7 +53,7 @@ function Card() {
     }
   `;
 
-  const MapBox = styled.section`
+  const ListBox = styled.section`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -136,7 +136,7 @@ function Card() {
     display: flex;
   `;
 
-  const obj = [
+  const listData = [
     {
       boastId: 1,
       title: 'popular test 1 ',
@@ -249,7 +249,7 @@ function Card() {
     },
   ];
 
-  const obj2 = [
+  const listData2 = [
     {
       boastId: 1,
       title: 'popular test 1 ',
@@ -287,40 +287,48 @@ function Card() {
 
   return (
     <Container>
-      <TopMapBox>
-        {obj2.map((item, id) => {
+      <TopListBox className={className}>
+        {listData2.map((item, id) => {
           return (
             <CardBox key={id}>
               <CardImg src={item.src} alt={item.alt} />
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                <LikeBox>
-                  <LikeButton likeCount={item.likeCount} />
-                </LikeBox>
+                {likeButton && (
+                  <LikeBox>
+                    <LikeButton likeCount={item.likeCount} />
+                  </LikeBox>
+                )}
               </Word2>
             </CardBox>
           );
         })}
-      </TopMapBox>
-      <MapBox>
-        {obj.map((item, id) => {
+      </TopListBox>
+      <ListBox className={classNameA}>
+        {listData.map((item, id) => {
           return (
             <CardBox key={id}>
               <CardImg src={item.src} alt={item.alt} />
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                <LikeBox>
-                  <LikeButton likeCount={item.likeCount} />
-                </LikeBox>
+                {likeButton && (
+                  <LikeBox>
+                    <LikeButton likeCount={item.likeCount} />
+                  </LikeBox>
+                )}
               </Word2>
             </CardBox>
           );
         })}
-      </MapBox>
+      </ListBox>
     </Container>
   );
 }
+
+Card.defaultProps = {
+  likeButton: false,
+};
 
 export default Card;

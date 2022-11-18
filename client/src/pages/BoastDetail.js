@@ -8,9 +8,14 @@ const Container = styled.main``;
 
 const Title = styled.h1`
   margin: 50px 0px 0px 100px;
+  margin-bottom: 60px;
   @media ${tablet} {
     font-size: 25px;
   }
+`;
+
+const CommentBox = styled.section`
+  margin-top: 100px;
 `;
 
 function BoastDetail() {
@@ -18,8 +23,10 @@ function BoastDetail() {
     <Container>
       <Title>자랑할래요</Title>
       <QuestionView />
-      <CommentCreate />
-      <Commentlist />
+      <CommentBox>
+        <CommentCreate />
+        <Commentlist />
+      </CommentBox>
     </Container>
   );
 }

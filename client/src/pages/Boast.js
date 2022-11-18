@@ -64,7 +64,7 @@ function Boast() {
         <BtnBox>
           <PostLink to="/boastCreate">나도 자랑하기 </PostLink>
         </BtnBox>
-        <Card />
+        <Card likeButton={true} />
       </Container>
     </>
   );
