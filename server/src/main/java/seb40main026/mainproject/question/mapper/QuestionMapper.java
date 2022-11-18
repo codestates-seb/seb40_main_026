@@ -45,6 +45,7 @@ public interface QuestionMapper {
         response.setAnswerCount( question.getAnswers().size() ); // 질문에 해당하는 답변 개수
         response.setCreatedAt( question.getCreatedAt() );
         response.setModifiedAt( question.getModifiedAt() );
+        response.setCheckLike( question.getCheckLike() );
 
         return response;
     }

@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.MemberRepository;
 import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.question.dto.QuestionLikeResponseDto;
 import seb40main026.mainproject.question.dto.QuestionReportResponseDto;
@@ -63,8 +65,8 @@ public class QuestionController {
 
     // 전체 질문 조회
     @GetMapping
-    public ResponseEntity getQuestions() {
-        List<Question> questions = questionService.findQuestions();
+    public ResponseEntity getQuestions(@RequestParam(value = "sort", defaultValue = "questionId", required = false) String sort) {
+        List<Question> questions = questionService.findQuestions(sort);
         List<QuestionDto.Response> responses = mapper.questionsToQuestionResponses(questions);
         return new ResponseEntity(responses, HttpStatus.OK);
     }

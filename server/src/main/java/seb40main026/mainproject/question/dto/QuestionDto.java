@@ -43,5 +43,6 @@ public class QuestionDto {
         private Integer answerCount;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private Boolean checkLike;
     }
 }

@@ -1,6 +1,7 @@
 package seb40main026.mainproject.question.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.exception.BusinessException;
@@ -45,8 +46,8 @@ public class QuestionService {
     }
 
     // 전체 질문 조회
-    public List<Question> findQuestions() {
-        return questionRepository.findAll();
+    public List<Question> findQuestions(String sort) {
+        return questionRepository.findAll(Sort.by(sort).descending());
     }
 
     // 특정 질문 조회
@@ -58,7 +59,7 @@ public class QuestionService {
 
     // 검색 기능
     public List<Question> search(String keyWord) {
-        return questionRepository.findByTitleContaining(keyWord);
+        return questionRepository.findByTitleContainingOrContentContaining(keyWord, keyWord);
     }
 
     // 질문 삭제 + 권한 검증

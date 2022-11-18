@@ -8,5 +8,5 @@ import seb40main026.mainproject.question.entity.Question;
 import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    List<Question> findByTitleContaining(String keyWord);
+    List<Question> findByTitleContainingOrContentContaining(String title, String content);
 }
