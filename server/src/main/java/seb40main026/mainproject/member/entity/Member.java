@@ -5,15 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class Member {
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(length = 25, nullable = false)
@@ -31,22 +32,27 @@ public class Member {
     @Column(length = 12, nullable = false)
     private String nickname;
 
-    @CreatedDate
-    @DateTimeFormat(pattern = "yy-mm-dd")
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    @CreatedDate
+    private String createdAt;
 
-    @LastModifiedDate
-    @DateTimeFormat(pattern = "yy-mm-dd")
     @Column(name = "last_modified_at")
-    private LocalDateTime modifiedAt;
+    @LastModifiedDate
+    private String modifiedAt;
 
     @Column(nullable = false)
-    private Long sticker;
+    private Integer sticker;
+
+    @Column(nullable = false)
+    private Boolean teacher;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private MemberGrade memberGrade;
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
@@ -54,9 +60,33 @@ public class Member {
         MEMBER_QUIT("탈퇴 상태");
         @Getter
         private final String status;
+
         MemberStatus(String status) {
             this.status = status;
         }
+    }
+
+    public enum MemberGrade {
+        EGG("계란 등급"),
+        BROKEN_EGG("깨진 계란 등급"),
+        CHICK("병아리"),
+        CHICKEN("닭");
+
+        @Getter
+        private final String grade;
+
+        MemberGrade(String grade) {this.grade = grade;}
+    }
+
+    @PrePersist
+    public void onPrePersist(){
+        this.createdAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+        this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
 }
 

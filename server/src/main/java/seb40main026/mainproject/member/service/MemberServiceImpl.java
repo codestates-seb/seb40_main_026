@@ -1,6 +1,7 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.exception.BusinessException;
@@ -17,12 +18,18 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
     public Member createMember(Member member) {
         verifiedExistsEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
+        member.setMemberGrade(Member.MemberGrade.EGG);
+        member.setSticker(0);
+
         return memberRepository.save(member);
     }
 
@@ -32,9 +39,11 @@ public class MemberServiceImpl implements MemberService{
         Member verifiedMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getPassword())
-                .ifPresent(verifiedMember::setPassword); // 패스워드 raw 데이터 값 말고
+                .ifPresent(password -> verifiedMember.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(member.getNickname())
                 .ifPresent(verifiedMember::setNickname);
+        Optional.ofNullable(member.getMemberGrade())
+                .ifPresent(verifiedMember::setMemberGrade);
         //프로필 사진 수정
 
         return memberRepository.save(verifiedMember);
@@ -66,7 +75,12 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void verifiedExistsEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        if(optionalMember.isPresent())
-            throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
+        if(optionalMember.isPresent()){
+            if(optionalMember.get().getMemberStatus().equals(Member.MemberStatus.MEMBER_QUIT)) {
+                throw new BusinessException(ExceptionCode.MEMBER_QUIT);
+            } else {
+                throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
+            }
+        }
     }
 }

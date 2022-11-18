@@ -23,7 +23,6 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
 
-    //dto : student true/false
     @PostMapping
     public ResponseEntity<?> postMember(@Valid @RequestBody MemberDto.Post request) {
         Member createdMember = memberService.createMember(mapper.memberPostToMember(request));
@@ -61,6 +60,4 @@ public class MemberController {
         Member deletedMember = memberService.deleteMember(memberId);
         return new ResponseEntity<>(mapper.memberToResponse(deletedMember), HttpStatus.NO_CONTENT);
     }
-
-
 }
