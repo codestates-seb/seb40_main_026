@@ -12,6 +12,8 @@ import QuestionViewMain from './pages/QuestionView';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import GlobalStyle from './styles/GlobalStyle';
+import BoastDetail from './pages/BoastDetail';
+import Reference from './pages/Reference';
 
 function App() {
   return (
@@ -33,13 +35,10 @@ function App() {
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
         <Route path="/ask" element={<QuestionCreate />} />
         <Route path="/boast" element={<Boast />} />
-        <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
+        <Route path={`/boast/:id`} element={<BoastDetail />} />
         <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<div>친구들</div>} />
-        <Route
-          path="/contents"
-          element={<div>배울래요 라우팅주소이름 정해야 함</div>}
-        />
+        <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
       </Routes>
 
