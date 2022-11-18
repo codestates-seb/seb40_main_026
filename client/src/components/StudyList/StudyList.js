@@ -1,21 +1,22 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
+import { data } from './data';
 import StudyCard from './StudyCard';
 
 const StudyList = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/studies`)
-      .then((res) => {
-        console.log('res.data', res.data);
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/studies`)
+  //     .then((res) => {
+  //       console.log('res.data', res.data);
+  //       setData(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <Container>
