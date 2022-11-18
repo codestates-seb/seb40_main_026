@@ -68,24 +68,28 @@ const Signup = () => {
       <SelectButton student={student} setStudent={setStudent} />
       <InputWrapperForm onSubmit={handleSubmit}>
         <input
+          type={'text'}
           placeholder="닉네임을 입력해 주세요."
           onChange={(e) => {
             setDisplayName(e.target.value);
           }}
         ></input>
         <input
+          type={'text'}
           placeholder="이메일을 입력해 주세요."
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         ></input>
         <input
+          type={'password'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></input>
         <input
+          type={'password'}
           placeholder="비밀번호를 확인해 주세요."
           onChange={(e) => {
             setPasswordConfirm(e.target.value);
