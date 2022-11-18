@@ -9,7 +9,7 @@ const HeaderMenu = () => {
       <StyledLink to={'/questions'}>궁금해요</StyledLink>
       <StyledLink to={'/boast'}>자랑할래요</StyledLink>
       <StyledLink to={'/members'}>친구들</StyledLink>
-      <StyledLink to={'/'}>배울래요</StyledLink>
+      <StyledLink to={'/contents'}>배울래요</StyledLink>
       <StyledLink to={'/study'}>모여봐요</StyledLink>
     </Container>
   );
