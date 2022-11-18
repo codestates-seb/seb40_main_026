@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import LikeButton from './LikeButton';
 const Detail = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+
   .DetailViewWrap {
     width: 70%;
     margin: auto;
