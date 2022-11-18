@@ -19,6 +19,7 @@ public class BoastLikeService {
     private final BoastService boastService;
     private final BoastRepository boastRepository;
 
+    @Transactional
     public Long modifiedLike(long boastId){
         Boast findBoast = boastService.findVerifiedBoast(boastId);
         //이후 auth 부분이 구현 된다면 memberId를 저장하는 코드가 됨. 이후 코드에서도 0L로 저장된 memberId 수정 필.
@@ -30,10 +31,12 @@ public class BoastLikeService {
             BoastLike boastLike = BoastLike.of(findBoast.getBoastId(),0L);
             boastLikeRepository.save(boastLike);
             findBoast.setLikeCount(findBoast.getLikeCount()+1);
+            findBoast.setCheckLike(true);
         }
         else{
             boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
             findBoast.setLikeCount(findBoast.getLikeCount()-1);
+            findBoast.setCheckLike(false);
         }
         boastRepository.save(findBoast);
         return findBoast.getLikeCount();

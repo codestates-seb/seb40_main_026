@@ -9,14 +9,14 @@ import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
-  const [student, setStudent] = useState(true);
+  const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
   const loginData = {
-    student: student,
+    teacher: teacher,
     email: email,
     password: password,
   };
@@ -54,7 +54,7 @@ const Login = () => {
   };
   return (
     <Container>
-      <SelectButton student={student} setStudent={setStudent} />
+      <SelectButton teacher={teacher} setTeacher={setTeacher} />
       <InputWrapperForm onSubmit={handleSubmit}>
         <input
           placeholder="이메일을 입력해 주세요."
