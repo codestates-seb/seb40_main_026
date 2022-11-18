@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderLogin = () => {
   return (
     <Container>
-      <StyledLink to={'/login'}>로그인</StyledLink>
-      <span>&</span>
-      <StyledLink to={'/signup'}>회원가입</StyledLink>
+      <>
+        <StyledLink to={'/login'}>로그인</StyledLink>
+        <span>&</span>
+        <StyledLink to={'/signup'}>회원가입</StyledLink>
+      </>
     </Container>
   );
 };
@@ -21,17 +23,22 @@ const Container = styled.div`
   width: 200px;
   span {
     font-family: 'Dongle', sans-serif;
+    font-weight: 500;
   }
 
   @media ${tablet} {
+    display: none;
+  }
+  @media ${mobile} {
     display: none;
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 5vmin;
+  font-size: 25px;
   font-family: 'Dongle', sans-serif;
+  font-weight: 600;
   color: black;
   cursor: pointer;
 

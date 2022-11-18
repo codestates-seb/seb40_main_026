@@ -51,9 +51,11 @@ public class BoastDto {
 
         private LocalDateTime boardModifiedAt;
 
-        private Long view_count;
+        private Long viewCount;
 
-        private Long like_count;
+        private Long likeCount;
+
+        private Boolean checkLike;
 
     }
 }

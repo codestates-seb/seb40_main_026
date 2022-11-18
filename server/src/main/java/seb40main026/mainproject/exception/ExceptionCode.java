@@ -8,6 +8,12 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member Not Found"),
     MEMBER_EXISTS(409, "Member exists"),
     MEMBER_QUIT(410,"탈퇴한 회원입니다.");
+    BOAST_REPLY_NOT_FOUND(404, "Boast Reply Not Found"),
+    EMPTY_IMAGE_FILE(404,"Image file does not exist");
+    ANSWER_NOT_FOUND(404, "Answer Not Found"),
+    QUESTION_NOT_FOUND(404, "Question Not Found"),
+    STUDY_NOT_FOUND(404, "Study Not Found");
+    
     @Getter
     private int status;
 
