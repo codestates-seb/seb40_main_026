@@ -48,25 +48,30 @@ const StudyList = () => {
 export default StudyList;
 
 const Container = styled.div`
-  padding: 40px;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 100%;
-  /* @media ${tablet} {
-    background-color: red;
-  } */
-  @media ${mobile} {
-    background-color: green;
-  }
-  @media ${tablet} {
-    background-color: red;
-  }
+  padding: 30px;
+  border: 1px red solid;
 `;
 
 const HeaderBlock = styled.div`
+  border: 1px red solid;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 270px;
+  padding: 30px 300px;
+  @media ${tablet} {
+    padding: 30px 0px;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media ${mobile} {
+    padding: 30px 0px;
+    flex-direction: column;
+    align-items: center;
+  }
   > div > button {
     padding: 10px 20px;
     margin: 0 5px;
@@ -77,8 +82,16 @@ const HeaderBlock = styled.div`
 `;
 
 const StudyListBlock = styled.div`
-  padding: 50px 30px;
+  border: 10px red solid;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: gray;
+  @media ${`screen and (min-width: 1377px)`} {
+    padding: 0 130px;
+  }
+  @media ${`screen and (min-width: 1677px)`} {
+    padding: 0 250px;
+  }
 `;

@@ -1,19 +1,22 @@
 import styled from 'styled-components';
+import { desktop, mobile, tablet } from '../../styles/Responsive';
 
 const StudyCard = ({ img, title, price, total, registered, start, end }) => {
   return (
     <Container>
-      <img src={img} alt={'cardImg'} />
-      <TextBlock>
-        <div>
-          <div>{price}</div>
-          <div>{total}</div>
-        </div>
-        <div>{title}</div>
-        <div>
-          {start} ~ {end}
-        </div>
-      </TextBlock>
+      <CardWrapper>
+        <img src={img} alt={'cardImg'} />
+        <TextBlock>
+          <div>
+            <div>{price}</div>
+            <div>{total}</div>
+          </div>
+          <div>{title}</div>
+          <div>
+            {start} ~ {end}
+          </div>
+        </TextBlock>
+      </CardWrapper>
     </Container>
   );
 };
@@ -26,17 +29,22 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 30px 60px;
-  > img {
-    width: 300px;
+  border: 1px blue solid;
+  width: 300px;
+  margin: 20px;
+  @media ${desktop} {
+  }
+  @media ${tablet} {
+  }
+  @media ${mobile} {
   }
 `;
 
-// const St = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   margin: 30px;
-// `;
+const CardWrapper = styled.div`
+  > img {
+    width: 100%;
+  }
+`;
 
 const TextBlock = styled.div`
   padding: 10px;
