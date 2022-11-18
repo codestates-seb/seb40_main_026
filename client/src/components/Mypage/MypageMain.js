@@ -50,11 +50,10 @@ const MypageContainer = styled.div`
       }
     }
     .MypageRight {
-      width: 70%;
+      width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-
       align-items: center;
       box-shadow: grey 0px 0px 3px;
       background-color: #fff;
@@ -67,8 +66,8 @@ const MypageContainer = styled.div`
         border-radius: 1rem;
       }
       .UserIntro {
-        width: 85%;
-        margin-right: 3rem;
+        width: 90%;
+        margin-right: 2rem;
         padding: 1rem;
         .IntroWrap {
           box-shadow: grey 0px 0px 3px;
@@ -120,15 +119,21 @@ const MypageContainer = styled.div`
           font-size: 0.8rem;
           padding: 2rem;
           border-radius: 1rem;
-          .btnWrap {
-            display: flex;
-            margin-top: 1rem;
-          }
         }
         .UserIntro {
           width: 100%;
-          margin-right: 0em;
+          margin-right: 0rem;
           padding: 1rem;
+          .btnWrap {
+            display: flex;
+            font-size: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            > div > button {
+              padding: 0.2rem;
+              font-size: 0.7rem;
+            }
+          }
         }
       }
     }
