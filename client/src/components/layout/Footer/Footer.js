@@ -2,7 +2,7 @@ import { AiOutlineGithub } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import codingLogo from '../../../assets/images/codingLogo.png';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const Footer = () => {
   const contributers = [
@@ -88,6 +88,13 @@ const Container = styled.footer`
     justify-content: space-around;
     height: 220px;
   }
+  @media ${mobile} {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    height: 220px;
+  }
 `;
 
 export const FooterLogo = styled.div`
@@ -98,6 +105,9 @@ export const FooterLogo = styled.div`
   margin: 20px;
 
   @media ${tablet} {
+    display: none;
+  }
+  @media ${mobile} {
     display: none;
   }
 `;
