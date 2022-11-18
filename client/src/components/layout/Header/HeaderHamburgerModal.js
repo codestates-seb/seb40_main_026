@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderHamburgerModal = ({ setOpen }) => {
   const navigate = useNavigate();
@@ -87,6 +87,18 @@ const Container = styled.div`
   z-index: 1000;
 
   @media ${tablet} {
+    display: block;
+    background-color: var(--gold);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+    border-radius: 30px;
+    z-index: 1000;
+  }
+  @media ${mobile} {
     display: block;
     background-color: var(--gold);
     align-items: center;

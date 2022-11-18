@@ -46,7 +46,7 @@ function Boast() {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    padding-top: 12px;
+    padding-top: 14px;
     cursor: pointer;
     background-color: #ff9fd7;
     color: white;
@@ -64,7 +64,7 @@ function Boast() {
         <BtnBox>
           <PostLink to="/boastCreate">나도 자랑하기 </PostLink>
         </BtnBox>
-        <Card />
+        <Card likeButton={true} />
       </Container>
     </>
   );
