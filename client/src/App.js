@@ -2,17 +2,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
+import Mypage from './components/Mypage/Mypage';
 import QuestionsMain from './components/QuestionsList/QuestionsMain';
 import Boast from './pages/Boast';
-import LoginPage from './pages/Loginpage';
-import SignupPage from './pages/SignupPage';
-import GlobalStyle from './styles/GlobalStyle';
-import QuestionsMain from './pages/Questionlist';
-import QuestionViewMain from './pages/QuestionView';
-import QuestionCreate from './pages/QuestionCreate';
 import BoastCreate from './pages/BoastCreate';
-import Mypage from './components/Mypage/Mypage';
-
+import LoginPage from './pages/Loginpage';
+import QuestionCreate from './pages/QuestionCreate';
+import QuestionViewMain from './pages/QuestionView';
+import SignupPage from './pages/SignupPage';
+import StudyListPage from './pages/StudyListPage';
+import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   return (
@@ -41,7 +40,7 @@ function App() {
           path="/contents"
           element={<div>배울래요 라우팅주소이름 정해야 함</div>}
         />
-        <Route path="/study" element={<div>모여봐요</div>} />
+        <Route path="/study" element={<StudyListPage />} />
       </Routes>
 
       <Footer />
