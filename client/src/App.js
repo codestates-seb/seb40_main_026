@@ -11,6 +11,8 @@ import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
 import BoastCreate from './pages/BoastCreate';
 import Mypage from './components/Mypage/Mypage';
+import BoastDetail from './pages/BoastDetail';
+import Reference from './pages/Reference';
 
 function App() {
   return (
@@ -24,7 +26,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<div>홈</div>} />
+        <Route path="/" element={<BoastDetail />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -35,10 +37,7 @@ function App() {
         <Route path={`/boast/:id`} element={<div>자랑할래요 상세</div>} />
         <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<div>친구들</div>} />
-        <Route
-          path="/contents"
-          element={<div>배울래요 라우팅주소이름 정해야 함</div>}
-        />
+        <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<div>모여봐요</div>} />
       </Routes>
 
