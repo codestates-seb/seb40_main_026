@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import styled from 'styled-components';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 import HeaderHamburgerModal from './HeaderHamburgerModal';
 
 const HeaderHamburger = () => {
@@ -29,6 +29,9 @@ const HamburgerButton = styled.button`
   cursor: pointer;
 
   @media ${tablet} {
+    display: block;
+  }
+  @media ${mobile} {
     display: block;
   }
 `;

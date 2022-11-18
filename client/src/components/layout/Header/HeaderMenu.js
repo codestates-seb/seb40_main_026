@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderMenu = () => {
   return (
@@ -38,6 +38,9 @@ const StyledLink = styled(Link)`
     transition: 0.1s;
   }
 
+  @media ${mobile} {
+    display: none;
+  }
   @media ${tablet} {
     display: none;
   }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderLogin = () => {
   return (
@@ -27,6 +27,9 @@ const Container = styled.div`
   }
 
   @media ${tablet} {
+    display: none;
+  }
+  @media ${mobile} {
     display: none;
   }
 `;
