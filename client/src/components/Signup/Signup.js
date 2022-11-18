@@ -9,13 +9,13 @@ import SelectButton from '../Shared/SelectButton';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [student, setStudent] = useState(true);
+  const [teacher, setTeacher] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const data = {
-    student: student,
+    teacher: teacher,
     displayName: displayName,
     email: email,
     password: password,
@@ -65,7 +65,7 @@ const Signup = () => {
   return (
     <Container>
       <h1>회원가입</h1>
-      <SelectButton student={student} setStudent={setStudent} />
+      <SelectButton teacher={teacher} setTeacher={setTeacher} />
       <InputWrapperForm onSubmit={handleSubmit}>
         <input
           type={'text'}
