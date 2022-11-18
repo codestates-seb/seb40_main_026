@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { MdEmojiPeople } from 'react-icons/md';
 import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
-
+import { Link } from 'react-router-dom';
 const MypageContainer = styled.div`
   margin-bottom: 1rem;
 
@@ -177,7 +177,7 @@ const MypageContainer = styled.div`
   }
 `;
 
-const MypageMain = () => {
+const MypageEdit = () => {
   const UserDummydata = {
     id: 1,
     elementary: '상현초등학교',
@@ -253,7 +253,9 @@ const MypageMain = () => {
                 <span>최근 접속일 : {UserDummydata.recent}</span>
               </div>
               <div>
-                <button className="Canclebtn">수정하기</button>
+                <button className="Canclebtn">
+                  <Link to="/mypage/edit">수정하기</Link>
+                </button>
                 <button className="Outbtn">탈퇴하기</button>
               </div>
             </div>
@@ -263,4 +265,4 @@ const MypageMain = () => {
     </MypageContainer>
   );
 };
-export default MypageMain;
+export default MypageEdit;
