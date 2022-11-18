@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import profileImg from '../../../assets/images/profile.png';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 import HeaderProfileModal from './HeaderProfileModal';
 
 const HeaderProfile = () => {
@@ -32,6 +32,9 @@ const Container = styled.div`
     cursor: pointer;
   }
   @media ${tablet} {
+    display: none;
+  }
+  @media ${mobile} {
     display: none;
   }
 

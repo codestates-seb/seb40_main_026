@@ -2,23 +2,23 @@
 
 import styled from 'styled-components';
 
-const SelectButton = ({ student, setStudent }) => {
+const SelectButton = ({ teacher, setTeacher }) => {
   return (
     <Container>
       <ButtonWrapper>
         <button
           onClick={() => {
-            setStudent(!student);
+            setTeacher(!teacher);
           }}
-          className={student ? 'underline' : ''}
+          className={teacher ? '' : 'underline'}
         >
           학생이에요
         </button>
         <button
           onClick={() => {
-            setStudent(!student);
+            setTeacher(!teacher);
           }}
-          className={student ? '' : 'underline'}
+          className={teacher ? 'underline' : ''}
         >
           선생님이에요
         </button>
