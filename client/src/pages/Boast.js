@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { tablet, desktop } from '../styles/Responsive';
+import { tablet, mobile } from '../styles/Responsive';
 import Card from '../components/Boast/Card';
 import top3 from '../assets/images/top3.png';
 import { Link } from 'react-router-dom';
@@ -9,8 +9,12 @@ function Boast() {
     display: flex;
     flex-direction: column;
     margin-left: 65px;
+
     @media ${tablet} {
       margin-left: -30px;
+    }
+    @media ${mobile} {
+      margin-left: -80px;
     }
   `;
   const Title = styled.h1`
@@ -18,17 +22,21 @@ function Boast() {
     @media ${tablet} {
       font-size: 25px;
     }
+    @media ${mobile} {
+      font-size: 25px;
+    }
   `;
 
   const TopLogo = styled.img`
     position: relative;
-    top: 145px;
-    width: 140px;
+    top: 200px;
+    right: 8px;
+    width: 170px;
     @media ${tablet} {
       display: none;
     }
 
-    @media ${desktop} {
+    @media ${mobile} {
       display: none;
     }
   `;
@@ -40,13 +48,13 @@ function Boast() {
   `;
 
   const PostLink = styled(Link)`
-    border-radius: 20%;
+    border-radius: 1rem;
     width: 150px;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    padding-top: 14px;
+    padding-top: 12px;
     cursor: pointer;
     background-color: #ff9fd7;
     color: white;

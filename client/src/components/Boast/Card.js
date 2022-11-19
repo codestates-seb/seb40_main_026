@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import LikeButton from '../Shared/LikeButton';
-import { tablet, desktop } from '../../styles/Responsive';
+import { tablet, mobile } from '../../styles/Responsive';
 
 function Card({ className, classNameA, likeButton }) {
   const Container = styled.ul`
@@ -9,14 +9,13 @@ function Card({ className, classNameA, likeButton }) {
     flex-wrap: wrap;
     padding: 0px 50px 50px 50px;
     width: 100%;
-    @media ${desktop} {
+    @media ${mobile} {
       display: flex;
       margin: 40px;
     }
     @media ${tablet} {
       display: flex;
       flex-wrap: wrap;
-      padding: 0px;
     }
   `;
 
@@ -28,7 +27,11 @@ function Card({ className, classNameA, likeButton }) {
     border-radius: 30px;
     justify-content: center;
 
-    @media ${desktop} {
+    @media ${tablet} {
+      background-color: white;
+      box-shadow: none;
+    }
+    @media ${mobile} {
       background-color: white;
       box-shadow: none;
     }
@@ -40,14 +43,14 @@ function Card({ className, classNameA, likeButton }) {
       background-color: #ffc149;
       font-size: 28px;
 
-      @media ${desktop} {
-        width: 500px;
-        height: 440px;
+      @media ${mobile} {
+        width: 600px;
+        height: 540px;
         margin: 30px;
       }
       @media ${tablet} {
-        width: 600px;
-        height: 540px;
+        width: 500px;
+        height: 440px;
         margin: 30px;
       }
     }
@@ -65,16 +68,16 @@ function Card({ className, classNameA, likeButton }) {
       height: 240px;
       font-size: 24px;
 
-      @media ${desktop} {
+      @media ${mobile} {
         display: flex;
-        width: 500px;
-        height: 440px;
+        width: 600px;
+        height: 540px;
         margin: 30px;
       }
       @media ${tablet} {
         display: flex;
-        width: 600px;
-        height: 540px;
+        width: 500px;
+        height: 440px;
         margin: 30px;
       }
     }
@@ -106,12 +109,12 @@ function Card({ className, classNameA, likeButton }) {
 
     font-weight: bold;
 
-    @media ${desktop} {
-      font-size: 34px;
+    @media ${mobile} {
+      font-size: 40px;
     }
 
     @media ${tablet} {
-      font-size: 40px;
+      font-size: 34px;
     }
   `;
 
@@ -123,17 +126,13 @@ function Card({ className, classNameA, likeButton }) {
     font-weight: 16px;
     font-size: 18px;
     color: gray;
-    @media ${desktop} {
-      font-size: 23px;
-    }
-    @media ${tablet} {
+    @media ${mobile} {
       font-size: 28px;
       margin-top: 70px;
     }
-  `;
-
-  const LikeBox = styled.div`
-    display: flex;
+    @media ${tablet} {
+      font-size: 23px;
+    }
   `;
 
   const listData = [
@@ -295,11 +294,7 @@ function Card({ className, classNameA, likeButton }) {
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                {likeButton && (
-                  <LikeBox>
-                    <LikeButton likeCount={item.likeCount} />
-                  </LikeBox>
-                )}
+                {likeButton && <LikeButton likeCount={item.likeCount} />}
               </Word2>
             </CardBox>
           );
@@ -313,11 +308,7 @@ function Card({ className, classNameA, likeButton }) {
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                {likeButton && (
-                  <LikeBox>
-                    <LikeButton likeCount={item.likeCount} />
-                  </LikeBox>
-                )}
+                {likeButton && <LikeButton likeCount={item.likeCount} />}
               </Word2>
             </CardBox>
           );
