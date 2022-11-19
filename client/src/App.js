@@ -14,6 +14,7 @@ import StudyListPage from './pages/StudyListPage';
 import GlobalStyle from './styles/GlobalStyle';
 import BoastDetail from './pages/BoastDetail';
 import Reference from './pages/Reference';
+import Members from './pages/Members';
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
         <Route path="/boast" element={<Boast />} />
         <Route path={`/boast/:id`} element={<BoastDetail />} />
         <Route path="/boastCreate" element={<BoastCreate />} />
-        <Route path="/members" element={<div>친구들</div>} />
+        <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
       </Routes>
