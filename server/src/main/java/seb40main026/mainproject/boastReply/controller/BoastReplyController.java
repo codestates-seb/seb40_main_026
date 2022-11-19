@@ -44,7 +44,7 @@ public class BoastReplyController {
         return new ResponseEntity(pageBoastReply,HttpStatus.OK);
     }
 
-    @DeleteMapping("{reply-id}")
+    @DeleteMapping("/{reply-id}")
     public ResponseEntity deleteReply(@PathVariable("reply-id") @Positive long boastReplyId){
         boastReplyService.deleteBoastReply(boastReplyId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
