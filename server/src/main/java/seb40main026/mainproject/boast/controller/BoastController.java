@@ -15,10 +15,7 @@ import seb40main026.mainproject.boastLike.service.BoastLikeService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/boasts")
@@ -54,9 +51,13 @@ public class BoastController {
                                     @Positive @RequestParam int size){
         Page<Boast> pageBoast = boastService.findBoasts(PageRequest.of(page-1,size,Sort.by("boastId").descending()));
         List<Boast> listBoast = pageBoast.getContent();
+
+        /*ResponseEntity에 변경 사항이 생길 수도 있으므로 주석 처리(자주 바뀜). 이후 코드 리팩터링 과정에서 삭제할 것
+        * 하나의 List에 인기 게시글까지 다 줄 것인지, 메서드를 나누어 두개의 리스트를 줄 것인지 (CSS 적용에 용이한가?)*/
         //List<Boast> popular = boastService.findPopularBoast();
         //List<Boast> result = Stream.concat(popular.stream(),listBoast.stream())
         //        .collect(Collectors.toList());
+
         return new ResponseEntity(mapper.boastToBoastResponseDtos(listBoast), HttpStatus.OK);
     }
 

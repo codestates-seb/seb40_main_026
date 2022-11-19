@@ -21,9 +21,8 @@ public class BoastReplyController {
     private final BoastReplyService boastReplyService;
     private final BoastReplyMapper mapper;
 
-    @PostMapping("/{boast-id}")
-    public ResponseEntity postReply(@Valid @RequestBody BoastReplyDto.post post,
-                                    @PathVariable("boast-id") @Positive Long boastId){
+    @PostMapping()
+    public ResponseEntity postReply(@Valid @RequestBody BoastReplyDto.post post, Long boastId){
         BoastReply boastReply = boastReplyService.createReply(mapper.boastReplyPostDtoToBoastReply(post),boastId);
         return new ResponseEntity(mapper.boastReplyToBoastReplyResponseDto(boastReply),HttpStatus.CREATED);
     }
