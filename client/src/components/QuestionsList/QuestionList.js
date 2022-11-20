@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { desktop, tablet, mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
 import LikeButton from '../Shared/LikeButton';
+import { Link } from 'react-router-dom';
 const QuesListWrap = styled.div`
   .QuesListMain {
     padding-top: 1.5rem;
@@ -107,7 +108,7 @@ const QuestionView = () => {
       nickname: '아구몬',
       grade: '답변왕',
       class: '🐣',
-      thums: '3',
+      likeCount: 3,
       answerlength: '2',
     },
     {
@@ -117,7 +118,7 @@ const QuestionView = () => {
       date: '22.11.14',
       nickname: '파닥몬',
       class: '🥚',
-      thums: '1',
+      likeCount: 1,
       answerlength: '5',
     },
     {
@@ -127,7 +128,7 @@ const QuestionView = () => {
       date: '22.11.15',
       nickname: '뿔몬',
       class: '🐓',
-      thums: '6',
+      likeCount: 6,
       answerlength: '0',
     },
   ];
@@ -145,9 +146,14 @@ const QuestionView = () => {
               <li key={items.id} className="QuestionWrap">
                 <div className="DisplayWrap">
                   <div className="Sectionleft">
-                    <button onClick={() => Titlehandler(items.id)}>
-                      {items.title}
-                    </button>
+                    <h3>
+                      <Link
+                        to="/questions/id"
+                        onClick={() => Titlehandler(items.id)}
+                      >
+                        {items.title}
+                      </Link>
+                    </h3>
                     <p>{items.body}</p>
                   </div>
                   <div className="Sectionright">
@@ -171,7 +177,7 @@ const QuestionView = () => {
                   </div>
                   <div>
                     <span className="Likebtn">
-                      <LikeButton />{' '}
+                      <LikeButton likeCount={items.likeCount} />{' '}
                     </span>
                   </div>
                 </div>

@@ -46,6 +46,7 @@ const Answer = () => {
       nickname: '치즈',
       grade: '답변왕',
       class: '🐣',
+      likeCount: 1,
     },
     {
       id: 2,
@@ -54,6 +55,7 @@ const Answer = () => {
       nickname: '치킨',
       grade: '답변왕',
       class: '🐣',
+      likeCount: 0,
     },
   ];
   return (
@@ -81,7 +83,7 @@ const Answer = () => {
                 </div>
                 <div className="AnswerTopright">
                   <div>
-                    <LikeButton />
+                    <LikeButton likeCount={items.likeCount} />
                   </div>
                 </div>
               </div>
