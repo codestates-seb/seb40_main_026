@@ -1,8 +1,15 @@
 import styled from 'styled-components';
+import Member from '../components/Members/Member.js';
 
 const Container = styled.main`
-  border: 1px solid black;
   padding: 20px;
+
+  div {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-evenly;
+    padding: 50px;
+  }
 `;
 
 const Title = styled.h1`
@@ -13,6 +20,9 @@ function Members() {
   return (
     <Container>
       <Title>친구들</Title>
+      <div>
+        <Member />
+      </div>
     </Container>
   );
 }
