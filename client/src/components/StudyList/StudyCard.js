@@ -32,12 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   border-radius: 2rem;
   background-color: pink;
-  flex-grow: 1;
-  max-width: 20rem;
-  min-height: 150px;
-  flex-basis: 23.5%;
-  flex-shrink: 1;
-  flex-grow: 1;
+  margin: 0.2rem;
 
   @media ${desktop} {
   }
@@ -55,7 +50,8 @@ const CardWrapper = styled.div`
 `;
 
 const TextBlock = styled.div`
-  padding: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   > div {

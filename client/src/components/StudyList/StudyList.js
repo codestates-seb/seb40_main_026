@@ -51,20 +51,19 @@ const Container = styled.div`
 `;
 
 const StudyListBlock = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
   justify-content: space-between;
-  flex-wrap: wrap;
   @media ${desktop} {
     background-color: red;
   }
   @media ${tablet} {
     background-color: black;
+    display: grid;
+    grid-template-columns: repeat(3, 33.3%);
   }
   @media ${mobile} {
     background-color: gray;
-  }
-  @media ${`screen and (min-width: 1535px)`} {
-  }
-  @media ${`screen and (min-width: 2000px)`} {
+    grid-template-columns: repeat(1, 100%);
   }
 `;
