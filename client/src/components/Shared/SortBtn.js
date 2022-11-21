@@ -16,9 +16,14 @@ const Button = styled.button`
   border-radius: 1rem;
   cursor: pointer;
   text-align: center;
-  width: 4rem;
-  padding: 0.5rem;
-  margin: 0.2rem;
+  width: 5rem;
   //font-family: 'Dongle', sans-serif;
   font-size: 0.7rem;
+  float: right;
+  padding: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  background-color: #d8d4cc;
+  border-radius: 2rem;
 `;

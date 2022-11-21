@@ -11,12 +11,15 @@ const PostBtn = ({ className, text, onClick }) => {
 export default PostBtn;
 
 const Button = styled.button`
-  text-align: center;
+  border-radius: 2rem;
+  width: 10rem;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  /* font-family: 'Dongle', sans-serif; */
-  margin: 15px auto;
-  width: 200px;
-  border-radius: 20px;
-  padding: 5px 10px;
-  font-size: 22px;
+  background-color: #ff9fd7;
+  color: white;
+  box-shadow: 1px 4px 0 rgb(0 0 0 / 12%);
+  :active {
+    box-shadow: 1px 1px 0 rgb(0 0 0 / 12%);
+  }
 `;
