@@ -2,27 +2,24 @@
 
 import styled from 'styled-components';
 
-const MediumButton = ({ text, color, onClick }) => {
+const MediumButton = ({ className, text, color, onClick }) => {
   return (
-    <ButtonWrapper color={color} onClick={onClick}>
-      <button>{text}</button>
-    </ButtonWrapper>
+    <Button className={className} color={color} onClick={onClick}>
+      {text}
+    </Button>
   );
 };
 
 export default MediumButton;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  margin: 10px 50px;
-  > button {
-    margin: auto;
-    width: 200px;
-    border-radius: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-family: 'Dongle', sans-serif;
-    font-size: 22px;
-    background: ${(props) => (props.color ? props.color : 'pink')};
-  }
+const Button = styled.button`
+  margin: 15px auto;
+  width: 200px;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: 'Dongle', sans-serif;
+  font-size: 22px;
+  text-align: center;
+  background: ${(props) => (props.color ? props.color : 'pink')};
 `;
