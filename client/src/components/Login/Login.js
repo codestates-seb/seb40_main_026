@@ -43,8 +43,10 @@ const Login = () => {
       .then((res) => {
         if (res) {
           //로컬스토리지를 이용해도 되는지는 더 알아봐야 함
-          let accessToken = res.headers.accesstoken;
-          localStorage.setItem('accesstoken', accessToken);
+          console.log('응답', res);
+          console.log('헤더', res.headers);
+          // let accessToken = res.headers.accesstoken;
+          // localStorage.setItem('accesstoken', accessToken);
         }
       })
       .catch((error) => {
