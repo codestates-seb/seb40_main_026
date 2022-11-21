@@ -11,6 +11,7 @@ import QuestionCreate from './pages/QuestionCreate';
 import QuestionViewMain from './pages/QuestionView';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
+import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           element={<div>배울래요 라우팅주소이름 정해야 함</div>}
         />
         <Route path="/study" element={<StudyListPage />} />
+        <Route path="/study/example" element={<StudyViewPage />} />
       </Routes>
 
       <Footer />
