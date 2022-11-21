@@ -2,6 +2,8 @@ import { Link } from 'react-scroll';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import MediumButton from '../Shared/MediumButton';
+import SortBtn from '../Shared/SortBtn';
+import PostBtn from '../Shared/PostBtn';
 
 const StudyViewButtons = () => {
   const buttonName = [
@@ -18,20 +20,50 @@ const StudyViewButtons = () => {
       <Buttons>
         {buttonName.map((ele, index) => (
           <Link to={index} smooth={true} key={ele}>
-            <MediumButton text={ele} className="btn" />
+            <SortBtn text={ele} className="btn" />
           </Link>
         ))}
       </Buttons>
+      <PostBtn text={'수강신청 하기'} className="registerBtn" />
     </Container>
   );
 };
 
 export default StudyViewButtons;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media ${tablet} {
+    margin: 20px 0;
+    justify-content: center;
+    align-items: center;
+  }
+  @media ${mobile} {
+    margin: 20px 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  > .registerBtn {
+    align-items: flex-end;
+
+    margin-right: 0;
+    @media ${tablet} {
+      margin: 1rem 0;
+    }
+    @media ${mobile} {
+      margin: 1rem 0;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+`;
 
 const Buttons = styled.div`
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   @media ${tablet} {
@@ -43,7 +75,7 @@ const Buttons = styled.div`
     justify-content: center;
   }
   .btn {
-    width: 80px;
-    margin: 10px;
+    width: 5rem;
+    margin-right: 0.3rem;
   }
 `;

@@ -42,7 +42,7 @@ function App() {
           element={<div>배울래요 라우팅주소이름 정해야 함</div>}
         />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/example" element={<StudyViewPage />} />
+        <Route path="/study/ex" element={<StudyViewPage />} />
       </Routes>
 
       <Footer />

@@ -4,19 +4,14 @@ import { BsFillClockFill, BsFillSuitHeartFill } from 'react-icons/bs';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
-import MediumButton from '../Shared/MediumButton';
-import PostBtn from '../Shared/PostBtn';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import StudyViewButtons from './StudyViewButtons';
 
 const StudyView = () => {
   return (
     <Container>
-      <PostBtn />
-      <div>
-        <StudyViewButtons />
-        <MediumButton text={'수강신청 하기'} className="registerBtn" />
-      </div>
+      <StudyViewButtons />
+
       <Contents>
         <ContentItem>
           <div className="title" id="0">
@@ -98,40 +93,21 @@ const StudyView = () => {
 export default StudyView;
 
 const Container = styled.div`
+  margin-top: 2rem;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 17px;
-  padding: 20px 0;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   > div {
     display: flex;
     justify-content: space-between;
-    @media ${tablet} {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    @media ${mobile} {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  div > .registerBtn {
-    width: 200px;
-    background-color: gray;
-    margin-right: 0;
-    @media ${tablet} {
-      margin: 20px 0;
-    }
-    @media ${mobile} {
-      margin: 20px 0;
-    }
   }
 `;
 
 const Contents = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 30px;
@@ -145,9 +121,14 @@ const ContentItem = styled.div`
   }
   > div.title {
     border-bottom: 5px gold solid;
-    padding: 10px;
-    width: 80vw;
+    width: 100%;
     font-weight: 700;
+    @media ${tablet} {
+      width: 100%;
+    }
+    @media ${mobile} {
+      width: 100%;
+    }
     > span {
       color: gold;
       margin-left: 5px;

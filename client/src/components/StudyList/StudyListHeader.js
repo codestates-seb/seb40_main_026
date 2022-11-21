@@ -28,7 +28,7 @@ const StudyListHeader = () => {
   return (
     <>
       <Container>
-        <h1>궁금해요</h1>
+        <h1>궁금해요랑 씽크 맞추기(모여봐요)</h1>
         <div>
           <SortBtn text={'온라인'} />
           <SortBtn text={'오프라인'} />
