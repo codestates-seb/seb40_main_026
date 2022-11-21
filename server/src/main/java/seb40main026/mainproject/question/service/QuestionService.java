@@ -6,13 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
-import seb40main026.mainproject.member.Member;
 import seb40main026.mainproject.member.MemberService;
+import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.question.entity.Question;
-import seb40main026.mainproject.question.entity.QuestionLike;
-import seb40main026.mainproject.question.entity.QuestionReport;
-import seb40main026.mainproject.question.repository.QuestionLikeRepository;
-import seb40main026.mainproject.question.repository.QuestionReportRepository;
+import seb40main026.mainproject.question.mapper.QuestionMapper;
 import seb40main026.mainproject.question.repository.QuestionRepository;
 
 import java.util.List;
@@ -22,47 +19,46 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
+    private final QuestionMapper mapper;
     private final QuestionRepository questionRepository;
-    private final QuestionReportRepository questionReportRepository;
-    private final QuestionLikeRepository questionLikeRepository;
-    private final MemberService memberService;
 
     // 질문 작성
-    public Question createQuestion(Question question) {
-        return questionRepository.save(question);
+    public QuestionDto.Response createQuestion(QuestionDto.Post questionPostDto) {
+        Question question = mapper.questionPostDtoToQuestion(questionPostDto);
+        questionRepository.save(question);
+        return mapper.questionToQuestionResponse(question);
     }
 
-    // 질문 수정 + 권한 검증
-    public Question updateQuestion(Question question) {
-        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
-
-        Optional.ofNullable(question.getTitle())
-                .ifPresent(findQuestion::setTitle);
-
-        Optional.ofNullable(question.getContent())
-                .ifPresent(findQuestion::setContent);
-
-        return questionRepository.save(findQuestion);
+    // 질문 수정
+    public QuestionDto.Response updateQuestion(QuestionDto.Patch questionPatchDto,
+                                               long questionId) {
+        questionPatchDto.setQuestionId(questionId);
+        Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
+        Question findQuestion = findVerifiedQuestion(question.getQuestionId()); // 검증
+        findQuestion.modify(question.getTitle(), question.getContent()); // 수정
+        return mapper.questionToQuestionResponse(findQuestion);
     }
 
     // 전체 질문 조회
-    public List<Question> findQuestions(String sort) {
-        return questionRepository.findAll(Sort.by(sort).descending());
+    public List<QuestionDto.Response> findQuestions(String sort) {
+        List<Question> questions = questionRepository.findAll(Sort.by(sort).descending());
+        return mapper.questionsToQuestionResponses(questions);
     }
 
     // 특정 질문 조회
-    public Question findQuestion(long questionId) {
+    public QuestionDto.Response findQuestion(long questionId) {
         Question question = findVerifiedQuestion(questionId);
-        question.setViewCount(question.getViewCount() + 1);
-        return findVerifiedQuestion(questionId);
+        question.increaseViewCount();
+        return mapper.questionToQuestionResponse(question);
     }
 
     // 검색 기능
-    public List<Question> search(String keyWord) {
-        return questionRepository.findByTitleContainingOrContentContaining(keyWord, keyWord);
+    public List<QuestionDto.Response> search(String keyWord) {
+        List<Question> questions = questionRepository.findByTitleContainingOrContentContaining(keyWord, keyWord);
+        return mapper.questionsToQuestionResponses(questions);
     }
 
-    // 질문 삭제 + 권한 검증
+    // 질문 삭제
     public void deleteQuestion(long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         questionRepository.delete(findQuestion);
@@ -74,64 +70,5 @@ public class QuestionService {
         Question findQuestion = optionalQuestion.orElseThrow(
                 () -> new BusinessException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
-    }
-
-    // 특정 질문 신고
-    public QuestionReport report(long questionId) {
-        Member member = memberService.getLoginMember();
-        Question question = findVerifiedQuestion(questionId);
-
-        QuestionReport findQuestionReport = questionReportRepository.findByQuestionAndMember(question, member);
-
-        if(findQuestionReport == null) { // 신고 처음 누르는 경우
-            QuestionReport questionReport = new QuestionReport();
-            questionReport.setQuestion(question);
-            questionReport.setMember(member);
-            questionReport.setQuestionReport(true);
-            question.setReportCount(question.getReportCount() + 1);
-            questionRepository.save(question);
-            return questionReportRepository.save(questionReport);
-        } else {
-            if(findQuestionReport.getQuestionReport() == true) { // 신고 취소
-                findQuestionReport.setQuestionReport(false);
-                question.setReportCount(question.getReportCount() - 1);
-            } else { // 신고
-                findQuestionReport.setQuestionReport(true);
-                question.setReportCount(question.getReportCount() + 1);
-            }
-            questionRepository.save(question);
-            return questionReportRepository.save(findQuestionReport);
-        }
-    }
-
-    // 특정 질문 좋아요
-    public QuestionLike like(long questionId) {
-        Member member = memberService.getLoginMember();
-        Question question = findVerifiedQuestion(questionId);
-
-        QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
-
-        if(findQuestionLike == null) { // 좋아요를 처음 누르는 경우
-            QuestionLike questionLike = new QuestionLike();
-            questionLike.setQuestion(question);
-            questionLike.setMember(member);
-            questionLike.setQuestionLike(true);
-            question.setLikeCount(question.getLikeCount() + 1);
-            question.setCheckLike(true);
-            questionRepository.save(question);
-            return questionLikeRepository.save(questionLike);
-        } else {
-            if(findQuestionLike.getQuestionLike() == true) { // 좋아요 취소
-                findQuestionLike.setQuestionLike(false);
-                question.setLikeCount(question.getLikeCount() - 1);
-                question.setCheckLike(true);
-            } else { // 좋아요
-                findQuestionLike.setQuestionLike(true);
-                question.setLikeCount(question.getLikeCount() + 1);
-                question.setCheckLike(true);
-            }
-            questionRepository.save(question);
-            return questionLikeRepository.save(findQuestionLike);
-        }
     }
 }

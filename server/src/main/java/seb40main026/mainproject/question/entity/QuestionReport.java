@@ -1,13 +1,14 @@
 package seb40main026.mainproject.question.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import seb40main026.mainproject.member.Member;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@Setter
+@Builder
 @Entity
 public class QuestionReport {
     @Id
@@ -24,4 +25,8 @@ public class QuestionReport {
     @ManyToOne
     @JoinColumn(name = "QUESION_ID")
     private Question question;
+
+    public void modifyQuestionReport(boolean report) {
+        this.questionReport = report;
+    }
 }

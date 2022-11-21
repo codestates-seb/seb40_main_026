@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 public class QuestionDto {
     @Getter
@@ -41,8 +40,8 @@ public class QuestionDto {
         private Integer likeCount;
         private Integer reportCount;
         private Integer answerCount;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
         private Boolean checkLike;
     }
 }
