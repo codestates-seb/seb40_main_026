@@ -1,14 +1,13 @@
-import MypageHeader from './MypageHeader';
+import TitleHeader from '../Shared/TitleHeader';
 import MypageMain from './MypageMain';
-import CommentHeader from './CommentHeader';
 import CommentCreate from '../Shared/CommentCreate';
 import Commentlist from '../Shared/Commentlist';
 const Mypage = () => {
   return (
     <>
-      <MypageHeader />
+      <TitleHeader title={'회원정보'} />
       <MypageMain />
-      <CommentHeader />
+      <TitleHeader title={'방명록'} />
       <CommentCreate />
       <Commentlist />
     </>

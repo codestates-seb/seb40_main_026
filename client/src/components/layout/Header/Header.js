@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { mobile, tablet } from '../../../styles/Responsive';
 import HeaderHamburger from './HeaderHamburger';
 import HeaderLogin from './HeaderLogin';
 import HeaderLogo from './HeaderLogo';
@@ -7,7 +7,7 @@ import HeaderMenu from './HeaderMenu';
 import HeaderProfile from './HeaderProfile';
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = false;
   return (
     <Container>
       <HeaderLogo />
@@ -23,12 +23,18 @@ export default Header;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  height: 100px;
-  align-items: center;
-  padding: 10px 30px;
+  height: 4rem;
+  align-items: center; //수직 가운데 정렬
+  margin: 0 15%;
+
   border-bottom: 1px gray solid;
   position: relative;
   background-color: white;
   z-index: 10;
+  @media ${tablet} {
+    margin: 0 10%;
+  }
+  @media ${mobile} {
+    margin: 0 5%;
+  }
 `;

@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
+import LikeButton from '../Shared/LikeButton';
 const AnswerView = styled.div`
   margin-top: 2rem;
+  margin-bottom: 1rem;
   .AnswerViewWrap {
     width: 70%;
     margin: auto;
@@ -18,6 +20,15 @@ const AnswerView = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        .btnWrap > button {
+          background-color: #fff;
+          font-size: 0.8rem;
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+        .btnWrap > button:hover {
+          color: grey;
+        }
       }
       .AnswerBot {
         margin-top: 1rem;
@@ -35,7 +46,7 @@ const Answer = () => {
       nickname: '치즈',
       grade: '답변왕',
       class: '🐣',
-      level: '🎖',
+      likeCount: 1,
     },
     {
       id: 2,
@@ -44,7 +55,7 @@ const Answer = () => {
       nickname: '치킨',
       grade: '답변왕',
       class: '🐣',
-      level: '🎖',
+      likeCount: 0,
     },
   ];
   return (
@@ -63,16 +74,17 @@ const Answer = () => {
                     <span> {items.nickname} </span>
                     <span> {items.grade} </span>
                     <span> {items.class} </span>
-                    <span> {items.level} </span>
                     <span> {items.date} </span>
                   </div>{' '}
-                  <div>
+                  <div className="btnWrap">
                     <button>수정하기</button>
                     <button>삭제하기</button>
                   </div>
                 </div>
                 <div className="AnswerTopright">
-                  <div>♥ 좋아요</div>
+                  <div>
+                    <LikeButton likeCount={items.likeCount} />
+                  </div>
                 </div>
               </div>
               <div className="AnswerBot">

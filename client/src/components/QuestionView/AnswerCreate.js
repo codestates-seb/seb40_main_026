@@ -19,13 +19,13 @@ const CreateWrap = styled.div`
       width: 90%;
       background-color: #ffc149;
       > input {
-        padding: 1rem;
+        padding: 0.5rem;
         margin: auto;
         width: 100%;
       }
     }
     > div > button {
-      padding: 1rem;
+      padding: 0.5rem;
       background-color: #ffc149;
       color: #fff;
     }

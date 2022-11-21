@@ -78,7 +78,7 @@ export default HeaderHamburgerModal;
 const Container = styled.div`
   position: absolute;
   top: 110px;
-  right: 10px;
+  right: 0.1px;
   background-color: var(--gold);
   display: none;
   border: none;
