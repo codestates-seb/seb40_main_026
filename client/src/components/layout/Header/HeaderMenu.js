@@ -20,13 +20,13 @@ export default HeaderMenu;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
   justify-content: space-evenly;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 35px;
+  font-size: 1.2rem;
   font-family: 'Dongle', sans-serif;
   font-weight: 700;
   color: black;
