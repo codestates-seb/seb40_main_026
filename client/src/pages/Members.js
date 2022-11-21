@@ -2,18 +2,20 @@ import styled from 'styled-components';
 import Member from '../components/Members/Member.js';
 
 const Container = styled.main`
-  padding: 20px;
-
+  width: 70%;
+  margin: auto;
   div {
     display: flex;
-    /* flex-wrap: wrap; */
-    justify-content: space-evenly;
-    padding: 50px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: auto;
   }
 `;
 
 const Title = styled.h1`
-  margin: 50px 0px 0px 150px;
+  margin-bottom: 4rem;
+  margin-top: 2rem;
+  color: #ffc149;
 `;
 
 function Members() {

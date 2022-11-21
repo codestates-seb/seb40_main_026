@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const LevelBox = styled.section`
   border: 1px solid black;
   border-radius: 30px;
-  width: 500px;
+  width: 20rem;
   height: 600px;
 `;
 
@@ -14,7 +14,7 @@ const AnswerBox = styled(LevelBox)``;
 const Title = styled.div`
   border: 1px solid black;
   border-radius: 50px;
-  width: 200px;
+  width: 10rem;
   height: 80px;
   font-size: 30px;
 `;

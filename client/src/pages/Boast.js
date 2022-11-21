@@ -8,8 +8,8 @@ function Boast() {
   const Container = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 65px;
-
+    margin: auto;
+    width: 70%;
     @media ${tablet} {
       margin-left: -30px;
     }
@@ -18,7 +18,9 @@ function Boast() {
     }
   `;
   const Title = styled.h1`
-    margin: 50px 0px 0px 100px;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    color: #ffc149;
     @media ${tablet} {
       font-size: 25px;
     }
@@ -29,9 +31,9 @@ function Boast() {
 
   const TopLogo = styled.img`
     position: relative;
-    top: 200px;
+    top: 4rem;
     right: 8px;
-    width: 170px;
+    width: 8rem;
     @media ${tablet} {
       display: none;
     }

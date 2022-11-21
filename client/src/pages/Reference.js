@@ -6,6 +6,8 @@ function Reference() {
   const Container = styled.div`
     display: flex;
     flex-direction: column;
+    width: 70%;
+    margin: auto;
     @media ${tablet} {
       margin-left: -30px;
     }
@@ -19,8 +21,6 @@ function Reference() {
       > li {
         background-color: #ffc149;
         color: white;
-        width: 350px;
-        height: 290px;
         font-size: 24px;
 
         @media ${mobile} {
@@ -40,8 +40,6 @@ function Reference() {
       > li {
         background-color: #ffc149;
         color: white;
-        width: 350px;
-        height: 290px;
 
         @media ${mobile} {
           display: flex;
@@ -60,8 +58,10 @@ function Reference() {
   `;
 
   const Title = styled.h1`
-    margin: 50px 0px 0px 170px;
-    margin-bottom: 70px;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    color: #ffc149;
+
     @media ${tablet} {
       font-size: 25px;
     }

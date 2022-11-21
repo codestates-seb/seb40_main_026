@@ -7,7 +7,6 @@ function Card({ className, classNameA, likeButton }) {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 0px 50px 50px 50px;
     width: 100%;
     @media ${mobile} {
       display: flex;
@@ -38,10 +37,10 @@ function Card({ className, classNameA, likeButton }) {
 
     li {
       color: white;
-      width: 340px;
-      height: 280px;
+      width: 16rem;
       background-color: #ffc149;
       font-size: 28px;
+      margin: 1.5rem;
 
       @media ${mobile} {
         width: 600px;
@@ -64,9 +63,9 @@ function Card({ className, classNameA, likeButton }) {
     li {
       background-color: white;
       color: black;
-      width: 300px;
-      height: 240px;
+      width: 16rem;
       font-size: 24px;
+      margin: 1.5rem;
 
       @media ${mobile} {
         display: flex;
