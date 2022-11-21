@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../styles/Responsive';
 import Card from '../components/Boast/Card';
-import top3 from '../assets/images/top3.png';
 import { Link } from 'react-router-dom';
 
 function Boast() {
@@ -11,10 +10,9 @@ function Boast() {
     margin: auto;
     width: 70%;
     @media ${tablet} {
-      margin-left: -30px;
     }
     @media ${mobile} {
-      margin-left: -80px;
+      width: 100%;
     }
   `;
   const Title = styled.h1`
@@ -22,18 +20,26 @@ function Boast() {
     margin-top: 2rem;
     color: #ffc149;
     @media ${tablet} {
-      font-size: 25px;
+      font-size: 2rem;
     }
     @media ${mobile} {
-      font-size: 25px;
+      font-size: 2.5rem;
     }
   `;
 
-  const TopLogo = styled.img`
+  const TopLogo = styled.div`
     position: relative;
-    top: 4rem;
-    right: 8px;
-    width: 8rem;
+    top: 4.5rem;
+    right: 0.1rem;
+    width: 10%;
+    height: 3.5rem;
+    border-radius: 0.8rem 0.8rem 0rem 0rem;
+    text-align: center;
+    padding-top: 0.7rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: #d8d4cc;
+
     @media ${tablet} {
       display: none;
     }
@@ -46,7 +52,11 @@ function Boast() {
   const BtnBox = styled.div`
     display: flex;
     justify-content: flex-end;
-    margin: 0px 60px 20px 0px;
+
+    margin: 0rem 0rem 1.4rem 3rem;
+    @media ${tablet} {
+      margin-right: 10rem;
+    }
   `;
 
   const PostLink = styled(Link)`
@@ -70,7 +80,7 @@ function Boast() {
     <>
       <Container>
         <Title>자랑할래요</Title>
-        <TopLogo src={top3} alt="logo" />
+        <TopLogo>Top 3</TopLogo>
         <BtnBox>
           <PostLink to="/boastCreate">나도 자랑하기 </PostLink>
         </BtnBox>

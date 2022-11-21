@@ -19,10 +19,6 @@ function Reference() {
       background: white;
       box-shadow: none;
       > li {
-        background-color: #ffc149;
-        color: white;
-        font-size: 24px;
-
         @media ${mobile} {
           width: 600px;
           height: 540px;
@@ -40,6 +36,7 @@ function Reference() {
       > li {
         background-color: #ffc149;
         color: white;
+        margin-top: 0rem;
 
         @media ${mobile} {
           display: flex;
