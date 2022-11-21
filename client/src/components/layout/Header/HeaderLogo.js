@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import codingLogo from '../../../assets/images/codingLogo.png';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderLogo = () => {
   return (
@@ -16,7 +17,13 @@ export default HeaderLogo;
 
 const Container = styled.div`
   img {
-    width: 270px;
+    width: 8rem;
     cursor: pointer;
   }
+  /* @media ${mobile} {
+    display: none;
+  }
+  @media ${tablet} {
+    display: none;
+  } */
 `;

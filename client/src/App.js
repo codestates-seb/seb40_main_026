@@ -7,6 +7,7 @@ import BoastCreate from './pages/BoastCreate';
 import LoginPage from './pages/Loginpage';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
+import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
 import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
@@ -35,6 +36,7 @@ function App() {
           element={<div>배울래요 라우팅주소이름 정해야 함</div>}
         />
         <Route path="/study" element={<StudyListPage />} />
+        <Route path="/study/ex" element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
