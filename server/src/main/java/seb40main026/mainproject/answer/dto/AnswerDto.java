@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 public class AnswerDto {
     @Getter
     public static class Post {
+        @NotNull
+        private Long questionId;
         @NotBlank
         private String content;
     }
@@ -30,8 +32,8 @@ public class AnswerDto {
         // 파일
         private Integer likeCount;
         private Integer reportCount;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
         private Boolean checkLike;
     }
 }
