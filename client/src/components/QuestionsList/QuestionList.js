@@ -11,7 +11,6 @@ const QuesListWrap = styled.div`
     .QuestionsList {
       margin: auto;
       width: 70%;
-
       .QuestionWrap {
         text-align: center;
         background-color: white;
@@ -85,16 +84,14 @@ const QuesListWrap = styled.div`
     }
   }
   @media ${tablet} {
-   
-   
-               .tabletAnswer {
+                 .tabletAnswer {
           display: block;
                } .SectionBot {
                 padding:0.2rem;
                }
   @media ${mobile} {
     .Sectionright {
-      font-size: 1px;
+ 
     }
   }
 `;

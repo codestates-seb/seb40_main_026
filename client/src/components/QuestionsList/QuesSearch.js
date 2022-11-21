@@ -17,9 +17,9 @@ const Searchwrap = styled.div`
     margin-top: 2rem;
 
     .SearchbarWrap {
-      width: 800px;
+      width: 100%;
       > input {
-        box-shadow: grey 0px 0px 3px;
+        box-shadow: grey 0rem 0rem 0.2rem;
         margin-right: 1rem;
         width: 95%;
         padding: 1rem;
