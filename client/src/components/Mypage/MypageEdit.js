@@ -9,7 +9,7 @@ const EditContainer = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   .EditWrap {
-    width: 50%;
+    width: 35%;
     margin: auto;
     margin-top: 1rem;
     padding: 1rem;
@@ -20,50 +20,103 @@ const EditContainer = styled.div`
       display: flex;
       flex-direction: column;
       .EditformWrap {
-            padding:1rem;  
-          margin: auto;
+        padding: 1rem;
+        margin: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
-            .EditLeft {
-     
-            .ImgInput {
-              text-align: center;
-              margin-left: 3rem;
-              margin-top:1rem;
-            }
-            .Imgwrap {
-              width: 150px;
-            }
+        .EditLeft {
+          .ImgInput {
+            margin-left: 3rem;
+            margin-top: 1rem;
           }
-        }      
-        .Editright {
-          display: flex;
-          flex-direction: column;
-text-align:left;
-          > div {
-            padding: 0.5rem;
-            padding:1rem;
-            > input {
-            width:15rem;
-              border-bottom: 1px solid;
-            }
-            .IntroInput {
-              box-shadow: grey 0rem 0rem 0.2rem;
-              width: 250px;
-              height: 150px;
-              margin-top: 1rem;
-              border-radius: 1rem;
-            }
+          .Imgwrap {
+            width: 150px;
           }
         }
       }
-      .Editbtn > button {
-        padding: 1rem;
-        border-radius: 1rem;
-        background-color: #ff62be;
-        color: #fff;
-        margin-top: 1rem;
+      .Editright {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        > div {
+          padding: 0.5rem;
+          padding: 1rem;
+          > input {
+            width: 100%;
+            border-bottom: 1px solid;
+          }
+          .IntroInput {
+            box-shadow: grey 0rem 0rem 0.2rem;
+            width: 250px;
+            height: 150px;
+            margin-top: 1rem;
+            border-radius: 1rem;
+          }
+        }
+      }
+    }
+    .Editbtn > button {
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: #ff62be;
+      color: #fff;
+      margin-top: 1rem;
+    }
+  }
+  @media ${tablet} {
+    .EditWrap {
+      width: 50%;
+      padding: 2rem;
+      .EditForm {
+        .EditformWrap {
+          flex-direction: column;
+          .EditLeft {
+            .Imgwrap {
+              width: 80%;
+            }
+          }
+          .Editright {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media ${mobile} {
+    .EditWrap {
+      width: 50%;
+      .EditForm {
+        .EditformWrap {
+          width: 100%;
+          margin: auto;
+          flex-direction: column;
+          .EditLeft {
+            width: 80%;
+            margin: auto;
+            .Imgwrap {
+              width: 80%;
+            }
+            .ImgInput {
+              width: 90%;
+              margin: auto;
+              font-size: 0.5rem;
+            }
+          }
+          .Editright {
+            font-size: 0.5rem;
+            margin: auto;
+            .IntroInput {
+              width: 150px;
+              height: 100px;
+            }
+          }
+        }
+        .Editbtn > button {
+          font-size: 0.5rem;
+          margin-top: 0;
+        }
       }
     }
   }

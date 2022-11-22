@@ -38,11 +38,11 @@ const Searchwrap = styled.div`
       }
     }
     @media ${tablet} {
-    
-      
+      .SearchbarWrap {
+        width: 80%;
+      }
       .ButtonWrap {
         margin-right: 0;
-
         > button {
           width: 100%;
           border-radius: 1rem;
@@ -50,7 +50,7 @@ const Searchwrap = styled.div`
           background-color: #ffc149;
           color: #fff;
           font-size: 1rem;
-          padding:0;
+          padding:1rem;
         
       }
     }
@@ -67,15 +67,16 @@ const Searchwrap = styled.div`
         }
       }
       .ButtonWrap {
-        font-size:0.5rem;
+        
+        padding:1rem;
         .QuesBtn {
           width: 100%;
           border-radius: 1rem;
           margin-right: 0;
           background-color: #ffc149;
           color: #fff;
-          padding: 0.5rem;
-          font-size: 0.8rem;
+          padding: 1rem;
+          font-size: 1.5rem;
         }
       }
     }

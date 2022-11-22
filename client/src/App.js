@@ -12,6 +12,7 @@ import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
 import MypageEdit from './components/Mypage/MypageEdit';
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<div>회원가입</div>} />
-        <Route path="/login" element={<div>로그인</div>} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/mypage/edit" element={<MypageEdit />} />
         <Route path="/questions" element={<QuestionsMain />} />

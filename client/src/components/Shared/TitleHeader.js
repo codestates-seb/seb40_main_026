@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 const Container = styled.header`
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  margin: auto;
+  margin-top: 1rem;
   font-size: 0.8rem;
   .TitleWrap {
     width: 70%;
     color: #ffa800;
     margin: auto;
     padding-bottom: 1rem;
-    border-bottom: 0.1rem solid;
+    border-bottom: 2px solid;
   }
 `;
 const QuestionsHeader = ({ title }) => {

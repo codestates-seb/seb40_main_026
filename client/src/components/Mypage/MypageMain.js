@@ -5,7 +5,9 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 const MypageContainer = styled.div`
   margin-bottom: 1rem;
-
+  a {
+    color: #fff;
+  }
   .MypageMainwrap {
     width: 70%;
     margin: auto;

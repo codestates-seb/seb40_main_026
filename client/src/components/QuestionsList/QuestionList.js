@@ -39,12 +39,11 @@ const QuesListWrap = styled.div`
               background-color: #fff;
               font-size: 1.2rem;
               margin-bottom: 1rem;
-              cursor:pointer;
+              cursor: pointer;
             }
             > button:hover {
-           color:grey
+              color: grey;
             }
-     
           }
           .Sectionright {
             .AnswerCircle {
@@ -84,14 +83,11 @@ const QuesListWrap = styled.div`
     }
   }
   @media ${tablet} {
-                 .tabletAnswer {
-          display: block;
-               } .SectionBot {
-                padding:0.2rem;
-               }
+  }
   @media ${mobile} {
-    .Sectionright {
- 
+    min-width: 1200px;
+    .AnswerCircle {
+      display: none;
     }
   }
 `;
