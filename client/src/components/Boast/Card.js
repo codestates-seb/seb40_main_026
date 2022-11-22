@@ -18,7 +18,7 @@ function Card({ className, classNameA, likeButton }) {
   `;
 
   const TopListBox = styled.section`
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
     background: #f7f7f7;
@@ -32,18 +32,38 @@ function Card({ className, classNameA, likeButton }) {
     @media ${mobile} {
       background-color: white;
       box-shadow: none;
+    } */
+
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
+    background: #f7f7f7;
+    border-radius: 0rem 2rem 2rem 2rem;
+    place-items: center;
+    grid-gap: 3rem;
+    padding: 3rem 0rem 3rem 10rem;
+
+    width: 100%;
+
+    @media ${tablet} {
+      display: grid;
+      grid-template-columns: repeat(3, 33.3%);
+      grid-gap: 0rem;
+      padding-left: 0rem;
+    }
+    @media ${mobile} {
+      grid-template-columns: repeat(1, 100%);
+      background: white;
+      box-shadow: none;
+      padding: 1.8rem 0rem 0rem 5.5rem;
     }
 
     li {
       color: white;
-      width: 16rem;
       background-color: #ffc149;
-      font-size: 1.6rem;
-      margin: 1.5rem;
 
       @media ${mobile} {
-        width: 80%;
-        font-size: 1rem;
+        width: 100%;
       }
       @media ${tablet} {
         width: 80%;
@@ -52,7 +72,7 @@ function Card({ className, classNameA, likeButton }) {
   `;
 
   const ListBox = styled.section`
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 3rem;
@@ -61,17 +81,29 @@ function Card({ className, classNameA, likeButton }) {
     }
     @media ${tablet} {
       margin-top: 0rem;
+    } */
+
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    margin-top: 3rem;
+    place-items: center;
+    width: 100%;
+    @media ${tablet} {
+      display: grid;
+      grid-template-columns: repeat(3, 33.3%);
+    }
+    @media ${mobile} {
+      grid-template-columns: repeat(1, 100%);
+      padding-left: 5.5rem;
     }
 
     li {
       background-color: white;
       color: black;
-      width: 16rem;
-      font-size: 1.6rem;
       margin: 1.5rem;
 
       @media ${mobile} {
-        width: 80%;
+        width: 100%;
       }
       @media ${tablet} {
         width: 80%;
@@ -84,7 +116,7 @@ function Card({ className, classNameA, likeButton }) {
     flex-wrap: wrap;
     justify-content: space-between;
     border-radius: 1rem;
-    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+    box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
     transform: scale(1);
     transition: all 0.5s;
     :hover {
@@ -96,19 +128,20 @@ function Card({ className, classNameA, likeButton }) {
     width: 100%;
     height: 65%;
     border-radius: 1rem 1rem 0rem 0rem;
-    box-shadow: 0px 2px 5px rgb(0 0 0 / 12%);
+    box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   `;
 
   const Word = styled.div`
     margin-left: 0.5rem;
     font-weight: bold;
+    font-size: 1.6rem;
 
     @media ${mobile} {
-      font-size: 40px;
+      font-size: 2.3rem;
     }
 
     @media ${tablet} {
-      font-size: 34px;
+      font-size: 1.3rem;
     }
   `;
 
@@ -116,15 +149,14 @@ function Card({ className, classNameA, likeButton }) {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 0.9rem 0.5rem 0.2rem 0.5rem;
+    margin: 2rem 0.5rem 0.2rem 0.5rem;
     font-size: 1.1rem;
     color: gray;
     @media ${mobile} {
-      font-size: 28px;
-      margin-top: 70px;
+      font-size: 1.4rem;
     }
     @media ${tablet} {
-      font-size: 23px;
+      font-size: 1rem;
     }
   `;
 
