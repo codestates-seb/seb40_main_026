@@ -19,22 +19,19 @@ function Card({ className, classNameA, likeButton }) {
 
   const TopListBox = styled.section`
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
     box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
     background: #f7f7f7;
     border-radius: 0rem 2rem 2rem 2rem;
-    place-items: center;
     grid-gap: 3rem;
-    padding: 3rem 0rem 3rem 10rem;
-
+    padding: 3rem;
     width: 100%;
 
     @media ${tablet} {
-      display: grid;
-      grid-template-columns: repeat(3, 33.3%);
       grid-gap: 0rem;
-      padding-left: 0rem;
     }
+
     @media ${mobile} {
       grid-template-columns: repeat(1, 100%);
       background: white;
@@ -57,16 +54,14 @@ function Card({ className, classNameA, likeButton }) {
 
   const ListBox = styled.section`
     display: grid;
-    grid-template-columns: repeat(4, 25%);
-    margin-top: 3rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     place-items: center;
+    margin-top: 3rem;
     width: 100%;
     @media ${tablet} {
-      display: grid;
-      grid-template-columns: repeat(3, 33.3%);
     }
     @media ${mobile} {
-      grid-template-columns: repeat(1, 100%);
+      grid-template-columns: 1fr;
       padding-left: 5.5rem;
     }
 
