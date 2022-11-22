@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import StudyList from '../components/StudyList/StudyList';
+import StudyView from '../components/StudyView/StudyView';
 import { desktop, mobile, tablet } from '../styles/Responsive';
 
-const StudyListPage = () => {
+const StudyViewPage = () => {
   return (
     <Container>
-      <StudyList />
+      <StudyView />
     </Container>
   );
 };
 
-export default StudyListPage;
+export default StudyViewPage;
 
 const Container = styled.div`
   display: flex;

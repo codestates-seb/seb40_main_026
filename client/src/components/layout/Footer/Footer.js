@@ -67,33 +67,38 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  width: 100%;
   bottom: 0;
   background-color: white;
   display: flex;
-  height: 150px;
+  height: 7rem;
   border-top: 1px gray solid;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   color: var(--theme-footer-text-color);
   text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center; //수직 가운데 정렬
+  margin: 0 15%;
 
   @media ${tablet} {
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: space-around;
-    height: 220px;
+    height: 10rem;
+    margin: 0 10%;
   }
   @media ${mobile} {
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: space-around;
-    height: 220px;
+    height: 11rem;
+    margin: 0 5%;
   }
 `;
 
@@ -102,7 +107,6 @@ export const FooterLogo = styled.div`
     width: 150px;
     cursor: pointer;
   }
-  margin: 20px;
 
   @media ${tablet} {
     display: none;
@@ -151,8 +155,8 @@ const Contributers = styled.div`
 export const Etc = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
   height: 100%;
+  margin-right: 0.1rem;
 `;
 
 const SnsContainer = styled.div`

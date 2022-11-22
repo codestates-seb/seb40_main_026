@@ -6,17 +6,21 @@ const StudyCard = ({ img, title, price, total, registered, start, end }) => {
     <Container>
       <CardWrapper>
         <img src={img} alt={'cardImg'} />
-        <TextBlock>
-          <div>
-            <div>{price}</div>
-            <div>{total}</div>
-          </div>
-          <div>{title}</div>
-          <div>
-            {start} ~ {end}
-          </div>
-        </TextBlock>
       </CardWrapper>
+      <TextBlock>
+        <div>
+          <div>{price}</div>
+          <RegisterCondition>
+            <div>{registered}</div>
+            <span> / </span>
+            <div>{total}</div>
+          </RegisterCondition>
+        </div>
+        <div>{title}</div>
+        <div>
+          {start} ~ {end}
+        </div>
+      </TextBlock>
     </Container>
   );
 };
@@ -24,14 +28,12 @@ const StudyCard = ({ img, title, price, total, registered, start, end }) => {
 export default StudyCard;
 
 const Container = styled.div`
-  background-color: pink;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px blue solid;
-  width: 300px;
-  margin: 20px;
+  border-radius: 2rem;
+  background-color: pink;
+  margin: 0.2rem;
+
   @media ${desktop} {
   }
   @media ${tablet} {
@@ -43,16 +45,25 @@ const Container = styled.div`
 const CardWrapper = styled.div`
   > img {
     width: 100%;
+    border-radius: 2rem 2rem 0 0;
   }
 `;
 
 const TextBlock = styled.div`
-  padding: 10px;
+  font-size: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   > div {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 0.3rem;
+  }
+`;
+
+const RegisterCondition = styled.div`
+  display: flex;
+  > span {
+    margin: 0 0.3rem;
   }
 `;
