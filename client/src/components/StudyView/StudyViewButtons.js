@@ -1,7 +1,6 @@
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
-import MediumButton from '../Shared/MediumButton';
 import SortBtn from '../Shared/SortBtn';
 import PostBtn from '../Shared/PostBtn';
 
