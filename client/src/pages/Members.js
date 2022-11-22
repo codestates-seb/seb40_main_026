@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import Member from '../components/Members/Member.js';
+import MemberList from '../components/Members/MemberList.js';
 
 const Container = styled.main`
   width: 70%;
   margin: auto;
-  div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: auto;
-  }
+  padding-bottom: 5rem;
+`;
+const ListBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const Title = styled.h1`
@@ -22,9 +21,9 @@ function Members() {
   return (
     <Container>
       <Title>친구들</Title>
-      <div>
-        <Member />
-      </div>
+      <ListBox>
+        <MemberList />
+      </ListBox>
     </Container>
   );
 }
