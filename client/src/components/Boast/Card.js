@@ -18,22 +18,6 @@ function Card({ className, classNameA, likeButton }) {
   `;
 
   const TopListBox = styled.section`
-    /* display: flex;
-    flex-wrap: wrap;
-    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
-    background: #f7f7f7;
-    border-radius: 0rem 2rem 2rem 2rem;
-    justify-content: center;
-
-    @media ${tablet} {
-      background-color: white;
-      box-shadow: none;
-    }
-    @media ${mobile} {
-      background-color: white;
-      box-shadow: none;
-    } */
-
     display: grid;
     grid-template-columns: repeat(4, 25%);
     box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
@@ -72,17 +56,6 @@ function Card({ className, classNameA, likeButton }) {
   `;
 
   const ListBox = styled.section`
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 3rem;
-    @media ${mobile} {
-      margin-top: 0rem;
-    }
-    @media ${tablet} {
-      margin-top: 0rem;
-    } */
-
     display: grid;
     grid-template-columns: repeat(4, 25%);
     margin-top: 3rem;
