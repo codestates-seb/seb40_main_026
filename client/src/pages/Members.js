@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import MemberList from '../components/Members/MemberList.js';
-
+import LevelBox from '../components/Members/LevelBox';
+import QuestionBox from '../components/Members/QuestionBox';
+import AnswerBox from '../components/Members/AnswerBox';
+import { tablet, mobile } from '../styles/Responsive';
 const Container = styled.main`
+  display: flex;
+  flex-direction: column;
   width: 70%;
   margin: auto;
   padding-bottom: 5rem;
@@ -9,6 +13,16 @@ const Container = styled.main`
 const ListBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+
+  @media ${tablet} {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media ${mobile} {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Title = styled.h1`
@@ -22,7 +36,9 @@ function Members() {
     <Container>
       <Title>친구들</Title>
       <ListBox>
-        <MemberList />
+        <LevelBox />
+        <QuestionBox />
+        <AnswerBox />
       </ListBox>
     </Container>
   );
