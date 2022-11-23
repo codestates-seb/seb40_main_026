@@ -3,7 +3,7 @@ import LikeButton from '../Shared/LikeButton';
 import { tablet, mobile } from '../../styles/Responsive';
 
 function Card({ className, classNameA, likeButton }) {
-  const Container = styled.ul`
+  const Container = styled.main`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -17,7 +17,7 @@ function Card({ className, classNameA, likeButton }) {
     }
   `;
 
-  const TopListBox = styled.section`
+  const TopListBox = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
@@ -33,7 +33,7 @@ function Card({ className, classNameA, likeButton }) {
     }
 
     @media ${mobile} {
-      grid-template-columns: repeat(1, 100%);
+      grid-template-columns: 1fr;
       background: white;
       box-shadow: none;
       padding: 1.8rem 0rem 0rem 5.5rem;
@@ -52,7 +52,7 @@ function Card({ className, classNameA, likeButton }) {
     }
   `;
 
-  const ListBox = styled.section`
+  const ListBox = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     place-items: center;

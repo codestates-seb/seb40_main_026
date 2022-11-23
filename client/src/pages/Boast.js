@@ -5,7 +5,7 @@ import PostBtn from '../components/Shared/PostBtn';
 import { Link } from 'react-router-dom';
 
 function Boast() {
-  const Container = styled.div`
+  const Container = styled.main`
     display: flex;
     flex-direction: column;
     margin: auto;
