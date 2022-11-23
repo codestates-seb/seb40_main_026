@@ -2,7 +2,36 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
+import PostBtn from '../Shared/PostBtn';
 
+const QuesSearch = ({ SearchOn, SetSearchOn }) => {
+  const [Searchtitle, SetSearchtitle] = useState('');
+  const SearchChange = (event) => {
+    SetSearchtitle(event.target.value);
+    SetSearchOn(!SearchOn);
+  };
+  console.log(SearchOn);
+  return (
+    <Searchwrap>
+      <div className="Searchwrap">
+        <div className="SearchbarWrap">
+          <input
+            className="Searchinput"
+            placeholder="질문을 입력해 주세요."
+            onChange={SearchChange}
+          ></input>
+        </div>
+        <div className="ButtonWrap">
+          <Link to="/ask">
+            <PostBtn text={'질문하기'} className={'AskBtn'}>
+              {' '}
+            </PostBtn>
+          </Link>
+        </div>
+      </div>
+    </Searchwrap>
+  );
+};
 const Searchwrap = styled.div`
   a {
     color: #fff;
@@ -15,7 +44,6 @@ const Searchwrap = styled.div`
     margin: auto;
     align-items: center;
     margin-top: 2rem;
-
     .SearchbarWrap {
       width: 100%;
       > input {
@@ -27,7 +55,7 @@ const Searchwrap = styled.div`
       }
     }
     .ButtonWrap {
-      > button {
+      .AskBtn {
         width: 120px;
         font-size: 1rem;
         border-radius: 1rem;
@@ -59,10 +87,8 @@ const Searchwrap = styled.div`
         width: 70%;
         > input {
           box-shadow: grey 0px 0px 3px;
-
           margin-right: 1rem;
           width: 90%;
-
           border-radius: 1rem;
         }
       }
@@ -82,31 +108,4 @@ const Searchwrap = styled.div`
     }
   }
 `;
-const QuesSearch = ({ SearchOn, SetSearchOn }) => {
-  const [Searchtitle, SetSearchtitle] = useState('');
-  const SearchChange = (event) => {
-    SetSearchtitle(event.target.value);
-    SetSearchOn(!SearchOn);
-  };
-  console.log(SearchOn);
-  return (
-    <Searchwrap>
-      <div className="Searchwrap">
-        <div className="SearchbarWrap">
-          <input
-            className="Searchinput"
-            placeholder="질문을 입력해 주세요."
-            onChange={SearchChange}
-          ></input>
-        </div>
-        <div className="ButtonWrap">
-          <button className="QuesBtn">
-            {' '}
-            <Link to="/ask">질문하기 </Link>
-          </button>
-        </div>
-      </div>
-    </Searchwrap>
-  );
-};
 export default QuesSearch;

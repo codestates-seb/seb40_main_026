@@ -1,96 +1,9 @@
 import styled from 'styled-components';
-import { desktop, tablet, mobile } from '../../styles/Responsive';
+import { tablet, mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
 import LikeButton from '../Shared/LikeButton';
 import { Link } from 'react-router-dom';
-const QuesListWrap = styled.div`
-  .QuesListMain {
-    padding-top: 1.5rem;
-    border-radius: 1rem;
-    padding-bottom: 1.5rem;
-    .QuestionsList {
-      margin: auto;
-      width: 70%;
-      .QuestionWrap {
-        text-align: center;
-        background-color: white;
-        border-radius: 1rem;
-        margin-top: 2rem;
-        padding-bottom: 0.5rem;
-        box-shadow: grey 0px 0px 3px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        .DisplayWrap {
-          width: 100%;
-          padding: 0.5rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .Sectionleft {
-            font-size: 1rem;
-            padding: 1rem;
-            text-align: left;
-            > p {
-              font-size: 0.8rem;
-            }
-            > button {
-              background-color: #fff;
-              font-size: 1.2rem;
-              margin-bottom: 1rem;
-              cursor: pointer;
-            }
-            > button:hover {
-              color: grey;
-            }
-          }
-          .Sectionright {
-            .AnswerCircle {
-              width: 80px;
-              height: 80px;
-              border-radius: 50%;
-              background-color: #00d2ff;
-              margin-right: 2rem;
-              font-size: 1rem;
-              color: #fff;
-              box-shadow: grey 0px 0px 3px;
-              display: flex;
-              flex-direction: column;
 
-              justify-content: center;
-            }
-          }
-        }
-        .SectionBot {
-          width: 100%;
-          padding: 0.5rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .BotUserWrap {
-            margin-left: 1rem;
-            font-size: 0.8rem;
-            .tabletAnswer {
-              display: none;
-            }
-          }
-          .Likebtn {
-            margin-right: 2.5rem;
-          }
-        }
-      }
-    }
-  }
-  @media ${tablet} {
-  }
-  @media ${mobile} {
-    min-width: 1200px;
-    .AnswerCircle {
-      display: none;
-    }
-  }
-`;
 const QuestionView = () => {
   const DummyQuestions = [
     {
@@ -160,13 +73,13 @@ const QuestionView = () => {
 
                 <div className="SectionBot">
                   <div className="BotUserWrap">
-                    <span className=" tabletAnswer">
-                      답변 {items.answerlength}
-                    </span>
                     <span>{items.date}</span>
                     <span> {items.nickname} </span>
                     <span> {items.class} </span>
                     <span> {items.grade} </span>
+                    <span className="mobileAnswer">
+                      답변 {items.answerlength}
+                    </span>
                   </div>
                   <div>
                     <span className="Likebtn">
@@ -182,5 +95,97 @@ const QuestionView = () => {
     </QuesListWrap>
   );
 };
+const QuesListWrap = styled.div`
+  .QuesListMain {
+    padding-top: 1.5rem;
+    border-radius: 1rem;
+    padding-bottom: 1.5rem;
+    .QuestionsList {
+      margin: auto;
+      width: 70%;
+      .QuestionWrap {
+        text-align: center;
+        background-color: white;
+        border-radius: 1rem;
+        margin-top: 2rem;
+        padding-bottom: 0.5rem;
+        box-shadow: grey 0px 0px 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        .DisplayWrap {
+          width: 100%;
+          padding: 0.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .Sectionleft {
+            font-size: 1rem;
+            padding: 1rem;
+            text-align: left;
+            > p {
+              font-size: 0.8rem;
+            }
+            > button {
+              background-color: #fff;
+              font-size: 1.2rem;
+              margin-bottom: 1rem;
+              cursor: pointer;
+            }
+            > button:hover {
+              color: grey;
+            }
+          }
+          .Sectionright {
+            .AnswerCircle {
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              background-color: #00d2ff;
+              margin-right: 2rem;
+              font-size: 1rem;
+              color: #fff;
+              box-shadow: grey 0px 0px 3px;
+              display: flex;
+              flex-direction: column;
 
+              justify-content: center;
+            }
+          }
+        }
+        .SectionBot {
+          width: 100%;
+          padding: 0.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .BotUserWrap {
+            margin-left: 1rem;
+            font-size: 0.8rem;
+            .mobileAnswer {
+              display: none;
+            }
+          }
+          .Likebtn {
+            margin-right: 2.5rem;
+          }
+        }
+      }
+    }
+  }
+  @media ${tablet} {
+  }
+  @media ${mobile} {
+    min-width: 400px;
+    .Sectionright {
+      display: none;
+    }
+    .BotUserWrap {
+      .mobileAnswer {
+        display: block;
+      }
+    }
+  }
+`;
 export default QuestionView;

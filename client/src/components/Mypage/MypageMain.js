@@ -3,181 +3,6 @@ import { MdEmojiPeople } from 'react-icons/md';
 import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-const MypageContainer = styled.div`
-  margin-bottom: 1rem;
-  a {
-    color: #fff;
-  }
-  .MypageMainwrap {
-    width: 70%;
-    margin: auto;
-    margin-top: 1rem;
-    box-shadow: grey 0px 0px 3px;
-    padding: 1rem;
-    display: flex;
-    border-radius: 1rem;
-    background-color: #fafafa;
-
-    .CommDisplay {
-      display: flex;
-      flex-direction: column;
-    }
-    .MypageTitle {
-      font-size: 1.4rem;
-      color: #ffa800;
-    }
-    .MypageLeft {
-      width: 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      padding: 1rem;
-      margin: auto;
-
-      .UserPhotoWrap {
-        > img {
-          width: 150px;
-        }
-      }
-
-      .NicknameWrap {
-        box-shadow: grey 0px 0px 3px;
-        background-color: #fff;
-        width: 150px;
-        text-align: center;
-        border-radius: 1rem;
-        margin-top: 1rem;
-        padding: 0.5rem;
-      }
-    }
-    .MypageRight {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: grey 0px 0px 3px;
-      background-color: #fff;
-      border-radius: 1rem;
-      .Userinfo {
-        width: 250px;
-        margin-left: 2rem;
-        font-size: 1.2rem;
-        padding: 1rem;
-        border-radius: 1rem;
-      }
-      .UserIntro {
-        width: 90%;
-        margin-right: 2rem;
-        padding: 1rem;
-        .IntroWrap {
-          box-shadow: grey 0px 0px 3px;
-          border-radius: 1rem;
-          width: 100%;
-          height: 150px;
-          margin-right: 3rem;
-          padding: 1rem;
-        }
-        .btnWrap {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-          > div > button {
-            padding: 1rem;
-            margin-right: 1rem;
-            border-radius: 1rem;
-            background-color: #fff;
-            box-shadow: grey 0px 0px 3px;
-            color: #fff;
-          }
-          .Canclebtn {
-            background-color: #ff9fd7;
-          }
-          .Outbtn {
-            background-color: #00d2ff;
-          }
-        }
-      }
-    }
-  }
-  @media ${tablet} {
-    .MypageMainwrap {
-      font-size: 0.8rem;
-      flex-direction: column;
-      .MypageTitle {
-        font-size: 1rem;
-        color: #ffa800;
-      }
-      .MypageRight {
-        width: 100%;
-        margin: auto;
-        .Userinfo {
-          margin-left: 1rem;
-          box-shadow: grey 0px 0px 3px;
-
-          font-size: 0.8rem;
-          padding: 2rem;
-          border-radius: 1rem;
-        }
-        .UserIntro {
-          width: 100%;
-          margin-right: 0rem;
-          padding: 1rem;
-          .btnWrap {
-            display: flex;
-            font-size: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.5rem;
-            > div > button {
-              padding: 0.5rem;
-              font-size: 0.7rem;
-            }
-          }
-        }
-      }
-    }
-  }
-  @media ${mobile} {
-    .MypageMainwrap {
-      font-size: 0.8rem;
-      flex-direction: column;
-      .MypageTitle {
-        font-size: 1rem;
-        color: #ffa800;
-      }
-      .MypageRight {
-        width: 100%;
-        flex-direction: column;
-        margin: auto;
-        .Userinfo {
-          width: 90%;
-          margin: auto;
-          box-shadow: grey 0px 0px 3px;
-          margin-top: 1rem;
-          font-size: 0.8rem;
-          padding: 2rem;
-          border-radius: 1rem;
-        }
-        .UserIntro {
-          width: 100%;
-          margin-right: 0rem;
-          padding: 1rem;
-          .btnWrap {
-            display: flex;
-            font-size: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.5rem;
-            > div > button {
-              padding: 0.2rem;
-              font-size: 0.7rem;
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const MypageEdit = () => {
   const UserDummydata = {
@@ -267,4 +92,195 @@ const MypageEdit = () => {
     </MypageContainer>
   );
 };
+const MypageContainer = styled.div`
+  margin-bottom: 1rem;
+  a {
+    color: #fff;
+  }
+  .MypageMainwrap {
+    width: 70%;
+    margin: auto;
+    margin-top: 1rem;
+    box-shadow: grey 0px 0px 3px;
+    padding: 1rem;
+    display: flex;
+    border-radius: 1rem;
+    background-color: #fafafa;
+
+    .CommDisplay {
+      display: flex;
+      flex-direction: column;
+    }
+    .MypageTitle {
+      font-size: 1.4rem;
+      color: #ffa800;
+    }
+    .MypageLeft {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding: 1rem;
+      margin: auto;
+
+      .UserPhotoWrap {
+        > img {
+          width: 150px;
+        }
+      }
+
+      .NicknameWrap {
+        box-shadow: grey 0px 0px 3px;
+        background-color: #fff;
+        width: 150px;
+        text-align: center;
+        border-radius: 1rem;
+        margin-top: 1rem;
+        padding: 0.5rem;
+      }
+    }
+    .MypageRight {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      box-shadow: grey 0px 0px 3px;
+      background-color: #fff;
+      border-radius: 1rem;
+      padding: 1rem;
+      .Userinfo {
+        width: 250px;
+
+        font-size: 1.2rem;
+        padding: 1rem;
+        border-radius: 1rem;
+      }
+      .UserIntro {
+        width: 100%;
+        padding: 1rem;
+
+        .IntroWrap {
+          box-shadow: grey 0px 0px 3px;
+          border-radius: 1rem;
+
+          height: 150px;
+
+          padding: 1rem;
+        }
+        .btnWrap {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
+          > div > button {
+            padding: 1rem;
+            margin-right: 0.5rem;
+            border-radius: 1rem;
+            background-color: #fff;
+            box-shadow: grey 0px 0px 3px;
+            color: #fff;
+          }
+          .Canclebtn {
+            background-color: #ff9fd7;
+          }
+          .Outbtn {
+            background-color: #00d2ff;
+          }
+        }
+      }
+    }
+  }
+  @media ${tablet} {
+    .MypageMainwrap {
+      font-size: 0.8rem;
+      flex-direction: column;
+      .MypageTitle {
+        font-size: 1rem;
+        color: #ffa800;
+      }
+      .MypageRight {
+        width: 100%;
+        margin: auto;
+        .Userinfo {
+          margin-left: 1rem;
+          box-shadow: grey 0px 0px 3px;
+
+          font-size: 0.8rem;
+          padding: 2rem;
+          border-radius: 1rem;
+        }
+        .UserIntro {
+          width: 100%;
+          margin-right: 0rem;
+          padding: 1rem;
+          .IntroWrap {
+            box-shadow: grey 0px 0px 3px;
+            border-radius: 1rem;
+            width: 100%;
+
+            padding: 1rem;
+          }
+          .btnWrap {
+            display: flex;
+
+            font-size: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            > div > button {
+              padding: 0.5rem;
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media ${mobile} {
+    .MypageMainwrap {
+      font-size: 0.8rem;
+      flex-direction: column;
+      .MypageTitle {
+        font-size: 1rem;
+        color: #ffa800;
+      }
+      .MypageRight {
+        width: 100%;
+        flex-direction: column;
+        padding: 0;
+        margin: auto;
+        .Userinfo {
+          margin: auto;
+          box-shadow: grey 0px 0px 3px;
+          margin-top: 1rem;
+          font-size: 0.8rem;
+          padding: 1rem;
+          border-radius: 1rem;
+        }
+        .UserIntro {
+          width: 100%;
+          margin-right: 0rem;
+          padding: 2rem;
+          .IntroWrap {
+            border-radius: 1rem;
+            width: 80%;
+            margin: auto;
+            padding: 1rem;
+          }
+          .btnWrap {
+            width: 280px;
+            margin: auto;
+            font-size: 0.5rem;
+            padding: 0.5rem;
+            > div > button {
+              padding: 0.8rem;
+              font-size: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export default MypageEdit;

@@ -22,13 +22,30 @@ const CreateWrap = styled.div`
       background-color: #00d2ff;
       color: #fff;
     }
+    @media ${tablet} {
+      .CommentBtn {
+        width: 70px;
+      }
+    }
+    @media ${mobile} {
+      .ComInputWrap {
+        padding: 0.2rem;
+      }
+      .CommentBtn {
+        width: 60px;
+      }
+    }
   }
 `;
 const CommentCreate = () => {
   return (
     <CreateWrap>
       <div className="ComInputWrap">
-        <input placeholder="댓글을 입력해주세요"></input> <button>입력</button>{' '}
+        <input
+          className="CommentInput"
+          placeholder="댓글을 입력해주세요"
+        ></input>{' '}
+        <button className="CommentBtn">입력</button>{' '}
       </div>
       <div> </div>
     </CreateWrap>

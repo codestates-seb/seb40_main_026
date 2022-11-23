@@ -1,6 +1,23 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
+
+const AnswerCreate = () => {
+  return (
+    <CreateWrap>
+      <div className="CreateView">
+        <div className="Createinput">
+          {' '}
+          <input placeholder="답변을 입력해주세요."></input>
+        </div>
+        <div>
+          {' '}
+          <button className="CreateBtn">작성하기</button>
+        </div>
+      </div>
+    </CreateWrap>
+  );
+};
 const CreateWrap = styled.div`
   margin-top: 2rem;
   .CreateView {
@@ -24,27 +41,19 @@ const CreateWrap = styled.div`
         width: 100%;
       }
     }
-    > div > button {
+    .CreateBtn {
       padding: 0.5rem;
       background-color: #ffc149;
       color: #fff;
     }
+
+    @media ${mobile};
+     {
+      .CreateBtn {
+        width: 80px;
+        padding: 0.5rem;
+      }
+    }
   }
 `;
-const AnswerCreate = () => {
-  return (
-    <CreateWrap>
-      <div className="CreateView">
-        <div className="Createinput">
-          {' '}
-          <input placeholder="답변을 입력해주세요."></input>
-        </div>
-        <div>
-          {' '}
-          <button>작성하기</button>
-        </div>
-      </div>
-    </CreateWrap>
-  );
-};
 export default AnswerCreate;

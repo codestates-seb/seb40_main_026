@@ -5,11 +5,77 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
 import TitleHeader from '../Shared/TitleHeader';
 
+const MypageMain = () => {
+  const [Imgurl, SetImgurl] = useState();
+  const [ImgSrc, SetImgSrc] = useState();
+  const ImgHandler = (event) => {
+    SetSrc(event.target.files[0]);
+  };
+  const SetSrc = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        SetImgSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+  console.log(ImgSrc);
+  return (
+    <EditContainer>
+      <TitleHeader title={'회원정보 수정'} />
+      <div className="EditWrap">
+        <h3>회원정보 수정</h3>
+        <form className="EditForm">
+          <div className="EditformWrap">
+            <div className="EditLeft">
+              <div>
+                <img
+                  className="Imgwrap"
+                  alt="userimg"
+                  src={
+                    ImgSrc
+                      ? ImgSrc
+                      : 'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png'
+                  }
+                ></img>
+                <br></br>
+                <input
+                  type="file"
+                  className="ImgInput"
+                  onChange={ImgHandler}
+                ></input>
+              </div>
+            </div>
+            <div className="Editright">
+              <div>
+                {' '}
+                <span>닉네임 </span>
+                <br />
+                <input></input>
+              </div>
+              <div>
+                {' '}
+                <span>자기소개 </span>
+                <br />
+                <textarea className="IntroInput"></textarea>
+              </div>
+            </div>
+          </div>
+          <div className="Editbtn">
+            <button>회원정보 수정</button>
+          </div>
+        </form>
+      </div>
+    </EditContainer>
+  );
+};
 const EditContainer = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   .EditWrap {
-    width: 35%;
+    width: 50%;
     margin: auto;
     margin-top: 1rem;
     padding: 1rem;
@@ -27,7 +93,6 @@ const EditContainer = styled.div`
         align-items: center;
         .EditLeft {
           .ImgInput {
-            margin-left: 3rem;
             margin-top: 1rem;
           }
           .Imgwrap {
@@ -52,6 +117,8 @@ const EditContainer = styled.div`
             height: 150px;
             margin-top: 1rem;
             border-radius: 1rem;
+            padding: 1rem;
+            resize: none;
           }
         }
       }
@@ -121,71 +188,4 @@ const EditContainer = styled.div`
     }
   }
 `;
-
-const MypageMain = () => {
-  const [Imgurl, SetImgurl] = useState();
-  const [ImgSrc, SetImgSrc] = useState();
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-  };
-  const SetSrc = (e) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(e);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        SetImgSrc(reader.result);
-        resolve();
-      };
-    });
-  };
-  console.log(ImgSrc);
-  return (
-    <EditContainer>
-      <TitleHeader title={'회원정보 수정'} />
-      <div className="EditWrap">
-        <h3>회원정보 수정</h3>
-        <form className="EditForm">
-          <div className="EditformWrap">
-            <div className="EditLeft">
-              <div>
-                <img
-                  className="Imgwrap"
-                  alt="userimg"
-                  src={
-                    ImgSrc
-                      ? ImgSrc
-                      : 'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png'
-                  }
-                ></img>
-                <br></br>
-                <input
-                  type="file"
-                  className="ImgInput"
-                  onChange={ImgHandler}
-                ></input>
-              </div>
-            </div>
-            <div className="Editright">
-              <div>
-                {' '}
-                <span>닉네임 </span>
-                <br />
-                <input></input>
-              </div>
-              <div>
-                {' '}
-                <span>자기소개 </span>
-                <br />
-                <textarea className="IntroInput"></textarea>
-              </div>
-            </div>
-          </div>
-          <div className="Editbtn">
-            <button>회원정보 수정</button>
-          </div>
-        </form>
-      </div>
-    </EditContainer>
-  );
-};
 export default MypageMain;

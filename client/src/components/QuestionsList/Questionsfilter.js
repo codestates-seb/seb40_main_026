@@ -1,31 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
+import SortBtn from '../Shared/SortBtn';
 
-const Filterwrap = styled.div`
-  background-color: black;
-  margin-top: 1rem;
-
-  .filter-main {
-    margin: auto;
-    width: 70%;
-    background-color: blue;
-    > span > button {
-      float: right;
-      padding: 0.8rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
-      background-color: #d8d4cc;
-      border-radius: 2rem;
-    }
-    > span {
-      .yellow {
-        background-color: #ffc149;
-      }
-    }
-  }
-`;
 const Quesfilter = () => {
   const [TitleId, setTitleId] = useState(3);
   const filterdata = [
@@ -56,12 +33,11 @@ const Quesfilter = () => {
         {filterdata.map((items) => {
           return (
             <span key={items.id}>
-              <button
-                onClick={() => filterOn(items.id)}
+              <SortBtn
+                text={items.title}
                 className={items.id === TitleId ? 'yellow' : null}
-              >
-                {items.title}
-              </button>
+                onClick={() => filterOn(items.id)}
+              />
             </span>
           );
         })}
@@ -69,4 +45,28 @@ const Quesfilter = () => {
     </Filterwrap>
   );
 };
+const Filterwrap = styled.div`
+  background-color: black;
+  margin-top: 1rem;
+
+  .filter-main {
+    margin: auto;
+    width: 70%;
+    background-color: blue;
+    > span > button {
+      float: right;
+      padding: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      background-color: #d8d4cc;
+      border-radius: 2rem;
+    }
+    > span {
+      .yellow {
+        background-color: #ffc149;
+      }
+    }
+  }
+`;
 export default Quesfilter;
