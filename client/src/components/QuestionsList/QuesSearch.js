@@ -10,7 +10,7 @@ const QuesSearch = ({ SearchOn, SetSearchOn }) => {
     SetSearchtitle(event.target.value);
     SetSearchOn(!SearchOn);
   };
-  console.log(SearchOn);
+
   return (
     <SearchContainer>
       <Searchwrap>

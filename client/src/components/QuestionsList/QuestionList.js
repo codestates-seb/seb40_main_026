@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { tablet, mobile } from '../../styles/Responsive';
+import { mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
 import LikeButton from '../Shared/LikeButton';
 import { Link } from 'react-router-dom';

@@ -6,13 +6,11 @@ const CreateWrap = styled.div`
   form {
     width: 70%;
     margin: auto;
-
     h3 {
       margin-top: 1rem;
     }
     input {
       width: 100%;
-
       border-radius: 0.3rem;
       box-shadow: grey 0px 0px 3px;
       padding: 0.8rem;
@@ -22,9 +20,7 @@ const CreateWrap = styled.div`
       height: 50vh;
     }
     .CreateBtnWrap {
-      display: flex;
-      justify-content: right;
-
+      text-align: right;
       > button {
         width: 200px;
         margin-top: 1rem;

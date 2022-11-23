@@ -12,7 +12,7 @@ const QuestionCreate = () => {
     </Container>
   );
 };
-const Container = styled.header`
+const Container = styled.div`
   @media ${mobile} {
     .TitleHeader {
       display: none;

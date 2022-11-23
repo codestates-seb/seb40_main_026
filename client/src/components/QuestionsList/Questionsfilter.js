@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { tablet, mobile } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
 
 const Quesfilter = () => {

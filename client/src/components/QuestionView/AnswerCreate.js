@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { tablet, mobile } from '../../styles/Responsive';
+import { mobile } from '../../styles/Responsive';
 
 const AnswerCreate = () => {
   return (

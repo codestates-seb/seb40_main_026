@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
-import Mypage from './components/Mypage/Mypage';
+import Mypage from './pages/Mypage';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 import LoginPage from './pages/Loginpage';
@@ -12,7 +12,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
-import MypageEdit from './components/Mypage/MypageEdit';
+import MypageEdit from './pages/MypageEdit';
 
 function App() {
   return (

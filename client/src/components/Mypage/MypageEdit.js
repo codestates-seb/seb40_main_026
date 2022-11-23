@@ -3,7 +3,7 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
 import TitleHeader from '../Shared/TitleHeader';
 
-const MypageMain = () => {
+const MypageEditContainer = () => {
   const [ImgSrc, SetImgSrc] = useState();
   const ImgHandler = (event) => {
     SetSrc(event.target.files[0]);
@@ -181,8 +181,7 @@ const Editbtn = styled.div`
   @media ${mobile} {
     button {
       font-size: 0.5rem;
-      margin-top: 0;
     }
   }
 `;
-export default MypageMain;
+export default MypageEditContainer;

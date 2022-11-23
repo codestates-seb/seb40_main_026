@@ -19,7 +19,7 @@ const MypageEdit = () => {
     photourl:
       'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png',
   };
-  console.log(UserDummydata.id);
+
   return (
     <MypageContainer>
       <MypageMainwrap>
@@ -136,7 +136,6 @@ const MypageLeft = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 1rem;
   margin: auto;
 `;
@@ -221,6 +220,9 @@ const IntroWrap = styled.div`
   border-radius: 1rem;
   height: 150px;
   padding: 1rem;
+  > h4 {
+    color: #ffa800;
+  }
   @media ${tablet} {
     box-shadow: grey 0px 0px 3px;
     border-radius: 1rem;

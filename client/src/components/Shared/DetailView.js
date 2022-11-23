@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
-import { mobile, tablet } from '../../styles/Responsive';
+import { mobile } from '../../styles/Responsive';
 
 const DetailView = ({ DummyData, likeCount }) => {
   console.log(DummyData);
