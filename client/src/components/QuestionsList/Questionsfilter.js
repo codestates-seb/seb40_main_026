@@ -29,7 +29,7 @@ const Quesfilter = () => {
   //onclick?Clasname =yellow
   return (
     <Filterwrap>
-      <div className="filter-main">
+      <FilterMain>
         {filterdata.map((items) => {
           return (
             <span key={items.id}>
@@ -41,32 +41,31 @@ const Quesfilter = () => {
             </span>
           );
         })}
-      </div>
+      </FilterMain>
     </Filterwrap>
   );
 };
+const FilterMain = styled.div`
+  margin: auto;
+  width: 70%;
+  background-color: blue;
+  > span > button {
+    float: right;
+    padding: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    background-color: #d8d4cc;
+    border-radius: 2rem;
+  }
+  > span {
+    .yellow {
+      background-color: #ffc149;
+    }
+  }
+`;
 const Filterwrap = styled.div`
   background-color: black;
   margin-top: 1rem;
-
-  .filter-main {
-    margin: auto;
-    width: 70%;
-    background-color: blue;
-    > span > button {
-      float: right;
-      padding: 0.8rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
-      background-color: #d8d4cc;
-      border-radius: 2rem;
-    }
-    > span {
-      .yellow {
-        background-color: #ffc149;
-      }
-    }
-  }
 `;
 export default Quesfilter;

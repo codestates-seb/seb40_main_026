@@ -21,7 +21,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<div>홈</div>} />
-        <Route path="/signup" element={<div>회원가입</div>} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/mypage/edit" element={<MypageEdit />} />

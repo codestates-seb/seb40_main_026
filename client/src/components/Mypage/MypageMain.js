@@ -22,12 +22,12 @@ const MypageEdit = () => {
   console.log(UserDummydata.id);
   return (
     <MypageContainer>
-      <div className="MypageMainwrap">
-        <div className="MypageLeft">
-          <div className="UserPhotoWrap">
+      <MypageMainwrap>
+        <MypageLeft>
+          <UserPhotoWrap>
             <img alt="userimg" src={UserDummydata.photourl}></img>
-          </div>
-          <div className="NicknameWrap">
+          </UserPhotoWrap>
+          <NicknameWrap>
             <div>
               {' '}
               <span className="MypageTitle">닉네임</span>
@@ -40,247 +40,237 @@ const MypageEdit = () => {
                 {UserDummydata.nickname}
               </span>
             </div>
-          </div>
-        </div>
-        <div className="MypageRight">
-          <div className="Userinfo">
-            <div className="CommDisplay">
+          </NicknameWrap>
+        </MypageLeft>
+        <MypageRight>
+          <Userinfo>
+            <CommDisplay>
               <span className="MypageTitle">학교</span>
               <span>
                 {' '}
                 <FaSchool />
                 {UserDummydata.elementary}
               </span>
-            </div>
-            <div className="CommDisplay">
+            </CommDisplay>
+            <CommDisplay>
               <span className="MypageTitle">총 게시물</span>
               <span>{UserDummydata.totalpost}개</span>
-            </div>
-            <div className="CommDisplay">
+            </CommDisplay>
+            <CommDisplay>
               <span className="MypageTitle">총 댓글</span>
               <span>{UserDummydata.totalcom}개</span>
-            </div>
-            <div className="CommDisplay">
+            </CommDisplay>
+            <CommDisplay>
               <span className="MypageTitle">계급</span>
               <span>{UserDummydata.class}</span>
-            </div>
-          </div>
-          <div className="UserIntro">
-            <div className="IntroWrap">
+            </CommDisplay>
+          </Userinfo>
+          <UserIntro>
+            <IntroWrap>
               <h4 className="MypageTitle">
                 {' '}
                 <MdEmojiPeople /> 자기소개
               </h4>
               <p>{UserDummydata.introduce}</p>
-            </div>
-            <div className="btnWrap">
-              <div className="CommDisplay">
+            </IntroWrap>
+            <BtnWrap>
+              <CommDisplay>
                 <span>가입일 : {UserDummydata.date}</span>
 
                 <span>최근 접속일 : {UserDummydata.recent}</span>
-              </div>
+              </CommDisplay>
               <div>
                 <button className="Canclebtn">
                   <Link to="/mypage/edit">수정하기</Link>
                 </button>
                 <button className="Outbtn">탈퇴하기</button>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </BtnWrap>
+          </UserIntro>
+        </MypageRight>
+      </MypageMainwrap>
     </MypageContainer>
   );
 };
+
 const MypageContainer = styled.div`
   margin-bottom: 1rem;
   a {
     color: #fff;
   }
-  .MypageMainwrap {
-    width: 70%;
+`;
+const MypageMainwrap = styled.div`
+  width: 70%;
+  margin: auto;
+  margin-top: 1rem;
+  box-shadow: grey 0px 0px 3px;
+  padding: 1rem;
+  display: flex;
+  border-radius: 1rem;
+  background-color: #fafafa;
+  @media ${tablet} {
+    font-size: 0.8rem;
+    flex-direction: column;
+  }
+  @media ${mobile} {
+    font-size: 0.8rem;
+    flex-direction: column;
+  }
+`;
+const NicknameWrap = styled.div`
+  box-shadow: grey 0px 0px 3px;
+  background-color: #fff;
+  width: 150px;
+  text-align: center;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+`;
+const UserPhotoWrap = styled.div`
+  img {
+    width: 150px;
+  }
+`;
+const MypageLeft = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1rem;
+  margin: auto;
+`;
+const MypageRight = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: grey 0px 0px 3px;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  @media ${tablet} {
+    width: 100%;
     margin: auto;
-    margin-top: 1rem;
+  }
+  @media ${mobile} {
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+    margin: auto;
+  }
+`;
+const Userinfo = styled.div`
+  width: 250px;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  @media ${tablet} {
+    margin-left: 1rem;
     box-shadow: grey 0px 0px 3px;
-    padding: 1rem;
-    display: flex;
+    font-size: 0.8rem;
+    padding: 2rem;
     border-radius: 1rem;
-    background-color: #fafafa;
-
-    .CommDisplay {
-      display: flex;
-      flex-direction: column;
-    }
-    .MypageTitle {
-      font-size: 1.4rem;
-      color: #ffa800;
-    }
-    .MypageLeft {
-      width: 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      padding: 1rem;
-      margin: auto;
-
-      .UserPhotoWrap {
-        > img {
-          width: 150px;
-        }
-      }
-
-      .NicknameWrap {
-        box-shadow: grey 0px 0px 3px;
-        background-color: #fff;
-        width: 150px;
-        text-align: center;
-        border-radius: 1rem;
-        margin-top: 1rem;
-        padding: 0.5rem;
-      }
-    }
-    .MypageRight {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      box-shadow: grey 0px 0px 3px;
-      background-color: #fff;
-      border-radius: 1rem;
-      padding: 1rem;
-      .Userinfo {
-        width: 250px;
-
-        font-size: 1.2rem;
-        padding: 1rem;
-        border-radius: 1rem;
-      }
-      .UserIntro {
-        width: 100%;
-        padding: 1rem;
-
-        .IntroWrap {
-          box-shadow: grey 0px 0px 3px;
-          border-radius: 1rem;
-
-          height: 150px;
-
-          padding: 1rem;
-        }
-        .btnWrap {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-          > div > button {
-            padding: 1rem;
-            margin-right: 0.5rem;
-            border-radius: 1rem;
-            background-color: #fff;
-            box-shadow: grey 0px 0px 3px;
-            color: #fff;
-          }
-          .Canclebtn {
-            background-color: #ff9fd7;
-          }
-          .Outbtn {
-            background-color: #00d2ff;
-          }
-        }
-      }
-    }
+  }
+  @media ${mobile} {
+    margin: auto;
+    box-shadow: grey 0px 0px 3px;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+`;
+const CommDisplay = styled.div`
+  display: flex;
+  flex-direction: column;
+  .MypageTitle {
+    font-size: 1.4rem;
+    color: #ffa800;
   }
   @media ${tablet} {
-    .MypageMainwrap {
-      font-size: 0.8rem;
-      flex-direction: column;
-      .MypageTitle {
-        font-size: 1rem;
-        color: #ffa800;
-      }
-      .MypageRight {
-        width: 100%;
-        margin: auto;
-        .Userinfo {
-          margin-left: 1rem;
-          box-shadow: grey 0px 0px 3px;
-
-          font-size: 0.8rem;
-          padding: 2rem;
-          border-radius: 1rem;
-        }
-        .UserIntro {
-          width: 100%;
-          margin-right: 0rem;
-          padding: 1rem;
-          .IntroWrap {
-            box-shadow: grey 0px 0px 3px;
-            border-radius: 1rem;
-            width: 100%;
-
-            padding: 1rem;
-          }
-          .btnWrap {
-            display: flex;
-
-            font-size: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.5rem;
-            > div > button {
-              padding: 0.5rem;
-              font-size: 0.7rem;
-            }
-          }
-        }
-      }
+    .MypageTitle {
+      font-size: 1rem;
+      color: #ffa800;
     }
   }
   @media ${mobile} {
-    .MypageMainwrap {
-      font-size: 0.8rem;
-      flex-direction: column;
-      .MypageTitle {
-        font-size: 1rem;
-        color: #ffa800;
-      }
-      .MypageRight {
-        width: 100%;
-        flex-direction: column;
-        padding: 0;
-        margin: auto;
-        .Userinfo {
-          margin: auto;
-          box-shadow: grey 0px 0px 3px;
-          margin-top: 1rem;
-          font-size: 0.8rem;
-          padding: 1rem;
-          border-radius: 1rem;
-        }
-        .UserIntro {
-          width: 100%;
-          margin-right: 0rem;
-          padding: 2rem;
-          .IntroWrap {
-            border-radius: 1rem;
-            width: 80%;
-            margin: auto;
-            padding: 1rem;
-          }
-          .btnWrap {
-            width: 280px;
-            margin: auto;
-            font-size: 0.5rem;
-            padding: 0.5rem;
-            > div > button {
-              padding: 0.8rem;
-              font-size: 0.5rem;
-            }
-          }
-        }
-      }
+    .MypageTitle {
+      font-size: 1rem;
+      color: #ffa800;
     }
   }
 `;
-
+const UserIntro = styled.div`
+  width: 100%;
+  padding: 1rem;
+  @media ${tablet} {
+    width: 100%;
+    margin-right: 0rem;
+    padding: 1rem;
+  }
+  @media ${mobile} {
+    width: 100%;
+    margin-right: 0rem;
+    padding: 2rem;
+  }
+`;
+const IntroWrap = styled.div`
+  box-shadow: grey 0px 0px 3px;
+  border-radius: 1rem;
+  height: 150px;
+  padding: 1rem;
+  @media ${tablet} {
+    box-shadow: grey 0px 0px 3px;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 1rem;
+  }
+  @media ${mobile} {
+    border-radius: 1rem;
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+  }
+`;
+const BtnWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  > div > button {
+    padding: 1rem;
+    margin-right: 0.5rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: grey 0px 0px 3px;
+    color: #fff;
+  }
+  .Canclebtn {
+    background-color: #ff9fd7;
+  }
+  .Outbtn {
+    background-color: #00d2ff;
+  }
+  @media ${tablet} {
+    display: flex;
+    font-size: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    > div > button {
+      padding: 0.5rem;
+      font-size: 0.7rem;
+    }
+  }
+  @media ${mobile} {
+    width: 280px;
+    margin: auto;
+    font-size: 0.5rem;
+    padding: 0.5rem;
+    > div > button {
+      padding: 0.8rem;
+      font-size: 0.5rem;
+    }
+  }
+`;
 export default MypageEdit;
