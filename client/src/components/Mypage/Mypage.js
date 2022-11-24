@@ -2,7 +2,7 @@ import TitleHeader from '../Shared/TitleHeader';
 import MypageMain from './MypageMain';
 import CommentCreate from '../Shared/CommentCreate';
 import Commentlist from '../Shared/Commentlist';
-const Mypage = () => {
+const MypageContainer = () => {
   return (
     <>
       <TitleHeader title={'회원정보'} />
@@ -13,4 +13,4 @@ const Mypage = () => {
     </>
   );
 };
-export default Mypage;
+export default MypageContainer;

@@ -1,5 +1,44 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
+import { mobile } from '../../styles/Responsive';
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+const DetailView = ({ DummyData, likeCount }) => {
+  console.log(DummyData);
+  return (
+    <>
+      <Detail>
+        <section className="DetailViewWrap">
+          <div>
+            <div className="TitleWrap">
+              <div className="DetailTitle">
+                <h3>{DummyData.title}</h3>
+              </div>
+
+              <div className="Userinfo">
+                <span>{DummyData.nickname} </span>
+                <span>{DummyData.class}</span>
+                <span>{DummyData.grade} </span>
+                <span>{DummyData.date}</span>
+              </div>
+            </div>
+            <div className="UserWrap"></div>
+            <div className="Article">
+              <Viewer initialValue={DummyData.body} />
+              <LikeButton likeCount={likeCount} />
+              <div className="Workbtn">
+                <button> 수정하기 </button>
+                <button> 삭제하기 </button>
+                <button> 신고하기 </button>
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </section>
+      </Detail>
+    </>
+  );
+};
 const Detail = styled.div`
   width: 100%;
   margin-top: 1rem;
@@ -63,41 +102,16 @@ const Detail = styled.div`
       }
     }
   }
+  @media ${mobile} {
+    .DetailTitle > h3 {
+      font-size: 1rem;
+    }
+    .Userinfo > span {
+      font-size: 0.5rem;
+    }
+    .Article > p {
+      font-size: 0.8rem;
+    }
+  }
 `;
-const DetailView = ({ DummyData, likeCount }) => {
-  console.log(DummyData);
-  return (
-    <>
-      <Detail>
-        <section className="DetailViewWrap">
-          <div>
-            <div className="TitleWrap">
-              <div className="DetailTitle">
-                <h3>{DummyData.title}</h3>
-              </div>
-
-              <div className="Userinfo">
-                <span>{DummyData.nickname} </span>
-                <span>{DummyData.class}</span>
-                <span>{DummyData.grade} </span>
-                <span>{DummyData.date}</span>
-              </div>
-            </div>
-            <div className="UserWrap"></div>
-            <div className="Article">
-              <p>{DummyData.body}</p>
-              <LikeButton likeCount={likeCount} />
-              <div className="Workbtn">
-                <button> 수정하기 </button>
-                <button> 삭제하기 </button>
-                <button> 신고하기 </button>
-              </div>
-            </div>
-            <div></div>
-          </div>
-        </section>
-      </Detail>
-    </>
-  );
-};
 export default DetailView;
