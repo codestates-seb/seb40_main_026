@@ -175,13 +175,13 @@ function QuestionBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item, id) => {
+        {UserData.map((item) => {
           return (
-            <BtmMemberBox key={id}>
-              <BtmMemberImg src={item.src}></BtmMemberImg>
+            <BtmMemberBox key={item.memberId}>
+              <BtmMemberImg src={item.path}></BtmMemberImg>
               <WordBox>
                 <span>{item.level}</span>
-                <span>{item.nickName}</span>
+                <span>{item.nickname}</span>
               </WordBox>
             </BtmMemberBox>
           );
