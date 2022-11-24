@@ -14,7 +14,7 @@ public enum ExceptionCode {
     QUESTION_NOT_FOUND(404, "Question Not Found"),
     STUDY_NOT_FOUND(404, "Study Not Found"),
     BADGE_NOT_FOUND(404,"Badge Not Found");
-    
+
     @Getter
     private int status;
 

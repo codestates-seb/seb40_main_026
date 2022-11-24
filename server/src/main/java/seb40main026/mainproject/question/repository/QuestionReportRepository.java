@@ -3,7 +3,7 @@ package seb40main026.mainproject.question.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.entity.QuestionReport;
 
