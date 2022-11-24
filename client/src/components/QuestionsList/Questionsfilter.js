@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { tablet, mobile } from '../../styles/Responsive';
 
 const Filterwrap = styled.div`
   background-color: black;

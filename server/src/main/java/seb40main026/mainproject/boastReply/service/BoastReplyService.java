@@ -13,11 +13,10 @@ import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BoastReplyService {
 
@@ -32,7 +31,6 @@ public class BoastReplyService {
 //        member.setReplies(boastReply);
 //        memberRepository.save(member);
         findBoast.addReplies(boastReply);
-        boastReply.setReplyCreatedAt(LocalDateTime.now());
         boastRepository.save(findBoast);
         return boastReplyRepository.save(boastReply);
     }
@@ -43,7 +41,6 @@ public class BoastReplyService {
         Optional.ofNullable(boastReply.getContent())
                 .ifPresent(content -> findReply.setContent(content));
 
-        findReply.setReplyModifiedAt(LocalDateTime.now());
         return boastReplyRepository.save(findReply);
     }
 

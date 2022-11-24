@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { tablet } from '../../../styles/Responsive';
+import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderLogin = () => {
   return (
@@ -19,21 +19,25 @@ export default HeaderLogin;
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 200px;
+  justify-content: flex-end;
+  width: 12rem;
   span {
     font-family: 'Dongle', sans-serif;
     font-weight: 500;
+    margin: 0 0.2rem;
   }
 
   @media ${tablet} {
+    display: none;
+  }
+  @media ${mobile} {
     display: none;
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 25px;
+  font-size: 1.2rem;
   font-family: 'Dongle', sans-serif;
   font-weight: 600;
   color: black;
