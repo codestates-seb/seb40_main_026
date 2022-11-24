@@ -26,7 +26,7 @@ const Title = styled.div`
   color: white;
   width: 40%;
   height: 55%;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
   padding-top: 0.4rem;
   @media ${tablet} {
@@ -131,7 +131,7 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-function LevelBox() {
+function QuestionBox({ UserData }) {
   return (
     <Container>
       <TitleBox>
@@ -175,31 +175,21 @@ function LevelBox() {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        <BtmMemberBox>
-          <BtmMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></BtmMemberImg>
-          <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
-          </WordBox>
-        </BtmMemberBox>
-        <BtmMemberBox>
-          <BtmMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></BtmMemberImg>
-          <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
-          </WordBox>
-        </BtmMemberBox>
-        <BtmMemberBox>
-          <BtmMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></BtmMemberImg>
-          <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
-          </WordBox>
-        </BtmMemberBox>
+        {UserData.map((item, id) => {
+          return (
+            <BtmMemberBox key={id}>
+              <BtmMemberImg src={item.src}></BtmMemberImg>
+              <WordBox>
+                <span>{item.level}</span>
+                <span>{item.nickName}</span>
+              </WordBox>
+            </BtmMemberBox>
+          );
+        })}
       </BottomBox>
       <button>더보기</button>
     </Container>
   );
 }
 
-export default LevelBox;
+export default QuestionBox;
