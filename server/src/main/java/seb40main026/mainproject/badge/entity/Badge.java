@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @NoArgsConstructor
-@Getter @Setter
+@Getter
 @Entity
 public class Badge {
     @Id
@@ -17,5 +17,9 @@ public class Badge {
     @Column
     private String badgeName;
 
+    public Badge(Long badgeId , String badgeName){
+        this.badgeId = badgeId;
+        this.badgeName = badgeName;
+    }
 
 }
