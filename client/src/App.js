@@ -13,7 +13,7 @@ import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
 import QuestionCreate from './pages/QuestionCreate';
 import MypageEdit from './pages/MypageEdit';
-
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 function App() {
   return (
     <BrowserRouter>
