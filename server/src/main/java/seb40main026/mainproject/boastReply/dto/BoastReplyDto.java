@@ -14,7 +14,7 @@ public class BoastReplyDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class post{
-        @NotBlank
+        @NotBlank(message = "내용을 적어주세요")
         private String content;
     }
 

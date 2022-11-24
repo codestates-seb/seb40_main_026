@@ -15,6 +15,10 @@ import java.util.Optional;
 public class BadgeService {
     private final BadgeRepository badgeRepository;
 
+    Badge question = new Badge(0L,"question");
+    Badge answer = new Badge(1L,"answer");
+    Badge like = new Badge(2L,"like");
+
     // 현재 착용중인 뱃지 변경하는 로직
   /*  public void setCurrentBadge(Long memberId , String badgeName){
         Member findMember = memberRepository.findById(memberId);
