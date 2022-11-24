@@ -51,13 +51,13 @@ public class BadgeService {
                     findMember.addBadgeList("answer");
                     break;
                 }
-            case "like" :
+            case "reply" :
                 Member findMember= memberRepository.findById(memberId);
                 List<String> userBadge = findMember.getBadgeList()
                 if(userBadge.contains(findVerifiedBadge(badgeName)){
                     break;
                 else{
-                    findMember.addBadgeList("like");
+                    findMember.addBadgeList("reply");
                     break;
                 }
         }
