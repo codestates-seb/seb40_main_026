@@ -1,6 +1,8 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,5 +89,14 @@ public class MemberServiceImpl implements MemberService{
                 throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
             }
         }
+    }
+
+    @Override
+    public Member getLoginMember() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        Optional<Member> optionalMember = memberRepository.findByEmail(userDetails.getUsername());
+
+        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }
