@@ -12,8 +12,7 @@ public enum ExceptionCode {
     EMPTY_IMAGE_FILE(404,"Image file does not exist"),
     ANSWER_NOT_FOUND(404, "Answer Not Found"),
     QUESTION_NOT_FOUND(404, "Question Not Found"),
-    STUDY_NOT_FOUND(404, "Study Not Found"),
-    BADGE_NOT_FOUND(404,"Badge Not Found");
+    STUDY_NOT_FOUND(404, "Study Not Found");
     
     @Getter
     private int status;
