@@ -39,11 +39,9 @@ public class Study {
     @Column
     private String period;
 
-    // 시간
-    @Column
+    @Column // 시간
     private String time;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member member;
+    @Column // 온라인 여부
+    private String online;
 }

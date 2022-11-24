@@ -10,6 +10,7 @@ import seb40main026.mainproject.study.repository.StudyRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -23,8 +24,10 @@ public class StudyService {
     }
 
     // 전체 스터디 조회
-    public List<Study> findStudies() {
-        return studyRepository.findAll();
+    public List<Study> findStudies(String sort) {
+        return studyRepository.findAll().stream().filter(
+                study -> study.getOnline().equals(sort)
+        ).collect(Collectors.toList());
     }
 
     // 개별 스터디 조회
@@ -47,6 +50,8 @@ public class StudyService {
                 .ifPresent(findStudy::setTime); // 스터디 시간 수정
         Optional.ofNullable(study.getRecruitment())
                 .ifPresent(findStudy::setRecruitment); // 스터디 모집 인원 수정
+        Optional.ofNullable(study.getOnline())
+                .ifPresent(findStudy::setOnline); // 온오프라인 수정
         return studyRepository.save(findStudy);
     }
 

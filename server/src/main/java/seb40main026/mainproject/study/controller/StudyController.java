@@ -30,8 +30,8 @@ public class StudyController {
     }
 
     @GetMapping // 전체 스터디 조회
-    public ResponseEntity getStudies() {
-        List<Study> studies = studyService.findStudies();
+    public ResponseEntity getStudies(@RequestParam(value = "sort", defaultValue = "offline", required = false) String sort) {
+        List<Study> studies = studyService.findStudies(sort);
         List<StudyDto.Response> responses = mapper.studiesToStudyResponses(studies);
         return new ResponseEntity(responses, HttpStatus.OK);
     }

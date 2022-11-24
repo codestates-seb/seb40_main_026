@@ -13,6 +13,7 @@ public class StudyDto {
         private int count;
         private String period;
         private String time;
+        private String online;
     }
 
     @Getter
@@ -26,6 +27,7 @@ public class StudyDto {
         private Integer count;
         private String period;
         private String time;
+        private String online;
     }
 
     @Getter
@@ -39,5 +41,6 @@ public class StudyDto {
         private Integer count;
         private String period;
         private String time;
+        private String online;
     }
 }
