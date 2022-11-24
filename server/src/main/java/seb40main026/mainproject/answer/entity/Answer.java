@@ -9,7 +9,10 @@ import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.question.entity.Question;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -35,13 +38,24 @@ public class Answer {
     @Column
     private Boolean checkLike = false;
 
+    @Column(name = "created_at", updatable = false)
     @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
 
+    @Column(name = "last_modified_at")
     @LastModifiedDate
-    @Column
-    private LocalDateTime modifiedAt;
+    private String modifiedAt;
+
+    @PrePersist
+    public void onPrePersist(){
+        this.createdAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+        this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+    }
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
@@ -50,4 +64,10 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
+    private List<AnswerLike> answerLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
+    private List<AnswerReport> answerReports = new ArrayList<>();
 }

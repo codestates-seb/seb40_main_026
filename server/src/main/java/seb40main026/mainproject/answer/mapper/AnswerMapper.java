@@ -23,6 +23,11 @@ public interface AnswerMapper {
         response.setAnswerId(answer.getAnswerId());
         response.setContent(answer.getContent());
         response.setBest(answer.getBest());
+        response.setNickname(answer.getMember().getNickname());
+        response.setGrade(answer.getMember().getMemberGrade().getGrade());
+        response.setLevel(answer.getMember().getSticker());
+        // 뱃지
+        response.setTeacher(answer.getMember().getTeacher());
         // 파일
         response.setLikeCount(answer.getLikeCount());
         response.setReportCount(answer.getReportCount());
