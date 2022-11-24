@@ -18,4 +18,6 @@ public interface MemberService {
     Member findVerifiedMember(long memberId);
 
     void verifiedExistsEmail(String email);
+
+    Member getLoginMember();
 }
