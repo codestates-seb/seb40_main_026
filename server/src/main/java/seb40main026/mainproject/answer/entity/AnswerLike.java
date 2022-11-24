@@ -2,7 +2,7 @@ package seb40main026.mainproject.answer.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
 

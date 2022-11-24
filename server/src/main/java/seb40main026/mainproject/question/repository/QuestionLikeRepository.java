@@ -4,11 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.entity.QuestionLike;
 
-//@EnableJpaRepositories
+@EnableJpaRepositories
 public interface QuestionLikeRepository extends JpaRepository<QuestionLike, Long> {
     QuestionLike findByQuestionAndMember(Question question, Member member);
 

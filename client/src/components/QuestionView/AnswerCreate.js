@@ -1,50 +1,68 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { tablet, mobile } from '../../styles/Responsive';
-const CreateWrap = styled.div`
-  margin-top: 2rem;
-  .CreateView {
-    width: 70%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    padding: 0.5rem;
-    justify-content: space-between;
-    box-shadow: grey 0px 0px 3px;
-    margin: auto;
-    border-radius: 0rem;
+import { mobile } from '../../styles/Responsive';
 
-    > .Createinput {
-      width: 90%;
-      background-color: #ffc149;
-      > input {
-        padding: 0.5rem;
-        margin: auto;
-        width: 100%;
-      }
-    }
-    > div > button {
-      padding: 0.5rem;
-      background-color: #ffc149;
-      color: #fff;
-    }
-  }
-`;
 const AnswerCreate = () => {
   return (
     <CreateWrap>
-      <div className="CreateView">
-        <div className="Createinput">
+      <CreateView>
+        <Createinput>
           {' '}
-          <input placeholder="답변을 입력해주세요."></input>
-        </div>
+          <textarea placeholder="답변을 입력해주세요."></textarea>
+        </Createinput>
         <div>
           {' '}
-          <button>작성하기</button>
+          <button className="CreateBtn">작성하기</button>
         </div>
-      </div>
+      </CreateView>
     </CreateWrap>
   );
 };
+const Createinput = styled.div`
+  width: 90%;
+
+  > textarea {
+    height: 200px;
+    padding: 0.5rem;
+    margin: auto;
+    width: 100%;
+    resize: none;
+    padding: 1rem;
+    box-shadow: grey 0px 0px 3px;
+    margin-top: 1rem;
+    border-radius: 1rem;
+  }
+`;
+const CreateView = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  justify-content: center;
+  box-shadow: grey 0px 0px 3px;
+  margin: auto;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  > div {
+    .CreateBtn {
+      width: 100px;
+      padding: 1rem;
+      background-color: #ffc149;
+      color: #fff;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+  }
+`;
+const CreateWrap = styled.div`
+  margin-top: 2rem;
+  @media ${mobile};
+   {
+    .CreateBtn {
+      width: 80px;
+      padding: 0.5rem;
+    }
+  }
+`;
 export default AnswerCreate;

@@ -1,9 +1,12 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
@@ -19,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
     @Transactional
     @Override
@@ -29,6 +33,9 @@ public class MemberServiceImpl implements MemberService{
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         member.setMemberGrade(Member.MemberGrade.EGG);
         member.setSticker(0);
+
+        List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
+        member.setRoles(roles);
 
         return memberRepository.save(member);
     }
@@ -82,5 +89,14 @@ public class MemberServiceImpl implements MemberService{
                 throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
             }
         }
+    }
+
+    @Override
+    public Member getLoginMember() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        Optional<Member> optionalMember = memberRepository.findByEmail(userDetails.getUsername());
+
+        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }

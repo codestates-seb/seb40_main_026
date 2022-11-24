@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.answer.entity.AnswerLike;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 
 public interface AnswerLikeRepository extends JpaRepository<AnswerLike, Long> {
     AnswerLike findByAnswerAndMember(Answer answer, Member member);
