@@ -33,6 +33,7 @@ const Container = styled.div`
   border-radius: 2rem;
   background-color: pink;
   margin: 0.2rem;
+  margin-bottom: 1rem;
 
   @media ${desktop} {
   }
@@ -50,7 +51,8 @@ const CardWrapper = styled.div`
 `;
 
 const TextBlock = styled.div`
-  font-size: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;

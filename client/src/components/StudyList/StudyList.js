@@ -45,25 +45,24 @@ const StudyList = () => {
 export default StudyList;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px red solid;
+  /* border: 1px red solid; */
 `;
 
 const StudyListBlock = styled.div`
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(4, 25%);
   justify-content: space-between;
   @media ${desktop} {
-    background-color: red;
   }
   @media ${tablet} {
-    background-color: black;
     display: grid;
     grid-template-columns: repeat(3, 33.3%);
   }
   @media ${mobile} {
-    background-color: gray;
     grid-template-columns: repeat(1, 100%);
   }
 `;
