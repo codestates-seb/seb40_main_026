@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
 import { mobile } from '../../styles/Responsive';
-
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 const DetailView = ({ DummyData, likeCount }) => {
   console.log(DummyData);
   return (
@@ -23,7 +24,7 @@ const DetailView = ({ DummyData, likeCount }) => {
             </div>
             <div className="UserWrap"></div>
             <div className="Article">
-              <p>{DummyData.body}</p>
+              <Viewer initialValue={DummyData.body} />
               <LikeButton likeCount={likeCount} />
               <div className="Workbtn">
                 <button> 수정하기 </button>
