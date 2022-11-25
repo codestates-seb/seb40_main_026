@@ -22,7 +22,7 @@ public class BadgeService {
 
     Badge question = new Badge(0L,"question");
     Badge answer = new Badge(1L,"answer");
-    Badge like = new Badge(2L,"like");
+    Badge reply = new Badge(2L,"reply");
 
     private String findVerifiedBadge(String badgeName) {
         Optional<Badge> optionalBadge = badgeRepository.findByBadgeName(badgeName);
