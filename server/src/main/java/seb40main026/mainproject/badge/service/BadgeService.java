@@ -34,7 +34,7 @@ public class BadgeService {
     // 현재 착용중인 뱃지 변경하는 로직
     public void setCurrentBadge(Long memberId , String badgeName){
         Member findMember = memberService.findVerifiedMember(memberId);
-        List<String> userBadge = findMember.getBadgeList();
+        List<Badge> userBadge = findMember.getBadgeList();
 
         if(userBadge.contains(findVerifiedBadge(badgeName))){
             findMember.setCurrentBadge(badgeName);
@@ -47,22 +47,22 @@ public class BadgeService {
 
     public void addBadge(Long memberId , String badgeName){
         Member findMember = memberService.findVerifiedMember(memberId);
-        List<String> userBadge = findMember.getBadgeList();
+        List<Badge> userBadge = findMember.getBadgeList();
 
         switch(badgeName){
             case "question" :
                 if (!userBadge.contains(findVerifiedBadge(badgeName))) {
-                    findMember.addBadgeList("question");;
+                    findMember.addBadgeList(question);;
                 }
                 break;
             case "answer" :
                 if (!userBadge.contains(findVerifiedBadge(badgeName))) {
-                    findMember.addBadgeList("answer");
+                    findMember.addBadgeList(answer);
                 }
                 break;
             case "reply" :
                 if (!userBadge.contains(findVerifiedBadge(badgeName))) {
-                    findMember.addBadgeList("reply");
+                    findMember.addBadgeList(reply);
                 }
                 break;
         }
