@@ -34,6 +34,18 @@ public class Boast {
     @Column(nullable = false, length = 500)
     private String content;
 
+    @Column(nullable = false)
+    private String nickName;
+
+    @Column
+    private String currentBadge;
+
+    @Column
+    private Member.MemberGrade grade;
+
+    @Column
+    private String badge;
+
     @Column
     @CreatedDate
     private String boardCreatedAt;

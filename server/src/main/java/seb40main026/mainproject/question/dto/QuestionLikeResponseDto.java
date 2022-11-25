@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class QuestionLikeResponseDto {
     private long questionId;
-    private long like; // 0 또는 1
+    private boolean like; // 0 또는 1
     private long totalLikes;
 }

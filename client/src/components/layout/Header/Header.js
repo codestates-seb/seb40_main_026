@@ -21,6 +21,7 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
+  font-family: 'NanumGothic';
   display: flex;
   flex-direction: row;
   height: 4rem;

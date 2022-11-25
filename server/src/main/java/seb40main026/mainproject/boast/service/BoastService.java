@@ -11,6 +11,9 @@ import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.member.entity.Member;
+import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.member.service.MemberServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,9 +25,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoastService {
     private final BoastRepository boastRepository;
+    private final MemberServiceImpl memberService;
+    private final MemberRepository memberRepository;
 
     public Boast createBoast(Boast boast){
-        //이후 연관관계 매핑 및 access Token 활용한 writer set 필요
+        Member authMember = memberService.getLoginMember();
+
+        authMember.setBoasts(boast);
+        boast.setMember(authMember);
+
+        boast.setNickName(authMember.getNickname());
+        boast.setGrade(authMember.getMemberGrade());
+        boast.setBadge(authMember.getCurrentBadge());
+
+        authMember.setSticker(authMember.getSticker()+10);
+
+        memberRepository.save(authMember);
         return boastRepository.save(boast);
     }
 

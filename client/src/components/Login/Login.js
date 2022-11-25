@@ -1,32 +1,26 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
+import axios from '../../api/axios';
+import useAuth from '../../hooks/useAuth';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
+  const { setAuth } = useAuth();
   const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const loginData = {
-    teacher: teacher,
-    email: email,
-    password: password,
-  };
-  const loginConfig = {
-    withCredentials: true,
-  };
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //인풋요소 유효성검사...util로 만들기!
     if (!(email.includes('@') && email.includes('.'))) {
@@ -38,22 +32,28 @@ const Login = () => {
       return;
     }
 
-    return axios
-      .post(`url`, loginData, loginConfig)
-      .then((res) => {
-        if (res) {
-          //로컬스토리지를 이용해도 되는지는 더 알아봐야 함
-          console.log('응답', res);
-          console.log('헤더', res.headers);
-          // let accessToken = res.headers.accesstoken;
-          // localStorage.setItem('accesstoken', accessToken);
+    try {
+      const response = await axios.post(
+        '로그인url',
+        JSON.stringify({ email, password, teacher }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
         }
-      })
-      .catch((error) => {
-        errorAlarm('비밀번호가 일치하지 않습니다.');
-        console.log(error);
-      });
+      );
+      console.log(JSON.stringify(response?.data));
+      const accessToken = response?.data?.accessToken;
+
+      setAuth({ email, password, teacher, accessToken });
+      setEmail('');
+      setPassword('');
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      alert('로그인실패');
+    }
   };
+
   return (
     <Container>
       <SelectButton teacher={teacher} setTeacher={setTeacher} />
