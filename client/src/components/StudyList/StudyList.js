@@ -1,5 +1,7 @@
 // import axios from 'axios';
 // import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 import { data } from './data';
@@ -18,6 +20,10 @@ const StudyList = () => {
   //     })
   //     .catch((err) => console.log(err));
   // }, []);
+  const navigate = useNavigate();
+  const handleOnClick = (id) => {
+    navigate(`/study/${id}`);
+  };
 
   return (
     <Container>
@@ -26,15 +32,17 @@ const StudyList = () => {
       <StudyListBlock>
         {data.map((ele) => (
           <div key={ele.id}>
-            <StudyCard
-              img={ele.img}
-              title={ele.title}
-              price={ele.price}
-              total={ele.total}
-              registered={ele.registered}
-              start={ele.start}
-              end={ele.end}
-            />
+            <Link to="/study/id" onClick={() => handleOnClick(ele.id)}>
+              <StudyCard
+                img={ele.img}
+                title={ele.title}
+                price={ele.price}
+                total={ele.total}
+                registered={ele.registered}
+                start={ele.start}
+                end={ele.end}
+              />
+            </Link>
           </div>
         ))}
       </StudyListBlock>
@@ -48,21 +56,26 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 3rem;
+
   /* border: 1px red solid; */
 `;
 
 const StudyListBlock = styled.div`
+  padding-top: 1rem;
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(4, 25%);
-  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* justify-content: space-between; */
   @media ${desktop} {
+    grid-gap: 2rem;
   }
   @media ${tablet} {
-    display: grid;
-    grid-template-columns: repeat(3, 33.3%);
+    grid-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
   }
   @media ${mobile} {
-    grid-template-columns: repeat(1, 100%);
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
   }
 `;
