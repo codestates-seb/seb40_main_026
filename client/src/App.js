@@ -8,17 +8,18 @@ import MypageEdit from './components/Mypage/MypageEdit';
 import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
+import BoastDetail from './pages/BoastDetail';
 import LoginPage from './pages/LoginPage';
+import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
 import QuestionsMain from './pages/Questionlist';
 import QuestionViewMain from './pages/QuestionView';
+import Reference from './pages/Reference';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
-import BoastDetail from './pages/BoastDetail';
-import Reference from './pages/Reference';
-import Members from './pages/Members';
+import './App.css';
 
 function App() {
   const refresh = useRefreshToken();
@@ -28,7 +29,7 @@ function App() {
       try {
         await refresh();
       } catch (err) {
-        console.error(err);
+        console.error('에러', err);
       }
     };
     verifyRefreshToken();
@@ -58,7 +59,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/ex" element={<StudyViewPage />} />
+        <Route path="/study/:id" element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
