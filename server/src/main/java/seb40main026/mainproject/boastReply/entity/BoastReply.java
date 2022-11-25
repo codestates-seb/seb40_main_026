@@ -49,6 +49,15 @@ public class BoastReply {
     @JsonBackReference
     private Member member;
 
+    @Column(nullable = false)
+    private String nickName;
+
+    @Column
+    private Member.MemberGrade grade;
+
+    @Column
+    private String badge;
+
 
     @PrePersist
     public void onPrePersist(){
