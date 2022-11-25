@@ -16,6 +16,7 @@ const Create = () => {
   const handleChangeInput = () => {
     SetBodyData(textRef.current.getInstance().getMarkdown().trim());
   };
+  //코드 재활용 할 것
   console.log(BodyData);
 
   return (

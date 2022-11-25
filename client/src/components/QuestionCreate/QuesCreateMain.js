@@ -1,7 +1,6 @@
 import Create from '../Create/Create';
 import TitleHeader from '../Shared/TitleHeader';
 import { mobile } from '../../styles/Responsive';
-
 import styled from 'styled-components';
 
 const QuestionCreate = () => {

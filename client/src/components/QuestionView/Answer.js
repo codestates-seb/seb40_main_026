@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
-
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import TitleHeader from '../Shared/TitleHeader';
 const Answer = () => {
   const DummyQuestions = [
     {
@@ -52,7 +54,7 @@ const Answer = () => {
                 </div>
               </AnswerTop>
               <AnswerBot>
-                <p>{items.body}</p>
+                <Viewer initialValue={items.body} />
               </AnswerBot>
             </AnswerMainWrap>
           );

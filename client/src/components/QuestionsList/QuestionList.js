@@ -138,6 +138,7 @@ const Sectionleft = styled.div`
   padding: 1rem;
   text-align: left;
   > p {
+    margin-top: 1rem;
     font-size: 0.8rem;
   }
   > button {

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import DetailView from '../Shared/DetailView';
 import { Link } from 'react-router-dom';
+import TitleHeader from '../Shared/TitleHeader';
 const QuestionView = () => {
   const DummyQuestions = {
     id: 1,
@@ -18,6 +19,8 @@ const QuestionView = () => {
 
   return (
     <>
+      <TitleHeader title={'질문 & 답변'} />
+
       <DetailView
         DummyData={DummyQuestions}
         likeCount={DummyQuestions.likeCount}
