@@ -9,10 +9,11 @@ import seb40main026.mainproject.answer.entity.AnswerReport;
 import seb40main026.mainproject.answer.repository.AnswerLikeRepository;
 import seb40main026.mainproject.answer.repository.AnswerReportRepository;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
+import seb40main026.mainproject.badge.service.BadgeService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
-import seb40main026.mainproject.member.Member;
-import seb40main026.mainproject.member.MemberService;
+import seb40main026.mainproject.member.entity.Member;
+import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.service.QuestionService;
 
@@ -26,8 +27,9 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final AnswerLikeRepository answerLikeRepository;
     private final AnswerReportRepository answerReportRepository;
-    private final MemberService memberService;
+    private final MemberServiceImpl memberService;
     private final QuestionService questionService;
+    private final BadgeService badgeService;
 
     // 답변 작성
     public Answer createAnswer(Answer answer, long questionId) {
@@ -35,6 +37,10 @@ public class AnswerService {
         Member member = memberService.getLoginMember();
         answer.setQuestion(question);
         answer.setMember(member);
+//        if(answerRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
+//            badgeService.addBadge(member.getMemberId(), "answer");
+//        }
+        member.setSticker(member.getSticker() + 10);
         return answerRepository.save(answer);
     }
 

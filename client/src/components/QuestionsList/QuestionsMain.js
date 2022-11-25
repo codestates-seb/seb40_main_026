@@ -1,17 +1,15 @@
 import Quesfilter from './Questionsfilter';
 import QuesSearch from './QuesSearch';
 import QuestionsList from './QuestionList';
-import QuestionsHeader from './QuestionsHeader';
+import TitleHeader from '../Shared/TitleHeader';
 import styled from 'styled-components';
 import { useState } from 'react';
-const Container = styled.div`
-  margin-top: 2rem;
-`;
+const Container = styled.div``;
 const QuestionsMain = () => {
   const [SearchOn, SetSearchOn] = useState(false);
   return (
     <Container>
-      <QuestionsHeader />
+      <TitleHeader title={'궁금해요'} />
       <QuesSearch SearchOn={SearchOn} SetSearchOn={SetSearchOn} />
       <Quesfilter />
       <QuestionsList />

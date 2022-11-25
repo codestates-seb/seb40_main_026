@@ -16,13 +16,13 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   z-index: 0;
+  margin: 0 15%;
   @media ${desktop} {
-    background-color: yellow;
   }
   @media ${tablet} {
-    background-color: red;
+    margin: 0 10%;
   }
   @media ${mobile} {
-    background-color: green;
+    margin: 0 5%;
   }
 `;

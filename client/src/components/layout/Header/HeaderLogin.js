@@ -19,11 +19,12 @@ export default HeaderLogin;
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 200px;
+  justify-content: flex-end;
+  width: 12rem;
   span {
     font-family: 'Dongle', sans-serif;
     font-weight: 500;
+    margin: 0 0.2rem;
   }
 
   @media ${tablet} {
@@ -36,7 +37,7 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 25px;
+  font-size: 1.2rem;
   font-family: 'Dongle', sans-serif;
   font-weight: 600;
   color: black;

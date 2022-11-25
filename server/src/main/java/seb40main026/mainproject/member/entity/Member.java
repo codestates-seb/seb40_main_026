@@ -13,6 +13,8 @@ import seb40main026.mainproject.boastReply.entity.BoastReply;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter

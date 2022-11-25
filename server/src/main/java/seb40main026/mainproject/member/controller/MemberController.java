@@ -49,12 +49,6 @@ public class MemberController {
         return new ResponseEntity<>(mapper.membersToResponses(foundMembers), HttpStatus.OK);
     }
 
-    //@Todo
-    @PostMapping("/login")
-    public ResponseEntity<?> loginMember() {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @DeleteMapping("/{member-id}")
     public ResponseEntity<?> deleteMember(@PathVariable("member-id") @Positive long memberId) {
         Member deletedMember = memberService.deleteMember(memberId);
