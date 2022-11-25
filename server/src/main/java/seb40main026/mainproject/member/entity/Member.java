@@ -67,8 +67,6 @@ public class Member {
     @Column(length = 20, nullable = false)
     private MemberGrade memberGrade;
 
-<<<<<<< Updated upstream
-=======
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
@@ -92,7 +90,6 @@ public class Member {
         boastReply.setMember(this);
     }
 
->>>>>>> Stashed changes
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
         MEMBER_SLEEP("휴면 상태"),
