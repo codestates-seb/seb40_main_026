@@ -37,7 +37,7 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: black;
   cursor: pointer;
