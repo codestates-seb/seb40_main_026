@@ -95,7 +95,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  font-family: 'Dongle', sans-serif;
 `;
 
 const InputWrapperForm = styled.form`

@@ -18,7 +18,6 @@ const Button = styled.button`
   border-radius: 20px;
   padding: 5px 10px;
   cursor: pointer;
-  font-family: 'Dongle', sans-serif;
   font-size: 22px;
   text-align: center;
   background: ${(props) => (props.color ? props.color : 'pink')};
