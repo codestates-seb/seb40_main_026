@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.answer.entity.AnswerReport;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 
 public interface AnswerReportRepository extends JpaRepository<AnswerReport, Long> {
     AnswerReport findByAnswerAndMember(Answer answer, Member member);

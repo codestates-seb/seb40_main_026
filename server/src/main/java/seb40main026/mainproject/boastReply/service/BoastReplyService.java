@@ -12,9 +12,10 @@ import seb40main026.mainproject.boastReply.entity.BoastReply;
 import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.member.entity.Member;
+import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.member.service.MemberServiceImpl;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,15 +26,23 @@ public class BoastReplyService {
     private final BoastService boastService;
     private final BoastReplyRepository boastReplyRepository;
     private final BoastRepository  boastRepository;
+    private final MemberServiceImpl memberService;
+    private final MemberRepository memberRepository;
 
     public BoastReply createReply(BoastReply boastReply,long boastId){
         Boast findBoast = boastService.findVerifiedBoast(boastId);
-//        member 엔티티와 연관관계 설정이 된다면, member 엔티티에 boastReply 정보를 넣어준다.
-//        Member member = memberServiceImpl.findAuthenticatedMember();
-//        member.setReplies(boastReply);
-//        memberRepository.save(member);
+        Member authMember = memberService.getLoginMember();
+
+        authMember.setReplies(boastReply);
         findBoast.addReplies(boastReply);
-        boastReply.setReplyCreatedAt(LocalDateTime.now());
+
+        boastReply.setNickName(authMember.getNickname());
+        boastReply.setGrade(authMember.getMemberGrade());
+        boastReply.setBadge(authMember.getCurrentBadge());
+
+        authMember.setSticker(authMember.getSticker()+10);
+
+        memberRepository.save(authMember);
         boastRepository.save(findBoast);
         return boastReplyRepository.save(boastReply);
     }
@@ -44,7 +53,6 @@ public class BoastReplyService {
         Optional.ofNullable(boastReply.getContent())
                 .ifPresent(content -> findReply.setContent(content));
 
-        findReply.setReplyModifiedAt(LocalDateTime.now());
         return boastReplyRepository.save(findReply);
     }
 

@@ -5,6 +5,8 @@ import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
+import { data } from './data';
+import KakaoMap from './KakaoMap';
 import StudyViewButtons from './StudyViewButtons';
 
 const StudyView = () => {
@@ -20,7 +22,7 @@ const StudyView = () => {
               <BsFillSuitHeartFill size={15} />
             </span>
           </div>
-          <div>데이터</div>
+          <div>{data[0].intro}</div>
         </ContentItem>
 
         <ContentItem>
@@ -30,7 +32,9 @@ const StudyView = () => {
               <AiOutlineCalendar />
             </span>
           </div>
-          <div>데이터</div>
+          <div> 수업 시작하는 날짜 : {data[0].start}</div>
+          <div> 수업 끝나는 날짜 : {data[0].end}</div>
+          <div>달력api</div>
         </ContentItem>
 
         <ContentItem>
@@ -40,7 +44,7 @@ const StudyView = () => {
               <BsFillClockFill size={15} />
             </span>
           </div>
-          <div>데이터</div>
+          <div>{data[0].time}</div>
         </ContentItem>
 
         <ContentItem>
@@ -83,6 +87,10 @@ const StudyView = () => {
             </span>
           </div>
           <div>지도</div>
+          <KakaoMap
+            markerPositions={[33.452278, 126.567803]}
+            size={[400, 400]}
+          />
         </ContentItem>
       </Contents>
       <ScrollToTopBtn />
@@ -115,7 +123,7 @@ const Contents = styled.div`
 
 const ContentItem = styled.div`
   margin-bottom: 30px;
-  padding-bottom: 500px;
+  padding-bottom: 300px;
   > div {
     padding: 20px;
   }

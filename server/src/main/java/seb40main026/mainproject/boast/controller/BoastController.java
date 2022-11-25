@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb40main026.mainproject.boast.dto.BoastDto;
 import seb40main026.mainproject.boast.entity.Boast;
@@ -15,11 +16,8 @@ import seb40main026.mainproject.boastLike.service.BoastLikeService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+@Validated
 @RestController
 @RequestMapping("/boasts")
 @RequiredArgsConstructor

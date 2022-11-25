@@ -14,7 +14,6 @@ export default StudyListPage;
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
   z-index: 0;
   margin: 0 15%;
   @media ${desktop} {
