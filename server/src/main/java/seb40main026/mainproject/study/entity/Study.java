@@ -44,4 +44,10 @@ public class Study {
 
     @Column // 온라인 여부
     private String online;
+
+    public void increaseCount() {
+        if(this.count < this.recruitment) {
+            this.count += 1;
+        }
+    }
 }

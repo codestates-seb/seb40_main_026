@@ -39,6 +39,9 @@ public class Question {
     @Column(nullable = false)
     private Integer reportCount;
 
+    @Column
+    private Long fileNum;
+
 //    @Column
 //    private Boolean checkLike; // 좋아요 눌렀는지 여부
 

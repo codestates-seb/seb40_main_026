@@ -52,6 +52,11 @@ public class ImageService {
 
         return savedFile.getImageId();
     }
+
+    public String getImage(Long fileId) {
+        Image image = imageRepository.findById(fileId).get();
+        return image.getSavedPath();
+    }
 }
 
 
