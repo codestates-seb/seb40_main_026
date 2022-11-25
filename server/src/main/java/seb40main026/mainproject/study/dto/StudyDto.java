@@ -7,7 +7,7 @@ public class StudyDto {
     @Getter
     public static class Post {
         private String studyName;
-        private String explain;
+        private String content;
         private Long price;
         private int recruitment;
         private int count;
@@ -21,7 +21,7 @@ public class StudyDto {
     public static class Patch {
         private Long studyId;
         private String studyName;
-        private String explain;
+        private String content;
         private Long price;
         private Integer recruitment;
         private Integer count;
@@ -35,7 +35,7 @@ public class StudyDto {
     public static class Response {
         private Long studyId;
         private String studyName;
-        private String explain;
+        private String content;
         private Long price;
         private Integer recruitment;
         private Integer count;
