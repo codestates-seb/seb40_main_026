@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import seb40main026.mainproject.member.Member;
+import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.question.entity.Question;
 
 import javax.persistence.*;

@@ -25,7 +25,6 @@ public class BoastService {
 
     public Boast createBoast(Boast boast){
         //이후 연관관계 매핑 및 access Token 활용한 writer set 필요
-        boast.setBoardCreatedAt(LocalDateTime.now());
         return boastRepository.save(boast);
     }
 
@@ -37,8 +36,6 @@ public class BoastService {
 
         Optional.ofNullable(boast.getContent())
                 .ifPresent(content -> findBoast.setContent(content));
-
-        findBoast.setBoardModifiedAt(LocalDateTime.now());
         return boastRepository.save(findBoast);
     }
 

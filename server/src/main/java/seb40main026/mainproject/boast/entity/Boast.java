@@ -1,22 +1,28 @@
 package seb40main026.mainproject.boast.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
+import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Boast {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +36,11 @@ public class Boast {
 
     @Column
     @CreatedDate
-    @DateTimeFormat(pattern = "yy-MM-dd")
-    private LocalDateTime boardCreatedAt;
+    private String boardCreatedAt;
 
     @Column
     @LastModifiedDate
-    @DateTimeFormat(pattern = "yy-MM-dd")
-    private LocalDateTime boardModifiedAt;
+    private String boardModifiedAt;
 
     @Column(nullable = false)
     private long viewCount;
@@ -58,5 +62,25 @@ public class Boast {
         if (boastReply.getBoast() != this) {
             boastReply.setBoast(this);
         }
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    @JsonBackReference
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    @PrePersist
+    public void onPrePersist(){
+        this.boardCreatedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+        this.boardModifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.boardModifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
 }

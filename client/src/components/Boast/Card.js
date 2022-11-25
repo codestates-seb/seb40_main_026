@@ -1,81 +1,80 @@
 import styled from 'styled-components';
 import LikeButton from '../Shared/LikeButton';
-import { tablet, desktop } from '../../styles/Responsive';
+import { tablet, mobile } from '../../styles/Responsive';
 
-function Card() {
-  const Container = styled.ul`
+function Card({ className, classNameA, likeButton }) {
+  const Container = styled.main`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 0px 50px 50px 50px;
     width: 100%;
-    @media ${desktop} {
-      display: flex;
-      margin: 40px;
-    }
+
     @media ${tablet} {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0px;
+      width: 100%;
+    }
+    @media ${mobile} {
+      width: 80%;
     }
   `;
 
-  const TopMapBox = styled.section`
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
-    background-color: #f7f7f7;
-    border-radius: 30px;
-    justify-content: center;
+  const TopListBox = styled.ul`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
+    background: #f7f7f7;
+    border-radius: 0rem 2rem 2rem 2rem;
+    grid-gap: 3rem;
+    padding: 3rem;
+    width: 100%;
 
-    @media ${desktop} {
-      background-color: white;
+    @media ${tablet} {
+      grid-gap: 0rem;
+    }
+
+    @media ${mobile} {
+      grid-template-columns: 1fr;
+      background: white;
       box-shadow: none;
+      padding: 1.8rem 0rem 0rem 5.5rem;
     }
 
     li {
       color: white;
-      width: 340px;
-      height: 280px;
       background-color: #ffc149;
-      font-size: 28px;
 
-      @media ${desktop} {
-        width: 500px;
-        height: 440px;
-        margin: 30px;
+      @media ${mobile} {
+        width: 100%;
       }
       @media ${tablet} {
-        width: 600px;
-        height: 540px;
-        margin: 30px;
+        width: 80%;
       }
     }
   `;
 
-  const MapBox = styled.section`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  const ListBox = styled.ul`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    place-items: center;
+    margin-top: 3rem;
+    width: 100%;
+    @media ${tablet} {
+    }
+    @media ${mobile} {
+      grid-template-columns: 1fr;
+      padding-left: 5.5rem;
+    }
 
     li {
       background-color: white;
       color: black;
-      width: 300px;
-      height: 240px;
-      font-size: 24px;
+      margin: 1.5rem;
 
-      @media ${desktop} {
-        display: flex;
-        width: 500px;
-        height: 440px;
-        margin: 30px;
+      @media ${mobile} {
+        width: 100%;
       }
       @media ${tablet} {
-        display: flex;
-        width: 600px;
-        height: 540px;
-        margin: 30px;
+        width: 80%;
       }
     }
   `;
@@ -84,9 +83,8 @@ function Card() {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    border-radius: 20px;
-    margin: 50px 50px 50px 100px;
-    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+    border-radius: 1rem;
+    box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
     transform: scale(1);
     transition: all 0.5s;
     :hover {
@@ -97,46 +95,40 @@ function Card() {
   const CardImg = styled.img`
     width: 100%;
     height: 65%;
-    border-radius: 20px 20px 0px 0px;
-    box-shadow: 0px 2px 5px rgb(0 0 0 / 12%);
+    border-radius: 1rem 1rem 0rem 0rem;
+    box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   `;
 
   const Word = styled.div`
-    margin-left: 10px;
-
+    margin-left: 0.5rem;
     font-weight: bold;
+    font-size: 1.6rem;
 
-    @media ${desktop} {
-      font-size: 34px;
+    @media ${mobile} {
+      font-size: 2.3rem;
     }
 
     @media ${tablet} {
-      font-size: 40px;
+      font-size: 1.3rem;
     }
   `;
 
   const Word2 = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 550px;
-    margin: 17px 10px 0px 10px;
-    font-weight: 16px;
-    font-size: 18px;
+    width: 100%;
+    margin: 2rem 0.5rem 0.2rem 0.5rem;
+    font-size: 1.1rem;
     color: gray;
-    @media ${desktop} {
-      font-size: 23px;
+    @media ${mobile} {
+      font-size: 1.4rem;
     }
     @media ${tablet} {
-      font-size: 28px;
-      margin-top: 70px;
+      font-size: 1rem;
     }
   `;
 
-  const LikeBox = styled.div`
-    display: flex;
-  `;
-
-  const obj = [
+  const listData = [
     {
       boastId: 1,
       title: 'popular test 1 ',
@@ -249,7 +241,7 @@ function Card() {
     },
   ];
 
-  const obj2 = [
+  const listData2 = [
     {
       boastId: 1,
       title: 'popular test 1 ',
@@ -287,40 +279,40 @@ function Card() {
 
   return (
     <Container>
-      <TopMapBox>
-        {obj2.map((item, id) => {
+      <TopListBox className={className}>
+        {listData2.map((item, id) => {
           return (
             <CardBox key={id}>
               <CardImg src={item.src} alt={item.alt} />
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                <LikeBox>
-                  <LikeButton likeCount={item.likeCount} />
-                </LikeBox>
+                {likeButton && <LikeButton likeCount={item.likeCount} />}
               </Word2>
             </CardBox>
           );
         })}
-      </TopMapBox>
-      <MapBox>
-        {obj.map((item, id) => {
+      </TopListBox>
+      <ListBox className={classNameA}>
+        {listData.map((item, id) => {
           return (
             <CardBox key={id}>
               <CardImg src={item.src} alt={item.alt} />
               <Word>{item.title}</Word>
               <Word2>
                 <div>{item.nickName}</div>
-                <LikeBox>
-                  <LikeButton likeCount={item.likeCount} />
-                </LikeBox>
+                {likeButton && <LikeButton likeCount={item.likeCount} />}
               </Word2>
             </CardBox>
           );
         })}
-      </MapBox>
+      </ListBox>
     </Container>
   );
 }
+
+Card.defaultProps = {
+  likeButton: false,
+};
 
 export default Card;
