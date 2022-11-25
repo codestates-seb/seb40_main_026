@@ -1,24 +1,40 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
-import Mypage from './pages/Mypage';
+import Mypage from './components/Mypage/Mypage';
+import MypageEdit from './components/Mypage/MypageEdit';
+import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
-import LoginPage from './pages/Loginpage';
+import BoastDetail from './pages/BoastDetail';
+import LoginPage from './pages/LoginPage';
+import Members from './pages/Members';
+import QuestionCreate from './pages/QuestionCreate';
+import QuestionsMain from './pages/Questionlist';
+import QuestionViewMain from './pages/QuestionView';
+import Reference from './pages/Reference';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
-import QuestionsMain from './pages/Questionlist';
-import QuestionViewMain from './pages/QuestionView';
-import QuestionCreate from './pages/QuestionCreate';
-import MypageEdit from './pages/MypageEdit';
-import BoastDetail from './pages/BoastDetail';
-import Reference from './pages/Reference';
-import Members from './pages/Members';
+import './App.css';
 
 function App() {
+  const refresh = useRefreshToken();
+
+  useEffect(() => {
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.error('에러', err);
+      }
+    };
+    verifyRefreshToken();
+  }, [refresh]);
+
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -43,7 +59,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/ex" element={<StudyViewPage />} />
+        <Route path="/study/:id" element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

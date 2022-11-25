@@ -77,7 +77,7 @@ export default HeaderHamburgerModal;
 
 const Container = styled.div`
   position: absolute;
-  top: 110px;
+  top: 90px;
   right: 0.1px;
   background-color: var(--gold);
   display: none;
@@ -94,8 +94,8 @@ const Container = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    padding: 45px;
-    border-radius: 30px;
+    padding: 2rem;
+    border-radius: 1rem;
     z-index: 1000;
   }
   @media ${mobile} {
@@ -106,8 +106,8 @@ const Container = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    padding: 45px;
-    border-radius: 30px;
+    padding: 2rem;
+    border-radius: 1rem;
     z-index: 1000;
   }
   > button {
