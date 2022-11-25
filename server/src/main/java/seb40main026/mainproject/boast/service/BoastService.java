@@ -38,7 +38,7 @@ public class BoastService {
         boast.setGrade(authMember.getMemberGrade());
         boast.setBadge(authMember.getCurrentBadge());
 
-        authMember.setSticker(authMember.getSticker()+10);
+        memberService.addStickerAndLevelUp(authMember);
 
         return boastRepository.save(boast);
     }

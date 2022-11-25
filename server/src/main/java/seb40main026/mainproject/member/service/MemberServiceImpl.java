@@ -90,6 +90,19 @@ public class MemberServiceImpl implements MemberService{
             }
         }
     }
+    @Override
+    public void addStickerAndLevelUp(Member member){
+        member.setSticker(member.getSticker()+10);
+        if(50<=member.getSticker() && member.getSticker()<=99){
+            member.setMemberGrade(Member.MemberGrade.BROKEN_EGG);
+        }
+        else if(100<=member.getSticker() && member.getSticker()<=199){
+            member.setMemberGrade(Member.MemberGrade.CHICK);
+        }
+        else if(200<=member.getSticker()){
+            member.setMemberGrade(Member.MemberGrade.CHICKEN);
+        }
+    }
 
     @Override
     public Member getLoginMember() {
