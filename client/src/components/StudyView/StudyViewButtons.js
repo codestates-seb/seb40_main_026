@@ -24,7 +24,7 @@ const StudyViewButtons = () => {
         ))}
       </Buttons>
       <PostBtn
-        text={'수강신청 하기'}
+        text={'참여하기'}
         className="registerBtn"
         onClick={() => {
           alert('수강신청 완료되었습니다');
