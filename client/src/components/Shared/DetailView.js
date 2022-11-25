@@ -1,10 +1,23 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
+import { useState } from 'react';
 import { mobile } from '../../styles/Responsive';
-import { Viewer } from '@toast-ui/react-editor';
+import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 const DetailView = ({ DummyData, likeCount }) => {
   console.log(DummyData);
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const EditHandler = (id) => {
+    if (id === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+    } else {
+      setTitleId(id);
+
+      SetEditClick(true);
+    }
+  };
   return (
     <>
       <Detail>
@@ -12,7 +25,11 @@ const DetailView = ({ DummyData, likeCount }) => {
           <div>
             <div className="TitleWrap">
               <div className="DetailTitle">
-                <h3>{DummyData.title}</h3>
+                {DummyData.id === TitleId ? (
+                  <input defaultValue={DummyData.title} />
+                ) : (
+                  <h3>{DummyData.title}</h3>
+                )}
               </div>
 
               <div className="Userinfo">
@@ -24,10 +41,21 @@ const DetailView = ({ DummyData, likeCount }) => {
             </div>
             <div className="UserWrap"></div>
             <div className="Article">
-              <Viewer initialValue={DummyData.body} />
+              {DummyData.id === TitleId ? (
+                <Editor
+                  initialEditType="wysiwyg"
+                  initialValue={DummyData.body}
+                />
+              ) : (
+                <Viewer initialValue={DummyData.body} />
+              )}
+
               <LikeButton likeCount={likeCount} />
               <div className="Workbtn">
-                <button> 수정하기 </button>
+                <button onClick={() => EditHandler(DummyData.id)}>
+                  {' '}
+                  수정하기{' '}
+                </button>
                 <button> 삭제하기 </button>
                 <button> 신고하기 </button>
               </div>
@@ -58,7 +86,11 @@ const Detail = styled.div`
     }
 
     .DetailTitle {
+      width: 80%;
       font-size: 1rem;
+      > input {
+        width: 100%;
+      }
     }
     .Userinfo {
       font-size: 0.8rem;

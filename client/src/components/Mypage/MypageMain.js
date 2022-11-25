@@ -45,14 +45,6 @@ const MypageEdit = () => {
         <MypageRight>
           <Userinfo>
             <CommDisplay>
-              <span className="MypageTitle">학교</span>
-              <span>
-                {' '}
-                <FaSchool />
-                {UserDummydata.elementary}
-              </span>
-            </CommDisplay>
-            <CommDisplay>
               <span className="MypageTitle">총 게시물</span>
               <span>{UserDummydata.totalpost}개</span>
             </CommDisplay>
@@ -184,9 +176,11 @@ const Userinfo = styled.div`
 const CommDisplay = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
   .MypageTitle {
     font-size: 1.4rem;
     color: #ffa800;
+    margin-bottom: 0.5rem;
   }
   @media ${tablet} {
     .MypageTitle {

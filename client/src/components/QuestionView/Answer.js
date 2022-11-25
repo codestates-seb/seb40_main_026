@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
-import { Viewer } from '@toast-ui/react-editor';
+import { Viewer, Editor } from '@toast-ui/react-editor';
+
 import '@toast-ui/editor/dist/toastui-editor.css';
-import TitleHeader from '../Shared/TitleHeader';
+
 const Answer = () => {
   const DummyQuestions = [
     {
@@ -27,6 +28,18 @@ const Answer = () => {
       likeCount: 0,
     },
   ];
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const EditHandler = (id) => {
+    if (id === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+    } else {
+      setTitleId(id);
+
+      SetEditClick(true);
+    }
+  };
   return (
     <AnswerView>
       <AnswerViewWrap>
@@ -43,7 +56,9 @@ const Answer = () => {
                     <span> {items.date} </span>
                   </div>{' '}
                   <BtnWrap>
-                    <button>수정하기</button>
+                    <button onClick={() => EditHandler(items.id)}>
+                      수정하기
+                    </button>
                     <button>삭제하기</button>
                   </BtnWrap>
                 </div>
@@ -54,7 +69,11 @@ const Answer = () => {
                 </div>
               </AnswerTop>
               <AnswerBot>
-                <Viewer initialValue={items.body} />
+                {items.id === TitleId ? (
+                  <Editor initialEditType="wysiwyg" initialValue={items.body} />
+                ) : (
+                  <Viewer initialValue={items.body} />
+                )}
               </AnswerBot>
             </AnswerMainWrap>
           );
