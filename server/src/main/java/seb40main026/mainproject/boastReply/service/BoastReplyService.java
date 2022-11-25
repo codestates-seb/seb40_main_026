@@ -47,8 +47,6 @@ public class BoastReplyService {
         }
         authMember.setSticker(authMember.getSticker()+10);
 
-        memberRepository.save(authMember);
-        boastRepository.save(findBoast);
         return boastReplyRepository.save(boastReply);
     }
 

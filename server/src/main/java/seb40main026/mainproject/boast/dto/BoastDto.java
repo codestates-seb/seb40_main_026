@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import seb40main026.mainproject.member.entity.Member;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -47,9 +48,15 @@ public class BoastDto {
 
         private String content;
 
-        private LocalDateTime boardCreatedAt;
+        private String badge;
 
-        private LocalDateTime boardModifiedAt;
+        private String nickName;
+
+        private Member.MemberGrade grade;
+
+        private String boardCreatedAt;
+
+        private String boardModifiedAt;
 
         private Long viewCount;
 
