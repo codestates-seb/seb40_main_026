@@ -87,10 +87,10 @@ const StudyView = () => {
             </span>
           </div>
           <div>지도</div>
-          <KakaoMap
+          {/* <KakaoMap
             markerPositions={[33.452278, 126.567803]}
             size={[400, 400]}
-          />
+          /> */}
         </ContentItem>
       </Contents>
       <ScrollToTopBtn />
