@@ -15,7 +15,7 @@ const Container = styled.header`
   margin-bottom: 1rem;
   width: 100%;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-size: 0.8rem;
   .TitleWrap {
     width: 70%;

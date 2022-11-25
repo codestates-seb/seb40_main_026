@@ -21,17 +21,16 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
-  font-family: 'NanumGothic';
   display: flex;
   flex-direction: row;
-  height: 4rem;
+  height: 5rem;
   align-items: center; //수직 가운데 정렬
   margin: 0 15%;
-
   border-bottom: 1px gray solid;
   position: relative;
   background-color: white;
   z-index: 10;
+
   @media ${tablet} {
     margin: 0 10%;
   }

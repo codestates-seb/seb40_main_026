@@ -40,7 +40,6 @@ public class BoastService {
 
         authMember.setSticker(authMember.getSticker()+10);
 
-        memberRepository.save(authMember);
         return boastRepository.save(boast);
     }
 

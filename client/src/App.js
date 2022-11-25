@@ -60,7 +60,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/:id" element={<StudyViewPage />} />
+        <Route path="/study/id" element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
