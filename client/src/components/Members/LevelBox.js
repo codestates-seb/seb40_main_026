@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CgAdd } from 'react-icons/cg';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
@@ -132,6 +133,18 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
+const BtnBox = styled.div`
+  margin: 0 auto;
+
+  button {
+    width: 4rem;
+    font-size: 2.5rem;
+    color: #c7c7c7;
+    background-color: white;
+    cursor: pointer;
+  }
+`;
+
 function LevelBox({ UserData }) {
   return (
     <Container>
@@ -188,7 +201,11 @@ function LevelBox({ UserData }) {
           );
         })}
       </BottomBox>
-      <button>더보기</button>
+      <BtnBox>
+        <button>
+          <CgAdd />
+        </button>
+      </BtnBox>
     </Container>
   );
 }

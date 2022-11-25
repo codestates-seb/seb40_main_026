@@ -21,6 +21,7 @@ function Reference() {
       background: white;
       box-shadow: none;
       padding: 0;
+      margin-top: 1rem;
 
       > li {
         @media ${mobile} {
@@ -67,7 +68,7 @@ function Reference() {
     }
 
     .Word {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
   `;
 
