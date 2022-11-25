@@ -29,6 +29,7 @@ const Title = styled.div`
   font-size: 1.8rem;
   text-align: center;
   padding-top: 0.4rem;
+  margin-top: 1rem;
   @media ${tablet} {
     font-size: 1.5rem;
     padding-top: 0.9rem;
@@ -175,13 +176,13 @@ function AnswerBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item, id) => {
+        {UserData.map((item) => {
           return (
-            <BtmMemberBox key={id}>
-              <BtmMemberImg src={item.src}></BtmMemberImg>
+            <BtmMemberBox key={item.memberId}>
+              <BtmMemberImg src={item.path}></BtmMemberImg>
               <WordBox>
                 <span>{item.level}</span>
-                <span>{item.nickName}</span>
+                <span>{item.nickname}</span>
               </WordBox>
             </BtmMemberBox>
           );

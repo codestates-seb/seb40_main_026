@@ -35,21 +35,21 @@ function Members() {
 
   const UserData = [
     {
-      userId: 1,
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
+      memberId: 1,
+      path: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      nickname: '둘리',
       level: '🥚',
     },
     {
-      userId: 2,
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '또치',
+      memberId: 2,
+      path: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      nickname: '또치',
       level: '🐥',
     },
     {
-      userId: 3,
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '길동',
+      memberId: 3,
+      path: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
+      nickname: '길동',
       level: '🐓',
     },
   ];

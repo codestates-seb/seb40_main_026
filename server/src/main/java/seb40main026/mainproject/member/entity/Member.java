@@ -1,11 +1,16 @@
 package seb40main026.mainproject.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.badge.entity.Badge;
+import seb40main026.mainproject.boast.entity.Boast;
+import seb40main026.mainproject.boastReply.entity.BoastReply;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +39,16 @@ public class Member {
     @Column(length = 12, nullable = false)
     private String nickname;
 
+    @Column
+    @OneToMany(mappedBy = "member" , cascade = {CascadeType.ALL})
+    private List<Badge> badgeList;
+
+    public void addBadgeList(Badge badge){
+        badgeList.add(badge);
+    }
+
+    @Column
+    private String currentBadge;
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private String createdAt;
@@ -58,6 +73,26 @@ public class Member {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    //boast <-> member mapping
+    @OneToMany(mappedBy = "member" , cascade = {CascadeType.ALL})
+    @JsonManagedReference
+    private List<Boast> boasts;
+
+    public void setBoasts(Boast boast){
+        this.boasts.add(boast);
+        boast.setMember(this);
+    }
+
+    //boastReplies <-> member mapping
+    @OneToMany(mappedBy = "member" , cascade = {CascadeType.ALL})
+    @JsonManagedReference
+    private List<BoastReply> replies = new ArrayList<>();
+
+    public void setReplies(BoastReply boastReply){
+        this.replies.add(boastReply);
+        boastReply.setMember(this);
+    }
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
