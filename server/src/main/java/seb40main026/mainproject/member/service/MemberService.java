@@ -20,4 +20,6 @@ public interface MemberService {
     void verifiedExistsEmail(String email);
 
     Member getLoginMember();
-}
+    void addStickerAndLevelUp(Member member);
+
+    }
