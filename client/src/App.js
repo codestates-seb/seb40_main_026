@@ -20,7 +20,7 @@ import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
-import GlobalFonts from './font/font';
+
 function App() {
   const refresh = useRefreshToken();
 
@@ -37,7 +37,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GlobalFonts />
       <GlobalStyle />
       <ToastContainer
         position="top-center"

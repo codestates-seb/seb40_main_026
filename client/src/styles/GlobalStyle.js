@@ -1,21 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 import variables from './GlobalVariables';
-import NanumGothic from './font/NanumGothic.woff';
-
 const GlobalStyle = createGlobalStyle`
-@font-face {
-  font-family: 'NanumGothic';	
-  src: local('NanumGothic'),    
-  url(${NanumGothic} format('woff');
-  font-weight: 300; 
-  font-style: normal;}
 * {
-  font-family: 'NanumGothic';	
   box-sizing: border-box;
   border:0;
   margin:0;
   padding:0;
-  font-family: 'Nanum Gothic', sans-serif;
   .toast {
   top: 200px;
 }
