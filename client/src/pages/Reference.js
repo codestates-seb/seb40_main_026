@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import Card from '../components/Boast/Card';
 import { tablet, mobile } from '../styles/Responsive';
+import TitleHeader from '../components/Shared/TitleHeader';
 
 function Reference() {
   const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
     margin: auto;
+    margin-top: 2rem;
     @media ${tablet} {
       margin-left: -30px;
     }
@@ -18,6 +20,8 @@ function Reference() {
     .toplistbox {
       background: white;
       box-shadow: none;
+      padding: 0;
+
       > li {
         @media ${mobile} {
           width: 600px;
@@ -33,10 +37,12 @@ function Reference() {
     }
 
     .listbox {
+      grid-gap: 2rem;
       > li {
         background-color: #ffc149;
         color: white;
         margin-top: 0rem;
+        margin: 0rem;
 
         @media ${mobile} {
           display: flex;
@@ -52,25 +58,30 @@ function Reference() {
         }
       }
     }
-  `;
 
-  const Title = styled.h1`
-    margin-bottom: 1rem;
-    margin-top: 2rem;
-    color: #ffc149;
-
-    @media ${tablet} {
-      font-size: 25px;
+    .TopLogo {
+      display: none;
     }
-    @media ${mobile} {
-      font-size: 25px;
+    .Btn {
+      display: none;
+    }
+
+    .Word {
+      margin-bottom: 1rem;
     }
   `;
+
   return (
     <>
       <Container>
-        <Title>배울래요</Title>
-        <Card className="toplistbox" classNameA="listbox" />
+        <TitleHeader title={'배울래요'} />
+        <Card
+          className="toplistbox"
+          classNameA="listbox"
+          classNameB="TopLogo"
+          classNameC="Btn"
+          classNameD="Word"
+        />
       </Container>
     </>
   );

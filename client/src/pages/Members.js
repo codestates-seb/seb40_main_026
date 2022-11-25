@@ -3,19 +3,22 @@ import LevelBox from '../components/Members/LevelBox';
 import QuestionBox from '../components/Members/QuestionBox';
 import AnswerBox from '../components/Members/AnswerBox';
 import { tablet, mobile } from '../styles/Responsive';
+import TitleHeader from '../components/Shared/TitleHeader';
 
 function Members() {
   const Container = styled.main`
     display: flex;
     flex-direction: column;
-    width: 70%;
-    margin: auto;
+    width: 100%;
     padding-bottom: 5rem;
+    margin-top: 2rem;
   `;
   const ListBox = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 2rem;
+    margin: auto;
+    width: 70%;
 
     @media ${tablet} {
       display: grid;
@@ -25,12 +28,6 @@ function Members() {
       display: grid;
       grid-template-columns: 1fr;
     }
-  `;
-
-  const Title = styled.h1`
-    margin-bottom: 4rem;
-    margin-top: 2rem;
-    color: #ffc149;
   `;
 
   const UserData = [
@@ -56,7 +53,7 @@ function Members() {
 
   return (
     <Container>
-      <Title>친구들</Title>
+      <TitleHeader title={'친구들'} />
       <ListBox>
         <LevelBox UserData={UserData} />
         <QuestionBox UserData={UserData} />
