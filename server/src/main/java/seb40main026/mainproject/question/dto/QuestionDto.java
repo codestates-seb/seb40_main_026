@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 public class QuestionDto {
     @Getter
@@ -36,11 +35,17 @@ public class QuestionDto {
         private Long questionId;
         private String title;
         private String content;
+        private String nickname;
+        private String grade; // 등급
+        private Integer level; // sticker
+//        private String badge; // 현재 뱃지
         // 파일
         private Integer viewCount;
         private Integer likeCount;
         private Integer reportCount;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private Integer answerCount;
+        private String createdAt;
+        private String modifiedAt;
+        private Boolean checkLike;
     }
 }
