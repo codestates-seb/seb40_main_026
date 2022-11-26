@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import { Viewer, Editor } from '@toast-ui/react-editor';
-
+import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
-
+import { useParams } from 'react-router-dom';
 const Answer = () => {
   const DummyQuestions = [
     {
@@ -30,6 +30,8 @@ const Answer = () => {
   ];
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
+  const [Answer, setAnswer] = useState([]);
+  const { id } = useParams();
   const EditHandler = (id) => {
     if (id === TitleId) {
       setTitleId(0);
@@ -40,10 +42,20 @@ const Answer = () => {
       SetEditClick(true);
     }
   };
+  useEffect(() => {
+    axios
+      ///questions/${id}
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`
+      )
+      .then((res) => {
+        setAnswer(res.data);
+      });
+  }, []);
   return (
     <AnswerView>
       <AnswerViewWrap>
-        {DummyQuestions.map((items) => {
+        {Answer.map((items) => {
           return (
             <AnswerMainWrap key={items.id}>
               <AnswerTop>
@@ -69,10 +81,13 @@ const Answer = () => {
                 </div>
               </AnswerTop>
               <AnswerBot>
-                {items.id === TitleId ? (
-                  <Editor initialEditType="wysiwyg" initialValue={items.body} />
+                {items.answerId === TitleId ? (
+                  <Editor
+                    initialEditType="wysiwyg"
+                    initialValue={items.content}
+                  />
                 ) : (
-                  <Viewer initialValue={items.body} />
+                  <Viewer initialValue={items.content} />
                 )}
               </AnswerBot>
             </AnswerMainWrap>

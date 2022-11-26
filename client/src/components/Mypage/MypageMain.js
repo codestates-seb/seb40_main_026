@@ -3,8 +3,20 @@ import { MdEmojiPeople } from 'react-icons/md';
 import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+//멤버 id 띄어야함
 const MypageEdit = () => {
+  const [UserInfo, SetUserInfo] = useState();
+  useEffect(() => {
+    axios
+      .get(
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/{member-id}'
+      )
+      .then((res) => {
+        SetUserInfo(res.data);
+      });
+  }, []);
   const UserDummydata = {
     id: 1,
     elementary: '상현초등학교',
@@ -30,7 +42,7 @@ const MypageEdit = () => {
           <NicknameWrap>
             <div>
               {' '}
-              <span className="MypageTitle">닉네임</span>
+              <span className="MypageTitle">nickname</span>
             </div>
 
             <div>
@@ -67,7 +79,7 @@ const MypageEdit = () => {
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
-                <span>가입일 : {UserDummydata.date}</span>
+                <span>가입일 : createdAt</span>
 
                 <span>최근 접속일 : {UserDummydata.recent}</span>
               </CommDisplay>
