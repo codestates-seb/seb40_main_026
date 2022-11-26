@@ -145,7 +145,7 @@ const BtnBox = styled.div`
   }
 `;
 
-function QuestionBox({ UserData }) {
+function QuestionBox({ list }) {
   return (
     <Container>
       <TitleBox>
@@ -189,17 +189,18 @@ function QuestionBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item) => {
-          return (
-            <BtmMemberBox key={item.memberId}>
-              <BtmMemberImg src={item.path}></BtmMemberImg>
-              <WordBox>
-                <span>{item.level}</span>
-                <span>{item.nickname}</span>
-              </WordBox>
-            </BtmMemberBox>
-          );
-        })}
+        {list &&
+          list.slice(0, 3).map((item) => {
+            return (
+              <BtmMemberBox key={item.memberId}>
+                <BtmMemberImg src={item.path}></BtmMemberImg>
+                <WordBox>
+                  <span>{item.level}</span>
+                  <span>{item.nickname}</span>
+                </WordBox>
+              </BtmMemberBox>
+            );
+          })}
       </BottomBox>
       <BtnBox>
         <button>

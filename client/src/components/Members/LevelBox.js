@@ -4,6 +4,8 @@ import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
 
 const Container = styled.section`
   display: grid;
@@ -145,7 +147,7 @@ const BtnBox = styled.div`
   }
 `;
 
-function LevelBox({ UserData }) {
+function LevelBox({ list }) {
   return (
     <Container>
       <TitleBox>
@@ -189,17 +191,18 @@ function LevelBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item) => {
-          return (
-            <BtmMemberBox key={item.memberId}>
-              <BtmMemberImg src={item.path}></BtmMemberImg>
-              <WordBox>
-                <span>{item.level}</span>
-                <span>{item.nickname}</span>
-              </WordBox>
-            </BtmMemberBox>
-          );
-        })}
+        {list &&
+          list.slice(0, 3).map((item) => {
+            return (
+              <BtmMemberBox key={item.memberId}>
+                <BtmMemberImg src={item.path}></BtmMemberImg>
+                <WordBox>
+                  <span>{item.memberGrade}</span>
+                  <span>{item.nickname}</span>
+                </WordBox>
+              </BtmMemberBox>
+            );
+          })}
       </BottomBox>
       <BtnBox>
         <button>

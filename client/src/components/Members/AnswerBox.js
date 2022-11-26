@@ -145,7 +145,7 @@ const BtnBox = styled.div`
   }
 `;
 
-function AnswerBox({ UserData }) {
+function AnswerBox({ list }) {
   return (
     <Container>
       <TitleBox>
@@ -189,7 +189,7 @@ function AnswerBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item) => {
+        {list.slice(0, 3).map((item) => {
           return (
             <BtmMemberBox key={item.memberId}>
               <BtmMemberImg src={item.path}></BtmMemberImg>
