@@ -5,7 +5,6 @@ import { mobile } from '../../styles/Responsive';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 const DetailView = ({ DummyData, likeCount }) => {
-  console.log(DummyData);
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
   const EditHandler = (id) => {
@@ -25,7 +24,7 @@ const DetailView = ({ DummyData, likeCount }) => {
           <div>
             <div className="TitleWrap">
               <div className="DetailTitle">
-                {DummyData.id === TitleId ? (
+                {DummyData.Id === TitleId ? (
                   <input defaultValue={DummyData.title} />
                 ) : (
                   <h3>{DummyData.title}</h3>
@@ -36,7 +35,7 @@ const DetailView = ({ DummyData, likeCount }) => {
                 <span>{DummyData.nickname} </span>
                 <span>{DummyData.class}</span>
                 <span>{DummyData.grade} </span>
-                <span>{DummyData.date}</span>
+                <span>{DummyData.createdAt}</span>
               </div>
             </div>
             <div className="UserWrap"></div>
@@ -44,10 +43,10 @@ const DetailView = ({ DummyData, likeCount }) => {
               {DummyData.id === TitleId ? (
                 <Editor
                   initialEditType="wysiwyg"
-                  initialValue={DummyData.body}
+                  initialValue={DummyData.content}
                 />
               ) : (
-                <Viewer initialValue={DummyData.body} />
+                <Viewer initialValue={DummyData.content} />
               )}
 
               <LikeButton likeCount={likeCount} />

@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
+import axios from 'axios';
 
 const QuestionView = () => {
   const DummyQuestions = [
@@ -40,27 +42,47 @@ const QuestionView = () => {
   ];
 
   const navigate = useNavigate();
+  const [QuesData, SetQuesData] = useState([]);
   const Titlehandler = (id) => {
     navigate(`/questions/${id}`);
+    console.log(id);
+  };
+  useEffect(() => {
+    axios
+      .get(
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions?sort=questionId'
+      )
+      .then((res) => {
+        SetQuesData(res.data);
+      });
+  }, []);
+  const LikeHandler = (id) => {
+    axios({
+      method: 'post',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/like`,
+      data: id,
+      headers: {},
+    })
+      .then()
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
   return (
     <QuesListContainer>
       <QuesListMain>
         <QuestionsList>
-          {DummyQuestions.map((items) => {
+          {QuesData.map((items) => {
             return (
-              <QuesListWrap key={items.id}>
+              <QuesListWrap key={items.questionId}>
                 <DisplayWrap>
                   <Sectionleft>
                     <h3>
-                      <Link
-                        to="/questions/id"
-                        onClick={() => Titlehandler(items.id)}
-                      >
-                        {items.title}
-                      </Link>
+                      <button onClick={() => Titlehandler(items.questionId)}>
+                        {items.title}{' '}
+                      </button>
                     </h3>
-                    <p>{items.body}</p>
+                    <p>{items.content}</p>
                   </Sectionleft>
                   <Sectionright>
                     <div className="AnswerCircle">
@@ -83,7 +105,10 @@ const QuestionView = () => {
                   </BotUserWrap>
                   <div>
                     <span className="Likebtn">
-                      <LikeButton likeCount={items.likeCount} />{' '}
+                      <LikeButton
+                        likeCount={items.likeCount}
+                        likeClick={() => LikeHandler(items.id)}
+                      />{' '}
                     </span>
                   </div>
                 </SectionBot>
@@ -141,13 +166,13 @@ const Sectionleft = styled.div`
     margin-top: 1rem;
     font-size: 0.8rem;
   }
-  > button {
+  > h3 > button {
     background-color: #fff;
     font-size: 1.2rem;
     margin-bottom: 1rem;
     cursor: pointer;
   }
-  > button:hover {
+  > h3 > button:hover {
     color: grey;
   }
 `;

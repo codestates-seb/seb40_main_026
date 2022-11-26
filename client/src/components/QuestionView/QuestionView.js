@@ -1,10 +1,13 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import DetailView from '../Shared/DetailView';
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import TitleHeader from '../Shared/TitleHeader';
+import axios from 'axios';
 const QuestionView = () => {
+  const [QuesData, SetQuesData] = useState();
+  const { id } = useParams();
   const DummyQuestions = {
     id: 1,
     title: '안녕하세요 제목을 입력해주세요',
@@ -16,15 +19,21 @@ const QuestionView = () => {
     likeCount: '3',
     answerlength: '2',
   };
+  useEffect(() => {
+    axios
+      ///questions/${id}
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`
+      )
+      .then((res) => {
+        SetQuesData(res.data);
+      });
+  }, []);
 
   return (
     <>
       <TitleHeader title={'질문 & 답변'} />
-
-      <DetailView
-        DummyData={DummyQuestions}
-        likeCount={DummyQuestions.likeCount}
-      />
+      <DetailView DummyData={DummyQuestions} />
     </>
   );
 };
