@@ -3,6 +3,7 @@ import LikeButton from '../Shared/LikeButton';
 import { tablet, mobile } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function Card({
   className,
@@ -11,7 +12,14 @@ function Card({
   classNameC,
   classNameD,
   likeButton,
+  list,
 }) {
+  console.log(list);
+  const navigate = useNavigate();
+  const handleOnClick = (id) => {
+    navigate(`/boasts/${id}`);
+  };
+
   const Container = styled.main`
     display: flex;
     flex-direction: column;
@@ -129,7 +137,7 @@ function Card({
 
   const CardImg = styled.img`
     width: 100%;
-    height: 65%;
+    height: 80%;
     border-radius: 2rem 2rem 0rem 0rem;
     box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   `;
@@ -152,7 +160,7 @@ function Card({
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 0.5rem 0.5rem 0.2rem 0;
+    margin: 0 0.5rem 0.2rem 0;
     padding: 0.5rem;
     font-size: 1.1rem;
     color: gray;
@@ -324,11 +332,13 @@ function Card({
       </BtnBox>
       <TopLogo className={classNameB}>Top 3</TopLogo>
       <TopListBox className={className}>
-        {listData2.map((item, id) => {
+        {listData2.map((item) => {
           return (
-            <CardBox key={id}>
-              <CardImg src={item.src} alt={item.alt} />
-              <Word>{item.title}</Word>
+            <CardBox key={item.boastId}>
+              <Link to="/boast/id" onClick={() => handleOnClick(list.memberId)}>
+                <CardImg src={item.src} alt={item.alt} />
+                <Word>{item.title}</Word>
+              </Link>
               <Word2 className={classNameD}>
                 <div>{item.nickName}</div>
                 {likeButton && <LikeButton likeCount={item.likeCount} />}
@@ -338,11 +348,13 @@ function Card({
         })}
       </TopListBox>
       <ListBox className={classNameA}>
-        {listData.map((item, id) => {
+        {listData.map((item) => {
           return (
-            <CardBox key={id}>
-              <CardImg src={item.src} alt={item.alt} />
-              <Word>{item.title}</Word>
+            <CardBox key={item.memberId}>
+              <Link to="/boast/id" onClick={() => handleOnClick(list.memberId)}>
+                <CardImg src={item.src} alt={item.alt} />
+                <Word>{item.title}</Word>
+              </Link>
               <Word2 className={classNameD}>
                 <div>{item.nickName}</div>
                 {likeButton && <LikeButton likeCount={item.likeCount} />}
