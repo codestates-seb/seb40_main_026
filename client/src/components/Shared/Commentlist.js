@@ -1,30 +1,30 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 
-const Commentlist = () => {
-  const DummyComments = [
-    {
-      id: 1,
+const Commentlist = ({ DummyComments }) => {
+  // const DummyComments = [
+  //   {
+  //     id: 1,
 
-      body: '저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.',
-      date: '22-11-14',
-      nickname: '아구몬',
-    },
-    {
-      id: 2,
+  //     body: '저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.',
+  //     date: '22-11-14',
+  //     nickname: '아구몬',
+  //   },
+  //   {
+  //     id: 2,
 
-      body: '저는 두번째 더미데이터 입니다.',
-      date: '22-11-15',
-      nickname: '파닥몬',
-    },
-    {
-      id: 3,
+  //     body: '저는 두번째 더미데이터 입니다.',
+  //     date: '22-11-15',
+  //     nickname: '파닥몬',
+  //   },
+  //   {
+  //     id: 3,
 
-      body: '저는 세번째 더미데이터 입니다.',
-      date: '22-11-16',
-      nickname: '뿔몬',
-    },
-  ];
+  //     body: '저는 세번째 더미데이터 입니다.',
+  //     date: '22-11-16',
+  //     nickname: '뿔몬',
+  //   },
+  // ];
   return (
     <CommentContainer>
       <ComInputWrap>
