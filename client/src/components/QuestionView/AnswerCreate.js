@@ -1,37 +1,59 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
-
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import TitleHeader from '../Shared/TitleHeader';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 const AnswerCreate = () => {
+  const textRef = useRef();
+  const [BodyData, SetBodyData] = useState();
+  const { id } = useParams();
+  // const { id } = useParams();
+  const handleChangeInput = () => {
+    SetBodyData(textRef.current.getInstance().getMarkdown().trim());
+  };
+  const Answerpost = () => {
+    axios({
+      method: 'post',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
+      data: { BodyData },
+      headers: {},
+    })
+      .then()
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+  console.log(BodyData);
   return (
     <CreateWrap>
+      <TitleHeader title={'답변하기'} />
       <CreateView>
         <Createinput>
           {' '}
-          <textarea placeholder="답변을 입력해주세요."></textarea>
+          <Editor
+            ref={textRef}
+            height="300px"
+            initialEditType="wysiwyg"
+            initialValue=" "
+            onChange={handleChangeInput}
+          />
         </Createinput>
         <div>
           {' '}
-          <button className="CreateBtn">작성하기</button>
+          <button className="CreateBtn" onClick={Answerpost}>
+            작성하기
+          </button>
         </div>
       </CreateView>
     </CreateWrap>
   );
 };
 const Createinput = styled.div`
-  width: 90%;
-
-  > textarea {
-    height: 200px;
-    padding: 0.5rem;
-    margin: auto;
-    width: 100%;
-    resize: none;
-    padding: 1rem;
-    box-shadow: grey 0px 0px 3px;
-    margin-top: 1rem;
-    border-radius: 1rem;
-  }
+  width: 100%;
+  margin-top: 1rem;
 `;
 const CreateView = styled.div`
   width: 70%;
@@ -40,10 +62,12 @@ const CreateView = styled.div`
   align-items: center;
   padding: 0.5rem;
   justify-content: center;
-  box-shadow: grey 0px 0px 3px;
+
   margin: auto;
   border-radius: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
+
   > div {
     .CreateBtn {
       width: 100px;

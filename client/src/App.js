@@ -9,7 +9,7 @@ import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 import BoastDetail from './pages/BoastDetail';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/Loginpage';
 import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
 import QuestionsMain from './pages/Questionlist';
@@ -19,6 +19,7 @@ import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 
 function App() {
   const refresh = useRefreshToken();

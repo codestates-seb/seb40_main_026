@@ -1,10 +1,31 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
+import { useState, useRef } from 'react';
 import { mobile } from '../../styles/Responsive';
-import { Viewer } from '@toast-ui/react-editor';
+import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-const DetailView = ({ DummyData, likeCount }) => {
-  console.log(DummyData);
+import axios from '../../api/axios';
+const DetailView = ({
+  DummyData,
+  likeCount,
+  SetContent,
+  SetTitle,
+  EditPatch,
+}) => {
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const textRef = useRef();
+  const EditHandler = (id) => {
+    if (id === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+    } else {
+      setTitleId(id);
+
+      SetEditClick(true);
+    }
+  };
+
   return (
     <>
       <Detail>
@@ -12,22 +33,48 @@ const DetailView = ({ DummyData, likeCount }) => {
           <div>
             <div className="TitleWrap">
               <div className="DetailTitle">
-                <h3>{DummyData.title}</h3>
+                {DummyData === TitleId ? (
+                  <input
+                    defaultValue={DummyData.title}
+                    onChange={(e) => SetTitle(e.target.value)}
+                  />
+                ) : (
+                  <h3>{DummyData.title}</h3>
+                )}
               </div>
 
               <div className="Userinfo">
                 <span>{DummyData.nickname} </span>
                 <span>{DummyData.class}</span>
                 <span>{DummyData.grade} </span>
-                <span>{DummyData.date}</span>
+                <span>{DummyData.createdAt}</span>
               </div>
             </div>
             <div className="UserWrap"></div>
             <div className="Article">
-              <Viewer initialValue={DummyData.body} />
+              {DummyData === TitleId ? (
+                <Editor
+                  ref={textRef}
+                  initialEditType="wysiwyg"
+                  initialValue={DummyData.content}
+                  onChange={SetContent(
+                    textRef.current.getInstance().getMarkdown().trim()
+                  )}
+                />
+              ) : (
+                <Viewer initialValue={DummyData.content} />
+              )}
+
               <LikeButton likeCount={likeCount} />
               <div className="Workbtn">
-                <button> 수정하기 </button>
+                <button
+                  onClick={
+                    SetEditClick ? () => EditHandler(DummyData) : EditPatch
+                  }
+                >
+                  {' '}
+                  수정하기{' '}
+                </button>
                 <button> 삭제하기 </button>
                 <button> 신고하기 </button>
               </div>
@@ -58,7 +105,11 @@ const Detail = styled.div`
     }
 
     .DetailTitle {
+      width: 80%;
       font-size: 1rem;
+      > input {
+        width: 100%;
+      }
     }
     .Userinfo {
       font-size: 0.8rem;

@@ -1,8 +1,11 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
-
+import { Viewer, Editor } from '@toast-ui/react-editor';
+import axios from 'axios';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { useParams } from 'react-router-dom';
 const Answer = () => {
   const DummyQuestions = [
     {
@@ -25,10 +28,34 @@ const Answer = () => {
       likeCount: 0,
     },
   ];
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const [Answer, setAnswer] = useState([]);
+  const { id } = useParams();
+  const EditHandler = (id) => {
+    if (id === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+    } else {
+      setTitleId(id);
+
+      SetEditClick(true);
+    }
+  };
+  useEffect(() => {
+    axios
+      ///questions/${id}
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`
+      )
+      .then((res) => {
+        setAnswer(res.data);
+      });
+  }, []);
   return (
     <AnswerView>
       <AnswerViewWrap>
-        {DummyQuestions.map((items) => {
+        {Answer.map((items) => {
           return (
             <AnswerMainWrap key={items.id}>
               <AnswerTop>
@@ -41,7 +68,9 @@ const Answer = () => {
                     <span> {items.date} </span>
                   </div>{' '}
                   <BtnWrap>
-                    <button>수정하기</button>
+                    <button onClick={() => EditHandler(items.id)}>
+                      수정하기
+                    </button>
                     <button>삭제하기</button>
                   </BtnWrap>
                 </div>
@@ -52,7 +81,14 @@ const Answer = () => {
                 </div>
               </AnswerTop>
               <AnswerBot>
-                <p>{items.body}</p>
+                {items.answerId === TitleId ? (
+                  <Editor
+                    initialEditType="wysiwyg"
+                    initialValue={items.content}
+                  />
+                ) : (
+                  <Viewer initialValue={items.content} />
+                )}
               </AnswerBot>
             </AnswerMainWrap>
           );
