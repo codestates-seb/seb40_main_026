@@ -137,7 +137,7 @@ function BoastList(classNameA, classNameB, classNameC) {
 
   const navigate = useNavigate();
   const handleOnClick = (id) => {
-    navigate(`/boasts/${id}`);
+    navigate(`/boast/${id}`);
   };
   return (
     <Container>
@@ -148,8 +148,7 @@ function BoastList(classNameA, classNameB, classNameC) {
       <TopListBox>
         {topList.map((item) => {
           return (
-            <Link
-              to="/boast/id"
+            <button
               onClick={() => handleOnClick(item.boastId)}
               key={item.boastId}
             >
@@ -161,7 +160,7 @@ function BoastList(classNameA, classNameB, classNameC) {
                 likeCount={item.likeCount}
                 LikeButton={LikeButton}
               />
-            </Link>
+            </button>
           );
         })}
       </TopListBox>
@@ -169,8 +168,7 @@ function BoastList(classNameA, classNameB, classNameC) {
       <ListBox className={classNameA}>
         {list.map((item) => {
           return (
-            <Link
-              to="/boast/id"
+            <button
               onClick={() => handleOnClick(item.boastId)}
               key={item.boastId}
             >
@@ -183,7 +181,7 @@ function BoastList(classNameA, classNameB, classNameC) {
                 likeCount={item.likeCount}
                 LikeButton={LikeButton}
               />
-            </Link>
+            </button>
           );
         })}
       </ListBox>
