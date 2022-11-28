@@ -33,21 +33,11 @@ function BoastDetail() {
       console.error(err);
     }
   }, []);
-  // const DummyQuestions = {
-  //   id: 1,
-  //   title: '안녕하세요 제목을 입력해주세요',
-  //   body: '안녕하세요 내용을 입력해주세요안녕하세요 내용을 입력해주세요안녕하세요 내용을 입력해주세요안녕하세요 내용을 입력해주세요',
-  //   date: '22-11-14',
-  //   nickname: '파닥몬',
-  //   grade: '질문왕',
-  //   class: '🐣',
-  //   likeCount: '3',
-  //   answerlength: '2',
-  // };
+
   return (
     <Container>
       <TitleHeader title={'자랑할래요'} />
-      <DetailView DummyData={list} likeCount={list.likeCount} />
+      <DetailView Data={list} />
       <BoastComment boastId={boastId} />
     </Container>
   );
