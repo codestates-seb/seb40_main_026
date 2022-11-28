@@ -6,6 +6,9 @@ import styled from 'styled-components';
 // import axios from '../../api/axios';
 import axios from 'axios';
 //import useAuth from '../../hooks/useAuth';
+import { MdRemoveRedEye } from 'react-icons/md';
+import { RiEyeCloseFill } from 'react-icons/ri';
+
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
@@ -15,6 +18,10 @@ const Login = () => {
   const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hidePwd, setHidePwd] = useState(true);
+  const toggleHidePwd = () => {
+    setHidePwd(!hidePwd);
+  };
 
   const navigate = useNavigate();
 
@@ -70,12 +77,15 @@ const Login = () => {
           }}
         ></input>
         <input
-          type={'password'}
+          type={hidePwd ? 'password' : 'text'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></input>
+        <HidePwd type="button" onClick={toggleHidePwd}>
+          {hidePwd ? <RiEyeCloseFill /> : <MdRemoveRedEye />}
+        </HidePwd>
         <MediumButton
           className={'btn'}
           text={'로그인 하기'}
@@ -125,4 +135,12 @@ const InputWrapperForm = styled.form`
     width: 13rem;
     border-radius: 10px;
   }
+`;
+
+const HidePwd = styled.button`
+  width: 1rem;
+  position: relative;
+  bottom: 1.5rem;
+  left: 15rem;
+  background-color: white;
 `;
