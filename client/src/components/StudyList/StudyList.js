@@ -1,14 +1,22 @@
 // import axios from 'axios';
 // import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
+import SortBtn from '../Shared/SortBtn';
 import { data } from './data';
 import StudyCard from './StudyCard';
-import StudyListHeader from './StudyListHeader';
 
 const StudyList = () => {
-  // const [data, setData] = useState([]);
+  const [filterActive, setFilterActive] = useState('All');
+  const [datas, setDatas] = useState(data);
+
+  useEffect(() => {
+    filterActive === 'All'
+      ? setDatas(data)
+      : setDatas(data.filter((item) => item.online === filterActive));
+  }, [filterActive]);
 
   // useEffect(() => {
   //   axios
@@ -26,10 +34,31 @@ const StudyList = () => {
 
   return (
     <Container>
-      <StudyListHeader />
-
+      <StudyListHeader>
+        <h1>모여봐요</h1>
+        <div>
+          <SortBtn
+            text={'오프라인'}
+            name="offline"
+            className={filterActive === 'offline' ? 'active_btn' : null}
+            onClick={() => setFilterActive('offline')}
+          />
+          <SortBtn
+            text={'온라인'}
+            name="online"
+            className={filterActive === 'online' ? 'active_btn' : null}
+            onClick={() => setFilterActive('online')}
+          />
+          <SortBtn
+            text={'모두'}
+            name="All"
+            className={filterActive === 'All' ? 'active_btn' : null}
+            onClick={() => setFilterActive('All')}
+          />
+        </div>
+      </StudyListHeader>
       <StudyListBlock>
-        {data.map((ele) => (
+        {datas.map((ele) => (
           <div key={ele.id}>
             {/* <Link to={`/study/${ele.id}`} onClick={() => handleOnClick(ele.id)}> */}
             {/* <Link to={`/study/${ele.id}`}> */}
@@ -78,5 +107,36 @@ const StudyListBlock = styled.div`
   @media ${mobile} {
     grid-template-columns: 1fr;
     grid-gap: 2rem;
+  }
+`;
+
+const StudyListHeader = styled.div`
+  width: 70%;
+  color: #ffa800;
+  margin: auto;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem solid;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center; //수직 가운데 정렬
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  .active_btn {
+    background-color: #ffa800;
+  }
+
+  @media ${tablet} {
+    /* padding: 1.5rem 0;
+  flex-direction: column;
+  align-items: center; */
+  }
+  @media ${mobile} {
+    flex-direction: column;
+    align-items: center;
+    > div {
+      margin-top: 1rem;
+    }
   }
 `;

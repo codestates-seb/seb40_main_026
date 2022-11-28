@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useLogout from '../../../hooks/useLogout';
 
 const HeaderProfileModal = ({ setOpen }) => {
-  const logout = useLogout();
+  //const logout = useLogout();
   const navigate = useNavigate();
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
     alert('로그아웃되었습니다');
     setOpen(false);
-    //navigate('/');
+    navigate('/');
+    window.location.reload();
   };
   return (
     <Container>

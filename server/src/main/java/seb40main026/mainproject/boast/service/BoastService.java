@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
+import seb40main026.mainproject.boastLike.entity.BoastLike;
+import seb40main026.mainproject.boastLike.repository.BoastLikeRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
@@ -27,6 +29,7 @@ public class BoastService {
     private final BoastRepository boastRepository;
     private final MemberServiceImpl memberService;
     private final MemberRepository memberRepository;
+    private final BoastLikeRepository boastLikeRepository;
 
     public Boast createBoast(Boast boast){
         Member authMember = memberService.getLoginMember();
@@ -55,8 +58,16 @@ public class BoastService {
     }
 
     public Boast findBoast(long boastId){
+        Member authMember = memberService.getLoginMember();
         Boast findBoast = findVerifiedBoast(boastId);
         findBoast.setViewCount(findBoast.getViewCount()+1);
+        BoastLike findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
+        if(findBoastLike == null) {
+            findBoast.setCheckLike(false);
+        }
+        else{
+            findBoast.setCheckLike(true);
+        }
         return findBoast;
     }
 
