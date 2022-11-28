@@ -25,6 +25,7 @@ public class StudyService {
 
     // 전체 스터디 조회
     public List<Study> findStudies(String sort) {
+        if(sort == null) return studyRepository.findAll();
         return studyRepository.findAll().stream().filter(
                 study -> study.getOnline().equals(sort)
         ).collect(Collectors.toList());
@@ -58,10 +59,8 @@ public class StudyService {
     // 스터디 인원수 증가
     public Study addRecruitment(long studyId) {
         Study study = findVerifiedStudy(studyId);
-        if(study.getCount() < study.getRecruitment()) {
-            study.setCount(study.getCount() + 1);
-        } // 정원이 다 차면 인원수가 증가되지 않음
-        return studyRepository.save(study);
+        study.increaseCount(); // 정원이 다 차면 인원수가 증가되지 않음
+        return study;
     }
 
     // 스터디 삭제

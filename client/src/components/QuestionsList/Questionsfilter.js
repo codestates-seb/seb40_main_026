@@ -2,8 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import SortBtn from '../Shared/SortBtn';
 
-const Quesfilter = () => {
-  const [TitleId, setTitleId] = useState(3);
+const Quesfilter = ({ TitleId, SetTitleId }) => {
   const filterdata = [
     {
       id: 1,
@@ -20,9 +19,9 @@ const Quesfilter = () => {
   ];
   const filterOn = (id) => {
     if (id === TitleId) {
-      setTitleId(0);
+      SetTitleId(0);
     } else {
-      setTitleId(id);
+      SetTitleId(id);
     }
   };
   //onclick?Clasname =yellow

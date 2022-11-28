@@ -3,8 +3,28 @@ import { MdEmojiPeople } from 'react-icons/md';
 import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+//멤버 id 띄어야함
 const MypageEdit = () => {
+  const [UserInfo, SetUserInfo] = useState();
+  const token = localStorage.getItem('accessToken');
+  const decode = jwt_decode(token);
+  const UserId = decode.memberId;
+  console.log(UserId);
+
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
   const UserDummydata = {
     id: 1,
     elementary: '상현초등학교',
@@ -36,7 +56,7 @@ const MypageEdit = () => {
             <div>
               {' '}
               <span>
-                {UserDummydata.level}
+                {UserInfo.memberGrade}
                 {UserDummydata.nickname}
               </span>
             </div>
@@ -44,14 +64,6 @@ const MypageEdit = () => {
         </MypageLeft>
         <MypageRight>
           <Userinfo>
-            <CommDisplay>
-              <span className="MypageTitle">학교</span>
-              <span>
-                {' '}
-                <FaSchool />
-                {UserDummydata.elementary}
-              </span>
-            </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">총 게시물</span>
               <span>{UserDummydata.totalpost}개</span>
@@ -75,7 +87,7 @@ const MypageEdit = () => {
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
-                <span>가입일 : {UserDummydata.date}</span>
+                <span>가입일 : createdAt</span>
 
                 <span>최근 접속일 : {UserDummydata.recent}</span>
               </CommDisplay>
@@ -125,6 +137,10 @@ const NicknameWrap = styled.div`
   border-radius: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  .MypageTitle {
+    color: #ffa800;
+    font-size: 1.4rem;
+  }
 `;
 const UserPhotoWrap = styled.div`
   img {
@@ -184,9 +200,11 @@ const Userinfo = styled.div`
 const CommDisplay = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
   .MypageTitle {
     font-size: 1.4rem;
     color: #ffa800;
+    margin-bottom: 0.5rem;
   }
   @media ${tablet} {
     .MypageTitle {

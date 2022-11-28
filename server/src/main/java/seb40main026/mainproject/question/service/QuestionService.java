@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seb40main026.mainproject.badge.service.BadgeService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
@@ -25,7 +24,6 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionMapper mapper;
     private final QuestionRepository questionRepository;
-    private final BadgeService badgeService;
     private final MemberServiceImpl memberService;
     private final QuestionLikeRepository questionLikeRepository;
 
@@ -34,9 +32,11 @@ public class QuestionService {
         Question question = mapper.questionPostDtoToQuestion(questionPostDto);
         Member member = memberService.getLoginMember();
         question.setMember(member);
-//        if(questionRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
-//            badgeService.addBadge(member.getMemberId(), "question");
-//        }
+
+        if(questionRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
+            memberService.addBadge("question");
+        }
+
         memberService.addStickerAndLevelUp(member);
         questionRepository.save(question);
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
