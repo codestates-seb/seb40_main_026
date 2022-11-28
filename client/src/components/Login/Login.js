@@ -43,26 +43,20 @@ const Login = () => {
         console.log(res.headers.authorization);
         let accessToken = res.headers.authorization;
         localStorage.setItem('accessToken', accessToken);
+        setEmail('');
+        setPassword('');
+        navigate('/');
         window.location.reload();
       })
       .catch((error) => {
-        if (error.response) {
-          console.log('에러전체', error.response);
-          console.log('에러데이터', error.response.data);
-          console.log('에러상태', error.response.status);
-          console.log('에러헤더', error.response.headers);
-        } else if (error.request) {
-          console.log('에러요청', error.request);
-        } else {
-          console.log('에러', error.message);
+        if (error.response.status === 401) {
+          errorAlarm('등록되지 않은 회원입니다');
+          return;
         }
       });
     //const accessToken = response?.data?.accessToken;
 
     //setAuth({ email, password, teacher, accessToken });
-    setEmail('');
-    setPassword('');
-    navigate('/');
   };
 
   return (
@@ -76,6 +70,7 @@ const Login = () => {
           }}
         ></input>
         <input
+          type={'password'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
             setPassword(e.target.value);
