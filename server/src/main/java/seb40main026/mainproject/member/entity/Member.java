@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import seb40main026.mainproject.badge.entity.Badge;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
 
@@ -36,16 +35,13 @@ public class Member {
     @Column(length = 12, nullable = false)
     private String nickname;
 
-    @Column
-    @OneToMany(mappedBy = "member" , cascade = {CascadeType.ALL})
-    private List<Badge> badgeList;
-
-    public void addBadgeList(Badge badge){
-        badgeList.add(badge);
-    }
+    //badgeList 와 currentBadge 를 나누어 작업
+    @ElementCollection
+    private List<String> haveBadgeList = new ArrayList<>();
 
     @Column
     private String currentBadge;
+
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private String createdAt;
