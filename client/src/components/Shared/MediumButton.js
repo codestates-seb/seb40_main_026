@@ -16,9 +16,9 @@ const Button = styled.button`
   margin: 15px auto;
   width: 200px;
   border-radius: 20px;
-  padding: 5px 10px;
+  padding: 0.5rem;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 0.8rem;
   text-align: center;
   background: ${(props) => (props.color ? props.color : 'pink')};
 `;
