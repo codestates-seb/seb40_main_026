@@ -47,13 +47,23 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
         SetTotal(res.data.length);
       });
   }, [Count]);
-  //좋아요 요청
+  //더보기 대신 scrollY에 따른 값으로 변경
   const CountHandler = () => {
     if (Total >= Count) {
       SetCount(Count + 1);
     }
   };
-
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions?sort=${Filter}`
+  //     )
+  //     .then((res) => {
+  //       SetQuesData(res.data.slice(0, Count * 5));
+  //       SetTotal(res.data.length);
+  //     });
+  //     //Y좌표 변경시마다 렌더링
+  // }, []);
   return (
     <QuesListContainer>
       <QuesListMain>
