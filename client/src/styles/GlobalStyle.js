@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import variables from './GlobalVariables';
 import NanumGothic from '../styles/NanumGothic.woff';
+import variables from './GlobalVariables';
 
 const GlobalStyle = createGlobalStyle`
 @font-face {
@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   margin:0;
   padding:0;
   font-family: 'NanumGothic';
+  ${variables}
   .toast {
   top: 200px;
 }
