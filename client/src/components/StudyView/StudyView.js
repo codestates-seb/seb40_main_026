@@ -2,14 +2,17 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 import { BiMap } from 'react-icons/bi';
 import { BsFillClockFill, BsFillSuitHeartFill } from 'react-icons/bs';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import { data } from './data';
-// import Map from './Map';
+import Map from './Map';
 import StudyViewButtons from './StudyViewButtons';
 
 const StudyView = () => {
+  const { id } = useParams();
+  console.log('파람스 컴포넌트에서', id);
   return (
     <Container>
       <StudyViewButtons />
@@ -83,7 +86,7 @@ const StudyView = () => {
           </div>
           <div>* 이 수업은 오프라인 수업입니다</div>
           <div>제주 제주시 첨단로 242 스페이스닷원</div>
-          {/* <Map /> */}
+          <Map />
         </ContentItem>
       </Contents>
       <ScrollToTopBtn />
@@ -121,7 +124,7 @@ const ContentItem = styled.div`
     padding: 20px;
   }
   > div.title {
-    border-bottom: 5px gold solid;
+    border-bottom: 5px #ffc149 solid;
     width: 100%;
     font-weight: 700;
     @media ${tablet} {
@@ -131,7 +134,7 @@ const ContentItem = styled.div`
       width: 100%;
     }
     > span {
-      color: gold;
+      color: #ffc149;
       margin-left: 5px;
     }
   }

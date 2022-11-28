@@ -1,10 +1,14 @@
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
+import axios from '../../api/axios';
 import { mobile, tablet } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import SortBtn from '../Shared/SortBtn';
 
 const StudyViewButtons = () => {
+  let { id } = useParams();
+  console.log(id);
   const buttonName = [
     '클래스소개',
     '수업기간 및 시간',
@@ -13,6 +17,18 @@ const StudyViewButtons = () => {
     '수업문의',
     '수업장소',
   ];
+  const handleRegisterClick = () => {
+    alert('수강신청 완료되었습니다');
+    axios
+      .post(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}/recruitment`,
+        {
+          'study-id': '{ id }',
+        }
+      )
+      .then((res) => console.log(res.data.count))
+      .catch((err) => console.log(err));
+  };
   return (
     <Container>
       <Buttons>
@@ -25,9 +41,7 @@ const StudyViewButtons = () => {
       <PostBtn
         text={'참여하기'}
         className="registerBtn"
-        onClick={() => {
-          alert('수강신청 완료되었습니다');
-        }}
+        onClick={handleRegisterClick}
       />
     </Container>
   );
@@ -85,7 +99,7 @@ const Buttons = styled.div`
     margin-right: 0.3rem;
     cursor: pointer;
     &:hover {
-      background-color: gold;
+      background-color: #ffc149;
     }
   }
 `;
