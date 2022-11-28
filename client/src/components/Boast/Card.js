@@ -1,123 +1,16 @@
 import styled from 'styled-components';
-import LikeButton from '../Shared/LikeButton';
 import { tablet, mobile } from '../../styles/Responsive';
-import PostBtn from '../Shared/PostBtn';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
 
 function Card({
-  className,
-  classNameA,
-  classNameB,
-  classNameC,
   classNameD,
   likeButton,
-  list,
+  src,
+  alt,
+  title,
+  nickName,
+  likeCount,
+  LikeButton,
 }) {
-  console.log(list);
-  const navigate = useNavigate();
-  const handleOnClick = (id) => {
-    navigate(`/boasts/${id}`);
-  };
-
-  const Container = styled.main`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: auto;
-    width: 70%;
-  `;
-
-  const TopLogo = styled.div`
-    width: 10%;
-    height: 3.5rem;
-    border-radius: 0.8rem 0.8rem 0rem 0rem;
-    text-align: center;
-    padding-top: 0.7rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-    background-color: #d8d4cc;
-
-    @media ${tablet} {
-      font-size: 1.1rem;
-      padding-top: 0.2rem;
-      height: 2rem;
-    }
-
-    @media ${mobile} {
-      display: none;
-    }
-  `;
-
-  const BtnBox = styled(Link)`
-    display: flex;
-    justify-content: flex-end;
-    margin: 2rem 0rem 0.4rem 3rem;
-  `;
-
-  const TopListBox = styled.ul`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    place-items: center;
-    box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
-    background: #f7f7f7;
-    border-radius: 0rem 2rem 2rem 2rem;
-    grid-gap: 2rem;
-    padding: 2rem;
-    width: 100%;
-
-    @media ${tablet} {
-      grid-gap: 0rem;
-    }
-
-    @media ${mobile} {
-      grid-template-columns: 1fr;
-      background: white;
-      box-shadow: none;
-      padding: 2.3rem 0 0 0;
-    }
-
-    li {
-      color: white;
-      background-color: #ffc149;
-
-      @media ${mobile} {
-        width: 100%;
-      }
-      @media ${tablet} {
-        width: 80%;
-      }
-    }
-  `;
-
-  const ListBox = styled.ul`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    place-items: center;
-    margin-top: 3rem;
-    width: 100%;
-    @media ${tablet} {
-    }
-    @media ${mobile} {
-      grid-template-columns: 1fr;
-      padding: 0;
-      margin-top: 1.5rem;
-    }
-
-    li {
-      background-color: white;
-      color: black;
-      margin: 1.5rem;
-
-      @media ${mobile} {
-        width: 100%;
-      }
-      @media ${tablet} {
-        width: 80%;
-      }
-    }
-  `;
-
   const CardBox = styled.li`
     display: flex;
     flex-wrap: wrap;
@@ -289,81 +182,16 @@ function Card({
     },
   ];
 
-  const listData2 = [
-    {
-      boastId: 1,
-      title: 'popular test 1 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:46.871873',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 3,
-      title: 'popular test 3 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:51.425265',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 5,
-      title: 'popular test 5 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:56.920637',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-  ];
-
   return (
-    <Container>
-      <BtnBox Link to="/boastCreate">
-        <PostBtn className={classNameC} text="자랑하기" />
-      </BtnBox>
-      <TopLogo className={classNameB}>Top 3</TopLogo>
-      <TopListBox className={className}>
-        {listData2.map((item) => {
-          return (
-            <CardBox key={item.boastId}>
-              <Link to="/boast/id" onClick={() => handleOnClick(list.memberId)}>
-                <CardImg src={item.src} alt={item.alt} />
-                <Word>{item.title}</Word>
-              </Link>
-              <Word2 className={classNameD}>
-                <div>{item.nickName}</div>
-                {likeButton && <LikeButton likeCount={item.likeCount} />}
-              </Word2>
-            </CardBox>
-          );
-        })}
-      </TopListBox>
-      <ListBox className={classNameA}>
-        {listData.map((item) => {
-          return (
-            <CardBox key={item.memberId}>
-              <Link to="/boast/id" onClick={() => handleOnClick(list.memberId)}>
-                <CardImg src={item.src} alt={item.alt} />
-                <Word>{item.title}</Word>
-              </Link>
-              <Word2 className={classNameD}>
-                <div>{item.nickName}</div>
-                {likeButton && <LikeButton likeCount={item.likeCount} />}
-              </Word2>
-            </CardBox>
-          );
-        })}
-      </ListBox>
-    </Container>
+    <CardBox>
+      <CardImg src={src} alt={alt} />
+      <Word>{title}</Word>
+
+      <Word2 className={classNameD}>
+        <div>{nickName}</div>
+        {likeButton && <LikeButton likeCount={likeCount} />}
+      </Word2>
+    </CardBox>
   );
 }
 
