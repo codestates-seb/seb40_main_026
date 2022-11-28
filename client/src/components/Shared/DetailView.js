@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { mobile } from '../../styles/Responsive';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-const DetailView = ({ DummyData, likeCount }) => {
+import axios from '../../api/axios';
+const DetailView = ({
+  DummyData,
+  likeCount,
+  SetContent,
+  SetTitle,
+  EditPatch,
+}) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
+  const textRef = useRef();
   const EditHandler = (id) => {
     if (id === TitleId) {
       setTitleId(0);
@@ -17,6 +25,7 @@ const DetailView = ({ DummyData, likeCount }) => {
       SetEditClick(true);
     }
   };
+
   return (
     <>
       <Detail>
@@ -24,8 +33,11 @@ const DetailView = ({ DummyData, likeCount }) => {
           <div>
             <div className="TitleWrap">
               <div className="DetailTitle">
-                {DummyData.Id === TitleId ? (
-                  <input defaultValue={DummyData.title} />
+                {DummyData === TitleId ? (
+                  <input
+                    defaultValue={DummyData.title}
+                    onChange={(e) => SetTitle(e.target.value)}
+                  />
                 ) : (
                   <h3>{DummyData.title}</h3>
                 )}
@@ -40,10 +52,14 @@ const DetailView = ({ DummyData, likeCount }) => {
             </div>
             <div className="UserWrap"></div>
             <div className="Article">
-              {DummyData.id === TitleId ? (
+              {DummyData === TitleId ? (
                 <Editor
+                  ref={textRef}
                   initialEditType="wysiwyg"
                   initialValue={DummyData.content}
+                  onChange={SetContent(
+                    textRef.current.getInstance().getMarkdown().trim()
+                  )}
                 />
               ) : (
                 <Viewer initialValue={DummyData.content} />
@@ -51,7 +67,11 @@ const DetailView = ({ DummyData, likeCount }) => {
 
               <LikeButton likeCount={likeCount} />
               <div className="Workbtn">
-                <button onClick={() => EditHandler(DummyData.id)}>
+                <button
+                  onClick={
+                    SetEditClick ? () => EditHandler(DummyData) : EditPatch
+                  }
+                >
                   {' '}
                   수정하기{' '}
                 </button>

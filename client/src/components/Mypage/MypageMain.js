@@ -5,16 +5,27 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 //멤버 id 띄어야함
 const MypageEdit = () => {
   const [UserInfo, SetUserInfo] = useState();
+  const token =
+    'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJURUFDSEVSIiwiVVNFUiJdLCJ1c2VybmFtZSI6ImFiYzEyM0BnbWFpbC5jb20iLCJtZW1iZXJJZCI6Miwic3ViIjoiYWJjMTIzQGdtYWlsLmNvbSIsImlhdCI6MTY2OTQ0OTEwNywiZXhwIjoxNjY5NDUwOTA3fQ.yKEDE5R8iqYzuPYjsgpDzPz4QxS4LRso2qRzTKkXfyj6IZD7azmUQmXJQ7kkygne6f-oFFDhVUFPy7X9jRutDg';
+  const decode = jwt_decode(token);
+  const UserId = decode.memberId;
+  console.log(UserId);
   useEffect(() => {
     axios
       .get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/{member-id}'
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+        {
+          'ngrok-skip-browser-warning': 'skip',
+          token: token,
+        }
       )
       .then((res) => {
         SetUserInfo(res.data);
+        console.log(UserInfo);
       });
   }, []);
   const UserDummydata = {

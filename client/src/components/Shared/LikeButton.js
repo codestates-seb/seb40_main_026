@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import axios from 'axios';
 
 const Btn = styled.button`
   background-color: white;
@@ -33,7 +34,7 @@ const Count = styled.span`
   bottom: 3px;
 `;
 
-function LikeButton({ likeCount }) {
+function LikeButton({ likeCount, LikeHandler }) {
   const [isLiked, setIsLiked] = useState(false);
 
   const toggle = () => {
@@ -45,7 +46,7 @@ function LikeButton({ likeCount }) {
       {isLiked ? (
         <AiFillHeart className="Heart" />
       ) : (
-        <AiOutlineHeart className="Heart" />
+        <AiOutlineHeart className="Heart" onClick={LikeHandler} />
       )}
       <Count>{likeCount}</Count>
     </Btn>

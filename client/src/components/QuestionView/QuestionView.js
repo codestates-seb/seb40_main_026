@@ -5,7 +5,7 @@ import DetailView from '../Shared/DetailView';
 import { useNavigate, useParams } from 'react-router';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
-const QuestionView = () => {
+const QuestionView = ({ ContentData, TitleData }) => {
   const [QuesData, SetQuesData] = useState();
   const { id } = useParams();
   const DummyQuestions = {
@@ -29,11 +29,22 @@ const QuestionView = () => {
         SetQuesData(res.data);
       });
   }, []);
-
+  const EditPatch = () => {
+    axios({
+      method: 'patch',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+      data: { TitleData, ContentData },
+    })
+      .then(function (response) {})
+      .catch((err) => {
+        console.log(err);
+        alert('Failed to edit the text. Please try again');
+      });
+  };
   return (
     <>
       <TitleHeader title={'질문 & 답변'} />
-      <DetailView DummyData={DummyQuestions} />
+      <DetailView DummyData={DummyQuestions} EditPatch={EditPatch} />
     </>
   );
 };
