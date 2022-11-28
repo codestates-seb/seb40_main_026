@@ -22,4 +22,7 @@ public interface MemberService {
     Member getLoginMember();
     void addStickerAndLevelUp(Member member);
 
+    void setCurrentBadge(String badgeName);
+
+    void addBadge(String badge);
     }

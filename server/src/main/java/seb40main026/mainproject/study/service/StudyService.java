@@ -25,6 +25,7 @@ public class StudyService {
 
     // 전체 스터디 조회
     public List<Study> findStudies(String sort) {
+        if(sort == null) return studyRepository.findAll();
         return studyRepository.findAll().stream().filter(
                 study -> study.getOnline().equals(sort)
         ).collect(Collectors.toList());

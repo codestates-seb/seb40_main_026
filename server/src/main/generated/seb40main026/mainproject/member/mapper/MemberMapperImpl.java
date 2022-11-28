@@ -9,8 +9,8 @@ import seb40main026.mainproject.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-18T17:31:04+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
+    date = "2022-11-28T13:53:44+0900",
+    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -54,6 +54,7 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
+        List<String> haveBadgeList = null;
         long memberId = 0L;
         String email = null;
         String name = null;
@@ -62,9 +63,14 @@ public class MemberMapperImpl implements MemberMapper {
         String createdAt = null;
         String modifiedAt = null;
         Integer sticker = null;
+        String currentBadge = null;
         Member.MemberStatus memberStatus = null;
         Member.MemberGrade memberGrade = null;
 
+        List<String> list = member.getHaveBadgeList();
+        if ( list != null ) {
+            haveBadgeList = new ArrayList<String>( list );
+        }
         if ( member.getMemberId() != null ) {
             memberId = member.getMemberId();
         }
@@ -77,10 +83,11 @@ public class MemberMapperImpl implements MemberMapper {
         createdAt = member.getCreatedAt();
         modifiedAt = member.getModifiedAt();
         sticker = member.getSticker();
+        currentBadge = member.getCurrentBadge();
         memberStatus = member.getMemberStatus();
         memberGrade = member.getMemberGrade();
 
-        MemberDto.Response response = new MemberDto.Response( memberId, email, name, nickname, teacher, createdAt, modifiedAt, sticker, memberStatus, memberGrade );
+        MemberDto.Response response = new MemberDto.Response( memberId, email, name, nickname, teacher, createdAt, modifiedAt, sticker, haveBadgeList, currentBadge, memberStatus, memberGrade );
 
         return response;
     }
