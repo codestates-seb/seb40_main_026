@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import seb40main026.mainproject.member.entity.Member;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 public class MemberDto {
 
@@ -27,8 +24,6 @@ public class MemberDto {
         @NotBlank(message = "닉네임은 필수 입력 사항입니다.")
         @Pattern(regexp = "^(?=.*[A-Za-z0-9가-힣])[A-Za-z0-9가-힣]{2,12}$", message = "닉네임은 2자 이상 12자 이하 영어 숫자 또는 한글만 가능합니다.")
         private String nickname;
-        @NotBlank(message = "이름은 필수 입력 사항입니다.")
-        private String name;
         private boolean teacher;
     }
 
@@ -54,7 +49,6 @@ public class MemberDto {
     public static class Response {
         private long memberId;
         private String email;
-        private String name;
         private String nickname;
         private boolean teacher;
         private String createdAt;

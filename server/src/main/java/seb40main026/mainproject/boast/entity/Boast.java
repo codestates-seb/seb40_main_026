@@ -37,8 +37,8 @@ public class Boast {
     @Column(nullable = false)
     private String nickName;
 
-    @Column
-    private String currentBadge;
+//    @Column
+//    private String currentBadge;
 
     @Column
     private Member.MemberGrade grade;

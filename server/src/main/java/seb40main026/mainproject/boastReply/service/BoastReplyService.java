@@ -45,10 +45,8 @@ public class BoastReplyService {
         if(boastReplyRepository.countByMember(authMember) >= 15) {
             badgeService.addBadge(authMember.getMemberId(), "reply");
         }
-        authMember.setSticker(authMember.getSticker()+10);
+        memberService.addStickerAndLevelUp(authMember);
 
-        memberRepository.save(authMember);
-        boastRepository.save(findBoast);
         return boastReplyRepository.save(boastReply);
     }
 
