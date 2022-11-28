@@ -27,6 +27,7 @@ const Container = styled.div`
   width: 250px;
   padding: 10px;
   height: 100%;
+  display: flex;
   > button {
     background-color: white;
     cursor: pointer;
@@ -41,5 +42,6 @@ const Container = styled.div`
   img {
     width: 60px;
     cursor: pointer;
+    align-items: center;
   }
 `;
