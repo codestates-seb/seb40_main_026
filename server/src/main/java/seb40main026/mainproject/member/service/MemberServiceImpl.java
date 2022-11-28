@@ -90,6 +90,8 @@ public class MemberServiceImpl implements MemberService{
             }
         }
     }
+
+    // == Sticker Method == //
     @Override
     public void addStickerAndLevelUp(Member member){
         member.setSticker(member.getSticker()+10);
@@ -101,6 +103,37 @@ public class MemberServiceImpl implements MemberService{
         }
         else if(200<=member.getSticker()){
             member.setMemberGrade(Member.MemberGrade.CHICKEN);
+        }
+    }
+
+    // == Badge Method == //
+    @Override
+    public void setCurrentBadge(String badgeName){
+        Member authMember = getLoginMember();
+        List<String> userHaveBadge = authMember.getHaveBadgeList();
+
+        if(userHaveBadge.contains(badgeName)){
+            authMember.setCurrentBadge(badgeName);
+        }
+        else{
+            new BusinessException(ExceptionCode.BADGE_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public void addBadge(String badgeName){
+        Member authMember = getLoginMember();
+        List<String> userHaveBadge = authMember.getHaveBadgeList();
+
+        switch(badgeName){
+            case "question" :
+            case "answer" :
+            case "reply" :
+                if (!userHaveBadge.contains(badgeName)) {
+                    userHaveBadge.add(badgeName);
+                    authMember.setHaveBadgeList(userHaveBadge);
+                }
+                break;
         }
     }
 

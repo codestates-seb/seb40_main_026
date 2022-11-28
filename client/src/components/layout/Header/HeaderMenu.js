@@ -26,11 +26,6 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 0.9rem;
-  /* font-family: 'Dongle', sans-serif; */
-
-  font-family: 'Nanum Gothic', sans-serif;
-
   font-weight: 700;
   color: black;
   cursor: pointer;

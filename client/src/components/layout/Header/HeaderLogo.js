@@ -17,7 +17,8 @@ export default HeaderLogo;
 
 const Container = styled.div`
   img {
-    width: 8rem;
+    width: 12rem;
+
     cursor: pointer;
   }
   /* @media ${mobile} {

@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
 import TitleHeader from '../Shared/TitleHeader';
+import axios from 'axios';
 
 const MypageEditContainer = () => {
   const [ImgSrc, SetImgSrc] = useState();
+  const [Userintro, Setintro] = useState();
+  const [Nickname, Setnickname] = useState();
   const ImgHandler = (event) => {
     SetSrc(event.target.files[0]);
   };
@@ -18,6 +21,23 @@ const MypageEditContainer = () => {
       };
     });
   };
+  const onSaveClick = (e) => {
+    e.preventDefault();
+    axios({
+      method: 'patch',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/{member-id}`,
+      data: { Nickname, Userintro, ImgSrc },
+      headers: {
+        'ngrok-skip-browser-warning': 'skip',
+      },
+    })
+      .then(function (response) {})
+      .catch((err) => {
+        console.log(err);
+        alert('Failed to edit the text. Please try again');
+      });
+  };
+
   console.log(ImgSrc);
   return (
     <EditContainer>
@@ -61,7 +81,7 @@ const MypageEditContainer = () => {
             </EditRight>
           </EditformWrap>
           <Editbtn>
-            <button>회원정보 수정</button>
+            <button onClick={onSaveClick}>회원정보 수정</button>
           </Editbtn>
         </EditForm>
       </EditWrap>
