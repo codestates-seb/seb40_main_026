@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-import axios from '../../api/axios';
-import useAuth from '../../hooks/useAuth';
+// import axios from '../../api/axios';
+import axios from 'axios';
+//import useAuth from '../../hooks/useAuth';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  //const { setAuth } = useAuth();
   const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     //인풋요소 유효성검사...util로 만들기!
     if (!(email.includes('@') && email.includes('.'))) {
@@ -32,26 +33,36 @@ const Login = () => {
       return;
     }
 
-    try {
-      const response = await axios.post(
-        '로그인url',
-        JSON.stringify({ email, password, teacher }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+    axios
+      .post(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/login`,
+        { username: email, password: password }
+      )
+      .then((res) => {
+        console.log('확인');
+        console.log(res.headers.authorization);
+        let accessToken = res.headers.authorization;
+        localStorage.setItem('accessToken', accessToken);
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log('에러전체', error.response);
+          console.log('에러데이터', error.response.data);
+          console.log('에러상태', error.response.status);
+          console.log('에러헤더', error.response.headers);
+        } else if (error.request) {
+          console.log('에러요청', error.request);
+        } else {
+          console.log('에러', error.message);
         }
-      );
-      console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.accessToken;
+      });
+    //const accessToken = response?.data?.accessToken;
 
-      setAuth({ email, password, teacher, accessToken });
-      setEmail('');
-      setPassword('');
-      navigate('/');
-    } catch (err) {
-      console.log(err);
-      alert('로그인실패');
-    }
+    //setAuth({ email, password, teacher, accessToken });
+    setEmail('');
+    setPassword('');
+    navigate('/');
   };
 
   return (
@@ -70,10 +81,15 @@ const Login = () => {
             setPassword(e.target.value);
           }}
         ></input>
-        <MediumButton text={'로그인 하기'} color={'rgb(252, 60, 178)'} />
+        <MediumButton
+          className={'btn'}
+          text={'로그인 하기'}
+          color={'rgb(252, 60, 178)'}
+        />
       </InputWrapperForm>
       <HorizonLine text={'회원이 아니신가요?'} />
       <MediumButton
+        className={'btn'}
         text={'회원가입 하기'}
         color={'#00c0d1'}
         onClick={() => {
@@ -81,7 +97,11 @@ const Login = () => {
         }}
       />
       <HorizonLine text={'소셜 로그인'} />
-      <MediumButton text={'카카오톡 로그인'} color={'rgb(247,221,51)'} />
+      <MediumButton
+        text={'카카오톡 로그인'}
+        color={'rgb(247,221,51)'}
+        className={'btn'}
+      />
     </Container>
   );
 };
@@ -95,6 +115,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  .btn {
+    width: 13rem;
+  }
 `;
 
 const InputWrapperForm = styled.form`
@@ -102,9 +125,9 @@ const InputWrapperForm = styled.form`
   flex-direction: column;
   width: 100%;
   > input {
-    margin: 10px auto;
+    margin: 0.3rem auto;
     padding: 5px 10px;
-    width: 250px;
+    width: 13rem;
     border-radius: 10px;
   }
 `;
