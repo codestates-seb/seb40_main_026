@@ -17,26 +17,6 @@ function Reference() {
       margin-left: -80px;
     }
 
-    .toplistbox {
-      background: white;
-      box-shadow: none;
-      padding: 0;
-      margin-top: 1rem;
-
-      > li {
-        @media ${mobile} {
-          width: 600px;
-          height: 540px;
-          margin: 30px;
-        }
-        @media ${tablet} {
-          width: 500px;
-          height: 440px;
-          margin: 30px;
-        }
-      }
-    }
-
     .listbox {
       grid-gap: 2rem;
       > li {
@@ -77,7 +57,6 @@ function Reference() {
       <Container>
         <TitleHeader title={'배울래요'} />
         <Card
-          className="toplistbox"
           classNameA="listbox"
           classNameB="TopLogo"
           classNameC="Btn"
