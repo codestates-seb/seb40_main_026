@@ -9,8 +9,9 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
   const navigate = useNavigate();
   const [QuesData, SetQuesData] = useState([]);
   const [Filter, SetFilter] = useState([]);
-  const [number, Setnumber] = useState(5);
-  const [Scrollheight, SetScrollheight] = useState();
+  const [Count, SetCount] = useState(1);
+  const [Total, SetTotal] = useState();
+
   //스크롤이 바닥에 닿으면 Setnumber(+5) 최댓값은 질문 전체 데이터 길이만큼.
   //if(maxnum=<Setnumber){
   // Setnumber(maxnum)
@@ -18,9 +19,6 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
   useEffect(() => {}, []);
   console.log(document.body.offsetHeight);
   console.log();
-  useEffect(() => {
-    Setnumber(number + 5);
-  }, [Scrollheight]);
 
   //상세페이지 네비게이션 연결
   const Titlehandler = (id) => {
@@ -45,12 +43,17 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
         `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions?sort=${Filter}`
       )
       .then((res) => {
-        SetQuesData(res.data);
+        SetQuesData(res.data.slice(0, Count * 5));
+        SetTotal(res.data.length);
       });
-  }, [Filter]);
+  }, [Count]);
   //좋아요 요청
+  const CountHandler = () => {
+    if (Total >= Count) {
+      SetCount(Count + 1);
+    }
+  };
 
-  console.log(QuesData);
   return (
     <QuesListContainer>
       <QuesListMain>
@@ -142,8 +145,12 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
                     </SectionBot>
                   </QuesListWrap>
                 );
-              }).slice(0, number)}
+              })}
         </QuestionsList>
+        <div>
+          {' '}
+          <button onClick={CountHandler}>더보기</button>
+        </div>
       </QuesListMain>
     </QuesListContainer>
   );
