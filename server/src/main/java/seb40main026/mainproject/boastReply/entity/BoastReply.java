@@ -59,7 +59,6 @@ public class BoastReply {
     @Column
     private String badge;
 
-
     @PrePersist
     public void onPrePersist(){
         this.replyCreatedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));

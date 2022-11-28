@@ -35,9 +35,9 @@ public class AnswerService {
         Member member = memberService.getLoginMember();
         answer.setQuestion(question);
         answer.setMember(member);
-//        if(answerRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
-//            badgeService.addBadge(member.getMemberId(), "answer");
-//        }
+        if(answerRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
+            memberService.addBadge("answer");
+        }
         memberService.addStickerAndLevelUp(member);
 
         return answerRepository.save(answer);

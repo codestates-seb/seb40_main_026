@@ -32,9 +32,11 @@ public class QuestionService {
         Question question = mapper.questionPostDtoToQuestion(questionPostDto);
         Member member = memberService.getLoginMember();
         question.setMember(member);
-//        if(questionRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
-//            badgeService.addBadge(member.getMemberId(), "question");
-//        }
+
+        if(questionRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
+            memberService.addBadge("question");
+        }
+
         memberService.addStickerAndLevelUp(member);
         questionRepository.save(question);
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
