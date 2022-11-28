@@ -32,9 +32,6 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 25, nullable = false)
-    private String name;
-
     @Column(length = 12, nullable = false)
     private String nickname;
 

@@ -19,7 +19,7 @@ a{
 }
 input:focus {outline: none;}
 :root {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: 400;
   ${variables}
 }

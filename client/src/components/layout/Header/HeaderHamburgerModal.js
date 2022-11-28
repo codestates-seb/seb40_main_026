@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../../styles/Responsive';
 
 const HeaderHamburgerModal = ({ setOpen }) => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = localStorage.getItem('accessToken');
+  console.log(isLogin);
 
   const handleClick = (e) => {
     navigate(e.target.value);
@@ -15,8 +15,11 @@ const HeaderHamburgerModal = ({ setOpen }) => {
   const handleLogout = () => {
     alert('로그아웃하시겠습니까?');
     //로그아웃처리 구현
+    localStorage.removeItem('accessToken');
+    window.location.reload();
     navigate('/');
     setOpen(false);
+    console.log('로그아웃 후', isLogin);
   };
   return (
     <Container>
@@ -77,7 +80,7 @@ export default HeaderHamburgerModal;
 
 const Container = styled.div`
   position: absolute;
-  top: 110px;
+  top: 90px;
   right: 0.1px;
   background-color: var(--gold);
   display: none;
@@ -94,8 +97,8 @@ const Container = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    padding: 45px;
-    border-radius: 30px;
+    padding: 2rem;
+    border-radius: 1rem;
     z-index: 1000;
   }
   @media ${mobile} {
@@ -106,13 +109,12 @@ const Container = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    padding: 45px;
-    border-radius: 30px;
+    padding: 2rem;
+    border-radius: 1rem;
     z-index: 1000;
   }
   > button {
-    font-family: 'Dongle', sans-serif;
-    font-size: 30px;
+    font-size: 1rem;
     font-weight: 500;
     color: black;
     background-color: var(--gold);

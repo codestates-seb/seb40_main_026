@@ -38,8 +38,8 @@ public class StudyService {
     // 스터디 수정
     public Study updateStudy(Study study) {
         Study findStudy = findVerifiedStudy(study.getStudyId());
-        Optional.ofNullable(study.getExplain())
-                .ifPresent(findStudy::setExplain); // 설명 수정
+        Optional.ofNullable(study.getContent())
+                .ifPresent(findStudy::setContent); // 설명 수정
         Optional.ofNullable(study.getStudyName())
                 .ifPresent(findStudy::setStudyName); // 스터디 이름 수정
         Optional.ofNullable(study.getPeriod())

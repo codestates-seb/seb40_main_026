@@ -21,7 +21,7 @@ public class Study {
 
     // 소개
     @Column(nullable = false)
-    private String explain;
+    private String content;
 
     // 가격
     @Column

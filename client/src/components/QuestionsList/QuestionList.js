@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../../styles/Responsive';
-import { useNavigate } from 'react-router';
 import LikeButton from '../Shared/LikeButton';
-import { Link } from 'react-router-dom';
 
 const QuestionView = () => {
   const DummyQuestions = [

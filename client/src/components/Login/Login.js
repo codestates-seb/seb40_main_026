@@ -1,28 +1,23 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
+// import axios from '../../api/axios';
+import axios from 'axios';
+//import useAuth from '../../hooks/useAuth';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
+  //const { setAuth } = useAuth();
   const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const loginData = {
-    teacher: teacher,
-    email: email,
-    password: password,
-  };
-  const loginConfig = {
-    withCredentials: true,
-  };
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
 
@@ -38,22 +33,32 @@ const Login = () => {
       return;
     }
 
-    return axios
-      .post(`url`, loginData, loginConfig)
+    axios
+      .post(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/login`,
+        { username: email, password: password }
+      )
       .then((res) => {
-        if (res) {
-          //로컬스토리지를 이용해도 되는지는 더 알아봐야 함
-          console.log('응답', res);
-          console.log('헤더', res.headers);
-          // let accessToken = res.headers.accesstoken;
-          // localStorage.setItem('accesstoken', accessToken);
-        }
+        console.log('확인');
+        console.log(res.headers.authorization);
+        let accessToken = res.headers.authorization;
+        localStorage.setItem('accessToken', accessToken);
+        setEmail('');
+        setPassword('');
+        navigate('/');
+        window.location.reload();
       })
       .catch((error) => {
-        errorAlarm('비밀번호가 일치하지 않습니다.');
-        console.log(error);
+        if (error.response.status === 401) {
+          errorAlarm('등록되지 않은 회원입니다');
+          return;
+        }
       });
+    //const accessToken = response?.data?.accessToken;
+
+    //setAuth({ email, password, teacher, accessToken });
   };
+
   return (
     <Container>
       <SelectButton teacher={teacher} setTeacher={setTeacher} />
@@ -65,15 +70,21 @@ const Login = () => {
           }}
         ></input>
         <input
+          type={'password'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></input>
-        <MediumButton text={'로그인 하기'} color={'rgb(252, 60, 178)'} />
+        <MediumButton
+          className={'btn'}
+          text={'로그인 하기'}
+          color={'rgb(252, 60, 178)'}
+        />
       </InputWrapperForm>
       <HorizonLine text={'회원이 아니신가요?'} />
       <MediumButton
+        className={'btn'}
         text={'회원가입 하기'}
         color={'#00c0d1'}
         onClick={() => {
@@ -81,7 +92,11 @@ const Login = () => {
         }}
       />
       <HorizonLine text={'소셜 로그인'} />
-      <MediumButton text={'카카오톡 로그인'} color={'rgb(247,221,51)'} />
+      <MediumButton
+        text={'카카오톡 로그인'}
+        color={'rgb(247,221,51)'}
+        className={'btn'}
+      />
     </Container>
   );
 };
@@ -95,7 +110,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  font-family: 'Dongle', sans-serif;
+  .btn {
+    width: 13rem;
+  }
 `;
 
 const InputWrapperForm = styled.form`
@@ -103,9 +120,9 @@ const InputWrapperForm = styled.form`
   flex-direction: column;
   width: 100%;
   > input {
-    margin: 10px auto;
+    margin: 0.3rem auto;
     padding: 5px 10px;
-    width: 250px;
+    width: 13rem;
     border-radius: 10px;
   }
 `;

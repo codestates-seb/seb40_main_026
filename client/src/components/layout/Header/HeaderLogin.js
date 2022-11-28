@@ -22,9 +22,9 @@ const Container = styled.div`
   justify-content: flex-end;
   width: 12rem;
   span {
-    font-family: 'Dongle', sans-serif;
     font-weight: 500;
     margin: 0 0.2rem;
+    font-size: 0.6rem;
   }
 
   @media ${tablet} {
@@ -37,8 +37,7 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: 1.2rem;
-  font-family: 'Dongle', sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
   color: black;
   cursor: pointer;

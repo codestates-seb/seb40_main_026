@@ -10,27 +10,23 @@ import SelectButton from '../Shared/SelectButton';
 const Signup = () => {
   const navigate = useNavigate();
   const [teacher, setTeacher] = useState(false);
-  const [displayName, setDisplayName] = useState('');
+  const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const data = {
-    teacher: teacher,
-    displayName: displayName,
-    email: email,
-    password: password,
-  };
+  // const data = {
+  //   teacher: teacher,
+  //   nickname: nickname,
+  //   email: email,
+  //   password: password,
+  // };
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //인풋요소 유효성검사...util로 만들기!
-    if (
-      displayName === '' ||
-      displayName.length > 15 ||
-      displayName.length < 4
-    ) {
+    if (nickname === '' || nickname.length > 15 || nickname.length < 4) {
       errorAlarm('닉네임은 4자 이상 15자 이하만 가능합니다');
       return;
     } else if (!(email.includes('@') && email.includes('.'))) {
@@ -42,23 +38,48 @@ const Signup = () => {
       return;
     } else if (password.length > 20) {
       console.log('비밀번호 유효성검사: 20자 미만');
-      errorAlarm('비밀번호는 20자 미만만 가능합니다.');
+      errorAlarm(
+        '비밀번호는 숫자, 영문자, 특수문자 포함 20자 미만만 가능합니다.'
+      );
       return;
     } else if (password !== passwordConfirm) {
       errorAlarm('비밀번호가 일치하지 않습니다.');
       return;
     }
+    console.log('티처', teacher);
+    console.log('닉네임', nickname);
+    console.log('이메일', email);
+    console.log('패스워드', password);
 
     return axios
-      .post(`url`, data)
+      .post(
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members',
+        {
+          teacher: teacher,
+          nickname: nickname,
+          email: email,
+          password: password,
+        }
+      )
       .then((res) => {
         if (res) {
+          console.log(res);
           navigate('/login');
         }
       })
       .catch((error) => {
         errorAlarm('에러');
-        console.log(error);
+        if (error.response) {
+          console.log('에러', error);
+          console.log('에러전체', error.response);
+          console.log('에러데이터', error.response.data);
+          console.log('에러상태', error.response.status);
+          console.log('에러헤더', error.response.headers);
+        } else if (error.request) {
+          console.log('에러요청', error.request);
+        } else {
+          console.log('에러', error.message);
+        }
       });
   };
 
@@ -68,13 +89,15 @@ const Signup = () => {
       <SelectButton teacher={teacher} setTeacher={setTeacher} />
       <InputWrapperForm onSubmit={handleSubmit}>
         <input
+          autoComplete="off"
           type={'text'}
           placeholder="닉네임을 입력해 주세요."
           onChange={(e) => {
-            setDisplayName(e.target.value);
+            setNickname(e.target.value);
           }}
         ></input>
         <input
+          autoComplete="off"
           type={'text'}
           placeholder="이메일을 입력해 주세요."
           onChange={(e) => {
@@ -82,6 +105,7 @@ const Signup = () => {
           }}
         ></input>
         <input
+          autoComplete="off"
           type={'password'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
@@ -89,13 +113,18 @@ const Signup = () => {
           }}
         ></input>
         <input
+          autoComplete="off"
           type={'password'}
           placeholder="비밀번호를 확인해 주세요."
           onChange={(e) => {
             setPasswordConfirm(e.target.value);
           }}
         ></input>
-        <MediumButton text={'확인'} color={'rgb(252, 60, 178)'} />
+        <MediumButton
+          text={'확인'}
+          color={'rgb(252, 60, 178)'}
+          className={'btn'}
+        />
       </InputWrapperForm>
     </Container>
   );
@@ -110,14 +139,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  font-family: 'Dongle', sans-serif;
   > h1 {
     font-weight: 300;
     text-align: center;
-    padding: 10px 20px;
+    padding: 1rem;
     border-bottom: 1px gray solid;
     color: white;
-    font-size: 50px;
+    font-size: 2rem;
   }
 `;
 
@@ -126,9 +154,13 @@ const InputWrapperForm = styled.form`
   flex-direction: column;
   width: 100%;
   > input {
-    margin: 10px auto;
+    margin: 0.4rem auto;
     padding: 5px 10px;
-    width: 250px;
+    width: 13rem;
     border-radius: 10px;
+  }
+  .btn {
+    width: 13rem;
+    margin-top: 2rem;
   }
 `;

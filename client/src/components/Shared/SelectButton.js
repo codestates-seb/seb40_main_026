@@ -36,10 +36,10 @@ const ButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   > button {
-    margin: 20px 30px;
+    margin: 1.3rem 1rem;
+    padding-bottom: 0.3rem;
     background-color: var(--gold);
-    font-family: 'Dongle', sans-serif;
-    font-size: 30px;
+    font-size: 1rem;
     cursor: pointer;
   }
   > button.underline {

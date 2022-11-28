@@ -2,12 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderProfileModal = ({ setOpen }) => {
+  //const logout = useLogout();
   const navigate = useNavigate();
   const handleLogout = () => {
-    alert('로그아웃하시겠습니까??');
-    //로그아웃 구현
-    navigate('/');
+    localStorage.removeItem('accessToken');
+    alert('로그아웃되었습니다');
     setOpen(false);
+    navigate('/');
+    window.location.reload();
   };
   return (
     <Container>
@@ -44,7 +46,6 @@ const Container = styled.div`
   height: 200px;
 
   > button {
-    font-family: 'Dongle', sans-serif;
     font-size: 30px;
     font-weight: 500;
     color: black;

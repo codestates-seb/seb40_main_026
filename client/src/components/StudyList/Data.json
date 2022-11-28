@@ -2,13 +2,14 @@
   "studies": [
     {
       "id": 1,
-      "img": "https://via.placeholder.com/600/92c952",
+      "img": "https://www.vecteezy.com/photo/8004972-homeschool-asian-little-young-girl-learning-online-class-from-school-teacher-by-remote-internet-meeting-application-due-to-coronavirus-pandemic-kid-looking-computer-laptop-screen-that-woman-teaching",
       "price": 3,
       "total": 10,
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 6,
@@ -58,7 +63,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     }
   ]
 }
