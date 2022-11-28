@@ -4,24 +4,26 @@ import { useState, useRef } from 'react';
 import { mobile } from '../../styles/Responsive';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import axios from '../../api/axios';
+
 const DetailView = ({
-  DummyData,
-  likeCount,
-  SetContent,
-  SetTitle,
+  Data,
+  SetContentData,
+  SetTitleData,
   EditPatch,
+  DeleteHandler,
+  LikeHandler,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
-  const [TitleId, setTitleId] = useState(0);
+  const [TitleId, setTitleId] = useState(Data.questionId);
   const textRef = useRef();
+  //수정하기 버튼 클릭시 input창으로 변경
   const EditHandler = (id) => {
     if (id === TitleId) {
       setTitleId(0);
       SetEditClick(false);
+      EditPatch();
     } else {
       setTitleId(id);
-
       SetEditClick(true);
     }
   };
@@ -33,49 +35,51 @@ const DetailView = ({
           <div>
             <div className="TitleWrap">
               <div className="DetailTitle">
-                {DummyData === TitleId ? (
+                {Data.questionId === TitleId ? (
                   <input
-                    defaultValue={DummyData.title}
-                    onChange={(e) => SetTitle(e.target.value)}
+                    defaultValue={Data.title}
+                    onChange={(e) => SetTitleData(e.target.value)}
                   />
                 ) : (
-                  <h3>{DummyData}</h3>
+                  <h3>{Data.title}</h3>
                 )}
               </div>
 
               <div className="Userinfo">
-                <span>{DummyData.nickname} </span>
-                <span>{DummyData.class}</span>
-                <span>{DummyData.grade} </span>
-                <span>{DummyData.createdAt}</span>
+                <span>{Data.nickname} </span>
+                <span>{Data.class}</span>
+                <span>{Data.grade} </span>
+                <span>{Data.createdAt}</span>
               </div>
             </div>
             <div className="UserWrap"></div>
             <div className="Article">
-              {DummyData === TitleId ? (
+              {Data.questionId === TitleId ? (
                 <Editor
                   ref={textRef}
                   initialEditType="wysiwyg"
-                  initialValue={DummyData.content}
-                  onChange={SetContent(
-                    textRef.current.getInstance().getMarkdown().trim()
-                  )}
+                  initialValue={Data.content}
+                  onChange={() =>
+                    SetContentData(
+                      textRef.current.getInstance().getMarkdown().trim()
+                    )
+                  }
                 />
               ) : (
-                <Viewer initialValue={DummyData.content} />
+                <Viewer initialValue={Data.content} />
               )}
 
-              <LikeButton likeCount={likeCount} />
+              <LikeButton
+                likeCount={Data.likeCount}
+                LikeHandler={LikeHandler}
+                checkLike={Data.checkLike}
+              />
               <div className="Workbtn">
-                <button
-                  onClick={
-                    SetEditClick ? () => EditHandler(DummyData) : EditPatch
-                  }
-                >
+                <button onClick={() => EditHandler(Data.questionId)}>
                   {' '}
                   수정하기{' '}
                 </button>
-                <button> 삭제하기 </button>
+                <button onClick={DeleteHandler}> 삭제하기 </button>
                 <button> 신고하기 </button>
               </div>
             </div>

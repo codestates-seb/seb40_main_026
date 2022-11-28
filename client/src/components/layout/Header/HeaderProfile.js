@@ -39,7 +39,7 @@ const Container = styled.div`
   }
 
   img {
-    width: 70px;
+    width: 60px;
     cursor: pointer;
   }
 `;

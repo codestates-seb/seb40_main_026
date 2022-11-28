@@ -10,7 +10,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
   const [QuesData, SetQuesData] = useState([]);
   const [Filter, SetFilter] = useState([]);
   const [number, Setnumber] = useState(5);
-  const [Scrollheight, SetScrollheight] = useState('');
+  const [Scrollheight, SetScrollheight] = useState();
   //스크롤이 바닥에 닿으면 Setnumber(+5) 최댓값은 질문 전체 데이터 길이만큼.
   //if(maxnum=<Setnumber){
   // Setnumber(maxnum)
@@ -33,7 +33,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
       SetFilter('questionId');
     } else if (TitleId === 2) {
       SetFilter('likeCount');
-    } else {
+    } else if (TitleId === 1) {
       SetFilter('answerCount');
     }
   }, [TitleId]);
@@ -49,18 +49,6 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
       });
   }, [Filter]);
   //좋아요 요청
-  const LikeHandler = (id) => {
-    axios({
-      method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/like`,
-      data: id,
-      headers: {},
-    })
-      .then()
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  };
 
   console.log(QuesData);
   return (
@@ -103,10 +91,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
                       </BotUserWrap>
                       <div>
                         <span className="Likebtn">
-                          <LikeButton
-                            likeCount={items.likeCount}
-                            likeClick={() => LikeHandler(items.id)}
-                          />{' '}
+                          <LikeButton likeCount={items.likeCount} />{' '}
                         </span>
                       </div>
                     </SectionBot>
@@ -150,7 +135,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
                         <span className="Likebtn">
                           <LikeButton
                             likeCount={items.likeCount}
-                            likeClick={() => LikeHandler(items.id)}
+                            checkLike={items.checkLike}
                           />{' '}
                         </span>
                       </div>
@@ -214,6 +199,7 @@ const Sectionleft = styled.div`
     font-size: 1.2rem;
     margin-bottom: 1rem;
     cursor: pointer;
+    text-align: left;
   }
   > h3 > button:hover {
     color: grey;

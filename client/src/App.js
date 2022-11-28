@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
 import Mypage from './components/Mypage/Mypage';
 import MypageEdit from './components/Mypage/MypageEdit';
-import useRefreshToken from './hooks/useRefreshToken';
+//import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 import BoastDetail from './pages/BoastDetail';
@@ -19,21 +19,26 @@ import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import { useEffect } from 'react';
 
 function App() {
-  const refresh = useRefreshToken();
-
   useEffect(() => {
-    const verifyRefreshToken = async () => {
-      try {
-        await refresh();
-      } catch (err) {
-        console.error('에러', err);
-      }
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
     };
-    verifyRefreshToken();
-  }, [refresh]);
+  }, []);
+  // const refresh = useRefreshToken();
+
+  // useEffect(() => {
+  //   const verifyRefreshToken = async () => {
+  //     try {
+  //       await refresh();
+  //     } catch (err) {
+  //       console.error('에러', err);
+  //     }
+  //   };
+  //   verifyRefreshToken();
+  // }, [refresh]);
 
   return (
     <BrowserRouter>

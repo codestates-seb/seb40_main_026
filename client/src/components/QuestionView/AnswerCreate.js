@@ -5,11 +5,13 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-const AnswerCreate = () => {
+import { useParams, useNavigate } from 'react-router-dom';
+const AnswerCreate = ({ State, SetState }) => {
   const textRef = useRef();
   const [BodyData, SetBodyData] = useState();
   const { id } = useParams();
+  const token = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
   // const { id } = useParams();
   const handleChangeInput = () => {
     SetBodyData(textRef.current.getInstance().getMarkdown().trim());
@@ -17,11 +19,14 @@ const AnswerCreate = () => {
   const Answerpost = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
-      data: { BodyData },
-      headers: {},
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers`,
+      data: { questionId: id, content: BodyData },
+      headers: { Authorization: token },
     })
-      .then()
+      .then(() => {
+        navigate(`/questions/${id}`);
+        SetState(State + 1);
+      })
       .catch((err) => {
         console.log(err.response.data);
       });

@@ -9,24 +9,21 @@ import jwt_decode from 'jwt-decode';
 //멤버 id 띄어야함
 const MypageEdit = () => {
   const [UserInfo, SetUserInfo] = useState();
-  const token =
-    'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJURUFDSEVSIiwiVVNFUiJdLCJ1c2VybmFtZSI6ImFiYzEyM0BnbWFpbC5jb20iLCJtZW1iZXJJZCI6Miwic3ViIjoiYWJjMTIzQGdtYWlsLmNvbSIsImlhdCI6MTY2OTQ0OTEwNywiZXhwIjoxNjY5NDUwOTA3fQ.yKEDE5R8iqYzuPYjsgpDzPz4QxS4LRso2qRzTKkXfyj6IZD7azmUQmXJQ7kkygne6f-oFFDhVUFPy7X9jRutDg';
+  const token = localStorage.getItem('accessToken');
   const decode = jwt_decode(token);
   const UserId = decode.memberId;
   console.log(UserId);
+
   useEffect(() => {
-    axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-        {
-          'ngrok-skip-browser-warning': 'skip',
-          token: token,
-        }
-      )
-      .then((res) => {
-        SetUserInfo(res.data);
-        console.log(UserInfo);
-      });
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
   }, []);
   const UserDummydata = {
     id: 1,
@@ -53,13 +50,13 @@ const MypageEdit = () => {
           <NicknameWrap>
             <div>
               {' '}
-              <span className="MypageTitle">nickname</span>
+              <span className="MypageTitle">닉네임</span>
             </div>
 
             <div>
               {' '}
               <span>
-                {UserDummydata.level}
+                {UserInfo.memberGrade}
                 {UserDummydata.nickname}
               </span>
             </div>
@@ -140,6 +137,10 @@ const NicknameWrap = styled.div`
   border-radius: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  .MypageTitle {
+    color: #ffa800;
+    font-size: 1.4rem;
+  }
 `;
 const UserPhotoWrap = styled.div`
   img {

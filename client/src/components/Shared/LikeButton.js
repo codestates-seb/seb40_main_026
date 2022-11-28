@@ -34,16 +34,14 @@ const Count = styled.span`
   bottom: 3px;
 `;
 
-function LikeButton({ likeCount, LikeHandler }) {
-  const [isLiked, setIsLiked] = useState(false);
-
-  const toggle = () => {
-    setIsLiked(!isLiked);
-  };
+function LikeButton({ likeCount, LikeHandler, checkLike }) {
+  //LikeCount : 게시글에서 좋아요 눌린 횟수
+  //LikeHandler : 좋아요 post요청하는 함수
+  //checkLike : 좋아요 누른 여부 (게시글 조회시 response 들어옴)
 
   return (
-    <Btn onClick={toggle}>
-      {isLiked ? (
+    <Btn onClick={LikeHandler}>
+      {checkLike ? (
         <AiFillHeart className="Heart" />
       ) : (
         <AiOutlineHeart className="Heart" onClick={LikeHandler} />

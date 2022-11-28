@@ -5,6 +5,7 @@ import { useState } from 'react';
 const QuestionViewMain = () => {
   const [TitleData, SetTitleData] = useState();
   const [ContentData, SetContentData] = useState();
+  const [State, SetState] = useState(0);
   console.log(TitleData);
   console.log(ContentData);
   return (
@@ -14,9 +15,11 @@ const QuestionViewMain = () => {
         TitleData={TitleData}
         SetContentData={SetContentData}
         ContentData={ContentData}
+        SetState={SetState}
+        State={State}
       />
-      <Answer />
-      <AnswerCreate />
+      <Answer State={State} />
+      <AnswerCreate SetState={SetState} State={State} />
     </>
   );
 };
