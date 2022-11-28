@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import { data } from './data';
-import Map from './Map';
+// import Map from './Map';
 import StudyViewButtons from './StudyViewButtons';
 
 const StudyView = () => {
@@ -83,7 +83,7 @@ const StudyView = () => {
           </div>
           <div>* 이 수업은 오프라인 수업입니다</div>
           <div>제주 제주시 첨단로 242 스페이스닷원</div>
-          <Map />
+          {/* <Map /> */}
         </ContentItem>
       </Contents>
       <ScrollToTopBtn />
