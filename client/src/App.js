@@ -18,15 +18,11 @@ import Reference from './pages/Reference';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
+import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
-import { useEffect } from 'react';
+import ScrollToTop from './utils/ScrollToTop';
 
 function App() {
-  useEffect(() => {
-    window.onbeforeunload = function pushRefresh() {
-      window.scrollTo(0, 0);
-    };
-  }, []);
   // const refresh = useRefreshToken();
 
   // useEffect(() => {
@@ -42,6 +38,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <GlobalStyle />
       <ToastContainer
         position="top-center"
@@ -50,10 +47,21 @@ function App() {
       />
       <Header />
       <Routes>
+        {/* 예시로 모여봐요 넣어놓음 */}
+
+        <Route
+          path="/study"
+          element={
+            <PrivateRoute>
+              <StudyListPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/mypage" element={<Mypage />} />
         <Route path="/mypage/edit" element={<MypageEdit />} />
         <Route path="/questions" element={<QuestionsMain />} />
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
@@ -63,8 +71,8 @@ function App() {
         <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
-        <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/id" element={<StudyViewPage />} />
+
+        <Route path={`/study/:id`} element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
