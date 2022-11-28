@@ -39,7 +39,7 @@ const DetailView = ({
                     onChange={(e) => SetTitle(e.target.value)}
                   />
                 ) : (
-                  <h3>{DummyData.title}</h3>
+                  <h3>{DummyData}</h3>
                 )}
               </div>
 

@@ -1,54 +1,33 @@
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import axios from 'axios';
 
 const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
-  // const DummyQuestions = [
-  //   {
-  //     id: 1,
-  //     title: '안녕하세요',
-  //     body: '저는 두번째 더미데이터 입니다.',
-  //     date: '22.11.14',
-  //     nickname: '아구몬',
-  //     grade: '답변왕',
-  //     class: '🐣',
-  //     likeCount: 3,
-  //     answerlength: '2',
-  //   },
-  //   {
-  //     id: 2,
-  //     title: '안녕하세요',
-  //     body: '저는 두번째 더미데이터 입니다.',
-  //     date: '22.11.14',
-  //     nickname: '파닥몬',
-  //     class: '🥚',
-  //     likeCount: 1,
-  //     answerlength: '5',
-  //   },
-  //   {
-  //     id: 3,
-  //     title: '안녕하세요',
-  //     body: '저는 세번째 더미데이터 입니다.',
-  //     date: '22.11.15',
-  //     nickname: '뿔몬',
-  //     class: '🐓',
-  //     likeCount: 6,
-  //     answerlength: '0',
-  //   },
-  // ];
-
   const navigate = useNavigate();
   const [QuesData, SetQuesData] = useState([]);
   const [Filter, SetFilter] = useState([]);
+  const [number, Setnumber] = useState(5);
+  const [Scrollheight, SetScrollheight] = useState('');
+  //스크롤이 바닥에 닿으면 Setnumber(+5) 최댓값은 질문 전체 데이터 길이만큼.
+  //if(maxnum=<Setnumber){
+  // Setnumber(maxnum)
+  //}
+  useEffect(() => {}, []);
+  console.log(document.body.offsetHeight);
+  console.log();
+  useEffect(() => {
+    Setnumber(number + 5);
+  }, [Scrollheight]);
+
+  //상세페이지 네비게이션 연결
   const Titlehandler = (id) => {
     navigate(`/questions/${id}`);
     console.log(id);
   };
-  //id===
+  //필터 쿼리 구분용 함수
   useEffect(() => {
     if (TitleId === 3 || 0) {
       SetFilter('questionId');
@@ -59,6 +38,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
     }
   }, [TitleId]);
   console.log(TitleId);
+  //질문 리스트  api요청
   useEffect(() => {
     axios
       .get(
@@ -68,6 +48,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
         SetQuesData(res.data);
       });
   }, [Filter]);
+  //좋아요 요청
   const LikeHandler = (id) => {
     axios({
       method: 'post',
@@ -80,6 +61,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
         console.log(err.response.data);
       });
   };
+
   console.log(QuesData);
   return (
     <QuesListContainer>
@@ -175,7 +157,7 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
                     </SectionBot>
                   </QuesListWrap>
                 );
-              })}
+              }).slice(0, number)}
         </QuestionsList>
       </QuesListMain>
     </QuesListContainer>

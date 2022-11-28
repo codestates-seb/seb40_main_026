@@ -44,7 +44,7 @@ const QuestionView = ({ ContentData, TitleData }) => {
   return (
     <>
       <TitleHeader title={'질문 & 답변'} />
-      <DetailView DummyData={DummyQuestions} EditPatch={EditPatch} />
+      <DetailView DummyData={QuesData} EditPatch={EditPatch} />
     </>
   );
 };

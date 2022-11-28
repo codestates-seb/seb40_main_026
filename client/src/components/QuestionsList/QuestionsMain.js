@@ -10,8 +10,8 @@ const QuestionsMain = () => {
   const [SearchOn, SetSearchOn] = useState(false);
   const [Searchtitle, SetSearchtitle] = useState('');
   const [SearchData, SetSearchData] = useState();
-
   const [TitleId, SetTitleId] = useState(3);
+
   useEffect(() => {
     axios
       .get(
@@ -22,6 +22,7 @@ const QuestionsMain = () => {
       });
   }, [Searchtitle]);
   //if 3==='답변순' 2===추천순 1===답변순
+
   console.log(Searchtitle);
   console.log(TitleId);
   return (
