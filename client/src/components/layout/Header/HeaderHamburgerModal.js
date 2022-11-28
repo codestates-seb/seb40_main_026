@@ -111,7 +111,7 @@ const Container = styled.div`
     z-index: 1000;
   }
   > button {
-    font-size: 30px;
+    font-size: 1rem;
     font-weight: 500;
     color: black;
     background-color: var(--gold);
