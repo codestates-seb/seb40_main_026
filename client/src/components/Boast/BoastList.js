@@ -1,5 +1,7 @@
 import TopCard from './TopCard';
 import Card from './Card';
+import Pagination from '../Shared/Pagination';
+import { BASE_URL } from '../../utils/api';
 import LikeButton from '../Shared/LikeButton';
 import PostBtn from '../Shared/PostBtn';
 import styled from 'styled-components';
@@ -108,18 +110,20 @@ const ListBox = styled.ul`
 `;
 
 function BoastList(classNameA, classNameB, classNameC) {
+  // axios
   const [list, setList] = useState([]);
   const [topList, setTopList] = useState([]);
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentSize, setCurrentSize] = useState(9);
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
     axios
       .all([
-        axios.get(
-          `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boasts/populars`
-        ),
-        axios.get(
-          `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boasts?page=1&size=3`
-        ),
+        axios.get(`${BASE_URL}boasts/populars`),
+        axios.get(`${BASE_URL}boasts?page=${currentPage}&size=${currentSize}`),
       ])
       .then(
         axios.spread((res1, res2) => {
@@ -183,6 +187,13 @@ function BoastList(classNameA, classNameB, classNameC) {
           );
         })}
       </ListBox>
+      <Pagination
+        currentPage={currentPage}
+        currentSize={currentSize}
+        setCurrentPage={setCurrentPage}
+        setCurrentSize={setCurrentSize}
+        totalPages={totalPages}
+      />
     </Container>
   );
 }
