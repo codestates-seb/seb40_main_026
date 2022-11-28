@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seb40main026.mainproject.badge.service.BadgeService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
@@ -25,7 +24,6 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionMapper mapper;
     private final QuestionRepository questionRepository;
-    private final BadgeService badgeService;
     private final MemberServiceImpl memberService;
     private final QuestionLikeRepository questionLikeRepository;
 

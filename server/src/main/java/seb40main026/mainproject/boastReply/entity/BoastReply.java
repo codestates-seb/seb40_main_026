@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.member.entity.Member;
+import seb40main026.mainproject.member.service.MemberServiceImpl;
 
 import javax.persistence.*;
 import java.time.LocalDate;

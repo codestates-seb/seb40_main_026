@@ -61,6 +61,8 @@ public class BoastService {
         Member authMember = memberService.getLoginMember();
         Boast findBoast = findVerifiedBoast(boastId);
         findBoast.setViewCount(findBoast.getViewCount()+1);
+        findBoast.setGrade(authMember.getMemberGrade());
+        findBoast.setBadge(authMember.getCurrentBadge());
         BoastLike findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
         if(findBoastLike == null) {
             findBoast.setCheckLike(false);

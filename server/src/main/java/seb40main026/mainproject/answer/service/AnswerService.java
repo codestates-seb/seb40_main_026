@@ -9,7 +9,6 @@ import seb40main026.mainproject.answer.entity.AnswerReport;
 import seb40main026.mainproject.answer.repository.AnswerLikeRepository;
 import seb40main026.mainproject.answer.repository.AnswerReportRepository;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
-import seb40main026.mainproject.badge.service.BadgeService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
@@ -29,7 +28,6 @@ public class AnswerService {
     private final AnswerReportRepository answerReportRepository;
     private final MemberServiceImpl memberService;
     private final QuestionService questionService;
-    private final BadgeService badgeService;
 
     // 답변 작성
     public Answer createAnswer(Answer answer, long questionId) {
