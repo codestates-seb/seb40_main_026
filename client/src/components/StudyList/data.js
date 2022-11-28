@@ -8,6 +8,7 @@ export const data = [
     title: '엔트리로 꿀벌 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'offline',
   },
   {
     id: 2,
@@ -15,9 +16,10 @@ export const data = [
     price: 3,
     total: 10,
     registered: 5,
-    title: '엔트리로 꿀벌 키우기 게임 만들기',
+    title: '엔트리로 말벌 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'online',
   },
   {
     id: 3,
@@ -25,9 +27,10 @@ export const data = [
     price: 3,
     total: 10,
     registered: 5,
-    title: '엔트리로 꿀벌 키우기 게임 만들기',
+    title: '엔트리로 돼지 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'offline',
   },
   {
     id: 4,
@@ -35,9 +38,10 @@ export const data = [
     price: 3,
     total: 10,
     registered: 5,
-    title: '엔트리로 꿀벌 키우기 게임 만들기',
+    title: '엔트리로 고양이 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'online',
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ export const data = [
     title: '엔트리로 꿀벌 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'offline',
   },
   {
     id: 6,
@@ -58,5 +63,6 @@ export const data = [
     title: '엔트리로 꿀벌 키우기 게임 만들기',
     start: '2022-11-31',
     end: '2022-12-31',
+    online: 'online',
   },
 ];
