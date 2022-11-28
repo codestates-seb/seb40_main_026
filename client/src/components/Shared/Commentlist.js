@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
-
+import { useState } from 'react';
 const Commentlist = () => {
   const DummyComments = [
     {
@@ -25,6 +25,19 @@ const Commentlist = () => {
       nickname: '뿔몬',
     },
   ];
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const EditHandler = (id) => {
+    if (id === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+    } else {
+      setTitleId(id);
+
+      SetEditClick(true);
+    }
+  };
+  console.log(EditClick);
   return (
     <CommentContainer>
       <ComInputWrap>
@@ -37,14 +50,25 @@ const Commentlist = () => {
                     <span>{items.nickname}</span>
                   </NickNameWrap>
                   <BodyWrap>
-                    <p>{items.body}</p>
+                    {items.id === TitleId ? (
+                      <input defaultValue={items.body}></input>
+                    ) : (
+                      <p>{items.body}</p>
+                    )}
                   </BodyWrap>
                   <DateWrap>
                     <div>
                       <span>{items.date}</span>
                     </div>
                     <BtnWrap>
-                      <button className="Canclebtn">수정하기</button>{' '}
+                      <button
+                        className="Canclebtn"
+                        onClick={() => {
+                          EditHandler(items.id);
+                        }}
+                      >
+                        수정하기
+                      </button>{' '}
                       <button className="Deletebtn">삭제하기</button>
                     </BtnWrap>
                   </DateWrap>
@@ -99,6 +123,11 @@ const NickNameWrap = styled.div`
 `;
 const BodyWrap = styled.div`
   width: 60%;
+  > input {
+    width: 100%;
+    box-shadow: grey 0px 0px 3px;
+    padding: 1rem;
+  }
   @media ${tablet} {
     > span {
       font-size: 0.8rem;

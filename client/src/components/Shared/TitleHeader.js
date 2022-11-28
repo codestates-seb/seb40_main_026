@@ -12,15 +12,17 @@ const QuestionsHeader = ({ title }) => {
   );
 };
 const Container = styled.header`
+  color: #ffa800;
   margin-bottom: 1rem;
   width: 100%;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-size: 0.8rem;
+  padding-bottom: 1rem;
   .TitleWrap {
     width: 70%;
-    color: #ffa800;
     margin: auto;
+    padding-top: 0.5rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid;
   }

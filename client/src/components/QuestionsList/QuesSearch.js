@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import PostBtn from '../Shared/PostBtn';
-
-const QuesSearch = ({ SearchOn, SetSearchOn }) => {
-  const [Searchtitle, SetSearchtitle] = useState('');
+import axios from 'axios';
+const QuesSearch = ({ SearchOn, SetSearchOn, SetSearchtitle, Searchtitle }) => {
   const SearchChange = (event) => {
     SetSearchtitle(event.target.value);
-    SetSearchOn(!SearchOn);
+    SetSearchOn(true);
   };
 
   return (
