@@ -1,36 +1,38 @@
-// import axios from 'axios';
-// import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
-import { data } from './data';
+//import { data } from './data';
 import StudyCard from './StudyCard';
 
 const StudyList = () => {
   const [filterActive, setFilterActive] = useState('All');
+  const [data, setData] = useState([]);
   const [datas, setDatas] = useState(data);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies`
+      )
+      .then((res) => {
+        console.log('응답', res);
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  // const navigate = useNavigate();
+  // const handleOnClick = (id) => {
+  //   navigate(`/study/${id}`);
+  // };
 
   useEffect(() => {
     filterActive === 'All'
       ? setDatas(data)
       : setDatas(data.filter((item) => item.online === filterActive));
-  }, [filterActive]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8000/studies`)
-  //     .then((res) => {
-  //       console.log('res.data', res.data);
-  //       setData(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-  //const navigate = useNavigate();
-  // const handleOnClick = (id) => {
-  //   navigate(`/study/${id}`);
-  // };
+  }, [filterActive, data]);
 
   return (
     <Container>
@@ -59,18 +61,18 @@ const StudyList = () => {
       </StudyListHeader>
       <StudyListBlock>
         {datas.map((ele) => (
-          <div key={ele.id}>
+          <div key={ele.studyId}>
             {/* <Link to={`/study/${ele.id}`} onClick={() => handleOnClick(ele.id)}> */}
             {/* <Link to={`/study/${ele.id}`}> */}
-            <Link to={`/study/id`}>
+            <Link to={`/study/${ele.studyId}`}>
               <StudyCard
-                img={ele.img}
-                title={ele.title}
+                img={ele.content}
+                studyName={ele.studyName}
                 price={ele.price}
-                total={ele.total}
-                registered={ele.registered}
-                start={ele.start}
-                end={ele.end}
+                recruitment={ele.recruitment}
+                count={ele.count}
+                period={ele.period}
+                time={ele.time}
               />
             </Link>
           </div>
@@ -112,7 +114,7 @@ const StudyListBlock = styled.div`
 
 const StudyListHeader = styled.div`
   width: 70%;
-  color: #ffa800;
+  color: #ffc149;
   margin: auto;
   padding-bottom: 1rem;
   border-bottom: 0.1rem solid;
@@ -124,7 +126,7 @@ const StudyListHeader = styled.div`
   margin-top: 2rem;
   font-size: 0.8rem;
   .active_btn {
-    background-color: #ffa800;
+    background-color: #ffc149;
   }
 
   @media ${tablet} {

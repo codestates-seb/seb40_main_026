@@ -2,29 +2,37 @@ import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 
-const StudyCard = ({ img, title, price, total, registered, start, end }) => {
+const StudyCard = ({
+  content,
+  count,
+  online,
+  period,
+  price,
+  recruitment,
+  studyId,
+  studyName,
+  time,
+}) => {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
   return (
     <Container>
       <CardWrapper>
-        <img src={img} alt={'cardImg'} onError={onErrorImg} />
+        <img src={''} alt={'cardImg'} onError={onErrorImg} />
       </CardWrapper>
       <TextBlock>
         <div>
-          <div className="price">{price} 만원</div>
+          <div className="price">{price} 원</div>
           <RegisterCondition>
             <div>등록 현황</div>
-            <div>{registered}</div>
+            <div>{count}</div>
             <div> / </div>
-            <div>{total}</div>
+            <div>{recruitment}</div>
           </RegisterCondition>
         </div>
-        <div className="title">{title}</div>
-        <div className="date">
-          {start} ~ {end}
-        </div>
+        <div className="title">{studyName}</div>
+        <div className="date">{period}</div>
       </TextBlock>
     </Container>
   );
@@ -38,7 +46,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
-  background-color: pink;
+  background-color: #ffc149;
   margin: 0.2rem;
   margin-bottom: 1rem;
 
