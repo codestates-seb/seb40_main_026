@@ -1,6 +1,5 @@
 // import axios from 'axios';
 // import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
@@ -20,10 +19,10 @@ const StudyList = () => {
   //     })
   //     .catch((err) => console.log(err));
   // }, []);
-  const navigate = useNavigate();
-  const handleOnClick = (id) => {
-    navigate(`/study/${id}`);
-  };
+  //const navigate = useNavigate();
+  // const handleOnClick = (id) => {
+  //   navigate(`/study/${id}`);
+  // };
 
   return (
     <Container>
@@ -32,7 +31,9 @@ const StudyList = () => {
       <StudyListBlock>
         {data.map((ele) => (
           <div key={ele.id}>
-            <Link to="/study/id" onClick={() => handleOnClick(ele.id)}>
+            {/* <Link to={`/study/${ele.id}`} onClick={() => handleOnClick(ele.id)}> */}
+            {/* <Link to={`/study/${ele.id}`}> */}
+            <Link to={`/study/id`}>
               <StudyCard
                 img={ele.img}
                 title={ele.title}

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.badge.entity.Badge;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
 
@@ -32,17 +33,15 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 25, nullable = false)
-    private String name;
-
     @Column(length = 12, nullable = false)
     private String nickname;
 
     @Column
-    private List<String> badgeList;
+    @OneToMany(mappedBy = "member" , cascade = {CascadeType.ALL})
+    private List<Badge> badgeList;
 
-    public void addBadgeList(String badgeName){
-        badgeList.add(badgeName);
+    public void addBadgeList(Badge badge){
+        badgeList.add(badge);
     }
 
     @Column

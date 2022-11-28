@@ -111,7 +111,6 @@ const Container = styled.div`
     z-index: 1000;
   }
   > button {
-    font-family: 'Dongle', sans-serif;
     font-size: 30px;
     font-weight: 500;
     color: black;

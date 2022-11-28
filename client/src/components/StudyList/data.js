@@ -1,7 +1,7 @@
 export const data = [
   {
     id: 1,
-    img: 'https://#',
+    img: 'https://user-images.githubusercontent.com/107922059/203887924-a7dcfdde-367c-487b-82ae-7bf3bf81f6f6.png',
     price: 3,
     total: 10,
     registered: 5,

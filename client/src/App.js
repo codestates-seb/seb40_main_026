@@ -19,7 +19,6 @@ import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
-import './App.css';
 
 function App() {
   const refresh = useRefreshToken();
@@ -59,7 +58,7 @@ function App() {
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/:id" element={<StudyViewPage />} />
+        <Route path="/study/id" element={<StudyViewPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -46,7 +46,6 @@ const Container = styled.div`
   height: 200px;
 
   > button {
-    font-family: 'Dongle', sans-serif;
     font-size: 30px;
     font-weight: 500;
     color: black;

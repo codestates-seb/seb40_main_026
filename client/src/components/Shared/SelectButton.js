@@ -38,7 +38,6 @@ const ButtonWrapper = styled.div`
   > button {
     margin: 20px 30px;
     background-color: var(--gold);
-    font-family: 'Dongle', sans-serif;
     font-size: 30px;
     cursor: pointer;
   }

@@ -40,7 +40,8 @@ public class AnswerService {
 //        if(answerRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
 //            badgeService.addBadge(member.getMemberId(), "answer");
 //        }
-        member.setSticker(member.getSticker() + 10);
+        memberService.addStickerAndLevelUp(member);
+
         return answerRepository.save(answer);
     }
 

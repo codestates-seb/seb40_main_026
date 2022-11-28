@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb40main026.mainproject.badge.service.BadgeService;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boast.service.BoastService;
@@ -28,6 +29,7 @@ public class BoastReplyService {
     private final BoastRepository  boastRepository;
     private final MemberServiceImpl memberService;
     private final MemberRepository memberRepository;
+    private final BadgeService badgeService;
 
     public BoastReply createReply(BoastReply boastReply,long boastId){
         Boast findBoast = boastService.findVerifiedBoast(boastId);
@@ -40,10 +42,11 @@ public class BoastReplyService {
         boastReply.setGrade(authMember.getMemberGrade());
         boastReply.setBadge(authMember.getCurrentBadge());
 
-        authMember.setSticker(authMember.getSticker()+10);
+        if(boastReplyRepository.countByMember(authMember) >= 15) {
+            badgeService.addBadge(authMember.getMemberId(), "reply");
+        }
+        memberService.addStickerAndLevelUp(authMember);
 
-        memberRepository.save(authMember);
-        boastRepository.save(findBoast);
         return boastReplyRepository.save(boastReply);
     }
 
