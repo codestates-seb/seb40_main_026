@@ -9,7 +9,7 @@ import seb40main026.mainproject.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T13:53:44+0900",
+    date = "2022-11-28T19:45:26+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -25,7 +25,6 @@ public class MemberMapperImpl implements MemberMapper {
 
         member.setEmail( dto.getEmail() );
         member.setPassword( dto.getPassword() );
-        member.setName( dto.getName() );
         member.setNickname( dto.getNickname() );
         member.setTeacher( dto.isTeacher() );
 
@@ -57,7 +56,6 @@ public class MemberMapperImpl implements MemberMapper {
         List<String> haveBadgeList = null;
         long memberId = 0L;
         String email = null;
-        String name = null;
         String nickname = null;
         boolean teacher = false;
         String createdAt = null;
@@ -75,7 +73,6 @@ public class MemberMapperImpl implements MemberMapper {
             memberId = member.getMemberId();
         }
         email = member.getEmail();
-        name = member.getName();
         nickname = member.getNickname();
         if ( member.getTeacher() != null ) {
             teacher = member.getTeacher();
@@ -87,7 +84,7 @@ public class MemberMapperImpl implements MemberMapper {
         memberStatus = member.getMemberStatus();
         memberGrade = member.getMemberGrade();
 
-        MemberDto.Response response = new MemberDto.Response( memberId, email, name, nickname, teacher, createdAt, modifiedAt, sticker, haveBadgeList, currentBadge, memberStatus, memberGrade );
+        MemberDto.Response response = new MemberDto.Response( memberId, email, nickname, teacher, createdAt, modifiedAt, sticker, haveBadgeList, currentBadge, memberStatus, memberGrade );
 
         return response;
     }
