@@ -17,7 +17,6 @@ public class QuestionDto {
 
         @NotBlank(message = "내용을 적어주세요")
         private String content;
-        private Long fileNum;
     }
 
     @Setter
@@ -28,7 +27,6 @@ public class QuestionDto {
         private Long questionId;
         private String title;
         private String content;
-        private Long fileNum;
     }
 
     @Setter
@@ -49,6 +47,5 @@ public class QuestionDto {
         private String createdAt;
         private String modifiedAt;
         private Boolean checkLike;
-        private Long fileNum;
     }
 }
