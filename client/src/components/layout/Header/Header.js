@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../../styles/Responsive';
 import HeaderHamburger from './HeaderHamburger';
@@ -7,7 +8,10 @@ import HeaderMenu from './HeaderMenu';
 import HeaderProfile from './HeaderProfile';
 
 const Header = () => {
-  const isLogin = false;
+  const isLogin = localStorage.getItem('accessToken') !== null;
+  useEffect(() => {
+    console.log('겟 액세슽토큰', localStorage.getItem('accessToken'));
+  }, [isLogin]);
   return (
     <Container>
       <HeaderLogo />

@@ -8,7 +8,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "online"
     },
     {
       "id": 6,
@@ -58,7 +63,8 @@
       "registered": 5,
       "title": "엔트리로 꿀벌 키우기 게임 만들기",
       "start": "시작날짜",
-      "end": "끝날짜"
+      "end": "끝날짜",
+      "online": "offline"
     }
   ]
 }

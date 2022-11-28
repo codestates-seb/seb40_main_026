@@ -7,8 +7,7 @@ import SortBtn from '../Shared/SortBtn';
 const StudyViewButtons = () => {
   const buttonName = [
     '클래스소개',
-    '수업기간',
-    '수업시간',
+    '수업기간 및 시간',
     '수업비용',
     '추천대상',
     '수업문의',
@@ -52,7 +51,6 @@ const Container = styled.div`
   > .registerBtn {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
     padding: 0.6rem;
 
     margin-right: 0;
@@ -83,7 +81,7 @@ const Buttons = styled.div`
     justify-content: center;
   }
   .btn {
-    width: 5rem;
+    width: 7rem;
     margin-right: 0.3rem;
     cursor: pointer;
     &:hover {
