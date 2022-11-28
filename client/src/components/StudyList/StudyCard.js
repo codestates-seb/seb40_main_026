@@ -33,6 +33,8 @@ const StudyCard = ({ img, title, price, total, registered, start, end }) => {
 export default StudyCard;
 
 const Container = styled.div`
+  box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
+
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
@@ -73,6 +75,7 @@ const TextBlock = styled.div`
   }
   > div.title {
     font-weight: 700;
+    justify-content: center;
   }
   > div.date {
     justify-content: center;
