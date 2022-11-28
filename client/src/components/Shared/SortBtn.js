@@ -16,9 +16,9 @@ const Button = styled.button`
   border-radius: 1rem;
   cursor: pointer;
   text-align: center;
-  width: 5rem;
+  width: 6rem;
   //font-family: 'Dongle', sans-serif;
-  font-size: 0.7rem;
+  font-size: 1rem;
   float: right;
   padding: 0.8rem;
   margin-right: 0.5rem;

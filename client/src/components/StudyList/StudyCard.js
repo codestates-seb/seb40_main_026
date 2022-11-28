@@ -68,7 +68,7 @@ const CardWrapper = styled.div`
 `;
 
 const TextBlock = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-align: center;
   padding: 0.5rem;
   display: flex;
@@ -78,7 +78,7 @@ const TextBlock = styled.div`
     justify-content: space-between;
     padding: 0.3rem;
     > div.price {
-      font-size: 0.7rem;
+      font-size: 1rem;
     }
   }
   > div.title {
@@ -95,7 +95,7 @@ const RegisterCondition = styled.div`
     margin-right: 0.3rem;
   }
   display: flex;
-  font-size: 0.6rem;
+  font-size: 1rem;
   > span {
     margin: 0 0.3rem;
   }

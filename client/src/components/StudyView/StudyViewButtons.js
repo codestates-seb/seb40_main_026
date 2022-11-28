@@ -11,7 +11,7 @@ const StudyViewButtons = () => {
   console.log(id);
   const buttonName = [
     '클래스소개',
-    '수업기간 및 시간',
+    '수업시간',
     '수업비용',
     '추천대상',
     '수업문의',
