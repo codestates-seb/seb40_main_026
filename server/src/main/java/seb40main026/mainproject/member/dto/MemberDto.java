@@ -41,6 +41,7 @@ public class MemberDto {
         @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,12}$",
                 message = "비밀번호는 영문자, 숫자, 특수문자가 반드시 하나 이상 포함되어야 하고 8자에서 20자 사이 입니다.")
         private String password;
+        private String introduce;
         //private File profile_photo;
         private Member.MemberGrade memberGrade;
         private String badgeName;
@@ -59,9 +60,12 @@ public class MemberDto {
         private String createdAt;
         private String modifiedAt;
         private Integer sticker;
+        private String introduce;
         private List<String> haveBadgeList;
         private String currentBadge;
         private Member.MemberStatus memberStatus;
         private Member.MemberGrade memberGrade;
+        private Long questionCount;
+        private Long answerCount;
     }
 }

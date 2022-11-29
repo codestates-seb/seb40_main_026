@@ -39,8 +39,8 @@ public class Question {
     @Column(nullable = false)
     private Integer reportCount;
 
-//    @Column
-//    private Boolean checkLike; // 좋아요 눌렀는지 여부
+    @Column(nullable = false)
+    private Integer answerCount;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -57,8 +57,8 @@ public class Question {
         this.likeCount = this.likeCount == null ? 0 : this.likeCount;
         this.viewCount = this.viewCount == null ? 0 : this.viewCount;
         this.reportCount = this.reportCount == null ? 0 : this.reportCount;
+        this.answerCount = this.answerCount == null? 0 : this.answerCount;
         this.answers = this.answers == null? new ArrayList<>() : this.answers;
-//        this.checkLike = this.checkLike == null? false : this.checkLike;
     }
 
     @PreUpdate
@@ -104,7 +104,7 @@ public class Question {
         this.reportCount -= 1;
     }
 
-//    public void modifyCheckLike(boolean like) {
-//        this.checkLike = like;
-//    }
+    public void increaseAnswerCount() {
+        this.answerCount += 1;
+    }
 }

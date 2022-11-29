@@ -19,13 +19,18 @@ public class Study {
 
     // 이미지 파일
 
-    // 소개
-    @Column(nullable = false)
-    private String content;
-
     // 가격
     @Column
     private Long price;
+
+    @Column
+    private String recommendation;
+
+    @Column
+    private String contact;
+
+    @Column
+    private String place;
 
     // 정원
     @Column(nullable = false)
