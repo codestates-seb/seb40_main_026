@@ -23,9 +23,6 @@ const QuestionView = ({
     axios({
       method: 'get',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-      headers: {
-        Authorization: token,
-      },
     }).then((res) => {
       SetQuesData(res.data);
       console.log(res.data);
