@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 const AnswerCreate = ({ State, SetState }) => {
   const textRef = useRef();
   const [BodyData, SetBodyData] = useState();
+
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const AnswerCreate = ({ State, SetState }) => {
     })
       .then(() => {
         navigate(`/questions/${id}`);
-        SetState(State + 1);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -42,7 +43,7 @@ const AnswerCreate = ({ State, SetState }) => {
             ref={textRef}
             height="300px"
             initialEditType="wysiwyg"
-            initialValue=" "
+            initialValue=""
             onChange={handleChangeInput}
           />
         </Createinput>

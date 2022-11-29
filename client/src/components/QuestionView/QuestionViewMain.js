@@ -6,6 +6,7 @@ const QuestionViewMain = () => {
   const [TitleData, SetTitleData] = useState();
   const [ContentData, SetContentData] = useState();
   const [State, SetState] = useState(0);
+
   console.log(TitleData);
   console.log(ContentData);
   return (
@@ -18,7 +19,7 @@ const QuestionViewMain = () => {
         SetState={SetState}
         State={State}
       />
-      <Answer State={State} />
+      <Answer State={State} SetState={SetState} />
       <AnswerCreate SetState={SetState} State={State} />
     </>
   );

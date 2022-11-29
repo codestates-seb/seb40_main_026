@@ -12,6 +12,7 @@ const DetailView = ({
   EditPatch,
   DeleteHandler,
   LikeHandler,
+  ReportHandler,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(Data.questionId);
@@ -80,7 +81,7 @@ const DetailView = ({
                   수정하기{' '}
                 </button>
                 <button onClick={DeleteHandler}> 삭제하기 </button>
-                <button> 신고하기 </button>
+                <button onClick={ReportHandler}> 신고하기 </button>
               </div>
             </div>
             <div></div>

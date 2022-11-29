@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import PostBtn from '../Shared/PostBtn';
-import axios from 'axios';
+import { FaSearch } from 'react-icons/fa';
 const QuesSearch = ({ SearchOn, SetSearchOn, SetSearchtitle, Searchtitle }) => {
   const SearchChange = (event) => {
     SetSearchtitle(event.target.value);
@@ -14,11 +14,14 @@ const QuesSearch = ({ SearchOn, SetSearchOn, SetSearchtitle, Searchtitle }) => {
     <SearchContainer>
       <Searchwrap>
         <SearchbarWrap>
-          <input
-            className="Searchinput"
-            placeholder="질문을 입력해 주세요."
-            onChange={SearchChange}
-          ></input>
+          <div>
+            <FaSearch />
+            <input
+              className="Searchinput"
+              placeholder="질문을 입력해 주세요."
+              onChange={SearchChange}
+            />
+          </div>
         </SearchbarWrap>
         <ButtonWrap>
           <Link to="/ask">
@@ -67,13 +70,22 @@ const ButtonWrap = styled.div`
 `;
 const SearchbarWrap = styled.div`
   width: 100%;
-  > input {
-    box-shadow: grey 0rem 0rem 0.2rem;
-    margin-right: 1rem;
+  > div {
     width: 95%;
-    padding: 1rem;
+    box-shadow: grey 0rem 0rem 0.2rem;
     border-radius: 1rem;
+    display: flex;
+    padding-left: 1rem;
+    align-items: center;
+    padidng-left: 1rem;
+    > input {
+      width: 100%;
+      margin-right: 1rem;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
   }
+
   @media ${tablet} {
     width: 80%;
   }

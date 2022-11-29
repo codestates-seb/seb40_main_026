@@ -5,11 +5,15 @@ import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-//멤버 id 띄어야함
 import jwt_decode from 'jwt-decode';
+//멤버 id 띄어야함
 
 const token = localStorage.getItem('accessToken');
-const decode = jwt_decode(token);
+const decode = () => {
+  if (token) {
+    jwt_decode(token);
+  }
+};
 const UserId = decode.memberId;
 //방명록 주인용 id app.js에서 마이페이지 주소 :id로 수정 해야 함.
 const { id } = useParams;
