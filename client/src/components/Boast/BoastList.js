@@ -1,15 +1,15 @@
 import TopCard from './TopCard';
 import Card from './Card';
-import Pagination from '../Shared/Pagination';
 import { BASE_URL } from '../../utils/api';
 import LikeButton from '../Shared/LikeButton';
+import PageBtn from '../Shared/PageBtn';
 import PostBtn from '../Shared/PostBtn';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 const Container = styled.main`
   display: flex;
@@ -95,6 +95,10 @@ const ListBox = styled.ul`
     margin-top: 1.5rem;
   }
 
+  button {
+    background: white;
+  }
+
   li {
     background-color: white;
     color: black;
@@ -109,21 +113,32 @@ const ListBox = styled.ul`
   }
 `;
 
-function BoastList(classNameA, classNameB, classNameC) {
+function BoastList() {
   // axios
   const [list, setList] = useState([]);
   const [topList, setTopList] = useState([]);
 
   // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentSize, setCurrentSize] = useState(9);
-  const [totalPages, setTotalPages] = useState();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const SIZE = 9; // 첫페이지에서 랜더링되는 카드 갯수
 
+  const updateOffset = (buttonIndex) => {
+    const size = 9; // 다른페이지에서 랜더링되는 카드 갯수
+    const page = buttonIndex + 1;
+    const queryString = `?page=${page}&size=${size}`;
+
+    navigate(`${queryString}`);
+  };
+
+  // 멀티 리퀘스트
   useEffect(() => {
     axios
       .all([
         axios.get(`${BASE_URL}boasts/populars`),
-        axios.get(`${BASE_URL}boasts?page=${currentPage}&size=${currentSize}`),
+        axios.get(
+          `${BASE_URL}boasts${location.search || `?page=1&size=${SIZE}`}`
+        ),
       ])
       .then(
         axios.spread((res1, res2) => {
@@ -133,65 +148,46 @@ function BoastList(classNameA, classNameB, classNameC) {
         })
       )
       .catch((err) => console.log(err));
-  }, []);
+  }, [location.search]);
 
-  const navigate = useNavigate();
-  const handleOnClick = (id) => {
-    navigate(`/boast/${id}`);
-  };
   return (
     <Container>
       <BtnBox Link to="/boastCreate">
-        <PostBtn className={classNameC} text="자랑하기" />
+        <PostBtn text="자랑하기" />
       </BtnBox>
-      <TopLogo className={classNameB}>Top 3</TopLogo>
+      <TopLogo>Top 3</TopLogo>
       <TopListBox>
         {topList.map((item) => {
           return (
-            <button
-              onClick={() => handleOnClick(item.boastId)}
+            <TopCard
               key={item.boastId}
-            >
-              <TopCard
-                src={item.path}
-                alt={item.alt}
-                title={item.title}
-                nickName={item.nickName}
-                likeCount={item.likeCount}
-                LikeButton={LikeButton}
-              />
-            </button>
+              title={item.title}
+              nickName={item.nickName}
+              likeCount={item.likeCount}
+              LikeButton={LikeButton}
+              boastId={item.boastId}
+            />
           );
         })}
       </TopListBox>
 
-      <ListBox className={classNameA}>
+      <ListBox>
         {list.map((item) => {
           return (
-            <button
-              onClick={() => handleOnClick(item.boastId)}
+            <Card
+              likeButton={true}
+              title={item.title}
+              nickName={item.nickName}
+              likeCount={item.likeCount}
+              LikeButton={LikeButton}
+              boastId={item.boastId}
               key={item.boastId}
-            >
-              <Card
-                likeButton={true}
-                src={item.path}
-                alt={item.alt}
-                title={item.title}
-                nickName={item.nickName}
-                likeCount={item.likeCount}
-                LikeButton={LikeButton}
-              />
-            </button>
+            />
           );
         })}
       </ListBox>
-      <Pagination
-        currentPage={currentPage}
-        currentSize={currentSize}
-        setCurrentPage={setCurrentPage}
-        setCurrentSize={setCurrentSize}
-        totalPages={totalPages}
-      />
+
+      <PageBtn updateOffset={updateOffset} />
     </Container>
   );
 }
