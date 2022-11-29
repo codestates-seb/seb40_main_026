@@ -1,6 +1,7 @@
 package seb40main026.mainproject.question.mapper;
 
 import org.mapstruct.Mapper;
+import org.springframework.core.io.Resource;
 import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.question.dto.QuestionLikeResponseDto;
 import seb40main026.mainproject.question.dto.QuestionReportResponseDto;
@@ -40,6 +41,7 @@ public interface QuestionMapper {
         response.setModifiedAt( question.getModifiedAt() );
         if(questionLike == null) response.setCheckLike(false);
         else response.setCheckLike( questionLike.getQuestionLike() );
+        response.setImageUrl(question.getImageUrl());
         return response;
     }
 

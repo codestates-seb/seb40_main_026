@@ -1,8 +1,11 @@
 package seb40main026.mainproject.answer.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.answer.entity.AnswerLike;
 import seb40main026.mainproject.answer.entity.AnswerReport;
@@ -11,11 +14,14 @@ import seb40main026.mainproject.answer.repository.AnswerReportRepository;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.service.QuestionService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +34,10 @@ public class AnswerService {
     private final AnswerReportRepository answerReportRepository;
     private final MemberServiceImpl memberService;
     private final QuestionService questionService;
+    private final ImageService imageService;
 
     // 답변 작성
-    public Answer createAnswer(Answer answer, long questionId) {
+    public Answer createAnswer(Answer answer, long questionId, MultipartFile image) throws IOException {
         Question question = questionService.findVerifiedQuestion(questionId);
         Member member = memberService.getLoginMember();
         answer.setQuestion(question);
@@ -40,12 +47,31 @@ public class AnswerService {
         }
         memberService.addStickerAndLevelUp(member);
         question.increaseAnswerCount();
+        if(image != null) {
+            updateImage(image, answer);
+        }
         return answerRepository.save(answer);
     }
 
+    public void updateImage(MultipartFile image, Answer answer) throws IOException {
+        Image savedImage = imageService.saveImage(image);
+        String imagePath = imageService.getImage(savedImage.getImageId());
+        Resource resource = new FileSystemResource(imagePath);
+        answer.modifyImageUrl(resource.getURL().toString());
+        answer.setImage(savedImage);
+    }
+
     // 답변 수정
-    public Answer updateAnswer(Answer answer) {
+    public Answer updateAnswer(Answer answer, MultipartFile image) throws IOException {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
+        if(image != null) {
+            Image findImage = findAnswer.getImage();
+            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
+                imageService.deleteImage(findImage.getImageId());
+            }
+            updateImage(image, findAnswer);
+        }
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(findAnswer::setContent);

@@ -34,6 +34,7 @@ public interface AnswerMapper {
         response.setCreatedAt(answer.getCreatedAt());
         response.setModifiedAt(answer.getModifiedAt());
         response.setCheckLike(answer.getCheckLike());
+        response.setImageUrl(answer.getImageUrl());
         return response;
     }
 

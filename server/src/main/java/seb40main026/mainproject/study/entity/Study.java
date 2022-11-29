@@ -2,6 +2,7 @@ package seb40main026.mainproject.study.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import seb40main026.mainproject.image.entity.Image;
 
 import javax.persistence.*;
 
@@ -18,6 +19,12 @@ public class Study {
     private String studyName;
 
     // 이미지 파일
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "IMAGE_ID")
+    private Image image;
+
+    @Column
+    private String imageUrl;
 
     // 가격
     @Column
@@ -54,5 +61,9 @@ public class Study {
         if(this.count < this.recruitment) {
             this.count += 1;
         }
+    }
+
+    public void modifyImageUrl(String url) {
+        this.imageUrl = url;
     }
 }

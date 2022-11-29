@@ -1,21 +1,28 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.repository.QuestionRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +36,11 @@ public class MemberServiceImpl implements MemberService{
     private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final ImageService imageService;
 
     @Transactional
     @Override
-    public Member createMember(Member member) {
+    public Member createMember(Member member, MultipartFile image) throws IOException {
         verifiedExistsEmail(member.getEmail());
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
@@ -44,12 +52,16 @@ public class MemberServiceImpl implements MemberService{
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
 
+        if(image != null) {
+            updateImage(image, member);
+        }
+
         return memberRepository.save(member);
     }
 
     @Transactional
     @Override
-    public Member updatedMember(Member member) {
+    public Member updatedMember(Member member, MultipartFile image) throws IOException {
         Member verifiedMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getPassword())
@@ -61,8 +73,23 @@ public class MemberServiceImpl implements MemberService{
         Optional.ofNullable(member.getIntroduce())
                 .ifPresent(verifiedMember::setIntroduce);
         //프로필 사진 수정
+        if(image != null) {
+            Image findImage = verifiedMember.getImage();
+            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
+                imageService.deleteImage(findImage.getImageId());
+            }
+            updateImage(image, verifiedMember);
+        }
 
         return memberRepository.save(verifiedMember);
+    }
+
+    public void updateImage(MultipartFile image, Member member) throws IOException {
+        Image savedImage = imageService.saveImage(image);
+        String imagePath = imageService.getImage(savedImage.getImageId());
+        Resource resource = new FileSystemResource(imagePath);
+        member.modifyImageUrl(resource.getURL().toString());
+        member.setImage(savedImage);
     }
 
     @Override

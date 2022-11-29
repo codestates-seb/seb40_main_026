@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.answer.dto.AnswerDto;
 import seb40main026.mainproject.answer.dto.AnswerLikeResponseDto;
 import seb40main026.mainproject.answer.dto.AnswerReportResponseDto;
@@ -13,9 +14,11 @@ import seb40main026.mainproject.answer.entity.AnswerLike;
 import seb40main026.mainproject.answer.entity.AnswerReport;
 import seb40main026.mainproject.answer.mapper.AnswerMapper;
 import seb40main026.mainproject.answer.service.AnswerService;
+import seb40main026.mainproject.question.dto.QuestionDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,8 +32,11 @@ public class AnswerController {
 
     // 답변 작성
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post answerPostDto) {
-        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto), answerPostDto.getQuestionId());
+//    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post answerPostDto) {
+    public ResponseEntity postAnswer(@RequestPart("answerPostDto") AnswerDto.Post answerPostDto,
+                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto)
+                , answerPostDto.getQuestionId(), image);
         AnswerDto.Response response = mapper.answerToAnswerResponse(answer);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
@@ -53,10 +59,13 @@ public class AnswerController {
 
     // 답변 수정
     @PatchMapping("/{answer-id}")
+//    public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
+//                                      @Valid @RequestBody AnswerDto.Patch answerPatchDto) {
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
-                                      @Valid @RequestBody AnswerDto.Patch answerPatchDto) {
+                                      @RequestPart("answerPatchDto") AnswerDto.Patch answerPatchDto,
+                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         answerPatchDto.setAnswerId(answerId);
-        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
+        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto), image);
         AnswerDto.Response response = mapper.answerToAnswerResponse(answer);
         return new ResponseEntity(response, HttpStatus.OK);
     }

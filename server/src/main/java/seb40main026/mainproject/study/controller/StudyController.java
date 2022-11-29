@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.study.dto.StudyDto;
 import seb40main026.mainproject.study.entity.Study;
 import seb40main026.mainproject.study.mapper.StudyMapper;
@@ -12,6 +14,7 @@ import seb40main026.mainproject.study.service.StudyService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,8 +27,10 @@ public class StudyController {
     private final StudyMapper mapper;
 
     @PostMapping // 스터디 작성
-    public ResponseEntity postStudy(@Valid @RequestBody StudyDto.Post studyPostDto) {
-        Study study = studyService.createStudy(mapper.studyPostDtoToStudy(studyPostDto));
+//    public ResponseEntity postStudy(@Valid @RequestBody StudyDto.Post studyPostDto) {
+    public ResponseEntity postStudy(@Valid @RequestPart("studyPostDto") StudyDto.Post studyPostDto,
+                                    @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        Study study = studyService.createStudy(mapper.studyPostDtoToStudy(studyPostDto), image);
         StudyDto.Response response = mapper.studyToStudyResponse(study);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -47,10 +52,13 @@ public class StudyController {
     }
 
     @PatchMapping("/{study-id}") // 스터디 수정
+//    public ResponseEntity patchStudy(@PathVariable("study-id") @Positive long studyId,
+//                                     @Valid @RequestBody StudyDto.Patch studyPatchDto) {
     public ResponseEntity patchStudy(@PathVariable("study-id") @Positive long studyId,
-                                     @Valid @RequestBody StudyDto.Patch studyPatchDto) {
+                                     @Valid @RequestPart("studyPatchDto") StudyDto.Patch studyPatchDto,
+                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         studyPatchDto.setStudyId(studyId);
-        Study study = studyService.updateStudy(mapper.studyPatchDtoToStudy(studyPatchDto));
+        Study study = studyService.updateStudy(mapper.studyPatchDtoToStudy(studyPatchDto), image);
         StudyDto.Response response = mapper.studyToStudyResponse(study);
         return new ResponseEntity(response, HttpStatus.OK);
     }

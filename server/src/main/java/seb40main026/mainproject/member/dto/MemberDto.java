@@ -67,5 +67,6 @@ public class MemberDto {
         private Member.MemberGrade memberGrade;
         private Long questionCount;
         private Long answerCount;
+        private String imageUrl;
     }
 }

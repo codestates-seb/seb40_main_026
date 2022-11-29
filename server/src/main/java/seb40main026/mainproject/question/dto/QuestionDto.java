@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.core.io.Resource;
 
 import javax.validation.constraints.NotBlank;
 
@@ -47,5 +48,6 @@ public class QuestionDto {
         private String createdAt;
         private String modifiedAt;
         private Boolean checkLike;
+        private String imageUrl;
     }
 }

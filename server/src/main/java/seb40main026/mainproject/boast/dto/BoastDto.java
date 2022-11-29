@@ -64,5 +64,6 @@ public class BoastDto {
 
         private Boolean checkLike;
 
+        private String imageUrl;
     }
 }

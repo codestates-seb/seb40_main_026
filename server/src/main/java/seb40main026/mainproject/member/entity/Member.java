@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
+import seb40main026.mainproject.image.entity.Image;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -41,6 +42,13 @@ public class Member {
 
     @Column
     private String currentBadge;
+
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "IMAGE_ID")
+    private Image image;
+
+    @Column
+    private String imageUrl;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -118,6 +126,10 @@ public class Member {
         private final String grade;
 
         MemberGrade(String grade) {this.grade = grade;}
+    }
+
+    public void modifyImageUrl(String url) {
+        this.imageUrl = url;
     }
 
     @PrePersist

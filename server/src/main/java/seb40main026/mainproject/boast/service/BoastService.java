@@ -1,23 +1,27 @@
 package seb40main026.mainproject.boast.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boastLike.entity.BoastLike;
 import seb40main026.mainproject.boastLike.repository.BoastLikeRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
-import seb40main026.mainproject.member.repository.MemberRepository;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
+import seb40main026.mainproject.question.entity.Question;
 
-import java.time.LocalDateTime;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +32,10 @@ import java.util.Optional;
 public class BoastService {
     private final BoastRepository boastRepository;
     private final MemberServiceImpl memberService;
-    private final MemberRepository memberRepository;
     private final BoastLikeRepository boastLikeRepository;
+    private final ImageService imageService;
 
-    public Boast createBoast(Boast boast){
+    public Boast createBoast(Boast boast, MultipartFile image) throws IOException {
         Member authMember = memberService.getLoginMember();
 
         authMember.setBoasts(boast);
@@ -43,18 +47,36 @@ public class BoastService {
 
         memberService.addStickerAndLevelUp(authMember);
 
+        if(image != null) {
+            updateImage(image, boast);
+        }
         return boastRepository.save(boast);
     }
 
-    public Boast updateBoast(Boast boast){
+    public Boast updateBoast(Boast boast, MultipartFile image) throws IOException {
         Boast findBoast = findVerifiedBoast(boast.getBoastId());
 
+        if(image != null) {
+            Image findImage = findBoast.getImage();
+            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
+                imageService.deleteImage(findImage.getImageId());
+            }
+            updateImage(image, findBoast);
+        }
         Optional.ofNullable(boast.getTitle())
                 .ifPresent(title -> findBoast.setTitle(title));
 
         Optional.ofNullable(boast.getContent())
                 .ifPresent(content -> findBoast.setContent(content));
         return boastRepository.save(findBoast);
+    }
+
+    public void updateImage(MultipartFile image, Boast boast) throws IOException {
+        Image savedImage = imageService.saveImage(image);
+        String imagePath = imageService.getImage(savedImage.getImageId());
+        Resource resource = new FileSystemResource(imagePath);
+        boast.modifyImageUrl(resource.getURL().toString());
+        boast.setImage(savedImage);
     }
 
     public Boast findBoast(long boastId){

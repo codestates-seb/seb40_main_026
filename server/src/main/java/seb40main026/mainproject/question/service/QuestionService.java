@@ -1,11 +1,16 @@
 package seb40main026.mainproject.question.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.question.dto.QuestionDto;
@@ -15,6 +20,7 @@ import seb40main026.mainproject.question.mapper.QuestionMapper;
 import seb40main026.mainproject.question.repository.QuestionLikeRepository;
 import seb40main026.mainproject.question.repository.QuestionRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +32,9 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberServiceImpl memberService;
     private final QuestionLikeRepository questionLikeRepository;
-
+    private final ImageService imageService;
     // 질문 작성
-    public QuestionDto.Response createQuestion(QuestionDto.Post questionPostDto) {
+    public QuestionDto.Response createQuestion(QuestionDto.Post questionPostDto, MultipartFile image) throws IOException {
         Question question = mapper.questionPostDtoToQuestion(questionPostDto);
         Member member = memberService.getLoginMember();
         question.setMember(member);
@@ -40,19 +46,40 @@ public class QuestionService {
         memberService.addStickerAndLevelUp(member);
         questionRepository.save(question);
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
+
+        if(image != null) {
+            updateImage(image, question);
+        }
         return mapper.questionToQuestionResponse(question, findQuestionLike);
     }
 
     // 질문 수정
     public QuestionDto.Response updateQuestion(QuestionDto.Patch questionPatchDto,
-                                               long questionId) {
+                                               long questionId, MultipartFile image) throws IOException {
         questionPatchDto.setQuestionId(questionId);
         Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
         Question findQuestion = findVerifiedQuestion(question.getQuestionId()); // 검증
+
+        if(image != null) {
+            Image findImage = findQuestion.getImage();
+            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
+                imageService.deleteImage(findImage.getImageId());
+            }
+            updateImage(image, findQuestion);
+        }
+
         findQuestion.modify(question.getTitle(), question.getContent()); // 수정
         Member member = memberService.getLoginMember();
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);
         return mapper.questionToQuestionResponse(findQuestion, findQuestionLike);
+    }
+
+    public void updateImage(MultipartFile image, Question question) throws IOException {
+        Image savedImage = imageService.saveImage(image);
+        String imagePath = imageService.getImage(savedImage.getImageId());
+        Resource resource = new FileSystemResource(imagePath);
+        question.modifyImageUrl(resource.getURL().toString());
+        question.setImage(savedImage);
     }
 
     // 전체 질문 조회
