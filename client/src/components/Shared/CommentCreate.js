@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 
-const CommentCreate = () => {
+const CommentCreate = ({ Setcontent, postHandler }) => {
   return (
     <CreateWrap>
       <ComInputWrap>
         <input
           className="CommentInput"
           placeholder="댓글을 입력해주세요"
+          onChange={(e) => Setcontent(e.target.value)}
         ></input>{' '}
-        <button className="CommentBtn">입력</button>{' '}
+        <button className="CommentBtn" onClick={postHandler}>
+          입력
+        </button>{' '}
       </ComInputWrap>
       <div> </div>
     </CreateWrap>
