@@ -58,19 +58,26 @@ public class BoastService {
     }
 
     public Boast findBoast(long boastId){
-        Member authMember = memberService.getLoginMember();
+        Optional<Member> findMember = memberService.isLoginMember();
         Boast findBoast = findVerifiedBoast(boastId);
 
         findBoast.setViewCount(findBoast.getViewCount()+1);
         findBoast.setNickName(findBoast.getMember().getNickname());
         findBoast.setGrade(findBoast.getMember().getMemberGrade());
         findBoast.setBadge(findBoast.getMember().getCurrentBadge());
-        BoastLike findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
-        if(findBoastLike == null) {
-            findBoast.setCheckLike(false);
+        System.out.println("findMember = " + findMember);
+        if(findMember == null){
+            Member authMember = memberService.getLoginMember();
+            BoastLike findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
+            if(findBoastLike == null) {
+                findBoast.setCheckLike(false);
+            }
+            else{
+                findBoast.setCheckLike(true);
+            }
         }
-        else{
-            findBoast.setCheckLike(true);
+        else {
+            findBoast.setCheckLike(false);
         }
         return findBoast;
     }
