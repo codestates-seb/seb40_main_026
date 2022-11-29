@@ -39,7 +39,7 @@ public class AnswerService {
             memberService.addBadge("answer");
         }
         memberService.addStickerAndLevelUp(member);
-
+        question.increaseAnswerCount();
         return answerRepository.save(answer);
     }
 
