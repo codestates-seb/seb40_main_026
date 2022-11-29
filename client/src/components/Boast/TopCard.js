@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { tablet, mobile } from '../../styles/Responsive';
+import { useNavigate } from 'react-router';
 
 const CardBox = styled.li`
   display: flex;
@@ -9,6 +11,7 @@ const CardBox = styled.li`
   box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
   transform: scale(1);
   transition: all 0.5s;
+
   :hover {
     transform: scale(1.1);
   }
@@ -23,12 +26,15 @@ const CardImg = styled.img`
   height: 80%;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
+  cursor: pointer;
 `;
 
 const Word = styled.div`
   margin-left: 0.5rem;
   font-weight: bold;
   font-size: 1.6rem;
+  background: #ffc149;
+  cursor: pointer;
 
   @media ${mobile} {
     font-size: 2.3rem;
@@ -59,47 +65,29 @@ const Word2 = styled.div`
   }
 `;
 
-function TopCard({ src, alt, title, nickName, likeCount, LikeButton }) {
-  //  const listData2 = [
-  //    {
-  //      boastId: 1,
-  //      title: 'popular test 1 ',
-  //      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-  //      nickName: '둘리',
-  //      // content: 'boast mapping Test !!',
-  //      boardCreatedAt: '2022-11-16T14:09:46.871873',
-  //      // boardModifiedAt: null,
-  //      // viewCount: 0,
-  //      likeCount: 1,
-  //    },
-  //    {
-  //      boastId: 3,
-  //      title: 'popular test 3 ',
-  //      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-  //      nickName: '둘리',
-  //      // content: 'boast mapping Test !!',
-  //      boardCreatedAt: '2022-11-16T14:09:51.425265',
-  //      // boardModifiedAt: null,
-  //      // viewCount: 0,
-  //      likeCount: 1,
-  //    },
-  //    {
-  //      boastId: 5,
-  //      title: 'popular test 5 ',
-  //      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-  //      nickName: '둘리',
-  //      // content: 'boast mapping Test !!',
-  //      boardCreatedAt: '2022-11-16T14:09:56.920637',
-  //      // boardModifiedAt: null,
-  //      // viewCount: 0,
-  //      likeCount: 1,
-  //    },
-  //  ];
+const PageBtn = styled.button`
+  all: unset;
+  border: none;
+  background: #ffc149;
+  border-radius: 2rem;
+`;
+
+function TopCard({ title, nickName, likeCount, LikeButton, boastId }) {
+  const onErrorImg = (e) => {
+    e.target.src = cardDefaultImg;
+  };
+
+  const navigate = useNavigate();
+  const handleOnClick = (id) => {
+    navigate(`/boast/${id}`);
+  };
 
   return (
     <CardBox>
-      <CardImg src={src} alt={alt} />
-      <Word>{title}</Word>
+      <PageBtn onClick={() => handleOnClick(boastId)}>
+        <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
+        <Word>{title}</Word>
+      </PageBtn>
       <Word2>
         <div>{nickName}</div>
         <LikeButton likeCount={likeCount} />

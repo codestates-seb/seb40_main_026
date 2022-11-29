@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { CgAdd } from 'react-icons/cg';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
@@ -148,6 +149,9 @@ const BtnBox = styled.div`
 `;
 
 function LevelBox({ list }) {
+  const onErrorImg = (e) => {
+    e.target.src = cardDefaultImg;
+  };
   return (
     <Container>
       <TitleBox>
@@ -157,7 +161,11 @@ function LevelBox({ list }) {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
@@ -167,7 +175,11 @@ function LevelBox({ list }) {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
@@ -177,7 +189,11 @@ function LevelBox({ list }) {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
@@ -195,8 +211,13 @@ function LevelBox({ list }) {
           list.slice(0, 3).map((item) => {
             return (
               <BtmMemberBox key={item.memberId}>
-                <BtmMemberImg src={item.path}></BtmMemberImg>
+                <BtmMemberImg
+                  src={''}
+                  alt={'cardImg'}
+                  onError={onErrorImg}
+                ></BtmMemberImg>
                 <WordBox>
+                  <span>{item.level}</span>
                   <span>{item.memberGrade}</span>
                   <span>{item.nickname}</span>
                 </WordBox>
