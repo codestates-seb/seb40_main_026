@@ -82,7 +82,7 @@ const Answer = ({ SetState, State }) => {
 
   return (
     <AnswerView>
-      <AnswerViewWrap className={Answer > 0 ? null : 'none-display'}>
+      <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>
         {Answer.map((items) => {
           return (
             <AnswerMainWrap key={items.answerId}>
