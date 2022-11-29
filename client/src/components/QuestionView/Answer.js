@@ -1,36 +1,86 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
+import { Viewer, Editor } from '@toast-ui/react-editor';
+import axios from 'axios';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { useParams } from 'react-router-dom';
+const Answer = ({ SetState, State }) => {
+  const [EditClick, SetEditClick] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const [Answer, setAnswer] = useState([]);
+  const { id } = useParams();
+  const token = localStorage.getItem('accessToken');
+  const EditHandler = (Answerid) => {
+    if (Answerid === TitleId) {
+      setTitleId(0);
+      SetEditClick(false);
+      axios({
+        method: 'patch',
+        url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${Answerid}`,
+        data: { questionId: id, content: Answer, answerId: Answerid },
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then(function (response) {
+          SetState(State + 1);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setTitleId(Answerid);
+      SetEditClick(true);
+    }
+  };
+  const DeleteHandler = (id) => {
+    axios
+      .delete(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+      });
+  };
 
-const Answer = () => {
-  const DummyQuestions = [
-    {
-      id: 1,
-
-      body: '답변입니다.',
-      date: '2022-11-14',
-      nickname: '치즈',
-      grade: '답변왕',
-      class: '🐣',
-      likeCount: 1,
-    },
-    {
-      id: 2,
-      body: '답변입니다.',
-      date: '2022-11-15',
-      nickname: '치킨',
-      grade: '답변왕',
-      class: '🐣',
-      likeCount: 0,
-    },
-  ];
+  useEffect(() => {
+    axios
+      ///questions/${id}
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`
+      )
+      .then((res) => {
+        setAnswer(res.data);
+      });
+  }, [State]);
+  const LikeHandler = () => {
+    axios({
+      method: 'post',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${Answer.answerId}/like`,
+      data: { id },
+      headers: { Authorization: token },
+    })
+      .then(() => {
+        SetState(State + 1);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+  const EditPatch = () => {};
   return (
     <AnswerView>
       <AnswerViewWrap>
-        {DummyQuestions.map((items) => {
+        {Answer.map((items) => {
           return (
-            <AnswerMainWrap key={items.id}>
+            <AnswerMainWrap key={items.answerId}>
               <AnswerTop>
                 <div>
                   <div className="AnswerUserinfo ">
@@ -41,18 +91,32 @@ const Answer = () => {
                     <span> {items.date} </span>
                   </div>{' '}
                   <BtnWrap>
-                    <button>수정하기</button>
-                    <button>삭제하기</button>
+                    <button onClick={() => EditHandler(items.answerId)}>
+                      수정하기
+                    </button>
+                    <button onClick={() => DeleteHandler(items.answerId)}>
+                      삭제하기
+                    </button>
                   </BtnWrap>
                 </div>
                 <div>
                   <div>
-                    <LikeButton likeCount={items.likeCount} />
+                    <LikeButton
+                      likeCount={items.likeCount}
+                      LikeHandler={LikeHandler}
+                    />
                   </div>
                 </div>
               </AnswerTop>
               <AnswerBot>
-                <p>{items.body}</p>
+                {items.answerId === TitleId ? (
+                  <Editor
+                    initialEditType="wysiwyg"
+                    initialValue={items.content}
+                  />
+                ) : (
+                  <Viewer initialValue={items.content} />
+                )}
               </AnswerBot>
             </AnswerMainWrap>
           );

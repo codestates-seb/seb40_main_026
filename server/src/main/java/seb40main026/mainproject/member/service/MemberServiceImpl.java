@@ -6,11 +6,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
+import seb40main026.mainproject.boast.repository.BoastRepository;
+import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.question.repository.QuestionRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +25,10 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
+    private final BoastRepository boastRepository;
+    private final BoastReplyRepository boastReplyRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -58,6 +66,10 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member findMember(long memberId) {
+        Member findMember = findVerifiedMember(memberId);
+        findMember.setQuestionCount(questionRepository.countByMember(findMember));
+        findMember.setAnswerCount(answerRepository.countByMember(findMember));
+
         return findVerifiedMember(memberId);
     }
 

@@ -63,5 +63,7 @@ public class MemberDto {
         private String currentBadge;
         private Member.MemberStatus memberStatus;
         private Member.MemberGrade memberGrade;
+        private Long questionCount;
+        private Long answerCount;
     }
 }
