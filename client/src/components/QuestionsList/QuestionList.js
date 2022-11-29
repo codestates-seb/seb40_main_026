@@ -1,38 +1,36 @@
 import { useNavigate } from 'react-router';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { mobile } from '../../styles/Responsive';
+import { mobile, tablet } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import axios from 'axios';
-
-const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
+import PulseLoader from 'react-spinners/PulseLoader';
+import { FaAngleUp } from 'react-icons/fa';
+function QuestionView({ SearchData, SearchOn, TitleId }) {
   const navigate = useNavigate();
   const [QuesData, SetQuesData] = useState([]);
   const [Filter, SetFilter] = useState([]);
   const [Count, SetCount] = useState(1);
   const [Total, SetTotal] = useState();
-
-  //스크롤이 바닥에 닿으면 Setnumber(+5) 최댓값은 질문 전체 데이터 길이만큼.
-  //if(maxnum=<Setnumber){
-  // Setnumber(maxnum)
-  //}
-  useEffect(() => {}, []);
-  console.log(document.body.offsetHeight);
-  console.log();
+  const [Loading, SetLoading] = useState(false);
 
   //상세페이지 네비게이션 연결
   const Titlehandler = (id) => {
     navigate(`/questions/${id}`);
     console.log(id);
   };
+
   //필터 쿼리 구분용 함수
   useEffect(() => {
     if (TitleId === 3 || 0) {
       SetFilter('questionId');
+      SetCount(1);
     } else if (TitleId === 2) {
       SetFilter('likeCount');
+      SetCount(1);
     } else if (TitleId === 1) {
       SetFilter('answerCount');
+      SetCount(1);
     }
   }, [TitleId]);
   console.log(TitleId);
@@ -46,24 +44,21 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
         SetQuesData(res.data.slice(0, Count * 5));
         SetTotal(res.data.length);
       });
-  }, [Count]);
-  //더보기 대신 scrollY에 따른 값으로 변경
+  }, [Count, Filter]);
+  //게시글 더보기 요청시 Count증가 시키는 함수
   const CountHandler = () => {
-    if (Total >= Count) {
-      SetCount(Count + 1);
+    if (Total >= Count && Total !== QuesData.length) {
+      SetLoading(true);
+      setTimeout(() => {
+        SetCount(Count + 1);
+        SetLoading(false);
+      }, 1000);
     }
   };
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions?sort=${Filter}`
-  //     )
-  //     .then((res) => {
-  //       SetQuesData(res.data.slice(0, Count * 5));
-  //       SetTotal(res.data.length);
-  //     });
-  //     //Y좌표 변경시마다 렌더링
-  // }, []);
+  //Top버튼 클릭시 스크롤 최상단으로 올려주는 함수
+  const TopHandler = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   return (
     <QuesListContainer>
       <QuesListMain>
@@ -157,18 +152,62 @@ const QuestionView = ({ SearchData, SearchOn, TitleId }) => {
                 );
               })}
         </QuestionsList>
-        <div>
-          {' '}
-          <button onClick={CountHandler}>더보기</button>
-        </div>
+        <MoreBtnWrap>
+          <div className={Loading ? 'LoaderWrap' : 'non-loading'}>
+            <PulseLoader color="#ffc149" speedMultiplier={0.7} />
+          </div>
+          <button
+            className={
+              Loading || Total === QuesData.length ? 'non-loading' : 'MoreBtn'
+            }
+            onClick={CountHandler}
+          >
+            질문 더보기
+          </button>
+        </MoreBtnWrap>
+        <span className="TopNavWrap">
+          <button onClick={TopHandler}>
+            <div>
+              <FaAngleUp></FaAngleUp>
+            </div>
+            <span>Top</span>
+          </button>
+        </span>
       </QuesListMain>
     </QuesListContainer>
   );
-};
+}
 
 const QuesListContainer = styled.div`
+  .TopNavWrap {
+    width: 80px;
+    text-align: center;
+    float: right;
+    position: fixed;
+    bottom: 50%;
+    right: 8%;
+    > button {
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: #ff62be;
+      color: #fff;
+    }
+  }
+
+  @media ${tablet} {
+    min-width: 400px;
+    .TopNavWrap {
+      right: 3%;
+    }
+  }
   @media ${mobile} {
     min-width: 400px;
+    .TopNavWrap {
+      right: 1%;
+      > button {
+        padding: 0;
+      }
+    }
   }
 `;
 const QuesListMain = styled.div`
@@ -257,5 +296,28 @@ const BotUserWrap = styled.div`
   margin-left: 1rem;
   font-size: 0.8rem;
 `;
+const MoreBtnWrap = styled.div`
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
 
+  .loader-active {
+    display: block;
+  }
+  .non-loading {
+    display: none;
+  }
+  .MoreBtn {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #ff62be;
+    border-radius: 1rem;
+    color: #fff;
+  }
+  .LoaderWrap {
+    width: 100%;
+
+    text-algin: center;
+  }
+`;
 export default QuestionView;

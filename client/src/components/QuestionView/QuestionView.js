@@ -38,9 +38,6 @@ const QuestionView = ({
       method: 'patch',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
       data: { title: TitleData, content: ContentData },
-      headers: {
-        Authorization: token,
-      },
     })
       .then(function (response) {
         SetState(State + 1);
