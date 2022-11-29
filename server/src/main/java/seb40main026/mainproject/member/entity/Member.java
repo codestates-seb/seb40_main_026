@@ -56,6 +56,12 @@ public class Member {
     @Column(nullable = false)
     private Boolean teacher;
 
+    @Column()
+    private Long questionCount;
+
+    @Column
+    private Long answerCount;
+
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus;

@@ -9,7 +9,7 @@ import seb40main026.mainproject.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T19:45:26+0900",
+    date = "2022-11-29T10:49:00+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -64,6 +64,8 @@ public class MemberMapperImpl implements MemberMapper {
         String currentBadge = null;
         Member.MemberStatus memberStatus = null;
         Member.MemberGrade memberGrade = null;
+        Long questionCount = null;
+        Long answerCount = null;
 
         List<String> list = member.getHaveBadgeList();
         if ( list != null ) {
@@ -83,8 +85,10 @@ public class MemberMapperImpl implements MemberMapper {
         currentBadge = member.getCurrentBadge();
         memberStatus = member.getMemberStatus();
         memberGrade = member.getMemberGrade();
+        questionCount = member.getQuestionCount();
+        answerCount = member.getAnswerCount();
 
-        MemberDto.Response response = new MemberDto.Response( memberId, email, nickname, teacher, createdAt, modifiedAt, sticker, haveBadgeList, currentBadge, memberStatus, memberGrade );
+        MemberDto.Response response = new MemberDto.Response( memberId, email, nickname, teacher, createdAt, modifiedAt, sticker, haveBadgeList, currentBadge, memberStatus, memberGrade, questionCount, answerCount );
 
         return response;
     }
