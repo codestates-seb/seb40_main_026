@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
-const Commentlist = () => {
+const Commentlist = ({ CommentData, DeleteHandler, EditPatch }) => {
   const DummyComments = [
     {
       id: 1,
@@ -37,11 +37,13 @@ const Commentlist = () => {
       SetEditClick(true);
     }
   };
+
   console.log(EditClick);
   return (
     <CommentContainer>
       <ComInputWrap>
         <CommentUl>
+          {/* CommentData.map */}
           {DummyComments.map((items) => {
             return (
               <>

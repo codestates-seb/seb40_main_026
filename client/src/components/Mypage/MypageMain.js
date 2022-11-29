@@ -5,14 +5,11 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+
 //멤버 id 띄어야함
-const MypageEdit = () => {
+const MypageEdit = ({ UserId }) => {
   const [UserInfo, SetUserInfo] = useState([]);
   const token = localStorage.getItem('accessToken');
-  const decode = jwt_decode(token);
-  const UserId = decode.memberId;
-
   useEffect(() => {
     axios({
       mathod: 'get',
@@ -66,12 +63,12 @@ const MypageEdit = () => {
           <Userinfo>
             <CommDisplay>
               <span className="MypageTitle">총 게시물</span>
-              <span>{UserDummydata.totalpost}개</span>
+              <span>{UserInfo.questionCount}개</span>
             </CommDisplay>
-            <CommDisplay>
+            {/* <CommDisplay>
               <span className="MypageTitle">총 댓글</span>
               <span>{UserDummydata.totalcom}개</span>
-            </CommDisplay>
+            </CommDisplay> */}
             <CommDisplay>
               <span className="MypageTitle">계급</span>
               <span>{UserInfo.sticker}</span>
@@ -83,7 +80,7 @@ const MypageEdit = () => {
                 {' '}
                 <MdEmojiPeople /> 자기소개
               </h4>
-              <p>{UserDummydata.introduce}</p>
+              <p>{UserInfo.introduce}</p>
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
