@@ -152,9 +152,14 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member getLoginMember() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+        if(optionalMember.isPresent()) return optionalMember.get();
+        else return null;
 
-        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
+//        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }
