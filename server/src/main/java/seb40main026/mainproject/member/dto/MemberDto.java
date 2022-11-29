@@ -5,8 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import seb40main026.mainproject.member.entity.Member;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class MemberDto {
 
@@ -39,6 +43,7 @@ public class MemberDto {
         private String password;
         //private File profile_photo;
         private Member.MemberGrade memberGrade;
+        private String badgeName;
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;}
@@ -54,6 +59,8 @@ public class MemberDto {
         private String createdAt;
         private String modifiedAt;
         private Integer sticker;
+        private List<String> haveBadgeList;
+        private String currentBadge;
         private Member.MemberStatus memberStatus;
         private Member.MemberGrade memberGrade;
     }

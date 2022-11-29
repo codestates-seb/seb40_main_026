@@ -8,11 +8,10 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 //멤버 id 띄어야함
 const MypageEdit = () => {
-  const [UserInfo, SetUserInfo] = useState();
+  const [UserInfo, SetUserInfo] = useState([]);
   const token = localStorage.getItem('accessToken');
   const decode = jwt_decode(token);
   const UserId = decode.memberId;
-  console.log(UserId);
 
   useEffect(() => {
     axios({
@@ -23,6 +22,7 @@ const MypageEdit = () => {
       },
     }).then((res) => {
       SetUserInfo(res.data);
+      console.log(res.data);
     });
   }, []);
   const UserDummydata = {
@@ -57,7 +57,7 @@ const MypageEdit = () => {
               {' '}
               <span>
                 {UserInfo.memberGrade}
-                {UserDummydata.nickname}
+                {UserInfo.nickname}
               </span>
             </div>
           </NicknameWrap>
@@ -74,7 +74,7 @@ const MypageEdit = () => {
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">계급</span>
-              <span>{UserDummydata.class}</span>
+              <span>{UserInfo.sticker}</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
@@ -87,7 +87,7 @@ const MypageEdit = () => {
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
-                <span>가입일 : createdAt</span>
+                <span>가입일 : {UserInfo.createdAt}</span>
 
                 <span>최근 접속일 : {UserDummydata.recent}</span>
               </CommDisplay>

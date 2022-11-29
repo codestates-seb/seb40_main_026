@@ -54,4 +54,11 @@ public class MemberController {
         Member deletedMember = memberService.deleteMember(memberId);
         return new ResponseEntity<>(mapper.memberToResponse(deletedMember), HttpStatus.NO_CONTENT);
     }
+
+    @PatchMapping("/changeBadge/{badge-name}")
+    public ResponseEntity changeBadge(@PathVariable("badge-name") String badgeName){
+        memberService.setCurrentBadge(badgeName);
+        return new ResponseEntity<>(HttpStatus.OK) ;
+    }
+
 }
