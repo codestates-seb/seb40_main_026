@@ -8,9 +8,10 @@ const CommentCreate = ({ Setcontent, postHandler }) => {
         <input
           className="CommentInput"
           placeholder="댓글을 입력해주세요"
+          defaultValue={Setcontent}
           onChange={(e) => Setcontent(e.target.value)}
         ></input>{' '}
-        <button className="CommentBtn" onClick={postHandler}>
+        <button className="CommentBtn" onClick={() => postHandler(8)}>
           입력
         </button>{' '}
       </ComInputWrap>

@@ -6,31 +6,48 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+
 //멤버 id 띄어야함
 
-const token = localStorage.getItem('accessToken');
-const decode = () => {
-  if (token) {
-    jwt_decode(token);
-  }
-};
-const UserId = decode.memberId;
 //방명록 주인용 id app.js에서 마이페이지 주소 :id로 수정 해야 함.
-const { id } = useParams;
+
 const MypageContainer = () => {
   const [content, Setcontent] = useState('');
   const [CommentData, SetCommentData] = useState([]);
-  const postHandler = (e) => {
-    e.preventDefault();
+  const [Count, SetCount] = useState(false);
+  const [UserInfo, SetUserInfo] = useState([]);
+  const token = localStorage.getItem('accessToken');
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
+
+  //만약 로컬에 토큰이 있다면 함수 실행
+  //함수는
+  //회원정보 조회
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+
+  //방명록 post 요청 함수
+  const postHandler = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBook`,
-      data: { mamberId: 8, content },
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks`,
+      data: { memberId: UserId, content },
       headers: {
         Authorization: token,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        SetCount(!Count);
+      })
       .catch((err) => {
         console.log(err.response.data);
       });
@@ -39,53 +56,58 @@ const MypageContainer = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBook?memberId=1`,
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks?memberId=${UserId}`,
       headers: {
         Authorization: token,
       },
     }).then((res) => {
       SetCommentData(res.data);
     });
-  }, []);
+  }, [Count]);
+
   //방명록 수정
-  const EditPatch = () => {
+  const EditPatch = (id) => {
     axios({
       method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBook/{guestBook-id}`,
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks/${id}`,
       data: { content },
       headers: {
         Authorization: token,
       },
     })
-      .then(function (response) {})
+      .then(function (response) {
+        SetCount(!Count);
+      })
       .catch((err) => {
         console.log(err);
       });
   };
   //방명록 삭제
-  const DeleteHandler = () => {
+  const DeleteHandler = (id) => {
     axios
       .delete(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBook/{guestBook-id}`,
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks/${id}`,
         {
           headers: {
             Authorization: token,
           },
         }
       )
-      .then((res) => {});
+      .then((res) => {
+        SetCount(!Count);
+      });
   };
-  console.log(content);
   return (
     <>
       <TitleHeader title={'회원정보'} />
-      <MypageMain UserId={UserId} />
+      <MypageMain UserInfo={UserInfo} />
       <TitleHeader title={'방명록'} />
       <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
       <Commentlist
         CommentData={CommentData}
         DeleteHandler={DeleteHandler}
         EditPatch={EditPatch}
+        Setcontent={Setcontent}
       />
     </>
   );

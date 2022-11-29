@@ -1,77 +1,60 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
-const Commentlist = ({ CommentData, DeleteHandler, EditPatch }) => {
-  const DummyComments = [
-    {
-      id: 1,
-
-      body: '저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.저는 더미데이터 입니다.',
-      date: '22-11-14',
-      nickname: '아구몬',
-    },
-    {
-      id: 2,
-
-      body: '저는 두번째 더미데이터 입니다.',
-      date: '22-11-15',
-      nickname: '파닥몬',
-    },
-    {
-      id: 3,
-
-      body: '저는 세번째 더미데이터 입니다.',
-      date: '22-11-16',
-      nickname: '뿔몬',
-    },
-  ];
+const Commentlist = ({ CommentData, DeleteHandler, EditPatch, Setcontent }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
   const EditHandler = (id) => {
     if (id === TitleId) {
       setTitleId(0);
       SetEditClick(false);
+      EditPatch(id);
     } else {
       setTitleId(id);
-
       SetEditClick(true);
     }
   };
 
-  console.log(EditClick);
   return (
     <CommentContainer>
       <ComInputWrap>
-        <CommentUl>
-          {/* CommentData.map */}
-          {DummyComments.map((items) => {
+        <CommentUl className={CommentData.length > 0 ? null : 'none-display'}>
+          {CommentData.map((items) => {
             return (
               <>
-                <CommentWrap key={items.id}>
+                <CommentWrap key={items.guestBookId}>
                   <NickNameWrap>
-                    <span>{items.nickname}</span>
+                    <span>{items.writer}</span>
                   </NickNameWrap>
                   <BodyWrap>
-                    {items.id === TitleId ? (
-                      <input defaultValue={items.body}></input>
+                    {items.guestBookId === TitleId ? (
+                      <input
+                        defaultValue={items.content}
+                        onChange={(e) => Setcontent(e.target.value)}
+                      ></input>
                     ) : (
-                      <p>{items.body}</p>
+                      <p>{items.content}</p>
                     )}
                   </BodyWrap>
                   <DateWrap>
                     <div>
-                      <span>{items.date}</span>
+                      <span>{items.createdAt}</span>
                     </div>
                     <BtnWrap>
                       <button
                         className="Canclebtn"
                         onClick={() => {
-                          EditHandler(items.id);
+                          EditHandler(items.guestBookId);
                         }}
                       >
                         수정하기
                       </button>{' '}
-                      <button className="Deletebtn">삭제하기</button>
+                      <button
+                        className="Deletebtn"
+                        onClick={() => DeleteHandler(items.guestBookId)}
+                      >
+                        삭제하기
+                      </button>
                     </BtnWrap>
                   </DateWrap>
                 </CommentWrap>
@@ -93,6 +76,9 @@ const ComInputWrap = styled.div`
   margin: auto;
   display: flex;
   justify-content: space-between;
+  .none-display {
+    display: none;
+  }
 `;
 const CommentUl = styled.ul`
   width: 100%;
