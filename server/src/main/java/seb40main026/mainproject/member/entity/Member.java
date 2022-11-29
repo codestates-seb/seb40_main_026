@@ -54,6 +54,9 @@ public class Member {
     private Integer sticker;
 
     @Column(nullable = false)
+    private String introduce;
+
+    @Column(nullable = false)
     private Boolean teacher;
 
     @Column()
