@@ -158,7 +158,9 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
           </div>
           <button
             className={
-              Loading || Total === QuesData.length ? 'non-loading' : 'MoreBtn'
+              QuesData.length === 0 || Loading || Total === QuesData.length
+                ? 'non-loading'
+                : 'MoreBtn'
             }
             onClick={CountHandler}
           >

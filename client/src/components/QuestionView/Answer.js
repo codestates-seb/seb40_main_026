@@ -16,7 +16,7 @@ const Answer = ({ SetState, State }) => {
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   console.log(EditData);
-  //상태관리용 state내리지 말고 여기서 설정
+
   const EditHandler = (id) => {
     if (id === TitleId) {
       axios({
@@ -82,7 +82,7 @@ const Answer = ({ SetState, State }) => {
 
   return (
     <AnswerView>
-      <AnswerViewWrap>
+      <AnswerViewWrap className={Answer > 0 ? null : 'none-display'}>
         {Answer.map((items) => {
           return (
             <AnswerMainWrap key={items.answerId}>
@@ -187,6 +187,9 @@ const AnswerView = styled.div`
       .AnswerBot {
       }
     }
+  }
+  .none-display {
+    display: none;
   }
   @media ${mobile} {
     .AnswerUserinfo > span {
