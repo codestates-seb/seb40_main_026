@@ -162,4 +162,10 @@ public class MemberServiceImpl implements MemberService{
 
 //        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
     }
+
+    public Optional<Member> isLoginMember(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+        return optionalMember;
+    }
 }
