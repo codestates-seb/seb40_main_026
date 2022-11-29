@@ -35,7 +35,7 @@ public interface QuestionMapper {
         // 뱃지
         // 파일
         response.setReportCount( question.getReportCount() );
-        response.setAnswerCount( question.getAnswers().size() ); // 질문에 해당하는 답변 개수
+        response.setAnswerCount( question.getAnswerCount() ); // 질문에 해당하는 답변 개수
         response.setCreatedAt( question.getCreatedAt() );
         response.setModifiedAt( question.getModifiedAt() );
         if(questionLike == null) response.setCheckLike(false);

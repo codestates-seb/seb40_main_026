@@ -31,8 +31,10 @@ public class StudyController {
     }
 
     @GetMapping // 전체 스터디 조회
-    public ResponseEntity getStudies(@RequestParam(value = "sort", required = false) String sort) {
-        List<Study> studies = studyService.findStudies(sort);
+    public ResponseEntity getStudies(@Positive @RequestParam(value="page", defaultValue="1") int page,
+                                     @Positive @RequestParam(value="size", defaultValue="10") int size,
+                                     @RequestParam(value = "sort", required = false) String sort) {
+        List<Study> studies = studyService.findStudies(sort, page - 1, size);
         List<StudyDto.Response> responses = mapper.studiesToStudyResponses(studies);
         return new ResponseEntity(responses, HttpStatus.OK);
     }

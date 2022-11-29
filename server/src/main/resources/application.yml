@@ -19,13 +19,13 @@ spring:
       location: /Users/koronba/Desktop/imgTest/
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 mail:
   address:
-    admin: u302@feop.com
+    admin: ${ADMIN_ADDRESS}
 
 jwt:
-  secret-key: r98u98ut934ut9438ut9483ut9u34t89u34tu3tu439ut934ut8rguwgusv8sduv9ds
+  secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 360

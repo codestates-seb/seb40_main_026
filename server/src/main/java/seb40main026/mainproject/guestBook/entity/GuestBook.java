@@ -25,7 +25,7 @@ public class GuestBook {
     private String content;
 
     @Column(nullable = false)
-    private String writer; // 작성자
+    private Long writerId; // 작성자
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -50,8 +50,8 @@ public class GuestBook {
         this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
 
-    public void updateWriter(String writer) {
-        if(member != null) this.writer = writer;
+    public void updateWriter(Long writerId) {
+        if(member != null) this.writerId = writerId;
     }
 
     public void updateMember(Member member) {

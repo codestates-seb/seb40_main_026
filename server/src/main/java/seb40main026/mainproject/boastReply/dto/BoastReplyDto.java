@@ -41,11 +41,7 @@ public class BoastReplyDto {
 
         private String content;
 
-        private String badge;
-
         private String nickName;
-
-        private Member.MemberGrade grade;
 
         private String replyCreatedAt;
 

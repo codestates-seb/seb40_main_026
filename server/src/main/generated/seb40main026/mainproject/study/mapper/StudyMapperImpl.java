@@ -9,7 +9,7 @@ import seb40main026.mainproject.study.entity.Study;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T13:53:44+0900",
+    date = "2022-11-29T10:49:00+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -24,7 +24,7 @@ public class StudyMapperImpl implements StudyMapper {
         Study study = new Study();
 
         study.setStudyName( studyPostDto.getStudyName() );
-        study.setExplain( studyPostDto.getExplain() );
+        study.setContent( studyPostDto.getContent() );
         study.setPrice( studyPostDto.getPrice() );
         study.setRecruitment( studyPostDto.getRecruitment() );
         study.setCount( studyPostDto.getCount() );
@@ -45,7 +45,7 @@ public class StudyMapperImpl implements StudyMapper {
 
         study.setStudyId( studyPatchDto.getStudyId() );
         study.setStudyName( studyPatchDto.getStudyName() );
-        study.setExplain( studyPatchDto.getExplain() );
+        study.setContent( studyPatchDto.getContent() );
         study.setPrice( studyPatchDto.getPrice() );
         study.setRecruitment( studyPatchDto.getRecruitment() );
         study.setCount( studyPatchDto.getCount() );
@@ -66,7 +66,7 @@ public class StudyMapperImpl implements StudyMapper {
 
         response.setStudyId( study.getStudyId() );
         response.setStudyName( study.getStudyName() );
-        response.setExplain( study.getExplain() );
+        response.setContent( study.getContent() );
         response.setPrice( study.getPrice() );
         response.setRecruitment( study.getRecruitment() );
         response.setCount( study.getCount() );
