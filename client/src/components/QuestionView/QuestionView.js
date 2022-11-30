@@ -14,6 +14,7 @@ const QuestionView = ({
   State,
 }) => {
   const [QuesData, SetQuesData] = useState([]);
+  const [checklike, Setchecklike] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
@@ -73,15 +74,15 @@ const QuestionView = ({
         navigate('/questions');
       });
   };
-  const LikeHandler = () => {
+  const LikeHandler = (id) => {
     axios({
       method: 'post',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/like`,
-      data: { id },
       headers: { Authorization: token },
     })
-      .then(() => {
+      .then((res) => {
         SetState(State + 1);
+        Setchecklike(res.data.like);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -98,6 +99,7 @@ const QuestionView = ({
         DeleteHandler={DeleteHandler}
         LikeHandler={LikeHandler}
         ReportHandler={ReportHandler}
+        checkLike={checklike}
       />
     </>
   );

@@ -79,7 +79,7 @@ const Answer = ({ SetState, State }) => {
         console.log(err.response.data);
       });
   };
-  console.log(Answer.answerId);
+
   return (
     <AnswerView>
       <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>
@@ -109,6 +109,7 @@ const Answer = ({ SetState, State }) => {
                     <LikeButton
                       likeCount={items.likeCount}
                       LikeHandler={() => LikeHandler(items.answerId)}
+                      checkLike={items.checkLike}
                     />
                   </div>
                 </div>

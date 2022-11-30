@@ -13,6 +13,7 @@ const DetailView = ({
   DeleteHandler,
   LikeHandler,
   ReportHandler,
+  checkLike,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(Data.questionId);
@@ -28,7 +29,7 @@ const DetailView = ({
       SetEditClick(true);
     }
   };
-
+  console.log(Data.checkLike);
   return (
     <>
       <Detail>
@@ -72,8 +73,8 @@ const DetailView = ({
 
               <LikeButton
                 likeCount={Data.likeCount}
-                LikeHandler={LikeHandler}
-                checkLike={Data.checkLike}
+                LikeHandler={() => LikeHandler(Data.questionId)}
+                checkLike={checkLike}
               />
               <div className="Workbtn">
                 <button onClick={() => EditHandler(Data.questionId)}>
