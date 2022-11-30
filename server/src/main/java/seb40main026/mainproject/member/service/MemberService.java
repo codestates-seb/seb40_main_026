@@ -1,13 +1,15 @@
 package seb40main026.mainproject.member.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.member.entity.Member;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface MemberService {
-    Member createMember(Member member);
+    Member createMember(Member member, MultipartFile image) throws IOException;
 
-    Member updatedMember(Member member);
+    Member updatedMember(Member member, MultipartFile image) throws IOException;
 
     Member findMember(long memberId);
 

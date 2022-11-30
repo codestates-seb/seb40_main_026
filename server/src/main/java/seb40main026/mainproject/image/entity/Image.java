@@ -3,6 +3,8 @@ package seb40main026.mainproject.image.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import seb40main026.mainproject.question.entity.Question;
 
 import javax.persistence.*;
 

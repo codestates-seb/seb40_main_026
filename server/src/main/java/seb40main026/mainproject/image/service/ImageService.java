@@ -3,6 +3,7 @@ package seb40main026.mainproject.image.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.answer.service.AnswerService;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class ImageService {
@@ -34,7 +36,8 @@ public class ImageService {
     private final BoastService boastService;
 
     //front-end 에서 들어온 이미지가 없다면 -> 예외 처리
-    public Long saveImage(MultipartFile images , String where , Long id) throws IOException {
+    public Image saveImage(MultipartFile images) throws IOException {
+
         if (images.isEmpty()) {
             new BusinessException(ExceptionCode.EMPTY_IMAGE_FILE);
         }
@@ -57,27 +60,24 @@ public class ImageService {
         //transferTo -> imageDir 에 저장된 경로에 image file 저장
 
         images.transferTo(new File(savedPath));
-        //DB -> image entity 정보 저장
-        Image savedFile = imageRepository.save(file);
+//        //DB -> image entity 정보 저장
+//        Image savedFile = imageRepository.save(file);
 
-        switch(where){
-            case "question" :
-                Question question = questionService.findVerifiedQuestion(id);
-
-            case "answer" :
-                Answer answer = answerService.findVerifiedAnswer(id);
-
-            case "boast" :
-                Boast boast = boastService.findVerifiedBoast(id);
-                boast.setImage(savedFile);
-        }
-        return savedFile.getImageId();
+        return imageRepository.save(file);
     }
 
-//    public String getImage(Long fileId) {
-//        Image image = imageRepository.findById(fileId).get();
-//        return image.getSavedPath();
-//    }
+    public String getImage(Long fileId) {
+        Image image = imageRepository.findById(fileId).get();
+        return image.getSavedPath();
+    }
+
+    public void deleteImage(Long fileId) {
+        imageRepository.delete(findById(fileId));
+    }
+
+    public Image findById(Long fileId) {
+        return imageRepository.findById(fileId).get();
+    }
 }
 
 

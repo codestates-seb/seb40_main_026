@@ -40,6 +40,7 @@ public interface QuestionMapper {
         response.setModifiedAt( question.getModifiedAt() );
         if(questionLike == null) response.setCheckLike(false);
         else response.setCheckLike( questionLike.getQuestionLike() );
+        response.setFileUrl(question.getFileUrl());
         return response;
     }
 

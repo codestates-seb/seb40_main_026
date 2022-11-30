@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.member.entity.Member;
 
@@ -42,6 +43,9 @@ public class Question {
     @Column(nullable = false)
     private Integer answerCount;
 
+    @Column
+    private String fileUrl;
+
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private String createdAt;
@@ -66,6 +70,10 @@ public class Question {
         this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
 
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
     @ManyToOne @Setter
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -82,6 +90,10 @@ public class Question {
     public void modify(String title, String content) { // 수정
         if(title != null) this.title = title;
         if(content != null) this.content = content;
+    }
+
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     public void increaseViewCount() { // 조회수 증가

@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.question.service.QuestionService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,16 +23,18 @@ public class QuestionController {
 
     // 질문 작성
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto) {
-        QuestionDto.Response response = questionService.createQuestion(questionPostDto);
+    public ResponseEntity postQuestion(@RequestPart("questionPostDto") QuestionDto.Post questionPostDto,
+                                       @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        QuestionDto.Response response = questionService.createQuestion(questionPostDto, image);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
     // 질문 수정
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
-                                        @Valid @RequestBody QuestionDto.Patch questionPatchDto) {
-        QuestionDto.Response response = questionService.updateQuestion(questionPatchDto, questionId);
+                                        @RequestPart("questionPatchDto") QuestionDto.Patch questionPatchDto,
+                                        @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        QuestionDto.Response response = questionService.updateQuestion(questionPatchDto, questionId, image);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 

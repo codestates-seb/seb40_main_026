@@ -24,21 +24,21 @@ public class imageController {
     private final ImageService imageService;
 
     @PostMapping("/upload")
+    public Image uploadFile(@RequestParam("image") MultipartFile image) throws IOException {
 
-    public Long uploadFile(@RequestParam("image") MultipartFile image) throws IOException {
         return imageService.saveImage(image);
     }
 
-//    @GetMapping("/display")
-//    public ResponseEntity getFile(@RequestParam("fileNum") Long fileId) throws IOException {
-//        String savedPath = imageService.getImage(fileId);
-//        Resource resource = new FileSystemResource(savedPath);
-//
-//        if(!resource.exists()) return new ResponseEntity(HttpStatus.NOT_FOUND);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        Path filePath = Paths.get(savedPath);
-//        headers.add("Content-Type", Files.probeContentType(filePath));
-//        return new ResponseEntity(resource, headers, HttpStatus.OK);
-//    }
+    @GetMapping("/display")
+    public ResponseEntity getFile(@RequestParam("fileNum") Long fileId) throws IOException {
+        String savedPath = imageService.getImage(fileId);
+        Resource resource = new FileSystemResource(savedPath);
+
+        if(!resource.exists()) return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        HttpHeaders headers = new HttpHeaders();
+        Path filePath = Paths.get(savedPath);
+        headers.add("Content-Type", Files.probeContentType(filePath));
+        return new ResponseEntity(resource, headers, HttpStatus.OK);
+    }
 }

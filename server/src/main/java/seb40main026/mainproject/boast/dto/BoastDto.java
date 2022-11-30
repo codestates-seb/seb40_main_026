@@ -7,7 +7,6 @@ import lombok.Setter;
 import seb40main026.mainproject.member.entity.Member;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 public class BoastDto {
     @Getter
@@ -64,5 +63,6 @@ public class BoastDto {
 
         private Boolean checkLike;
 
+        private String fileUrl;
     }
 }
