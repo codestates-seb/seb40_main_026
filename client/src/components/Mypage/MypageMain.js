@@ -5,47 +5,18 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+
 //멤버 id 띄어야함
-const MypageEdit = () => {
-  const [UserInfo, SetUserInfo] = useState();
-  const token = localStorage.getItem('accessToken');
-  const decode = jwt_decode(token);
-  const UserId = decode.memberId;
-  console.log(UserId);
-
-  useEffect(() => {
-    axios({
-      mathod: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      SetUserInfo(res.data);
-    });
-  }, []);
-  const UserDummydata = {
-    id: 1,
-    elementary: '상현초등학교',
-    introduce: '저는 아구몬입니다 잘 부탁 드려요',
-    totalpost: 20,
-    totalcom: 10,
-    level: '🥚',
-    class: '질문왕',
-    date: '22-11-14',
-    recent: '1일전',
-    nickname: '아구몬',
-    photourl:
-      'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png',
-  };
-
+const MypageEdit = ({ UserInfo }) => {
   return (
     <MypageContainer>
       <MypageMainwrap>
         <MypageLeft>
           <UserPhotoWrap>
-            <img alt="userimg" src={UserDummydata.photourl}></img>
+            <img
+              alt="userimg"
+              src="https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png"
+            ></img>
           </UserPhotoWrap>
           <NicknameWrap>
             <div>
@@ -55,10 +26,7 @@ const MypageEdit = () => {
 
             <div>
               {' '}
-              <span>
-                {UserInfo.memberGrade}
-                {UserDummydata.nickname}
-              </span>
+              <span>{UserInfo.nickname}</span>
             </div>
           </NicknameWrap>
         </MypageLeft>
@@ -66,15 +34,19 @@ const MypageEdit = () => {
           <Userinfo>
             <CommDisplay>
               <span className="MypageTitle">총 게시물</span>
-              <span>{UserDummydata.totalpost}개</span>
+              <span>{UserInfo.questionCount}개</span>
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">총 댓글</span>
-              <span>{UserDummydata.totalcom}개</span>
+              <span>{UserInfo.answerCount}개</span>
             </CommDisplay>
             <CommDisplay>
-              <span className="MypageTitle">계급</span>
-              <span>{UserDummydata.class}</span>
+              <span className="MypageTitle">스티커</span>
+              <span>{UserInfo.sticker}점</span>
+            </CommDisplay>
+            <CommDisplay>
+              <span className="MypageTitle">등급</span>
+              <span> {UserInfo.memberGrade}</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
@@ -83,13 +55,13 @@ const MypageEdit = () => {
                 {' '}
                 <MdEmojiPeople /> 자기소개
               </h4>
-              <p>{UserDummydata.introduce}</p>
+              <p>{UserInfo.introduce}</p>
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
-                <span>가입일 : createdAt</span>
+                <span>가입일 : {UserInfo.createdAt}</span>
 
-                <span>최근 접속일 : {UserDummydata.recent}</span>
+                <span>최근 접속일 : recent</span>
               </CommDisplay>
               <div>
                 <button className="Canclebtn">
