@@ -27,8 +27,6 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
-    private final BoastRepository boastRepository;
-    private final BoastReplyRepository boastReplyRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -41,6 +39,7 @@ public class MemberServiceImpl implements MemberService{
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         member.setMemberGrade(Member.MemberGrade.EGG);
         member.setSticker(0);
+        member.setIntroduce("안녕하세요? 반갑습니다.");
 
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
@@ -59,6 +58,8 @@ public class MemberServiceImpl implements MemberService{
                 .ifPresent(verifiedMember::setNickname);
         Optional.ofNullable(member.getMemberGrade())
                 .ifPresent(verifiedMember::setMemberGrade);
+        Optional.ofNullable(member.getIntroduce())
+                .ifPresent(verifiedMember::setIntroduce);
         //프로필 사진 수정
 
         return memberRepository.save(verifiedMember);
@@ -151,10 +152,15 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member getLoginMember() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+        if(optionalMember.isPresent()) return optionalMember.get();
+        else return null;
 
-        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
+//        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public Optional<Member> isLoginMember(){

@@ -14,7 +14,8 @@ import seb40main026.mainproject.image.service.ImageService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+
+import java.nio.file.Paths;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,19 +24,21 @@ public class imageController {
     private final ImageService imageService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("image")MultipartFile image ,
-                             String where,
-                             Long id) throws IOException {
-        imageService.saveImage(image,where,id);
-        return "The file has been uploaded." ;
+
+    public Long uploadFile(@RequestParam("image") MultipartFile image) throws IOException {
+        return imageService.saveImage(image);
     }
 
-    @GetMapping("/download")
-    public ResponseEntity downloadFile(@RequestParam("image") Image image) throws IOException{
-        HttpHeaders header = new HttpHeaders();
-        Path imagePath = Path.of(image.getSavedPath());
-        Resource resource = new FileSystemResource(imagePath);
-        header.add("Content-type", Files.probeContentType(imagePath));
-        return new ResponseEntity(resource,header, HttpStatus.OK);
-    }
+//    @GetMapping("/display")
+//    public ResponseEntity getFile(@RequestParam("fileNum") Long fileId) throws IOException {
+//        String savedPath = imageService.getImage(fileId);
+//        Resource resource = new FileSystemResource(savedPath);
+//
+//        if(!resource.exists()) return new ResponseEntity(HttpStatus.NOT_FOUND);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        Path filePath = Paths.get(savedPath);
+//        headers.add("Content-Type", Files.probeContentType(filePath));
+//        return new ResponseEntity(resource, headers, HttpStatus.OK);
+//    }
 }

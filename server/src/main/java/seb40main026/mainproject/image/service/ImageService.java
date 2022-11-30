@@ -73,15 +73,11 @@ public class ImageService {
         }
         return savedFile.getImageId();
     }
-    public String printImage(Long fileId){
-        Optional<Image> image = imageRepository.findById(fileId);
-        if(image.isEmpty()){
-            new BusinessException(ExceptionCode.EMPTY_IMAGE_FILE);
-        }
 
-            return image.get().getSavedPath();
-
-    }
+//    public String getImage(Long fileId) {
+//        Image image = imageRepository.findById(fileId).get();
+//        return image.getSavedPath();
+//    }
 }
 
 

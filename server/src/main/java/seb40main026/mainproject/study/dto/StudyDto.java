@@ -7,8 +7,10 @@ public class StudyDto {
     @Getter
     public static class Post {
         private String studyName;
-        private String content;
         private Long price;
+        private String recommendation; // 추천 대상
+        private String contact; // 수업 문의
+        private String place; // 장소
         private int recruitment;
         private int count;
         private String period;
@@ -21,8 +23,10 @@ public class StudyDto {
     public static class Patch {
         private Long studyId;
         private String studyName;
-        private String content;
         private Long price;
+        private String recommendation; // 추천 대상
+        private String contact; // 수업 문의
+        private String place; // 장소
         private Integer recruitment;
         private Integer count;
         private String period;
@@ -35,8 +39,10 @@ public class StudyDto {
     public static class Response {
         private Long studyId;
         private String studyName;
-        private String content;
         private Long price;
+        private String recommendation; // 추천 대상
+        private String contact; // 수업 문의
+        private String place; // 장소
         private Integer recruitment;
         private Integer count;
         private String period;

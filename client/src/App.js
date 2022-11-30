@@ -9,7 +9,7 @@ import MypageEdit from './components/Mypage/MypageEdit';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 import BoastDetail from './pages/BoastDetail';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/Loginpage';
 import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
 import QuestionsMain from './pages/Questionlist';
