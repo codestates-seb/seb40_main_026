@@ -1,25 +1,23 @@
 package seb40main026.mainproject.boast.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.File.File;
+import seb40main026.mainproject.File.FileService;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.repository.BoastRepository;
 import seb40main026.mainproject.boastLike.entity.BoastLike;
 import seb40main026.mainproject.boastLike.repository.BoastLikeRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
-import seb40main026.mainproject.image.entity.Image;
-import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
-import seb40main026.mainproject.question.entity.Question;
+import seb40main026.mainproject.s3.S3Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +31,8 @@ public class BoastService {
     private final BoastRepository boastRepository;
     private final MemberServiceImpl memberService;
     private final BoastLikeRepository boastLikeRepository;
-    private final ImageService imageService;
+    private final FileService fileService;
+    private final S3Service s3Service;
 
     public Boast createBoast(Boast boast, MultipartFile image) throws IOException {
         Member authMember = memberService.getLoginMember();
@@ -48,7 +47,7 @@ public class BoastService {
         memberService.addStickerAndLevelUp(authMember);
 
         if(image != null) {
-            updateImage(image, boast);
+            saveBoastFile(image, boast);
         }
         return boastRepository.save(boast);
     }
@@ -57,11 +56,12 @@ public class BoastService {
         Boast findBoast = findVerifiedBoast(boast.getBoastId());
 
         if(image != null) {
-            Image findImage = findBoast.getImage();
-            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
-                imageService.deleteImage(findImage.getImageId());
+            File findFile = findBoast.getFile();
+            if(findFile != null) { // 이미지 디비에서 원래 이미지 삭제
+                fileService.delete(findFile); // repository 삭제
+                s3Service.fileDelete(image.getOriginalFilename()); // s3 파일 삭제
             }
-            updateImage(image, findBoast);
+            saveBoastFile(image, findBoast);
         }
         Optional.ofNullable(boast.getTitle())
                 .ifPresent(title -> findBoast.setTitle(title));
@@ -71,12 +71,12 @@ public class BoastService {
         return boastRepository.save(findBoast);
     }
 
-    public void updateImage(MultipartFile image, Boast boast) throws IOException {
-        Image savedImage = imageService.saveImage(image);
-        String imagePath = imageService.getImage(savedImage.getImageId());
-        Resource resource = new FileSystemResource(imagePath);
-        boast.modifyImageUrl(resource.getURL().toString());
-        boast.setImage(savedImage);
+    public void saveBoastFile(MultipartFile image, Boast boast) throws IOException {
+        String url = s3Service.uploadFile(image); // 이미지 s3에 업로드
+        File file = new File(image.getOriginalFilename(), url);
+        fileService.save(file); // file repository 저장
+        boast.modifyFileUrl(url);
+        boast.setFile(file);
     }
 
     public Boast findBoast(long boastId){
@@ -112,6 +112,10 @@ public class BoastService {
     public void deleteBoast(long boastId){
         Boast findBoast = findVerifiedBoast(boastId);
         boastRepository.delete(findBoast);
+        File findFile = findBoast.getFile();
+        if(findFile != null) { // 파일이 존재한다면 s3 파일 삭제
+            s3Service.fileDelete(findFile.getTitle());
+        }
     }
 
     //좋아요 갯수가 1등, 2등, 3등인 게시글만 모아서 index = 3인 List 를 반환 해주는 메서드

@@ -1,25 +1,16 @@
 package seb40main026.mainproject.question.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import seb40main026.mainproject.image.entity.Image;
-import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.question.dto.QuestionDto;
-import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.service.QuestionService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -32,8 +23,6 @@ public class QuestionController {
 
     // 질문 작성
     @PostMapping
-//    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto,
-//                                       @RequestParam("image") MultipartFile image) throws IOException {
     public ResponseEntity postQuestion(@RequestPart("questionPostDto") QuestionDto.Post questionPostDto,
                                        @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         QuestionDto.Response response = questionService.createQuestion(questionPostDto, image);
@@ -42,8 +31,6 @@ public class QuestionController {
 
     // 질문 수정
     @PatchMapping("/{question-id}")
-//    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
-//                                        @Valid @RequestBody QuestionDto.Patch questionPatchDto) {
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
                                         @RequestPart("questionPatchDto") QuestionDto.Patch questionPatchDto,
                                         @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {

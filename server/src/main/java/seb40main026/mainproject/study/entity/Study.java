@@ -2,7 +2,7 @@ package seb40main026.mainproject.study.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.File.File;
 
 import javax.persistence.*;
 
@@ -18,13 +18,12 @@ public class Study {
     @Column(nullable = false)
     private String studyName;
 
-    // 이미지 파일
     @OneToOne(cascade = CascadeType.REMOVE) @Setter
-    @JoinColumn(name = "IMAGE_ID")
-    private Image image;
+    @JoinColumn(name = "FILE_ID")
+    private File file;
 
     @Column
-    private String imageUrl;
+    private String fileUrl;
 
     // 가격
     @Column
@@ -63,7 +62,7 @@ public class Study {
         }
     }
 
-    public void modifyImageUrl(String url) {
-        this.imageUrl = url;
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 }

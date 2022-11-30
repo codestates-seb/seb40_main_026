@@ -48,6 +48,6 @@ public class StudyDto {
         private String period;
         private String time;
         private String online;
-        private String imageUrl;
+        private String fileUrl;
     }
 }

@@ -39,7 +39,7 @@ public class GuestBookService {
         GuestBook findGuestBook = findVerifiedGuestBook(guestBookId);
         GuestBook guestBook = mapper.guestBookPatchDtoToGuestBook(guestBookPatchDto);
         findGuestBook.updateContent(guestBook.getContent());
-        Member writer = memberService.findVerifiedMember(guestBook.getWriterId());
+        Member writer = memberService.findVerifiedMember(findGuestBook.getWriterId());
         return mapper.guestBookToGuestBookResponseDto(findGuestBook, writer);
     }
 

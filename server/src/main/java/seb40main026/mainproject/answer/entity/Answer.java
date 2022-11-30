@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import seb40main026.mainproject.image.entity.Image;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.question.entity.Question;
 
@@ -40,11 +40,11 @@ public class Answer {
     private Boolean checkLike = false;
 
     @Column
-    private String imageUrl;
+    private String fileUrl;
 
     @OneToOne(cascade = CascadeType.REMOVE) @Setter
-    @JoinColumn(name = "IMAGE_ID")
-    private Image image;
+    @JoinColumn(name = "FILE_ID")
+    private File file;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -79,7 +79,7 @@ public class Answer {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     private List<AnswerReport> answerReports = new ArrayList<>();
 
-    public void modifyImageUrl(String url) {
-        this.imageUrl = url;
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 }

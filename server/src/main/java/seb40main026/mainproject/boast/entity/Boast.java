@@ -8,14 +8,12 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
-import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +46,11 @@ public class Boast {
     private String badge;
 
     @OneToOne(cascade = CascadeType.REMOVE) @Setter
-    @JoinColumn(name = "IMAGE_ID")
-    private Image image;
+    @JoinColumn(name = "FILE_ID")
+    private File file;
 
     @Column
-    private String imageUrl;
+    private String fileUrl;
 
     @Column
     @CreatedDate
@@ -93,8 +91,8 @@ public class Boast {
         this.member = member;
     }
 
-    public void modifyImageUrl(String url) {
-        this.imageUrl = url;
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     @PrePersist

@@ -14,9 +14,7 @@ import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.mapper.BoastMapper;
 import seb40main026.mainproject.boast.service.BoastService;
 import seb40main026.mainproject.boastLike.service.BoastLikeService;
-import seb40main026.mainproject.question.dto.QuestionDto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +28,6 @@ public class BoastController {
     private final BoastLikeService boastLikeService;
 
     @PostMapping
-//    public ResponseEntity postBoast(@Valid @RequestBody BoastDto.Post post){
     public ResponseEntity postBoast(@RequestPart("boastPostDto") BoastDto.Post post,
                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         Boast boast = boastService.createBoast(mapper.boastPostDtoToBoast(post), image);
@@ -38,8 +35,6 @@ public class BoastController {
     }
 
     @PatchMapping("/{boast-id}")
-//    public ResponseEntity patchBoast(@Valid @RequestBody BoastDto.Patch patch,
-//                                     @PathVariable("boast-id")Long boastId){
     public ResponseEntity patchBoast(@PathVariable("boast-id")Long boastId,
                                      @RequestPart("boastPatchDto") BoastDto.Patch patch,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {

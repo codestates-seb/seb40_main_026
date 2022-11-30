@@ -14,9 +14,7 @@ import seb40main026.mainproject.answer.entity.AnswerLike;
 import seb40main026.mainproject.answer.entity.AnswerReport;
 import seb40main026.mainproject.answer.mapper.AnswerMapper;
 import seb40main026.mainproject.answer.service.AnswerService;
-import seb40main026.mainproject.question.dto.QuestionDto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +30,6 @@ public class AnswerController {
 
     // 답변 작성
     @PostMapping
-//    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post answerPostDto) {
     public ResponseEntity postAnswer(@RequestPart("answerPostDto") AnswerDto.Post answerPostDto,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto)
@@ -59,8 +56,6 @@ public class AnswerController {
 
     // 답변 수정
     @PatchMapping("/{answer-id}")
-//    public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
-//                                      @Valid @RequestBody AnswerDto.Patch answerPatchDto) {
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
                                       @RequestPart("answerPatchDto") AnswerDto.Patch answerPatchDto,
                                       @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {

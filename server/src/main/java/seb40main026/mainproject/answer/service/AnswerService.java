@@ -1,11 +1,11 @@
 package seb40main026.mainproject.answer.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.File.File;
+import seb40main026.mainproject.File.FileService;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.answer.entity.AnswerLike;
 import seb40main026.mainproject.answer.entity.AnswerReport;
@@ -14,12 +14,11 @@ import seb40main026.mainproject.answer.repository.AnswerReportRepository;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
-import seb40main026.mainproject.image.entity.Image;
-import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.service.QuestionService;
+import seb40main026.mainproject.s3.S3Service;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +33,8 @@ public class AnswerService {
     private final AnswerReportRepository answerReportRepository;
     private final MemberServiceImpl memberService;
     private final QuestionService questionService;
-    private final ImageService imageService;
+    private final FileService fileService;
+    private final S3Service s3Service;
 
     // 답변 작성
     public Answer createAnswer(Answer answer, long questionId, MultipartFile image) throws IOException {
@@ -47,18 +47,8 @@ public class AnswerService {
         }
         memberService.addStickerAndLevelUp(member);
         question.increaseAnswerCount();
-        if(image != null) {
-            updateImage(image, answer);
-        }
+        if(image != null) saveAnswerFile(image, answer);
         return answerRepository.save(answer);
-    }
-
-    public void updateImage(MultipartFile image, Answer answer) throws IOException {
-        Image savedImage = imageService.saveImage(image);
-        String imagePath = imageService.getImage(savedImage.getImageId());
-        Resource resource = new FileSystemResource(imagePath);
-        answer.modifyImageUrl(resource.getURL().toString());
-        answer.setImage(savedImage);
     }
 
     // 답변 수정
@@ -66,17 +56,26 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         if(image != null) {
-            Image findImage = findAnswer.getImage();
-            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
-                imageService.deleteImage(findImage.getImageId());
+            File findFile = findAnswer.getFile();
+            if(findFile != null) { // 이미지 디비에서 원래 이미지 삭제
+                fileService.delete(findFile); // repository 삭제
+                s3Service.fileDelete(image.getOriginalFilename()); // s3 파일 삭제
             }
-            updateImage(image, findAnswer);
+            saveAnswerFile(image, findAnswer);
         }
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(findAnswer::setContent);
 
         return answerRepository.save(findAnswer);
+    }
+
+    public void saveAnswerFile(MultipartFile image, Answer answer) throws IOException {
+        String url = s3Service.uploadFile(image); // 이미지 s3에 업로드
+        File file = new File(image.getOriginalFilename(), url);
+        fileService.save(file); // file repository 저장
+        answer.modifyFileUrl(url);
+        answer.setFile(file);
     }
 
     // 답변 조회
@@ -89,6 +88,10 @@ public class AnswerService {
     public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         answerRepository.delete(findAnswer);
+        File findFile = findAnswer.getFile();
+        if(findFile != null) { // 파일이 존재한다면 s3 파일 삭제
+            s3Service.fileDelete(findFile.getTitle());
+        }
     }
 
     // 답변 채택

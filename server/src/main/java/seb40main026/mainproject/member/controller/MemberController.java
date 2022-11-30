@@ -10,9 +10,7 @@ import seb40main026.mainproject.member.dto.MemberDto;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.mapper.MemberMapper;
 import seb40main026.mainproject.member.service.MemberService;
-import seb40main026.mainproject.question.dto.QuestionDto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +25,6 @@ public class MemberController {
     private final MemberMapper mapper;
 
     @PostMapping
-//    public ResponseEntity<?> postMember(@Valid @RequestBody MemberDto.Post request) {
     public ResponseEntity<?> postMember(@RequestPart("memberPostDto") MemberDto.Post request,
                                         @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         Member createdMember = memberService.createMember(mapper.memberPostToMember(request), image);
@@ -35,8 +32,6 @@ public class MemberController {
     }
 
     @PatchMapping("/{member-id}")
-//    public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId,
-//                                         @Valid @RequestBody MemberDto.Patch request) {
     public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId,
                                          @RequestPart("memberPatchDto") MemberDto.Patch request,
                                          @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {

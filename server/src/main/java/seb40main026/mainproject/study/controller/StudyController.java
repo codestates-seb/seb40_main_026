@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import seb40main026.mainproject.question.dto.QuestionDto;
 import seb40main026.mainproject.study.dto.StudyDto;
 import seb40main026.mainproject.study.entity.Study;
 import seb40main026.mainproject.study.mapper.StudyMapper;
@@ -27,7 +26,6 @@ public class StudyController {
     private final StudyMapper mapper;
 
     @PostMapping // 스터디 작성
-//    public ResponseEntity postStudy(@Valid @RequestBody StudyDto.Post studyPostDto) {
     public ResponseEntity postStudy(@Valid @RequestPart("studyPostDto") StudyDto.Post studyPostDto,
                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         Study study = studyService.createStudy(mapper.studyPostDtoToStudy(studyPostDto), image);
@@ -52,8 +50,6 @@ public class StudyController {
     }
 
     @PatchMapping("/{study-id}") // 스터디 수정
-//    public ResponseEntity patchStudy(@PathVariable("study-id") @Positive long studyId,
-//                                     @Valid @RequestBody StudyDto.Patch studyPatchDto) {
     public ResponseEntity patchStudy(@PathVariable("study-id") @Positive long studyId,
                                      @Valid @RequestPart("studyPatchDto") StudyDto.Patch studyPatchDto,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {

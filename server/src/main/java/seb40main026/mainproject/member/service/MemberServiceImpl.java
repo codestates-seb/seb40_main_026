@@ -1,26 +1,21 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.File.File;
+import seb40main026.mainproject.File.FileService;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
-import seb40main026.mainproject.boast.repository.BoastRepository;
-import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
-import seb40main026.mainproject.image.entity.Image;
-import seb40main026.mainproject.image.service.ImageService;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
-import seb40main026.mainproject.question.entity.Question;
 import seb40main026.mainproject.question.repository.QuestionRepository;
+import seb40main026.mainproject.s3.S3Service;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,7 +31,8 @@ public class MemberServiceImpl implements MemberService{
     private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final ImageService imageService;
+    private final FileService fileService;
+    private final S3Service s3Service;
 
     @Transactional
     @Override
@@ -51,10 +47,7 @@ public class MemberServiceImpl implements MemberService{
 
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
-
-        if(image != null) {
-            updateImage(image, member);
-        }
+        if(image != null) saveMemberFile(image, member);
 
         return memberRepository.save(member);
     }
@@ -74,22 +67,23 @@ public class MemberServiceImpl implements MemberService{
                 .ifPresent(verifiedMember::setIntroduce);
         //프로필 사진 수정
         if(image != null) {
-            Image findImage = verifiedMember.getImage();
-            if(findImage != null) { // 이미지 디비에서 원래 이미지 삭제
-                imageService.deleteImage(findImage.getImageId());
+            File findFile = verifiedMember.getFile();
+            if(findFile != null) { // 이미지 디비에서 원래 이미지 삭제
+                fileService.delete(findFile); // repository 삭제
+                s3Service.fileDelete(image.getOriginalFilename()); // s3 파일 삭제
             }
-            updateImage(image, verifiedMember);
+            saveMemberFile(image, verifiedMember);
         }
 
         return memberRepository.save(verifiedMember);
     }
 
-    public void updateImage(MultipartFile image, Member member) throws IOException {
-        Image savedImage = imageService.saveImage(image);
-        String imagePath = imageService.getImage(savedImage.getImageId());
-        Resource resource = new FileSystemResource(imagePath);
-        member.modifyImageUrl(resource.getURL().toString());
-        member.setImage(savedImage);
+    public void saveMemberFile(MultipartFile image, Member member) throws IOException {
+        String url = s3Service.uploadFile(image); // 이미지 s3에 업로드
+        File file = new File(image.getOriginalFilename(), url);
+        fileService.save(file); // file repository 저장
+        member.modifyFileUrl(url);
+        member.setFile(file);
     }
 
     @Override
@@ -110,6 +104,10 @@ public class MemberServiceImpl implements MemberService{
     public Member deleteMember(long memberId) {
         Member verifiedMember = findVerifiedMember(memberId);
         verifiedMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        File findFile = verifiedMember.getFile();
+        if(findFile != null) {
+            s3Service.fileDelete(findFile.getTitle());
+        }
         return memberRepository.save(verifiedMember);
     }
 

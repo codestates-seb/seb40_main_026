@@ -4,8 +4,8 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.answer.entity.Answer;
-import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
@@ -44,7 +44,7 @@ public class Question {
     private Integer answerCount;
 
     @Column
-    private String imageUrl;
+    private String fileUrl;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -71,8 +71,8 @@ public class Question {
     }
 
     @OneToOne(cascade = CascadeType.REMOVE) @Setter
-    @JoinColumn(name = "IMAGE_ID")
-    private Image image;
+    @JoinColumn(name = "FILE_ID")
+    private File file;
 
     @ManyToOne @Setter
     @JoinColumn(name = "MEMBER_ID")
@@ -92,8 +92,8 @@ public class Question {
         if(content != null) this.content = content;
     }
 
-    public void modifyImageUrl(String url) {
-        this.imageUrl = url;
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     public void increaseViewCount() { // 조회수 증가
