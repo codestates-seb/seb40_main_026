@@ -5,7 +5,6 @@ import TitleHeader from '../components/Shared/TitleHeader';
 const Container = styled.main`
   margin: auto;
   width: 100%;
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
 `;

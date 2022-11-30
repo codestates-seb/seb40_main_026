@@ -7,7 +7,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 2rem;
 
   @media ${tablet} {
     margin-left: -30px;
@@ -171,12 +170,7 @@ function Reference() {
         <ListBox>
           {listData.map((item) => {
             return (
-              <Card
-                key={item.boastId}
-                classNameD="Word"
-                title={item.title}
-                nickName={item.nickName}
-              />
+              <Card key={item.boastId} classNameD="Word" title={item.title} />
             );
           })}
         </ListBox>

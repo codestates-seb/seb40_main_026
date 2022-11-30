@@ -12,7 +12,6 @@ const Container = styled.main`
   flex-direction: column;
   width: 100%;
   padding-bottom: 5rem;
-  margin-top: 2rem;
 `;
 const ListBox = styled.div`
   display: grid;
