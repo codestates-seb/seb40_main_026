@@ -8,11 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.image.service.ImageService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import java.nio.file.Paths;
 
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class imageController {
     private final ImageService imageService;
 
     @PostMapping("/upload")
+
     public Long uploadFile(@RequestParam("image") MultipartFile image) throws IOException {
         return imageService.saveImage(image);
     }

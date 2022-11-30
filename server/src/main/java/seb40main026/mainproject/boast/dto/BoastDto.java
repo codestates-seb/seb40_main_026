@@ -52,7 +52,7 @@ public class BoastDto {
 
         private String nickName;
 
-        private Member.MemberGrade grade;
+        private String grade;
 
         private String boardCreatedAt;
 
