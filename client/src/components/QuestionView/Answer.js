@@ -65,10 +65,10 @@ const Answer = ({ SetState, State }) => {
         setAnswer(res.data);
       });
   }, [State]);
-  const LikeHandler = () => {
+  const LikeHandler = (id) => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${Answer.answerId}/like`,
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}/like`,
       data: { id },
       headers: { Authorization: token },
     })
@@ -79,7 +79,7 @@ const Answer = ({ SetState, State }) => {
         console.log(err.response.data);
       });
   };
-
+  console.log(Answer.answerId);
   return (
     <AnswerView>
       <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>
@@ -108,7 +108,7 @@ const Answer = ({ SetState, State }) => {
                   <div>
                     <LikeButton
                       likeCount={items.likeCount}
-                      LikeHandler={LikeHandler}
+                      LikeHandler={() => LikeHandler(items.answerId)}
                     />
                   </div>
                 </div>
