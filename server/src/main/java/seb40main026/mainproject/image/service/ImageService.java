@@ -5,13 +5,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.answer.entity.Answer;
+import seb40main026.mainproject.answer.service.AnswerService;
+import seb40main026.mainproject.boast.entity.Boast;
+import seb40main026.mainproject.boast.service.BoastService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.image.repository.ImageRepository;
+import seb40main026.mainproject.question.entity.Question;
+import seb40main026.mainproject.question.service.QuestionService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Transactional
@@ -24,9 +31,13 @@ public class ImageService {
     private String imageDir;
 
     private final ImageRepository imageRepository;
+    private final QuestionService questionService;
+    private final AnswerService answerService;
+    private final BoastService boastService;
 
     //front-end 에서 들어온 이미지가 없다면 -> 예외 처리
     public Image saveImage(MultipartFile images) throws IOException {
+
         if (images.isEmpty()) {
             new BusinessException(ExceptionCode.EMPTY_IMAGE_FILE);
         }

@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
+import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
@@ -40,7 +41,7 @@ public class Boast {
 //    private String currentBadge;
 
     @Column
-    private Member.MemberGrade grade;
+    private String grade;
 
     @Column
     private String badge;
@@ -105,4 +106,8 @@ public class Boast {
     public void onPreUpdate(){
         this.boardModifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "IMAGE_ID")
+    private Image image;
 }

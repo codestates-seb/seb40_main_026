@@ -36,7 +36,6 @@ public class BoastReplyService {
         authMember.setReplies(boastReply);
         findBoast.addReplies(boastReply);
 
-        boastReply.setNickName(authMember.getNickname());
 
         if(boastReplyRepository.countByMember(authMember) >= 15) {
             memberService.addBadge("reply");
