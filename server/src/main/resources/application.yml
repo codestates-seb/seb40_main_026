@@ -16,11 +16,21 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-      location: /Users/koronba/Desktop/imgTest/
+#      location: /Users/koronba/Desktop/imgTest/
   jpa:
     hibernate:
       ddl-auto: update
-
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    s3: #버킷이름
+      bucket: fly-to-the-coding
+    region: #S3 지역
+      static: ap-northeast-2
+    stack:
+      auto: false
 mail:
   address:
     admin: ${ADMIN_ADDRESS}

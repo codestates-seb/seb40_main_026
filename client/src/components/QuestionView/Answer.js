@@ -1,25 +1,28 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 const Answer = ({ SetState, State }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
   const [Answer, setAnswer] = useState([]);
+  const [EditData, SetEditData] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
-  const EditHandler = (Answerid) => {
-    if (Answerid === TitleId) {
-      setTitleId(0);
-      SetEditClick(false);
+  const navigate = useNavigate();
+  console.log(EditData);
+
+  const EditHandler = (id) => {
+    if (id === TitleId) {
       axios({
         method: 'patch',
-        url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${Answerid}`,
-        data: { questionId: id, content: Answer, answerId: Answerid },
+        url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
+        data: { content: EditData },
         headers: {
           Authorization: token,
         },
@@ -30,8 +33,10 @@ const Answer = ({ SetState, State }) => {
         .catch((err) => {
           console.log(err);
         });
+      setTitleId(0);
+      SetEditClick(false);
     } else {
-      setTitleId(Answerid);
+      setTitleId(id);
       SetEditClick(true);
     }
   };
@@ -46,7 +51,7 @@ const Answer = ({ SetState, State }) => {
         }
       )
       .then((res) => {
-        window.location.reload();
+        SetState(State + 1);
       });
   };
 
@@ -60,10 +65,10 @@ const Answer = ({ SetState, State }) => {
         setAnswer(res.data);
       });
   }, [State]);
-  const LikeHandler = () => {
+  const LikeHandler = (id) => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${Answer.answerId}/like`,
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}/like`,
       data: { id },
       headers: { Authorization: token },
     })
@@ -74,10 +79,10 @@ const Answer = ({ SetState, State }) => {
         console.log(err.response.data);
       });
   };
-  const EditPatch = () => {};
+
   return (
     <AnswerView>
-      <AnswerViewWrap>
+      <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>
         {Answer.map((items) => {
           return (
             <AnswerMainWrap key={items.answerId}>
@@ -103,16 +108,27 @@ const Answer = ({ SetState, State }) => {
                   <div>
                     <LikeButton
                       likeCount={items.likeCount}
-                      LikeHandler={LikeHandler}
+                      LikeHandler={() => LikeHandler(items.answerId)}
+                      checkLike={items.checkLike}
                     />
                   </div>
                 </div>
               </AnswerTop>
               <AnswerBot>
                 {items.answerId === TitleId ? (
-                  <Editor
-                    initialEditType="wysiwyg"
-                    initialValue={items.content}
+                  // <Editor
+                  //   ref={textRef}
+                  //   initialEditType="wysiwyg"
+                  //   initialValue={items.content}
+                  //   onChange={() =>
+                  //     SetEditData(
+                  //       textRef.current.getInstance().getMarkdown().trim()
+                  //     )
+                  //   }
+                  // />
+                  <input
+                    defaultValue={items.content}
+                    onChange={(e) => SetEditData(e.target.value)}
                   />
                 ) : (
                   <Viewer initialValue={items.content} />
@@ -172,6 +188,9 @@ const AnswerView = styled.div`
       .AnswerBot {
       }
     }
+  }
+  .none-display {
+    display: none;
   }
   @media ${mobile} {
     .AnswerUserinfo > span {

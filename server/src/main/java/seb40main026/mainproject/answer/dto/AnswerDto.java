@@ -40,5 +40,6 @@ public class AnswerDto {
         private String createdAt;
         private String modifiedAt;
         private Boolean checkLike;
+        private String fileUrl;
     }
 }

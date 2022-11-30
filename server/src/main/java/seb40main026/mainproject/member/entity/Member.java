@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
 
@@ -41,6 +42,13 @@ public class Member {
 
     @Column
     private String currentBadge;
+
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
+    @Column
+    private String fileUrl;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -109,15 +117,19 @@ public class Member {
     }
 
     public enum MemberGrade {
-        EGG("계란 등급"),
-        BROKEN_EGG("깨진 계란 등급"),
-        CHICK("병아리"),
-        CHICKEN("닭");
+        EGG("🥚"),
+        BROKEN_EGG("🐣"),
+        CHICK("🐥"),
+        CHICKEN("🐓");
 
         @Getter
         private final String grade;
 
         MemberGrade(String grade) {this.grade = grade;}
+    }
+
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     @PrePersist

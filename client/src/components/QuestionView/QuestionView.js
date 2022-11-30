@@ -14,30 +14,40 @@ const QuestionView = ({
   State,
 }) => {
   const [QuesData, SetQuesData] = useState([]);
+  const [checklike, Setchecklike] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
-  console.log(State);
   //최초 질문 상세페이지 조회시
   useEffect(() => {
     axios({
       method: 'get',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-      headers: {
-        Authorization: token,
-      },
     }).then((res) => {
       SetQuesData(res.data);
       console.log(res.data);
     });
-  }, [State, ContentData]);
+  }, [State]);
   //질문 수정
   const EditPatch = () => {
     axios({
       method: 'patch',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
       data: { title: TitleData, content: ContentData },
+    })
+      .then(function (response) {
+        SetState(State + 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const ReportHandler = () => {
+    axios({
+      method: 'post',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/report`,
+      data: { id },
       headers: {
         Authorization: token,
       },
@@ -48,6 +58,7 @@ const QuestionView = ({
       .catch((err) => {
         console.log(err);
       });
+    window.alert('신고가 완료 되었습니다.');
   };
   const DeleteHandler = () => {
     axios
@@ -63,15 +74,15 @@ const QuestionView = ({
         navigate('/questions');
       });
   };
-  const LikeHandler = () => {
+  const LikeHandler = (id) => {
     axios({
       method: 'post',
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/like`,
-      data: { id },
       headers: { Authorization: token },
     })
-      .then(() => {
+      .then((res) => {
         SetState(State + 1);
+        Setchecklike(res.data.like);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -87,8 +98,8 @@ const QuestionView = ({
         EditPatch={EditPatch}
         DeleteHandler={DeleteHandler}
         LikeHandler={LikeHandler}
-        SetState={SetState}
-        State={State}
+        ReportHandler={ReportHandler}
+        checkLike={checklike}
       />
     </>
   );

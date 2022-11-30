@@ -8,13 +8,13 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
+import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +41,17 @@ public class Boast {
 //    private String currentBadge;
 
     @Column
-    private Member.MemberGrade grade;
+    private String grade;
 
     @Column
     private String badge;
+
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
+    @Column
+    private String fileUrl;
 
     @Column
     @CreatedDate
@@ -85,6 +92,10 @@ public class Boast {
         this.member = member;
     }
 
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
+    }
+
     @PrePersist
     public void onPrePersist(){
         this.boardCreatedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
@@ -95,4 +106,8 @@ public class Boast {
     public void onPreUpdate(){
         this.boardModifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "IMAGE_ID")
+    private Image image;
 }

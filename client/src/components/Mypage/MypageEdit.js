@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
-
+import jwt_decode from 'jwt-decode';
 const MypageEditContainer = () => {
   const [ImgSrc, SetImgSrc] = useState();
-  const [Userintro, Setintro] = useState();
-  const [Nickname, Setnickname] = useState();
+  const [UserInfo, SetUserInfo] = useState([]);
+  const [nickname, SetNickname] = useState();
+  const [introduce, SetIntro] = useState();
+
+  const token = localStorage.getItem('accessToken');
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
   const ImgHandler = (event) => {
     SetSrc(event.target.files[0]);
   };
@@ -21,15 +26,14 @@ const MypageEditContainer = () => {
       };
     });
   };
-  const onSaveClick = (e) => {
-    e.preventDefault();
+  const EditPatch = () => {
     axios({
       method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/{member-id}`,
-      data: { Nickname, Userintro, ImgSrc },
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
       headers: {
-        'ngrok-skip-browser-warning': 'skip',
+        Authorization: token,
       },
+      data: { nickname, introduce },
     })
       .then(function (response) {})
       .catch((err) => {
@@ -38,7 +42,18 @@ const MypageEditContainer = () => {
       });
   };
 
-  console.log(ImgSrc);
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+
   return (
     <EditContainer>
       <TitleHeader title={'회원정보 수정'} />
@@ -70,18 +85,25 @@ const MypageEditContainer = () => {
                 {' '}
                 <span>닉네임 </span>
                 <br />
-                <input></input>
+                <input
+                  defaultValue={UserInfo.nickname}
+                  onChange={(e) => SetNickname(e.target.value)}
+                ></input>
               </div>
               <div>
                 {' '}
                 <span>자기소개 </span>
                 <br />
-                <textarea className="IntroInput"></textarea>
+                <textarea
+                  className="IntroInput"
+                  defaultValue={UserInfo.introduce}
+                  onChange={(e) => SetIntro(e.target.value)}
+                ></textarea>
               </div>
             </EditRight>
           </EditformWrap>
           <Editbtn>
-            <button onClick={onSaveClick}>회원정보 수정</button>
+            <button onClick={EditPatch}>수정하기</button>
           </Editbtn>
         </EditForm>
       </EditWrap>

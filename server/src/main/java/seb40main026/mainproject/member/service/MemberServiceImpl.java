@@ -2,20 +2,22 @@ package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.File.File;
+import seb40main026.mainproject.File.FileService;
 import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
-import seb40main026.mainproject.boast.repository.BoastRepository;
-import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
 import seb40main026.mainproject.question.repository.QuestionRepository;
+import seb40main026.mainproject.s3.S3Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +31,12 @@ public class MemberServiceImpl implements MemberService{
     private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final FileService fileService;
+    private final S3Service s3Service;
 
     @Transactional
     @Override
-    public Member createMember(Member member) {
+    public Member createMember(Member member, MultipartFile image) throws IOException {
         verifiedExistsEmail(member.getEmail());
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
@@ -43,13 +47,14 @@ public class MemberServiceImpl implements MemberService{
 
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
+        if(image != null) saveMemberFile(image, member);
 
         return memberRepository.save(member);
     }
 
     @Transactional
     @Override
-    public Member updatedMember(Member member) {
+    public Member updatedMember(Member member, MultipartFile image) throws IOException {
         Member verifiedMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getPassword())
@@ -61,8 +66,24 @@ public class MemberServiceImpl implements MemberService{
         Optional.ofNullable(member.getIntroduce())
                 .ifPresent(verifiedMember::setIntroduce);
         //프로필 사진 수정
+        if(image != null) {
+            File findFile = verifiedMember.getFile();
+            if(findFile != null) { // 이미지 디비에서 원래 이미지 삭제
+                fileService.delete(findFile); // repository 삭제
+                s3Service.fileDelete(image.getOriginalFilename()); // s3 파일 삭제
+            }
+            saveMemberFile(image, verifiedMember);
+        }
 
         return memberRepository.save(verifiedMember);
+    }
+
+    public void saveMemberFile(MultipartFile image, Member member) throws IOException {
+        String url = s3Service.uploadFile(image); // 이미지 s3에 업로드
+        File file = new File(image.getOriginalFilename(), url);
+        fileService.save(file); // file repository 저장
+        member.modifyFileUrl(url);
+        member.setFile(file);
     }
 
     @Override
@@ -83,6 +104,10 @@ public class MemberServiceImpl implements MemberService{
     public Member deleteMember(long memberId) {
         Member verifiedMember = findVerifiedMember(memberId);
         verifiedMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        File findFile = verifiedMember.getFile();
+        if(findFile != null) {
+            s3Service.fileDelete(findFile.getTitle());
+        }
         return memberRepository.save(verifiedMember);
     }
 
