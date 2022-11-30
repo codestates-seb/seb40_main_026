@@ -109,10 +109,10 @@ public class Member {
     }
 
     public enum MemberGrade {
-        EGG("계란 등급"),
-        BROKEN_EGG("깨진 계란 등급"),
-        CHICK("병아리"),
-        CHICKEN("닭");
+        EGG("🥚"),
+        BROKEN_EGG("🐣"),
+        CHICK("🐥"),
+        CHICKEN("🐓");
 
         @Getter
         private final String grade;
