@@ -23,8 +23,8 @@ spring:
 cloud:
   aws:
     credentials:
-      access-key: "AKIAQDPA6GCCGCMCQR7I"
-      secret-key: "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"
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
     s3: #버킷이름
       bucket: fly-to-the-coding
     region: #S3 지역
