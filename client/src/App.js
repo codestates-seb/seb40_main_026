@@ -19,6 +19,7 @@ import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
 import GlobalStyle from './styles/GlobalStyle';
+import LandingPage from './pages/LandingPage';
 import { useEffect } from 'react';
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
       />
       <Header />
       <Routes>
-        <Route path="/" element={<div>홈</div>} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" element={<Mypage />} />
