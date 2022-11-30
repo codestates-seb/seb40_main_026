@@ -6,11 +6,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb40main026.mainproject.answer.repository.AnswerRepository;
 import seb40main026.mainproject.auth.utils.CustomAuthorityUtils;
+import seb40main026.mainproject.boast.repository.BoastRepository;
+import seb40main026.mainproject.boastReply.repository.BoastReplyRepository;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.question.repository.QuestionRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +25,8 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -33,6 +39,7 @@ public class MemberServiceImpl implements MemberService{
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         member.setMemberGrade(Member.MemberGrade.EGG);
         member.setSticker(0);
+        member.setIntroduce("안녕하세요? 반갑습니다.");
 
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
@@ -51,6 +58,8 @@ public class MemberServiceImpl implements MemberService{
                 .ifPresent(verifiedMember::setNickname);
         Optional.ofNullable(member.getMemberGrade())
                 .ifPresent(verifiedMember::setMemberGrade);
+        Optional.ofNullable(member.getIntroduce())
+                .ifPresent(verifiedMember::setIntroduce);
         //프로필 사진 수정
 
         return memberRepository.save(verifiedMember);
@@ -58,6 +67,10 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member findMember(long memberId) {
+        Member findMember = findVerifiedMember(memberId);
+        findMember.setQuestionCount(questionRepository.countByMember(findMember));
+        findMember.setAnswerCount(answerRepository.countByMember(findMember));
+
         return findVerifiedMember(memberId);
     }
 
@@ -139,9 +152,20 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member getLoginMember() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+        if(optionalMember.isPresent()) return optionalMember.get();
+        else return null;
 
-        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
+//        return optionalMember.orElseThrow(() -> new BusinessException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+    public Optional<Member> isLoginMember(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
+        return optionalMember;
     }
 }

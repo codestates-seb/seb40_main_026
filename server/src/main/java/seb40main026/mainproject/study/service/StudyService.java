@@ -1,6 +1,7 @@
 package seb40main026.mainproject.study.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40main026.mainproject.exception.BusinessException;
@@ -24,9 +25,9 @@ public class StudyService {
     }
 
     // 전체 스터디 조회
-    public List<Study> findStudies(String sort) {
-        if(sort == null) return studyRepository.findAll();
-        return studyRepository.findAll().stream().filter(
+    public List<Study> findStudies(String sort, int page, int size) {
+        if(sort == null) return studyRepository.findAll(PageRequest.of(page, size)).getContent();
+        return studyRepository.findAll(PageRequest.of(page, size)).stream().filter(
                 study -> study.getOnline().equals(sort)
         ).collect(Collectors.toList());
     }
@@ -39,8 +40,6 @@ public class StudyService {
     // 스터디 수정
     public Study updateStudy(Study study) {
         Study findStudy = findVerifiedStudy(study.getStudyId());
-        Optional.ofNullable(study.getContent())
-                .ifPresent(findStudy::setContent); // 설명 수정
         Optional.ofNullable(study.getStudyName())
                 .ifPresent(findStudy::setStudyName); // 스터디 이름 수정
         Optional.ofNullable(study.getPeriod())

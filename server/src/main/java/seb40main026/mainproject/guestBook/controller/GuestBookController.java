@@ -16,7 +16,6 @@ import java.util.List;
 @Validated
 @RequestMapping("/guestBooks")
 @RequiredArgsConstructor
-@CrossOrigin
 public class GuestBookController {
     private final GuestBookService guestBookService;
 
