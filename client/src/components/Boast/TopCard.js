@@ -26,6 +26,8 @@ const CardImg = styled.img`
   height: 80%;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
 `;
 
