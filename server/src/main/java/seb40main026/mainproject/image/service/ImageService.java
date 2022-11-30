@@ -4,13 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import seb40main026.mainproject.answer.entity.Answer;
+import seb40main026.mainproject.answer.service.AnswerService;
+import seb40main026.mainproject.boast.entity.Boast;
+import seb40main026.mainproject.boast.service.BoastService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
 import seb40main026.mainproject.image.entity.Image;
 import seb40main026.mainproject.image.repository.ImageRepository;
+import seb40main026.mainproject.question.entity.Question;
+import seb40main026.mainproject.question.service.QuestionService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,9 +29,12 @@ public class ImageService {
     private String imageDir;
 
     private final ImageRepository imageRepository;
+    private final QuestionService questionService;
+    private final AnswerService answerService;
+    private final BoastService boastService;
 
     //front-end 에서 들어온 이미지가 없다면 -> 예외 처리
-    public Long saveImage(MultipartFile images) throws IOException {
+    public Long saveImage(MultipartFile images , String where , Long id) throws IOException {
         if (images.isEmpty()) {
             new BusinessException(ExceptionCode.EMPTY_IMAGE_FILE);
         }
@@ -50,7 +60,27 @@ public class ImageService {
         //DB -> image entity 정보 저장
         Image savedFile = imageRepository.save(file);
 
+        switch(where){
+            case "question" :
+                Question question = questionService.findVerifiedQuestion(id);
+
+            case "answer" :
+                Answer answer = answerService.findVerifiedAnswer(id);
+
+            case "boast" :
+                Boast boast = boastService.findVerifiedBoast(id);
+                boast.setImage(savedFile);
+        }
         return savedFile.getImageId();
+    }
+    public String printImage(Long fileId){
+        Optional<Image> image = imageRepository.findById(fileId);
+        if(image.isEmpty()){
+            new BusinessException(ExceptionCode.EMPTY_IMAGE_FILE);
+        }
+
+            return image.get().getSavedPath();
+
     }
 }
 

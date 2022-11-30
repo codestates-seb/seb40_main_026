@@ -38,7 +38,7 @@ public class BoastService {
         boast.setMember(authMember);
 
         boast.setNickName(authMember.getNickname());
-        boast.setGrade(authMember.getMemberGrade());
+        boast.setGrade(authMember.getMemberGrade().getGrade());
         boast.setBadge(authMember.getCurrentBadge());
 
         memberService.addStickerAndLevelUp(authMember);
@@ -63,7 +63,7 @@ public class BoastService {
 
         findBoast.setViewCount(findBoast.getViewCount()+1);
         findBoast.setNickName(findBoast.getMember().getNickname());
-        findBoast.setGrade(findBoast.getMember().getMemberGrade());
+        findBoast.setGrade(findBoast.getMember().getMemberGrade().getGrade());
         findBoast.setBadge(findBoast.getMember().getCurrentBadge());
         System.out.println("findMember = " + findMember);
         if(findMember == null){
