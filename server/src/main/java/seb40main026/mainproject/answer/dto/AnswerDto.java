@@ -1,12 +1,16 @@
 package seb40main026.mainproject.answer.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class AnswerDto {
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Getter
     public static class Post {
         @NotNull
@@ -15,6 +19,8 @@ public class AnswerDto {
         private String content;
     }
 
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Getter
     @Setter
     public static class Patch {

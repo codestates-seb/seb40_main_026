@@ -30,8 +30,10 @@ public class AnswerController {
 
     // 답변 작성
     @PostMapping
-    public ResponseEntity postAnswer(@RequestPart("answerPostDto") AnswerDto.Post answerPostDto,
+    public ResponseEntity postAnswer(@RequestPart("questionId") Long questionId,
+                                     @RequestPart("content") String content,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        AnswerDto.Post answerPostDto = new AnswerDto.Post(questionId, content);
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto)
                 , answerPostDto.getQuestionId(), image);
         AnswerDto.Response response = mapper.answerToAnswerResponse(answer);
@@ -57,9 +59,9 @@ public class AnswerController {
     // 답변 수정
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
-                                      @RequestPart("answerPatchDto") AnswerDto.Patch answerPatchDto,
+                                      @RequestPart("content") String content,
                                       @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
-        answerPatchDto.setAnswerId(answerId);
+        AnswerDto.Patch answerPatchDto = new AnswerDto.Patch(answerId, content);
         Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto), image);
         AnswerDto.Response response = mapper.answerToAnswerResponse(answer);
         return new ResponseEntity(response, HttpStatus.OK);

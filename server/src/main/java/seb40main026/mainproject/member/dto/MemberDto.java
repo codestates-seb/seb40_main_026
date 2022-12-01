@@ -45,6 +45,13 @@ public class MemberDto {
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;}
+
+        public Patch(long memberId, String nickname, String password, String introduce) {
+            this.memberId = memberId;
+            this.nickname = nickname;
+            this.password = password;
+            this.introduce = introduce;
+        }
     }
 
     @Getter

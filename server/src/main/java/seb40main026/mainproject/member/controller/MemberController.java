@@ -32,9 +32,11 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId,
-                                         @RequestPart("memberPatchDto") MemberDto.Patch request,
+                                         @RequestPart("nickname") String nickname,
+                                         @RequestPart("password") String password,
+                                         @RequestPart("introduce") String introduce,
                                          @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
-        request.setMemberId(memberId);
+        MemberDto.Patch request = new MemberDto.Patch(memberId, nickname, password, introduce);
         Member updatedMember = memberService.updatedMember(mapper.memberPatchToMember(request), image);
         return new ResponseEntity<>(mapper.memberToResponse(updatedMember), HttpStatus.OK);
     }

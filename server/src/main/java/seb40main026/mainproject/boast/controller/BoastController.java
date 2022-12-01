@@ -28,17 +28,20 @@ public class BoastController {
     private final BoastLikeService boastLikeService;
 
     @PostMapping
-    public ResponseEntity postBoast(@RequestPart("boastPostDto") BoastDto.Post post,
+    public ResponseEntity postBoast(@RequestPart("title") String title,
+                                    @RequestPart("content") String content,
                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        BoastDto.Post post = new BoastDto.Post(title, content);
         Boast boast = boastService.createBoast(mapper.boastPostDtoToBoast(post), image);
         return new ResponseEntity(mapper.boastToBoastResponseDto(boast), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{boast-id}")
     public ResponseEntity patchBoast(@PathVariable("boast-id")Long boastId,
-                                     @RequestPart("boastPatchDto") BoastDto.Patch patch,
+                                     @RequestPart("title") String title,
+                                     @RequestPart("content") String content,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
-        patch.setBoardId(boastId);
+        BoastDto.Patch patch = new BoastDto.Patch(boastId, title, content);
         Boast boast = boastService.updateBoast(mapper.boastPatchDtoToBoast(patch), image);
         return new ResponseEntity(mapper.boastToBoastResponseDto(boast), HttpStatus.OK);
     }

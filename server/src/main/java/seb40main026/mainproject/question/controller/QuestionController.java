@@ -34,8 +34,10 @@ public class QuestionController {
     // 질문 수정
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
-                                        @RequestPart("questionPatchDto") QuestionDto.Patch questionPatchDto,
+                                        @RequestPart("title") String title,
+                                        @RequestPart("content") String content,
                                         @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        QuestionDto.Patch questionPatchDto = new QuestionDto.Patch(questionId, title, content);
         QuestionDto.Response response = questionService.updateQuestion(questionPatchDto, questionId, image);
         return new ResponseEntity(response, HttpStatus.OK);
     }
