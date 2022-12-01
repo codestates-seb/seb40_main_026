@@ -29,8 +29,8 @@ public class AnswerController {
     private final AnswerMapper mapper;
 
     // 답변 작성
-    @PostMapping
-    public ResponseEntity postAnswer(@RequestPart("questionId") Long questionId,
+    @PostMapping("/{question-id}")
+    public ResponseEntity postAnswer(@PathVariable("question-id") long questionId,
                                      @RequestPart("content") String content,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         AnswerDto.Post answerPostDto = new AnswerDto.Post(questionId, content);
