@@ -25,9 +25,8 @@ public class MemberController {
     private final MemberMapper mapper;
 
     @PostMapping
-    public ResponseEntity<?> postMember(@RequestPart("memberPostDto") MemberDto.Post request,
-                                        @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
-        Member createdMember = memberService.createMember(mapper.memberPostToMember(request), image);
+    public ResponseEntity<?> postMember(@RequestBody MemberDto.Post request) {
+        Member createdMember = memberService.createMember(mapper.memberPostToMember(request));
         return new ResponseEntity<>(mapper.memberToResponse(createdMember), HttpStatus.CREATED);
     }
 
