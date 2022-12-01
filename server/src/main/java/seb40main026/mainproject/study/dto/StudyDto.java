@@ -7,6 +7,7 @@ public class StudyDto {
     @Getter
     public static class Post {
         private String studyName;
+        private String content;
         private Long price;
         private String recommendation; // 추천 대상
         private String contact; // 수업 문의
@@ -23,6 +24,7 @@ public class StudyDto {
     public static class Patch {
         private Long studyId;
         private String studyName;
+        private String content;
         private Long price;
         private String recommendation; // 추천 대상
         private String contact; // 수업 문의
@@ -39,6 +41,7 @@ public class StudyDto {
     public static class Response {
         private Long studyId;
         private String studyName;
+        private String content;
         private Long price;
         private String recommendation; // 추천 대상
         private String contact; // 수업 문의

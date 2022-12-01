@@ -18,6 +18,9 @@ public class Study {
     @Column(nullable = false)
     private String studyName;
 
+    @Column
+    private String content;
+
     @OneToOne(cascade = CascadeType.REMOVE) @Setter
     @JoinColumn(name = "FILE_ID")
     private File file;
