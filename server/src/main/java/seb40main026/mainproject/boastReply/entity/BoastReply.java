@@ -50,6 +50,7 @@ public class BoastReply {
     @JsonBackReference
     private Member member;
 
+    @Column
     private String nickName;
 
     @PrePersist
