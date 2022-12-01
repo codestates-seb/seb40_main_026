@@ -65,6 +65,10 @@ public class Study {
         }
     }
 
+    public void decreaseCount() {
+        this.count -= 1;
+    }
+
     public void modifyFileUrl(String url) {
         this.fileUrl = url;
     }

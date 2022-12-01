@@ -9,6 +9,9 @@ import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.File.FileService;
 import seb40main026.mainproject.exception.BusinessException;
 import seb40main026.mainproject.exception.ExceptionCode;
+import seb40main026.mainproject.member.entity.Member;
+import seb40main026.mainproject.member.repository.MemberRepository;
+import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.s3.S3Service;
 import seb40main026.mainproject.study.entity.Study;
 import seb40main026.mainproject.study.repository.StudyRepository;
@@ -24,6 +27,8 @@ import java.util.stream.Collectors;
 public class StudyService {
     private final StudyRepository studyRepository;
     private final FileService fileService;
+    private final MemberServiceImpl memberService;
+    private final MemberRepository memberRepository;
     private final S3Service s3Service;
 
     // 스터디 작성
@@ -60,6 +65,14 @@ public class StudyService {
                 .ifPresent(findStudy::setRecruitment); // 스터디 모집 인원 수정
         Optional.ofNullable(study.getOnline())
                 .ifPresent(findStudy::setOnline); // 온오프라인 수정
+        Optional.ofNullable(study.getRecommendation())
+                .ifPresent(findStudy::setRecommendation); // 추천대상 수정
+        Optional.ofNullable(study.getContact())
+                .ifPresent(findStudy::setContact); // 문의 수정
+        Optional.ofNullable(study.getPlace())
+                .ifPresent(findStudy::setPlace); // 장소 수정
+        Optional.ofNullable(study.getCount())
+                .ifPresent(findStudy::setCount); // 수강 신청한 인원 수정
 
         if(image != null) {
             File findFile = findStudy.getFile();
@@ -83,7 +96,15 @@ public class StudyService {
     // 스터디 인원수 증가
     public Study addRecruitment(long studyId) {
         Study study = findVerifiedStudy(studyId);
-        study.increaseCount(); // 정원이 다 차면 인원수가 증가되지 않음
+        Member member = memberService.getLoginMember(); // 현재 로그인한 멤버
+        // 만약 로그인한 멤버가 해당 study를 갖고 있으면 decreaseCount()
+        if(member.getStudy().contains(study.getStudyName())) {
+            study.decreaseCount();
+            member.deleteStudy(study); // 해당 멤버에서 study 삭제
+        } else { // 해당 study를 갖고 있지 않으면 increaseCount()
+            study.increaseCount(); // 정원이 다 차면 인원수가 증가되지 않음
+            member.setStudy(study); // 해당 멤버에서 study 추가
+        }
         return study;
     }
 
