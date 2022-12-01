@@ -15,6 +15,7 @@ const QuestionView = ({
 }) => {
   const [QuesData, SetQuesData] = useState([]);
   const [checklike, Setchecklike] = useState();
+  const [image, Setimage] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
@@ -30,12 +31,24 @@ const QuestionView = ({
     });
   }, [State]);
   //질문 수정
+
   const EditPatch = () => {
-    axios({
-      method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-      data: { title: TitleData, content: ContentData },
-    })
+    const formData = new FormData();
+    if (image) {
+      formData.append('image', image);
+    }
+    formData.append('title', TitleData);
+    formData.append('content', ContentData);
+    axios
+      .patch(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then(function (response) {
         SetState(State + 1);
       })
@@ -43,6 +56,7 @@ const QuestionView = ({
         console.log(err);
       });
   };
+  console.log(image);
   const ReportHandler = () => {
     axios({
       method: 'post',
@@ -100,6 +114,8 @@ const QuestionView = ({
         LikeHandler={LikeHandler}
         ReportHandler={ReportHandler}
         checkLike={checklike}
+        Setimage={Setimage}
+        image={image}
       />
     </>
   );

@@ -19,15 +19,22 @@ const Answer = ({ SetState, State, image, SetImage }) => {
   const textRef = useRef();
   const EditHandler = (id) => {
     if (id === TitleId) {
-      axios({
-        method: 'patch',
-        url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
-        data: { content: EditData },
-        headers: {
-          Authorization: token,
-        },
-      })
-        .then(function (response) {
+      const formData = new FormData();
+      if (image) {
+        formData.append('image', image);
+      }
+      formData.append('content', EditData);
+      axios
+        .patch(
+          `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
+          formData,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((response) => {
           SetState(State + 1);
         })
         .catch((err) => {
