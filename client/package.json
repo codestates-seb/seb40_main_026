@@ -19,6 +19,7 @@
     "react-load-script": "^0.0.6",
     "react-loaders": "^3.0.1",
     "react-redux": "^8.0.5",
+    "react-reveal": "^1.2.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.8",
@@ -26,6 +27,7 @@
     "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
     "styled-components": "^5.3.6",
+    "typing-effect-reactjs": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

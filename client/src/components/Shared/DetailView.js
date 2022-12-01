@@ -68,7 +68,10 @@ const DetailView = ({
                   }
                 />
               ) : (
-                <Viewer initialValue={Data.content} />
+                <>
+                  {Data.fileUrl ? <img src={Data.fileUrl}></img> : null}
+                  <Viewer initialValue={Data.content} />
+                </>
               )}
 
               <LikeButton
@@ -157,6 +160,9 @@ const Detail = styled.div`
       > button:hover {
         color: grey;
       }
+    }
+    > img {
+      width: 50%;
     }
   }
   @media ${mobile} {

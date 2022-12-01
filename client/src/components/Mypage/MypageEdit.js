@@ -16,6 +16,7 @@ const MypageEditContainer = () => {
   const ImgHandler = (event) => {
     SetSrc(event.target.files[0]);
   };
+
   const SetSrc = (e) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);

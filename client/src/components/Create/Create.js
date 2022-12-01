@@ -4,14 +4,23 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useState, useRef } from 'react';
 
-const Create = ({ title, Settitle, content, Setcontent, PostHandler }) => {
+const Create = ({
+  title,
+  Settitle,
+  content,
+  Setcontent,
+  PostHandler,
+  SetImage,
+}) => {
   const navigate = useNavigate();
   const textRef = useRef();
   const BackClick = (event) => {
     event.preventDefault();
     navigate(-1);
   };
-
+  const ImgHandler = (event) => {
+    SetImage(event.target.files[0]);
+  };
   const handleChangeTitle = (event) => {
     Settitle(event.target.value);
   };
@@ -31,7 +40,7 @@ const Create = ({ title, Settitle, content, Setcontent, PostHandler }) => {
             onChange={handleChangeTitle}
           ></input>
         </div>
-
+        <input type="file" className="ImgInput" onChange={ImgHandler}></input>
         <div className="CreateBot">
           {/* <h3>내용</h3> */}
           <Editor
