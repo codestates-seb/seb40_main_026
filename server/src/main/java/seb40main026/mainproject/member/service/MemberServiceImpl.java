@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public Member createMember(Member member, MultipartFile image) throws IOException {
+    public Member createMember(Member member) {
         verifiedExistsEmail(member.getEmail());
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
@@ -47,7 +47,6 @@ public class MemberServiceImpl implements MemberService{
 
         List<String> roles = authorityUtils.createRoles(member.getEmail(), member.getTeacher());
         member.setRoles(roles);
-        if(image != null) saveMemberFile(image, member);
 
         return memberRepository.save(member);
     }
