@@ -119,4 +119,8 @@ public class Question {
     public void increaseAnswerCount() {
         this.answerCount += 1;
     }
+
+    public void decreaseAnswerCount() {
+        this.answerCount -= 1;
+    }
 }

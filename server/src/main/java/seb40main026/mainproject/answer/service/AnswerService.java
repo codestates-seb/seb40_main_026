@@ -88,6 +88,7 @@ public class AnswerService {
     public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         answerRepository.delete(findAnswer);
+        findAnswer.getQuestion().decreaseAnswerCount();
         File findFile = findAnswer.getFile();
         if(findFile != null) { // 파일이 존재한다면 s3 파일 삭제
             s3Service.fileDelete(findFile.getTitle());
