@@ -23,8 +23,10 @@ public class QuestionController {
 
     // 질문 작성
     @PostMapping
-    public ResponseEntity postQuestion(@RequestPart("questionPostDto") QuestionDto.Post questionPostDto,
+    public ResponseEntity postQuestion(@RequestPart("title") String title,
+                                       @RequestPart("content") String content,
                                        @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        QuestionDto.Post questionPostDto = new QuestionDto.Post(title, content);
         QuestionDto.Response response = questionService.createQuestion(questionPostDto, image);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
