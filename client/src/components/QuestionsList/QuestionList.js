@@ -45,6 +45,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
         SetTotal(res.data.length);
       });
   }, [Count, Filter]);
+  console.log(QuesData);
   //게시글 더보기 요청시 Count증가 시키는 함수
   const CountHandler = () => {
     if (Total >= Count && Total !== QuesData.length) {

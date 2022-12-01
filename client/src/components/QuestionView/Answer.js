@@ -15,7 +15,7 @@ const Answer = ({ SetState, State, image, SetImage }) => {
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
-  console.log(EditData);
+  console.log(image);
   const textRef = useRef();
   const EditHandler = (id) => {
     if (id === TitleId) {
@@ -86,7 +86,7 @@ const Answer = ({ SetState, State, image, SetImage }) => {
         console.log(err.response.data);
       });
   };
-
+  console.log(Answer);
   return (
     <AnswerView>
       <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>

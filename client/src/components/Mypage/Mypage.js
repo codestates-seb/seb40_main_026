@@ -19,7 +19,7 @@ const MypageContainer = () => {
   const token = localStorage.getItem('accessToken');
   const parse = token ? jwt_decode(token) : '';
   const UserId = parse.memberId;
-
+  console.log(parse);
   //만약 로컬에 토큰이 있다면 함수 실행
   //함수는
   //회원정보 조회
@@ -34,7 +34,7 @@ const MypageContainer = () => {
       SetUserInfo(res.data);
     });
   }, []);
-
+  console.log(UserInfo);
   //방명록 post 요청 함수
   const postHandler = () => {
     axios({
