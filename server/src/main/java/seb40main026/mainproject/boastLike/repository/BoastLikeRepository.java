@@ -7,6 +7,6 @@ import seb40main026.mainproject.member.entity.Member;
 import java.util.Optional;
 
 public interface BoastLikeRepository extends JpaRepository<BoastLike, Long> {
-    BoastLike findByBoastIdAndMemberId(Long boastId , Long memberId);
+    Optional<BoastLike> findByBoastIdAndMemberId(Long boastId , Long memberId);
     //BoastLike findByBoastIdAndMember(Long boastId, Member member);
 }

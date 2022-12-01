@@ -29,15 +29,15 @@ public class BoastLikeService {
         Member authMember = memberService.getLoginMember();
         Long memberId = authMember.getMemberId();
 
-        BoastLike findLike = boastLikeRepository.findByBoastIdAndMemberId(findBoast.getBoastId(), memberId);
-        if(findLike == null){
+        Optional<BoastLike> findLike = boastLikeRepository.findByBoastIdAndMemberId(findBoast.getBoastId(), memberId);
+        if(findLike.isEmpty()){
             BoastLike boastLike = BoastLike.of(findBoast.getBoastId(),memberId);
             boastLike.setCheckLike(true);
             boastLikeRepository.save(boastLike);
             findBoast.setLikeCount(findBoast.getLikeCount()+1);
         }
         else{
-            boastLikeRepository.deleteById(findLike.getBoastLikeId());
+            boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
             findBoast.setLikeCount(findBoast.getLikeCount()-1);
 
         }

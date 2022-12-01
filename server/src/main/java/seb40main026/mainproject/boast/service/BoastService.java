@@ -90,7 +90,7 @@ public class BoastService {
         System.out.println("findMember = " + findMember);
         if(findMember.isPresent()){
             Member authMember = memberService.getLoginMember();
-            BoastLike findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
+            Optional<BoastLike> findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
             if(findBoastLike == null) {
                 findBoast.setCheckLike(false);
             }
