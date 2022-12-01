@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface MemberService {
-    Member createMember(Member member, MultipartFile image) throws IOException;
+    Member createMember(Member member);
 
     Member updatedMember(Member member, MultipartFile image) throws IOException;
 
