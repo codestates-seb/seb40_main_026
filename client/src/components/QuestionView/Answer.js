@@ -7,7 +7,7 @@ import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const Answer = ({ SetState, State }) => {
+const Answer = ({ SetState, State, image, SetImage }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
   const [Answer, setAnswer] = useState([]);
@@ -16,7 +16,7 @@ const Answer = ({ SetState, State }) => {
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   console.log(EditData);
-
+  const textRef = useRef();
   const EditHandler = (id) => {
     if (id === TitleId) {
       axios({
@@ -116,22 +116,32 @@ const Answer = ({ SetState, State }) => {
               </AnswerTop>
               <AnswerBot>
                 {items.answerId === TitleId ? (
-                  // <Editor
-                  //   ref={textRef}
-                  //   initialEditType="wysiwyg"
-                  //   initialValue={items.content}
-                  //   onChange={() =>
-                  //     SetEditData(
-                  //       textRef.current.getInstance().getMarkdown().trim()
-                  //     )
-                  //   }
-                  // />
-                  <input
-                    defaultValue={items.content}
-                    onChange={(e) => SetEditData(e.target.value)}
-                  />
+                  <>
+                    <input
+                      type="file"
+                      className="ImgInput"
+                      onChange={(e) => SetImage(e.target.files[0])}
+                    ></input>
+                    <Editor
+                      ref={textRef}
+                      initialEditType="wysiwyg"
+                      initialValue={items.content}
+                      onChange={() =>
+                        SetEditData(
+                          textRef.current.getInstance().getMarkdown().trim()
+                        )
+                      }
+                    />
+                  </>
                 ) : (
-                  <Viewer initialValue={items.content} />
+                  <>
+                    {/* <input
+                   defaultValue={items.content}
+                  onChange={(e) => SetEditData(e.target.value)}
+                   /> */}
+                    {image ? <img src={items.fileUrl}></img> : null}
+                    <Viewer initialValue={items.content} />
+                  </>
                 )}
               </AnswerBot>
             </AnswerMainWrap>
