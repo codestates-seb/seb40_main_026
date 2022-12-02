@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { MdRemoveRedEye } from 'react-icons/md';
+import { RiEyeCloseFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,14 +16,19 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  // const data = {
-  //   teacher: teacher,
-  //   nickname: nickname,
-  //   email: email,
-  //   password: password,
-  // };
+
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  const [hidePwd, setHidePwd] = useState(true);
+  const [hideConfirmPwd, setHideConfirmPwd] = useState(true);
+
+  const toggleHidePwd = () => {
+    setHidePwd(!hidePwd);
+  };
+  const toggleHideConfirmPwd = () => {
+    setHideConfirmPwd(!hideConfirmPwd);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +39,11 @@ const Signup = () => {
     } else if (!(email.includes('@') && email.includes('.'))) {
       console.log('이메일 유효성검사: @랑 .이 없음');
       errorAlarm('유효하지 않은 이메일주소입니다.');
+      return;
+    } else if (!passwordRegex.test(password)) {
+      errorAlarm(
+        '비밀번호는 숫자+영문자+특수문자 포함 8자리 이상만 가능합니다.'
+      );
       return;
     } else if (password.length === 0) {
       errorAlarm('비밀번호를 입력해주세요.');
@@ -106,15 +118,16 @@ const Signup = () => {
         ></input>
         <input
           autoComplete="off"
-          type={'password'}
+          type={hidePwd ? 'password' : 'text'}
           placeholder="비밀번호를 입력해 주세요."
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></input>
+
         <input
           autoComplete="off"
-          type={'password'}
+          type={hideConfirmPwd ? 'password' : 'text'}
           placeholder="비밀번호를 확인해 주세요."
           onChange={(e) => {
             setPasswordConfirm(e.target.value);
@@ -125,6 +138,12 @@ const Signup = () => {
           color={'rgb(252, 60, 178)'}
           className={'btn'}
         />
+        <HidePwd type="button" onClick={toggleHidePwd}>
+          {hidePwd ? <RiEyeCloseFill /> : <MdRemoveRedEye />}
+        </HidePwd>
+        <HideConfirmPwd type="button" onClick={toggleHideConfirmPwd}>
+          {hideConfirmPwd ? <RiEyeCloseFill /> : <MdRemoveRedEye />}
+        </HideConfirmPwd>
       </InputWrapperForm>
     </Container>
   );
@@ -163,4 +182,20 @@ const InputWrapperForm = styled.form`
     width: 13rem;
     margin-top: 2rem;
   }
+`;
+
+const HidePwd = styled.button`
+  width: 1rem;
+  position: relative;
+  bottom: 8.5rem;
+  left: 15rem;
+  background-color: white;
+`;
+
+const HideConfirmPwd = styled.button`
+  width: 1rem;
+  position: relative;
+  bottom: 7.4rem;
+  left: 15rem;
+  background-color: white;
 `;
