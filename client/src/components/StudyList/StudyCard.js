@@ -1,35 +1,35 @@
 import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
+import recruitmentImg from '../../assets/images/recruitmentImg.png';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 
-const StudyCard = ({
-  content,
-  count,
-  online,
-  period,
-  price,
-  recruitment,
-  studyId,
-  studyName,
-  time,
-}) => {
+const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
   return (
     <Container>
       <CardWrapper>
-        <img src={''} alt={'cardImg'} onError={onErrorImg} />
+        <img
+          className={count === recruitment ? 'completedImg' : 'nocompletedImg'}
+          src={recruitmentImg}
+          alt={'cardImg'}
+          onError={onErrorImg}
+        />
+        <img src={img} alt={'cardImg'} onError={onErrorImg} />
       </CardWrapper>
       <TextBlock>
         <div>
-          <div className="price">{price} 원</div>
           <RegisterCondition>
             <div>등록 현황</div>
             <div>{count}</div>
             <div> / </div>
             <div>{recruitment}</div>
           </RegisterCondition>
+          <div className="price">
+            {/* {count === recruitment ? '모집완료' : ' 모집중'} */}
+            {price}0,000원
+          </div>
         </div>
         <div className="title">{studyName}</div>
         <div className="date">{period}</div>
@@ -59,26 +59,37 @@ const Container = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  overflow: hidden;
+  position: relative;
+
   > img {
     width: 100%;
     height: auto;
     border-radius: 2rem 2rem 0 0;
+  }
+  .completedImg {
+    position: absolute;
+    opacity: 0.5;
+    margin-bottom: -12.5rem;
+  }
+  .nocompletedImg {
+    display: none;
   }
 `;
 
 const TextBlock = styled.div`
   font-size: 1rem;
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   > div {
     display: flex;
     justify-content: space-between;
     padding: 0.3rem;
+    margin: 0 1rem;
     > div.price {
       font-size: 1rem;
+      font-weight: 100;
     }
   }
   > div.title {
