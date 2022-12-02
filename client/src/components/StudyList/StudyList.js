@@ -4,35 +4,39 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
-//import { data } from './data';
+import Pagination from './Pagination';
 import StudyCard from './StudyCard';
 
 const StudyList = () => {
-  const [filterActive, setFilterActive] = useState('All');
-  const [data, setData] = useState([]);
-  const [datas, setDatas] = useState(data);
+  const [filterActive, setFilterActive] = useState('All'); //필터링 버튼
+  const [data, setData] = useState([]); //axios로 받아온 데이터
+  //페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardPerPage, setCardPerPage] = useState(6);
 
   useEffect(() => {
+    const sort = filterActive;
     axios
       .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies`
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies${
+          sort === 'All' ? `?size=100` : `?sort=${sort}&size=100`
+        }`
       )
       .then((res) => {
-        console.log('응답', res);
+        console.log('응답', res.data.length);
         setData(res.data);
+        setCurrentPage(1);
       })
       .catch((err) => console.log(err));
-  }, []);
-  // const navigate = useNavigate();
-  // const handleOnClick = (id) => {
-  //   navigate(`/study/${id}`);
-  // };
+  }, [filterActive]);
 
-  useEffect(() => {
-    filterActive === 'All'
-      ? setDatas(data)
-      : setDatas(data.filter((item) => item.online === filterActive));
-  }, [filterActive, data]);
+  //get current card
+  const indexOfLastCard = currentPage * cardPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardPerPage;
+  const currentCards = data.slice(indexOfFirstCard, indexOfLastCard);
+
+  //change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Container>
@@ -43,7 +47,9 @@ const StudyList = () => {
             text={'오프라인'}
             name="offline"
             className={filterActive === 'offline' ? 'active_btn' : null}
-            onClick={() => setFilterActive('offline')}
+            onClick={() => {
+              setFilterActive('offline');
+            }}
           />
           <SortBtn
             text={'온라인'}
@@ -60,13 +66,11 @@ const StudyList = () => {
         </div>
       </StudyListHeader>
       <StudyListBlock>
-        {datas.map((ele) => (
+        {currentCards.map((ele) => (
           <div key={ele.studyId}>
-            {/* <Link to={`/study/${ele.id}`} onClick={() => handleOnClick(ele.id)}> */}
-            {/* <Link to={`/study/${ele.id}`}> */}
             <Link to={`/study/${ele.studyId}`}>
               <StudyCard
-                img={ele.content}
+                img={ele.fileUrl}
                 studyName={ele.studyName}
                 price={ele.price}
                 recruitment={ele.recruitment}
@@ -78,6 +82,11 @@ const StudyList = () => {
           </div>
         ))}
       </StudyListBlock>
+      <Pagination
+        paginate={paginate}
+        cardPerPage={cardPerPage}
+        totalPosts={data.length}
+      />
     </Container>
   );
 };
