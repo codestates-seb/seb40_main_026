@@ -6,7 +6,7 @@ import PageBtn from '../Shared/PageBtn';
 import PostBtn from '../Shared/PostBtn';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
@@ -117,14 +117,18 @@ function BoastList() {
   // axios
   const [list, setList] = useState([]);
   const [topList, setTopList] = useState([]);
+  const [checklike, Setchecklike] = useState();
+  const [state, SetState] = useState(0);
+  const access = localStorage.getItem('accessToken');
+  let { id } = useParams();
 
   // Pagination
   const location = useLocation();
   const navigate = useNavigate();
-  const SIZE = 9; // 첫페이지에서 랜더링되는 카드 갯수
+  const SIZE = 6; // 첫페이지에서 랜더링되는 카드 갯수
 
   const updateOffset = (buttonIndex) => {
-    const size = 9; // 다른페이지에서 랜더링되는 카드 갯수
+    const size = 6; // 다른페이지에서 랜더링되는 카드 갯수
     const page = buttonIndex + 1;
     const queryString = `?page=${page}&size=${size}`;
 
@@ -148,7 +152,22 @@ function BoastList() {
         })
       )
       .catch((err) => console.log(err));
-  }, [location.search]);
+  }, [location.search, state]);
+
+  const LikeHandler = (id) => {
+    axios({
+      method: 'post',
+      url: `${BASE_URL}boasts/${id}/like`,
+      headers: { Authorization: access },
+    })
+      .then((res) => {
+        SetState(state + 1);
+        Setchecklike(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
 
   return (
     <Container>
@@ -163,9 +182,13 @@ function BoastList() {
               key={item.boastId}
               title={item.title}
               nickName={item.nickName}
-              likeCount={item.likeCount}
               LikeButton={LikeButton}
               boastId={item.boastId}
+              grade={item.grade}
+              fileUrl={item.fileUrl}
+              checkLike={checklike}
+              likeCount={item.likeCount}
+              LikeHandler={LikeHandler}
             />
           );
         })}
@@ -178,10 +201,15 @@ function BoastList() {
               likeButton={true}
               title={item.title}
               nickName={item.nickName}
-              likeCount={item.likeCount}
+              LikeHandler={LikeHandler}
               LikeButton={LikeButton}
               boastId={item.boastId}
+              grade={item.grade}
               key={item.boastId}
+              fileUrl={item.fileUrl}
+              checkLike={checklike}
+              likeCount={item.likeCount}
+              clickable={true}
             />
           );
         })}
