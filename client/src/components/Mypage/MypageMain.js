@@ -8,7 +8,6 @@ import axios from 'axios';
 
 //멤버 id 띄어야함
 const MypageEdit = ({ UserInfo }) => {
-  console.log(UserInfo);
   return (
     <MypageContainer>
       <MypageMainwrap>

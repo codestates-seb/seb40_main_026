@@ -29,8 +29,7 @@ const MypageEditContainer = () => {
       };
     });
   };
-  console.log(Image, introduce, nickname);
-  console.log(ImgSrc);
+
   const EditPatch = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -53,7 +52,6 @@ const MypageEditContainer = () => {
         navigate('/mypage');
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
   };

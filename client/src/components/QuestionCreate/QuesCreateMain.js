@@ -39,11 +39,9 @@ const QuestionCreate = () => {
       .then((res) => {
         navigate('/questions');
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch((err) => {});
   };
-  console.log(image);
+
   return (
     <Container>
       <TitleHeader className="TitleHeader" title={'질문하기'} />
