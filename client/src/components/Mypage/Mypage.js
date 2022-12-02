@@ -48,9 +48,7 @@ const MypageContainer = () => {
       .then((res) => {
         SetCount(!Count);
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch((err) => {});
   };
   //방명록 조회용 함수
   useEffect(() => {
@@ -78,9 +76,7 @@ const MypageContainer = () => {
       .then(function (response) {
         SetCount(!Count);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   //방명록 삭제
   const DeleteHandler = (id) => {

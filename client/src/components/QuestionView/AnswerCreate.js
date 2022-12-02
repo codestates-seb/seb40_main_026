@@ -6,10 +6,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-const AnswerCreate = ({ State, SetState }) => {
+const AnswerCreate = ({ State, SetState, image, SetImage }) => {
   const textRef = useRef();
   const [BodyData, SetBodyData] = useState();
-
+  const [ImgSrc, SetImgSrc] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
@@ -17,28 +17,54 @@ const AnswerCreate = ({ State, SetState }) => {
   const handleChangeInput = () => {
     SetBodyData(textRef.current.getInstance().getMarkdown().trim());
   };
+  const ImgHandler = (event) => {
+    SetSrc(event.target.files[0]);
+    SetImage(event.target.files[0]);
+  };
+  const SetSrc = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        resolve();
+      };
+    });
+  };
   const Answerpost = () => {
-    axios({
-      method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers`,
-      data: { questionId: id, content: BodyData },
-      headers: { Authorization: token },
-    })
-      .then(() => {
-        navigate(`/questions/${id}`);
+    const formData = new FormData();
+    if (image) {
+      formData.append('image', image);
+    }
+    formData.append('content', BodyData);
+    axios
+      .post(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+
+      .then((res) => {
+        SetState(State + 1);
         window.location.reload();
       })
       .catch((err) => {
         console.log(err.response.data);
       });
   };
-  console.log(BodyData);
+
   return (
     <CreateWrap>
       <TitleHeader title={'답변하기'} />
       <CreateView>
         <Createinput>
           {' '}
+          <img src={ImgSrc ? ImgSrc : null}></img>
+          <input type="file" className="ImgInput" onChange={ImgHandler}></input>
           <Editor
             ref={textRef}
             height="300px"
@@ -59,7 +85,10 @@ const AnswerCreate = ({ State, SetState }) => {
 };
 const Createinput = styled.div`
   width: 100%;
-  margin-top: 1rem;
+
+  > input {
+    margin-bottom: 2rem;
+  }
 `;
 const CreateView = styled.div`
   width: 70%;
