@@ -1,18 +1,19 @@
 import { useEffect } from 'react';
 import KakaoMapScript from './KakaoMapScript';
 
-export default function Map() {
+export default function Map({ mapLocation, className }) {
   useEffect(() => {
-    KakaoMapScript();
-  }, []);
+    KakaoMapScript(mapLocation);
+  }, [mapLocation]);
 
   return (
     <div
       id="myMap"
       style={{
-        width: '1000px',
+        width: '900px',
         height: '500px',
       }}
+      className={className}
     ></div>
   );
 }

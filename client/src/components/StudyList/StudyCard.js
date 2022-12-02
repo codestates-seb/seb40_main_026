@@ -1,30 +1,38 @@
 import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
+import recruitmentImg from '../../assets/images/recruitmentImg.png';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 
-const StudyCard = ({ img, title, price, total, registered, start, end }) => {
+const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
   return (
     <Container>
       <CardWrapper>
+        <img
+          className={count === recruitment ? 'completedImg' : 'nocompletedImg'}
+          src={recruitmentImg}
+          alt={'cardImg'}
+          onError={onErrorImg}
+        />
         <img src={img} alt={'cardImg'} onError={onErrorImg} />
       </CardWrapper>
       <TextBlock>
         <div>
-          <div className="price">{price} 만원</div>
           <RegisterCondition>
             <div>등록 현황</div>
-            <div>{registered}</div>
+            <div>{count}</div>
             <div> / </div>
-            <div>{total}</div>
+            <div>{recruitment}</div>
           </RegisterCondition>
+          <div className="price">
+            {/* {count === recruitment ? '모집완료' : ' 모집중'} */}
+            {price}0,000원
+          </div>
         </div>
-        <div className="title">{title}</div>
-        <div className="date">
-          {start} ~ {end}
-        </div>
+        <div className="title">{studyName}</div>
+        <div className="date">{period}</div>
       </TextBlock>
     </Container>
   );
@@ -38,7 +46,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
-  background-color: pink;
+  background-color: #ffc149;
   margin: 0.2rem;
   margin-bottom: 1rem;
 
@@ -51,26 +59,37 @@ const Container = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  overflow: hidden;
+  position: relative;
+
   > img {
     width: 100%;
     height: auto;
     border-radius: 2rem 2rem 0 0;
   }
+  .completedImg {
+    position: absolute;
+    opacity: 0.5;
+    margin-bottom: -12.5rem;
+  }
+  .nocompletedImg {
+    display: none;
+  }
 `;
 
 const TextBlock = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   > div {
     display: flex;
     justify-content: space-between;
     padding: 0.3rem;
+    margin: 0 1rem;
     > div.price {
-      font-size: 0.7rem;
+      font-size: 1rem;
+      font-weight: 100;
     }
   }
   > div.title {
@@ -87,7 +106,7 @@ const RegisterCondition = styled.div`
     margin-right: 0.3rem;
   }
   display: flex;
-  font-size: 0.6rem;
+  font-size: 1rem;
   > span {
     margin: 0 0.3rem;
   }

@@ -8,6 +8,7 @@ import MypageEdit from './components/Mypage/MypageEdit';
 //import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
+import KakaoRedirectPage from './pages/KakaoRedirectPage';
 import BoastView from './pages/BoastView';
 import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
@@ -18,16 +19,13 @@ import Reference from './pages/Reference';
 import SignupPage from './pages/SignupPage';
 import StudyListPage from './pages/StudyListPage';
 import StudyViewPage from './pages/StudyViewPage';
+import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
+import ScrollToTop from './utils/ScrollToTop';
 import LandingPage from './pages/LandingPage';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 
 function App() {
-  useEffect(() => {
-    window.onbeforeunload = function pushRefresh() {
-      window.scrollTo(0, 0);
-    };
-  }, []);
   // const refresh = useRefreshToken();
 
   // useEffect(() => {
@@ -43,6 +41,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <GlobalStyle />
       <ToastContainer
         position="top-center"
@@ -54,18 +53,48 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/mypage/edit" element={<MypageEdit />} />
+        <Route
+          path="/mypage"
+          element={
+            <PrivateRoute>
+              <Mypage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/edit"
+          element={
+            <PrivateRoute>
+              <MypageEdit />
+            </PrivateRoute>
+          }
+        />
         <Route path="/questions" element={<QuestionsMain />} />
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
-        <Route path="/ask" element={<QuestionCreate />} />
+        <Route
+          path="/ask"
+          element={
+            <PrivateRoute>
+              <QuestionCreate />
+            </PrivateRoute>
+          }
+        />
         <Route path="/boast" element={<Boast />} />
         <Route path={`/boast/:id`} element={<BoastView />} />
-        <Route path="/boastCreate" element={<BoastCreate />} />
+        <Route
+          path="/boastCreate"
+          element={
+            <PrivateRoute>
+              <BoastCreate />
+            </PrivateRoute>
+          }
+        />
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
-        <Route path="/study/id" element={<StudyViewPage />} />
+
+        <Route path={`/study/:id`} element={<StudyViewPage />} />
+        <Route path="/kakaoredirect" element={<KakaoRedirectPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
