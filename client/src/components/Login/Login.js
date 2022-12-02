@@ -169,5 +169,5 @@ const HidePwd = styled.button`
   position: relative;
   bottom: 1.5rem;
   left: 15rem;
-  background-color: white;
+  background-color: transparent;
 `;

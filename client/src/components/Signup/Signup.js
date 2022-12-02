@@ -189,7 +189,7 @@ const HidePwd = styled.button`
   position: relative;
   bottom: 8.5rem;
   left: 15rem;
-  background-color: white;
+  background-color: transparent;
 `;
 
 const HideConfirmPwd = styled.button`
@@ -197,5 +197,5 @@ const HideConfirmPwd = styled.button`
   position: relative;
   bottom: 7.4rem;
   left: 15rem;
-  background-color: white;
+  background-color: transparent;
 `;
