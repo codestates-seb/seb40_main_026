@@ -1,11 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+const { Kakao } = window;
+
 const HeaderProfileModal = ({ setOpen }) => {
   //const logout = useLogout();
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    Kakao.Auth.logout();
     alert('로그아웃되었습니다');
     navigate('/');
     setOpen(false);

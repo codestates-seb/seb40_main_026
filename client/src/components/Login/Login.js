@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseFill } from 'react-icons/ri';
 
+import kakaoLoginIcon from '../../assets/icons/kakaoLoginIcon.png';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
@@ -24,6 +25,8 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/'; //로그인 누른 페이지로 이동
 
   //토스티파일 팝업함수
   const errorAlarm = (message) => toast.error(message);
@@ -43,7 +46,8 @@ const Login = () => {
     axios
       .post(
         `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/login`,
-        { username: email, password: password }
+        { username: email, password: password },
+        { headers: { 'Content-Type': 'application/json' } }
       )
       .then((res) => {
         console.log('확인');
@@ -52,7 +56,7 @@ const Login = () => {
         localStorage.setItem('accessToken', accessToken);
         setEmail('');
         setPassword('');
-        navigate('/');
+        navigate(from, { replace: true });
         window.location.reload();
       })
       .catch((error) => {
@@ -64,6 +68,14 @@ const Login = () => {
     //const accessToken = response?.data?.accessToken;
 
     //setAuth({ email, password, teacher, accessToken });
+  };
+
+  const { Kakao } = window;
+  const loginWithKakao = () => {
+    console.log('hello');
+    Kakao.Auth.authorize({
+      redirectUri: 'http://localhost:3000/kakaoredirect',
+    });
   };
 
   return (
@@ -102,11 +114,15 @@ const Login = () => {
         }}
       />
       <HorizonLine text={'소셜 로그인'} />
-      <MediumButton
+      {/* <MediumButton
         text={'카카오톡 로그인'}
         color={'rgb(247,221,51)'}
         className={'btn'}
-      />
+        onClick={loginWithKakao}
+      /> */}
+      <button onClick={loginWithKakao} className="kakao">
+        <img src={kakaoLoginIcon} alt="kakao" className="kakaoLoginIcon" />
+      </button>
     </Container>
   );
 };
@@ -114,6 +130,17 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
+  > button.kakao {
+    background-color: var(--gold);
+    .kakaoLoginIcon {
+      margin-top: 0.5rem;
+      height: auto;
+      width: 13rem;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+  }
+
   width: 400px;
   height: 500px;
   background-color: var(--gold);
