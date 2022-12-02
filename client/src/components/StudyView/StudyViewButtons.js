@@ -20,6 +20,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
     '수업문의',
     '수업장소',
   ];
+
   const handleRegisterClick = () => {
     if (token === null) {
       alert('로그인이 필요합니다');
@@ -29,7 +30,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
       alert('수강인원이 초과되었습니다');
       return;
     }
-    alert('수강신청 완료되었습니다');
+
     axios
       .post(
         `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}/recruitment`,
@@ -42,8 +43,12 @@ const StudyViewButtons = ({ count, recruitment }) => {
           },
         }
       )
-      .then((res) => console.log(res.data.count))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log('수강신청버튼응답', res);
+        console.log('수강신청버튼응답', res.data.count);
+        alert('수강신청 완료되었습니다');
+      })
+      .catch((err) => console.log('수강신청버튼에러', err));
   };
   return (
     <Container>
@@ -55,6 +60,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
         ))}
       </Buttons>
       <PostBtn
+        // { afterRegister ? text='수강취소' :  text='참여하기' }
         text={'참여하기'}
         className="registerBtn"
         onClick={handleRegisterClick}
