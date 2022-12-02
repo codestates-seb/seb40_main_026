@@ -209,11 +209,11 @@ function QuestionBox({ list }) {
           list.slice(0, 3).map((item) => {
             return (
               <BtmMemberBox key={item.memberId}>
-                <BtmMemberImg
-                  src={''}
-                  alt={'cardImg'}
-                  onError={onErrorImg}
-                ></BtmMemberImg>
+                {item.fileUrl ? (
+                  <BtmMemberImg src={item.fileUrl} alt={'cardImg'} />
+                ) : (
+                  <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+                )}
                 <WordBox>
                   <span>{item.level}</span>
                   <span>{item.memberGrade}</span>
