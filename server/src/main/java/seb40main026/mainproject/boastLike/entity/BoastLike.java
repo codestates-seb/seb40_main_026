@@ -25,6 +25,9 @@ public class BoastLike {
     @Column
     private Boolean checkLike = false;
 
+    @Column
+    private long likeCount;
+
     public static BoastLike of(Long boastId ,Long memberId){
         BoastLike boastLike = new BoastLike();
         boastLike.setBoastId(boastId);

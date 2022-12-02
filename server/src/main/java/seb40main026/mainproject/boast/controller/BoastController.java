@@ -13,6 +13,7 @@ import seb40main026.mainproject.boast.dto.BoastDto;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.mapper.BoastMapper;
 import seb40main026.mainproject.boast.service.BoastService;
+import seb40main026.mainproject.boastLike.entity.BoastLike;
 import seb40main026.mainproject.boastLike.service.BoastLikeService;
 
 import javax.validation.constraints.Positive;
@@ -88,7 +89,7 @@ public class BoastController {
 
     //boast 좋아요 / 좋아요 취소 기능 컨트롤러 구현
     @PostMapping("/{boast-id}/like")
-    public @ResponseBody long like(@PathVariable("boast-id")long boastId){
+    public @ResponseBody BoastLike like(@PathVariable("boast-id")long boastId){
         return boastLikeService.modifiedLike(boastId);
     }
 }
