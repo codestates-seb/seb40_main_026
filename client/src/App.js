@@ -8,8 +8,8 @@ import MypageEdit from './components/Mypage/MypageEdit';
 //import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
-import BoastDetail from './pages/BoastDetail';
-import LoginPage from './pages/Loginpage';
+import BoastView from './pages/BoastView';
+import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
 import QuestionsMain from './pages/Questionlist';
@@ -60,7 +60,7 @@ function App() {
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
         <Route path="/ask" element={<QuestionCreate />} />
         <Route path="/boast" element={<Boast />} />
-        <Route path={`/boast/:id`} element={<BoastDetail />} />
+        <Route path={`/boast/:id`} element={<BoastView />} />
         <Route path="/boastCreate" element={<BoastCreate />} />
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />

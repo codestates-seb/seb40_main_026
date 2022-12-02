@@ -11,6 +11,7 @@ const CardBox = styled.li`
   box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
   transform: scale(1);
   transition: all 0.5s;
+
   :hover {
     transform: scale(1.1);
   }
@@ -20,15 +21,11 @@ const CardBox = styled.li`
   }
 `;
 
-const PageBtn = styled.button`
-  all: unset;
-`;
-
 const CardImg = styled.img`
   max-width: 100%;
   max-height: 100%;
   width: 380px;
-  height: 230px;
+  height: 260px;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   background-size: cover;
@@ -43,6 +40,7 @@ const Word = styled.div`
   margin-left: 0.5rem;
   font-weight: bold;
   font-size: 1.6rem;
+  background: #ffc149;
   cursor: pointer;
 
   @media ${mobile} {
@@ -74,18 +72,22 @@ const Word2 = styled.div`
   }
 `;
 
-function Card({
-  classNameD,
-  likeButton,
+const PageBtn = styled.button`
+  all: unset;
+  border: none;
+  background: #ffc149;
+  border-radius: 2rem;
+`;
+
+function TopCard({
   title,
   nickName,
-  likeCount,
+  LikeHandler,
   LikeButton,
   boastId,
   fileUrl,
   checkLike,
-  LikeHandler,
-  clickable,
+  likeCount,
   grade,
 }) {
   const onErrorImg = (e) => {
@@ -94,8 +96,9 @@ function Card({
 
   const navigate = useNavigate();
   const handleOnClick = (id) => {
-    if (clickable) navigate(`/boast/${id}`);
+    navigate(`/boast/${id}`);
   };
+
   return (
     <CardBox>
       <PageBtn onClick={() => handleOnClick(boastId)}>
@@ -104,30 +107,21 @@ function Card({
         ) : (
           <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
         )}
+
         <Word>{title}</Word>
       </PageBtn>
-
-      <Word2 className={classNameD}>
+      <Word2>
         <div>
-          {' '}
           {nickName}
           {grade}
         </div>
-        {likeButton && (
-          <LikeButton
-            likeCount={likeCount}
-            checkLike={checkLike}
-            LikeHandler={() => LikeHandler(boastId)}
-          />
-        )}
+        <LikeButton
+          LikeHandler={() => LikeHandler(boastId)}
+          checkLike={checkLike}
+          likeCount={likeCount}
+        />
       </Word2>
     </CardBox>
   );
 }
-
-Card.defaultProps = {
-  likeButton: false,
-  clickable: false,
-};
-
-export default Card;
+export default TopCard;

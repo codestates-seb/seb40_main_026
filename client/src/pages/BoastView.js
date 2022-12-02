@@ -1,20 +1,21 @@
 import styled from 'styled-components';
-import BoastList from '../components/Boast/BoastList';
+import BoastViewMain from '../components/Boast/BoastViewMain';
 import TitleHeader from '../components/Shared/TitleHeader';
 
 const Container = styled.main`
+  margin: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
-function Boast() {
+function BoastView() {
   return (
     <Container>
       <TitleHeader title={'자랑할래요'} />
-      <BoastList />
+      <BoastViewMain />
     </Container>
   );
 }
 
-export default Boast;
+export default BoastView;
