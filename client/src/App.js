@@ -9,6 +9,7 @@ import MypageEdit from './components/Mypage/MypageEdit';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 import BoastDetail from './pages/BoastDetail';
+import KakaoRedirectPage from './pages/KakaoRedirectPage';
 import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
@@ -47,32 +48,51 @@ function App() {
       />
       <Header />
       <Routes>
-        {/* 예시로 모여봐요 넣어놓음 */}
-
-        <Route
-          path="/study"
-          element={
-            <PrivateRoute>
-              <StudyListPage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route path="/mypage" element={<Mypage />} />
         <Route path="/" element={<div>홈</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/mypage/edit" element={<MypageEdit />} />
+        <Route
+          path="/mypage"
+          element={
+            <PrivateRoute>
+              <Mypage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage/edit"
+          element={
+            <PrivateRoute>
+              <MypageEdit />
+            </PrivateRoute>
+          }
+        />
         <Route path="/questions" element={<QuestionsMain />} />
         <Route path={`/questions/:id`} element={<QuestionViewMain />} />
-        <Route path="/ask" element={<QuestionCreate />} />
+        <Route
+          path="/ask"
+          element={
+            <PrivateRoute>
+              <QuestionCreate />
+            </PrivateRoute>
+          }
+        />
         <Route path="/boast" element={<Boast />} />
         <Route path={`/boast/:id`} element={<BoastDetail />} />
-        <Route path="/boastCreate" element={<BoastCreate />} />
+        <Route
+          path="/boastCreate"
+          element={
+            <PrivateRoute>
+              <BoastCreate />
+            </PrivateRoute>
+          }
+        />
         <Route path="/members" element={<Members />} />
         <Route path="/contents" element={<Reference />} />
+        <Route path="/study" element={<StudyListPage />} />
 
         <Route path={`/study/:id`} element={<StudyViewPage />} />
+        <Route path="/kakaoredirect" element={<KakaoRedirectPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
