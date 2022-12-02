@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Card from '../components/Boast/Card';
 import { tablet, mobile } from '../styles/Responsive';
 import TitleHeader from '../components/Shared/TitleHeader';
+import { data } from '../components/Reference/data';
+import Pagination from '../components/Reference/Pagination';
+import { useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -50,130 +53,32 @@ const ListBox = styled.ul`
 `;
 
 function Reference() {
-  const listData = [
-    {
-      boastId: 1,
-      title: 'popular test 1 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:46.871873',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 3,
-      title: 'popular test 3 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:51.425265',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 5,
-      title: 'popular test 5 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:56.920637',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 7,
-      title: 'popular test 7 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:10:04.384021',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 0,
-    },
-    {
-      boastId: 6,
-      title: 'popular test 6 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:10:01.038183',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 0,
-    },
-    {
-      boastId: 5,
-      title: 'popular test 5 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:56.920637',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 4,
-      title: 'popular test 4 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:54.249867',
-      //  boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 0,
-    },
-    {
-      boastId: 3,
-      title: 'popular test 3 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:51.425265',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-    {
-      boastId: 2,
-      title: 'popular test 2 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:49.206095',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 0,
-    },
-    {
-      boastId: 1,
-      title: 'popular test 1 ',
-      src: 'https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg',
-      nickName: '둘리',
-      // content: 'boast mapping Test !!',
-      boardCreatedAt: '2022-11-16T14:09:46.871873',
-      // boardModifiedAt: null,
-      // viewCount: 0,
-      likeCount: 1,
-    },
-  ];
-
+  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   return (
     <>
       <Container>
         <TitleHeader title={'배울래요'} />
         <ListBox>
-          {listData.map((item) => {
+          {data.slice(offset, offset + limit).map((item) => {
             return (
-              <Card key={item.boastId} classNameD="Word" title={item.title} />
+              <Card
+                key={item.id}
+                classNameD="Word"
+                title={item.title}
+                fileUrl={item.fileUrl}
+              />
             );
           })}
         </ListBox>
+
+        <Pagination
+          total={data.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </Container>
     </>
   );
