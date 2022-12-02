@@ -8,8 +8,6 @@ const QuestionViewMain = () => {
   const [State, SetState] = useState(0);
   const [image, SetImage] = useState();
 
-  console.log(TitleData);
-  console.log(ContentData);
   return (
     <>
       <QuestionView

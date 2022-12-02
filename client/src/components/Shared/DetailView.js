@@ -16,6 +16,8 @@ const DetailView = ({
   checkLike,
   Setimage,
   image,
+  ImgSrc,
+  ImgHandler,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(Data.questionId);
@@ -29,10 +31,9 @@ const DetailView = ({
     } else {
       setTitleId(id);
       SetEditClick(true);
-      Setimage(url);
     }
   };
-  console.log(Data.checkLike);
+
   return (
     <>
       <Detail>
@@ -65,22 +66,11 @@ const DetailView = ({
                   <input
                     type="file"
                     className="ImgInput"
-                    onChange={(e) => {
-                      Setimage(e.target.files[0]);
-                    }}
+                    onChange={ImgHandler}
                   ></input>
-                  {image ? (
-                    <>
-                      <img src={image}></img>
-                      <button
-                        onClick={() => {
-                          Setimage('');
-                        }}
-                      >
-                        x
-                      </button>{' '}
-                    </>
-                  ) : null}
+                  <>
+                    <img src={ImgSrc ? ImgSrc : Image}></img>
+                  </>
                   <Editor
                     ref={textRef}
                     initialEditType="wysiwyg"
@@ -94,7 +84,7 @@ const DetailView = ({
                 </>
               ) : (
                 <>
-                  {Data.fileUrl ? <img src={Data.fileUrl}></img> : null}
+                  <img src={ImgSrc ? ImgSrc : Image}></img>
                   <Viewer initialValue={Data.content} />
                 </>
               )}
