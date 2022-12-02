@@ -123,7 +123,7 @@ const StudyListBlock = styled.div`
 
 const StudyListHeader = styled.div`
   width: 70%;
-  color: #ffc149;
+  color: #ffa800;
   margin: auto;
   padding-bottom: 1rem;
   border-bottom: 0.1rem solid;
