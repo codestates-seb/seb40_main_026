@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Typing } from 'typing-effect-reactjs';
-
+import Slideimg from '../../assets/images/slide.gif';
 const Slide = () => {
   return (
     <>
       <SlideWrap>
         <div>
-          {' '}
           <h2>
             {' '}
             <Typing
@@ -38,7 +37,7 @@ const SlideWrap = styled.div`
   width: 100%;
   height: 650px;
   margin: auto;
-  background-image: url('https://velog.velcdn.com/images/kjs0508/post/1b5b9dca-432a-457b-9d13-c8ad1eb917d1/image.gif');
+  background: url(${Slideimg});
   background-size: 100% 100%;
   background-repeat: no-repeat;
   display: flex;
@@ -46,8 +45,7 @@ const SlideWrap = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 10rem;
   > div > h2 {
     margin-bottom: 1rem;
     color: #ffc149;
@@ -55,6 +53,7 @@ const SlideWrap = styled.div`
     line-height: 4rem;
     animation: typewriter 4s steps(16, end), blink 1s step-end infinite;
     white-space: nowrap;
+    text-shadow: 3px 3px 2px grey;
     @keyframes typing {
       0% {
         width: 0%;

@@ -23,7 +23,7 @@ const Education = () => {
 
         <div className="TitleWrap">
           <h1>
-            코딩공부, <br /> 어떻게 해야 할 지 막막하다면?
+            코딩공부, <br /> 어떻게 해야 할지 막막하다면?
           </h1>
           <div className="BtnWrap">
             <a href="/study">
@@ -67,16 +67,18 @@ const Education = () => {
 export default Education;
 const EduWrap = styled.div`
   width: 80%;
-  height: 500px;
+  height: 600px;
   margin: auto;
   display: flex;
   align-items: center;
   position: relative;
   margin-bottom: 4rem;
+  border-radius: 1rem;
+  box-shadow: grey 0rem 0rem 0.2rem;
   .BtnWrap {
     a > button {
       width: 200px;
-      margin-top: 2rem;
+      margin-top: 3rem;
       padding: 1rem;
       margin-right: 1rem;
       text-align: center;
@@ -103,25 +105,26 @@ const EduWrap = styled.div`
     text-align: center;
     > span {
       .Lapimg {
-        width: 200px;
+        width: 220px;
         position: absolute;
         top: 60%;
         right: 10%;
       }
       .Bookimg {
-        width: 280px;
+        width: 260px;
         position: absolute;
-        top: 35%;
+        top: 45%;
+        left: 5%;
       }
       .Quesimg {
-        width: 280px;
+        width: 290px;
         position: absolute;
         top: 12%;
-        right: 10%;
+        right: 8%;
       }
     }
     > h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       line-height: 4rem;
       color: #ffc149;
       margin-top: 4rem;

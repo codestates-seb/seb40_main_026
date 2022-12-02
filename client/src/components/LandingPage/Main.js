@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Slide from './Slide';
-import Carousel from './Carousel';
+import Service from './Service';
 import Education from './Education';
 const MainPage = () => {
   return (
     <>
       <Slide />
-      <Carousel />
+      <Service />
       <Education />
     </>
   );

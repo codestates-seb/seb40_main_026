@@ -96,6 +96,7 @@ const Carousel = () => {
               );
             })}
           </Fade>
+
           <Fade right>
             {DummyData2.map((items) => {
               return (
