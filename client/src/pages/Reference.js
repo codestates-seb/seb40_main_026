@@ -1,76 +1,84 @@
 import styled from 'styled-components';
 import Card from '../components/Boast/Card';
 import { tablet, mobile } from '../styles/Responsive';
+import TitleHeader from '../components/Shared/TitleHeader';
+import { data } from '../components/Reference/data';
+import Pagination from '../components/Reference/Pagination';
+import { useState } from 'react';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media ${tablet} {
+    margin-left: -30px;
+  }
+  @media ${mobile} {
+    margin-left: -80px;
+  }
+
+  .Word {
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const ListBox = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2.5rem;
+  place-items: center;
+  margin: auto;
+  width: 70%;
+
+  @media ${tablet} {
+  }
+  @media ${mobile} {
+    grid-template-columns: 1fr;
+    padding: 0;
+    margin-top: 1.5rem;
+  }
+
+  li {
+    background-color: #ffc149;
+    color: white;
+
+    @media ${mobile} {
+      width: 100%;
+    }
+    @media ${tablet} {
+      width: 80%;
+    }
+  }
+`;
 
 function Reference() {
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin: auto;
-    @media ${tablet} {
-      margin-left: -30px;
-    }
-    @media ${mobile} {
-      margin-left: -80px;
-    }
-
-    .toplistbox {
-      background: white;
-      box-shadow: none;
-      > li {
-        @media ${mobile} {
-          width: 600px;
-          height: 540px;
-          margin: 30px;
-        }
-        @media ${tablet} {
-          width: 500px;
-          height: 440px;
-          margin: 30px;
-        }
-      }
-    }
-
-    .listbox {
-      > li {
-        background-color: #ffc149;
-        color: white;
-        margin-top: 0rem;
-
-        @media ${mobile} {
-          display: flex;
-          width: 600px;
-          height: 540px;
-          margin: 30px;
-        }
-        @media ${tablet} {
-          display: flex;
-          width: 500px;
-          height: 440px;
-          margin: 30px;
-        }
-      }
-    }
-  `;
-
-  const Title = styled.h1`
-    margin-bottom: 1rem;
-    margin-top: 2rem;
-    color: #ffc149;
-
-    @media ${tablet} {
-      font-size: 25px;
-    }
-    @media ${mobile} {
-      font-size: 25px;
-    }
-  `;
+  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   return (
     <>
       <Container>
-        <Title>배울래요</Title>
-        <Card className="toplistbox" classNameA="listbox" />
+        <TitleHeader title={'배울래요'} />
+        <ListBox>
+          {data.slice(offset, offset + limit).map((item) => {
+            return (
+              <Card
+                key={item.id}
+                classNameD="Word"
+                title={item.title}
+                fileUrl={item.fileUrl}
+              />
+            );
+          })}
+        </ListBox>
+
+        <Pagination
+          total={data.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </Container>
     </>
   );

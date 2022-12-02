@@ -8,8 +8,8 @@ import MypageEdit from './components/Mypage/MypageEdit';
 //import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
-import BoastDetail from './pages/BoastDetail';
 import KakaoRedirectPage from './pages/KakaoRedirectPage';
+import BoastView from './pages/BoastView';
 import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
 import QuestionCreate from './pages/QuestionCreate';
@@ -80,7 +80,7 @@ function App() {
           }
         />
         <Route path="/boast" element={<Boast />} />
-        <Route path={`/boast/:id`} element={<BoastDetail />} />
+        <Route path={`/boast/:id`} element={<BoastView />} />
         <Route
           path="/boastCreate"
           element={
