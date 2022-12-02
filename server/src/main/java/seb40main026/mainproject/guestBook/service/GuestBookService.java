@@ -12,6 +12,7 @@ import seb40main026.mainproject.guestBook.repository.GuestBookRepository;
 import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,9 @@ public class GuestBookService {
         Member member = memberService.findVerifiedMember(guestBookPostDto.getMemberId());
         GuestBook guestBook = mapper.guestBookPostDtoToGuestBook(guestBookPostDto);
         guestBook.updateMember(member);
-        guestBook.updateWriter(memberService.getLoginMember().getNickname()); // 현재 로그인한 멤버가 작성자
-        return mapper.guestBookToGuestBookResponseDto(guestBookRepository.save(guestBook));
+        guestBook.updateWriter(memberService.getLoginMember().getMemberId()); // 현재 로그인한 멤버가 작성자
+        Member writer = memberService.findVerifiedMember(guestBook.getWriterId());
+        return mapper.guestBookToGuestBookResponseDto(guestBookRepository.save(guestBook), writer);
     }
 
     // 방명록 수정
@@ -37,14 +39,20 @@ public class GuestBookService {
         GuestBook findGuestBook = findVerifiedGuestBook(guestBookId);
         GuestBook guestBook = mapper.guestBookPatchDtoToGuestBook(guestBookPatchDto);
         findGuestBook.updateContent(guestBook.getContent());
-        return mapper.guestBookToGuestBookResponseDto(findGuestBook);
+        Member writer = memberService.findVerifiedMember(findGuestBook.getWriterId());
+        return mapper.guestBookToGuestBookResponseDto(findGuestBook, writer);
     }
 
     // 방명록 조회
     public List<GuestBookDto.Response> findGuestBooks(long memberId) {
         Member member = memberService.findVerifiedMember(memberId);
         List<GuestBook> guestBooks = guestBookRepository.findByMember(member);
-        return mapper.guestBooksToGuestBookResponseDtos(guestBooks);
+        List<Member> writers = new ArrayList<>();
+        for(int i = 0; i < guestBooks.size(); i++) {
+            Member writer = memberService.findVerifiedMember(guestBooks.get(i).getWriterId());
+            writers.add(writer);
+        }
+        return mapper.guestBooksToGuestBookResponseDtos(guestBooks, writers);
     }
 
     // 방명록 삭제
@@ -57,7 +65,7 @@ public class GuestBookService {
     public GuestBook findVerifiedGuestBook(long guestBookId) {
         Optional<GuestBook> optionalGuestBook = guestBookRepository.findById(guestBookId);
         GuestBook findGuestBook = optionalGuestBook.orElseThrow(
-                () -> new BusinessException(ExceptionCode.GUESTBOOKT_NOT_FOUND));
+                () -> new BusinessException(ExceptionCode.GUESTBOOK_NOT_FOUND));
         return findGuestBook;
     }
 }

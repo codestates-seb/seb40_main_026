@@ -22,6 +22,8 @@ import StudyViewPage from './pages/StudyViewPage';
 import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
 import ScrollToTop from './utils/ScrollToTop';
+import LandingPage from './pages/LandingPage';
+//import { useEffect } from 'react';
 
 function App() {
   // const refresh = useRefreshToken();
@@ -48,7 +50,7 @@ function App() {
       />
       <Header />
       <Routes>
-        <Route path="/" element={<div>홈</div>} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route

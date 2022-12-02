@@ -6,8 +6,8 @@ const QuestionViewMain = () => {
   const [TitleData, SetTitleData] = useState();
   const [ContentData, SetContentData] = useState();
   const [State, SetState] = useState(0);
-  console.log(TitleData);
-  console.log(ContentData);
+  const [image, SetImage] = useState();
+
   return (
     <>
       <QuestionView
@@ -18,8 +18,18 @@ const QuestionViewMain = () => {
         SetState={SetState}
         State={State}
       />
-      <Answer State={State} />
-      <AnswerCreate SetState={SetState} State={State} />
+      <Answer
+        State={State}
+        SetState={SetState}
+        image={image}
+        SetImage={SetImage}
+      />
+      <AnswerCreate
+        SetState={SetState}
+        State={State}
+        SetImage={SetImage}
+        image={image}
+      />
     </>
   );
 };

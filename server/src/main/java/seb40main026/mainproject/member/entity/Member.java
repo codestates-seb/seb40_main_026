@@ -7,8 +7,11 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.File.File;
+import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
+import seb40main026.mainproject.study.entity.Study;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -42,6 +45,13 @@ public class Member {
     @Column
     private String currentBadge;
 
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
+    @Column
+    private String fileUrl;
+
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private String createdAt;
@@ -54,7 +64,27 @@ public class Member {
     private Integer sticker;
 
     @Column(nullable = false)
+    private String introduce;
+
+    @Column(nullable = false)
     private Boolean teacher;
+
+    @Column()
+    private long questionCount;
+
+    @Column
+    private long answerCount;
+
+    @Column
+    private ArrayList<String> study = new ArrayList<>();
+
+    public void setStudy(Study study) {
+        this.study.add(study.getStudyName());
+    }
+
+    public void deleteStudy(Study study) {
+        this.study.remove(study.getStudyName());
+    }
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -100,15 +130,19 @@ public class Member {
     }
 
     public enum MemberGrade {
-        EGG("계란 등급"),
-        BROKEN_EGG("깨진 계란 등급"),
-        CHICK("병아리"),
-        CHICKEN("닭");
+        EGG("🥚"),
+        BROKEN_EGG("🐣"),
+        CHICK("🐥"),
+        CHICKEN("🐓");
 
         @Getter
         private final String grade;
 
         MemberGrade(String grade) {this.grade = grade;}
+    }
+
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     @PrePersist

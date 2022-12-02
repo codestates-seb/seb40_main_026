@@ -16,6 +16,7 @@ import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,10 +35,7 @@ public class BoastReplyService {
 
         authMember.setReplies(boastReply);
         findBoast.addReplies(boastReply);
-
         boastReply.setNickName(authMember.getNickname());
-        boastReply.setGrade(authMember.getMemberGrade());
-        boastReply.setBadge(authMember.getCurrentBadge());
 
         if(boastReplyRepository.countByMember(authMember) >= 15) {
             memberService.addBadge("reply");
@@ -58,6 +56,11 @@ public class BoastReplyService {
 
     public Page<BoastReply> getBoastReplies(long boastId , Pageable pageable){
         Boast findBoast = boastService.findVerifiedBoast(boastId);
+        List<BoastReply> boastReplyList = boastReplyRepository.findByBoast(findBoast);
+        for(int i=0;i<boastReplyList.size();i++){
+            Member findMember = boastReplyList.get(i).getMember();
+            boastReplyList.get(i).setNickName(findMember.getNickname());
+        }
         return boastReplyRepository.findByBoast(findBoast,pageable);
     }
 

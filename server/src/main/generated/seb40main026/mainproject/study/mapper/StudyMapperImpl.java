@@ -9,7 +9,7 @@ import seb40main026.mainproject.study.entity.Study;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T13:53:44+0900",
+    date = "2022-12-02T11:01:49+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -24,8 +24,10 @@ public class StudyMapperImpl implements StudyMapper {
         Study study = new Study();
 
         study.setStudyName( studyPostDto.getStudyName() );
-        study.setExplain( studyPostDto.getExplain() );
         study.setPrice( studyPostDto.getPrice() );
+        study.setRecommendation( studyPostDto.getRecommendation() );
+        study.setContact( studyPostDto.getContact() );
+        study.setPlace( studyPostDto.getPlace() );
         study.setRecruitment( studyPostDto.getRecruitment() );
         study.setCount( studyPostDto.getCount() );
         study.setPeriod( studyPostDto.getPeriod() );
@@ -45,8 +47,10 @@ public class StudyMapperImpl implements StudyMapper {
 
         study.setStudyId( studyPatchDto.getStudyId() );
         study.setStudyName( studyPatchDto.getStudyName() );
-        study.setExplain( studyPatchDto.getExplain() );
         study.setPrice( studyPatchDto.getPrice() );
+        study.setRecommendation( studyPatchDto.getRecommendation() );
+        study.setContact( studyPatchDto.getContact() );
+        study.setPlace( studyPatchDto.getPlace() );
         study.setRecruitment( studyPatchDto.getRecruitment() );
         study.setCount( studyPatchDto.getCount() );
         study.setPeriod( studyPatchDto.getPeriod() );
@@ -66,13 +70,16 @@ public class StudyMapperImpl implements StudyMapper {
 
         response.setStudyId( study.getStudyId() );
         response.setStudyName( study.getStudyName() );
-        response.setExplain( study.getExplain() );
         response.setPrice( study.getPrice() );
+        response.setRecommendation( study.getRecommendation() );
+        response.setContact( study.getContact() );
+        response.setPlace( study.getPlace() );
         response.setRecruitment( study.getRecruitment() );
         response.setCount( study.getCount() );
         response.setPeriod( study.getPeriod() );
         response.setTime( study.getTime() );
         response.setOnline( study.getOnline() );
+        response.setFileUrl( study.getFileUrl() );
 
         return response;
     }

@@ -8,10 +8,12 @@ import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
 import seb40main026.mainproject.member.entity.Member;
 
+import java.util.List;
+
 @Repository
 public interface BoastReplyRepository extends JpaRepository<BoastReply,Long> {
     Page<BoastReply> findByBoast(Boast boast, Pageable pageable);
-    BoastReply findByBoast(Boast boast);
+    List<BoastReply> findByBoast(Boast boast);
     Long countByMember(Member member);
 
 }

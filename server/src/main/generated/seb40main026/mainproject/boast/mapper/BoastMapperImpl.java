@@ -9,7 +9,7 @@ import seb40main026.mainproject.boast.entity.Boast;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-28T13:53:44+0900",
+    date = "2022-12-02T11:01:49+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -65,6 +65,7 @@ public class BoastMapperImpl implements BoastMapper {
         response.setViewCount( boast.getViewCount() );
         response.setLikeCount( boast.getLikeCount() );
         response.setCheckLike( boast.getCheckLike() );
+        response.setFileUrl( boast.getFileUrl() );
 
         return response;
     }

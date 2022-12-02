@@ -2,6 +2,7 @@ package seb40main026.mainproject.study.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import seb40main026.mainproject.File.File;
 
 import javax.persistence.*;
 
@@ -17,15 +18,28 @@ public class Study {
     @Column(nullable = false)
     private String studyName;
 
-    // 이미지 파일
-
-    // 소개
-    @Column(nullable = false)
+    @Column
     private String content;
+
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
+    @Column
+    private String fileUrl;
 
     // 가격
     @Column
     private Long price;
+
+    @Column
+    private String recommendation;
+
+    @Column
+    private String contact;
+
+    @Column
+    private String place;
 
     // 정원
     @Column(nullable = false)
@@ -49,5 +63,13 @@ public class Study {
         if(this.count < this.recruitment) {
             this.count += 1;
         }
+    }
+
+    public void decreaseCount() {
+        this.count -= 1;
+    }
+
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 }

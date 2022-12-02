@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import seb40main026.mainproject.File.File;
 import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.member.entity.Member;
 
@@ -39,8 +40,11 @@ public class Question {
     @Column(nullable = false)
     private Integer reportCount;
 
-//    @Column
-//    private Boolean checkLike; // 좋아요 눌렀는지 여부
+    @Column(nullable = false)
+    private Integer answerCount;
+
+    @Column
+    private String fileUrl;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
@@ -57,14 +61,18 @@ public class Question {
         this.likeCount = this.likeCount == null ? 0 : this.likeCount;
         this.viewCount = this.viewCount == null ? 0 : this.viewCount;
         this.reportCount = this.reportCount == null ? 0 : this.reportCount;
+        this.answerCount = this.answerCount == null? 0 : this.answerCount;
         this.answers = this.answers == null? new ArrayList<>() : this.answers;
-//        this.checkLike = this.checkLike == null? false : this.checkLike;
     }
 
     @PreUpdate
     public void onPreUpdate(){
         this.modifiedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
     }
+
+    @OneToOne(cascade = CascadeType.REMOVE) @Setter
+    @JoinColumn(name = "FILE_ID")
+    private File file;
 
     @ManyToOne @Setter
     @JoinColumn(name = "MEMBER_ID")
@@ -82,6 +90,10 @@ public class Question {
     public void modify(String title, String content) { // 수정
         if(title != null) this.title = title;
         if(content != null) this.content = content;
+    }
+
+    public void modifyFileUrl(String url) {
+        this.fileUrl = url;
     }
 
     public void increaseViewCount() { // 조회수 증가
@@ -104,7 +116,11 @@ public class Question {
         this.reportCount -= 1;
     }
 
-//    public void modifyCheckLike(boolean like) {
-//        this.checkLike = like;
-//    }
+    public void increaseAnswerCount() {
+        this.answerCount += 1;
+    }
+
+    public void decreaseAnswerCount() {
+        this.answerCount -= 1;
+    }
 }

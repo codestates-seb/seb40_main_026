@@ -8,14 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import seb40main026.mainproject.boast.dto.BoastDto;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boast.mapper.BoastMapper;
 import seb40main026.mainproject.boast.service.BoastService;
 import seb40main026.mainproject.boastLike.service.BoastLikeService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 @Validated
 @RestController
@@ -27,16 +28,21 @@ public class BoastController {
     private final BoastLikeService boastLikeService;
 
     @PostMapping
-    public ResponseEntity postBoast(@Valid @RequestBody BoastDto.Post post){
-        Boast boast = boastService.createBoast(mapper.boastPostDtoToBoast(post));
+    public ResponseEntity postBoast(@RequestPart("title") String title,
+                                    @RequestPart("content") String content,
+                                    @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        BoastDto.Post post = new BoastDto.Post(title, content);
+        Boast boast = boastService.createBoast(mapper.boastPostDtoToBoast(post), image);
         return new ResponseEntity(mapper.boastToBoastResponseDto(boast), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{boast-id}")
-    public ResponseEntity patchBoast(@Valid @RequestBody BoastDto.Patch patch,
-                                     @PathVariable("boast-id")Long boastId){
-        patch.setBoardId(boastId);
-        Boast boast = boastService.updateBoast(mapper.boastPatchDtoToBoast(patch));
+    public ResponseEntity patchBoast(@PathVariable("boast-id")Long boastId,
+                                     @RequestPart("title") String title,
+                                     @RequestPart("content") String content,
+                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        BoastDto.Patch patch = new BoastDto.Patch(boastId, title, content);
+        Boast boast = boastService.updateBoast(mapper.boastPatchDtoToBoast(patch), image);
         return new ResponseEntity(mapper.boastToBoastResponseDto(boast), HttpStatus.OK);
     }
 

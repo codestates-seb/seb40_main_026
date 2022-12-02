@@ -23,8 +23,6 @@ const QuestionsMain = () => {
   }, [Searchtitle]);
   //if 3==='답변순' 2===추천순 1===답변순
 
-  console.log(Searchtitle);
-  console.log(TitleId);
   return (
     <Container>
       <TitleHeader title={'궁금해요'} />
