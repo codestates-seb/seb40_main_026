@@ -62,7 +62,7 @@ public class Question {
         this.viewCount = this.viewCount == null ? 0 : this.viewCount;
         this.reportCount = this.reportCount == null ? 0 : this.reportCount;
         this.answerCount = this.answerCount == null? 0 : this.answerCount;
-        this.answers = this.answers == null? new ArrayList<>() : this.answers;
+//        this.answers = this.answers == null? new ArrayList<>() : this.answers;
     }
 
     @PreUpdate
@@ -78,14 +78,8 @@ public class Question {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
-    private List<Answer> answers;
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<QuestionLike> questionLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<QuestionReport> questionReports = new ArrayList<>();
+//    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
+//    private List<Answer> answers;
 
     public void modify(String title, String content) { // 수정
         if(title != null) this.title = title;

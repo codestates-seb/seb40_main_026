@@ -52,5 +52,6 @@ public class StudyDto {
         private String time;
         private String online;
         private String fileUrl;
+        private Boolean registered;
     }
 }

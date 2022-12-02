@@ -23,13 +23,11 @@ import java.util.List;
 @CrossOrigin
 public class StudyController {
     private final StudyService studyService;
-    private final StudyMapper mapper;
 
     @PostMapping // 스터디 작성
     public ResponseEntity postStudy(@Valid @RequestPart("studyPostDto") StudyDto.Post studyPostDto,
                                     @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
-        Study study = studyService.createStudy(mapper.studyPostDtoToStudy(studyPostDto), image);
-        StudyDto.Response response = mapper.studyToStudyResponse(study);
+        StudyDto.Response response = studyService.createStudy(studyPostDto, image);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -37,15 +35,13 @@ public class StudyController {
     public ResponseEntity getStudies(@Positive @RequestParam(value="page", defaultValue="1") int page,
                                      @Positive @RequestParam(value="size", defaultValue="10") int size,
                                      @RequestParam(value = "sort", required = false) String sort) {
-        List<Study> studies = studyService.findStudies(sort, page - 1, size);
-        List<StudyDto.Response> responses = mapper.studiesToStudyResponses(studies);
+        List<StudyDto.Response> responses = studyService.findStudies(sort, page - 1, size);
         return new ResponseEntity(responses, HttpStatus.OK);
     }
 
     @GetMapping("/{study-id}") // 개별 스터디 조회
     public ResponseEntity getStudy(@PathVariable("study-id") @Positive long studyId) {
-        Study study = studyService.findStudy(studyId);
-        StudyDto.Response response = mapper.studyToStudyResponse(study);
+        StudyDto.Response response = studyService.findStudy(studyId);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
@@ -54,15 +50,13 @@ public class StudyController {
                                      @Valid @RequestPart("studyPatchDto") StudyDto.Patch studyPatchDto,
                                      @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         studyPatchDto.setStudyId(studyId);
-        Study study = studyService.updateStudy(mapper.studyPatchDtoToStudy(studyPatchDto), image);
-        StudyDto.Response response = mapper.studyToStudyResponse(study);
+        StudyDto.Response response = studyService.updateStudy(studyPatchDto, image);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @PostMapping("/{study-id}/recruitment") // 스터디 인원 수 증가
     public ResponseEntity recruitmentStudy(@PathVariable("study-id") @Positive long studyId) {
-        Study study = studyService.addRecruitment(studyId);
-        StudyDto.Response response = mapper.studyToStudyResponse(study);
+        StudyDto.Response response = studyService.addRecruitment(studyId);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
