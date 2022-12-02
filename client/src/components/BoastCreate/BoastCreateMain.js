@@ -3,31 +3,35 @@ import TitleHeader from '../Shared/TitleHeader';
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 import { BASE_URL } from '../../utils/api';
+import { useNavigate } from 'react-router';
 
 const Container = styled.header``;
 const BoastCreate = () => {
   const [content, SetContent] = useState();
   const [title, SetTitle] = useState();
-  const access = localStorage.getItem('accessToken');
+  const [image, SetImage] = useState();
   const navigate = useNavigate();
+  const access = localStorage.getItem('accessToken');
 
   const Boastpost = (e) => {
-    e.preventDefault();
+    e.preventdefault();
+    const formData = new FormData();
+
+    if (image) {
+      formData.append('image', image);
+    }
+    formData.append('title', title);
+    formData.append('content', content);
+
     axios
-      .post(
-        `${BASE_URL}boasts`,
-        { title, content },
-        { headers: { Authorization: access } }
-      )
+      .post(`${BASE_URL}/boasts`, formData, {
+        headers: { Authorization: access },
+      })
       .then((res) => {
-        console.log(res);
         navigate('/boast');
       })
-      .catch((err) => {
-        console.error(err.response.data);
-      });
+      .catch((err) => {});
   };
 
   return (
@@ -35,10 +39,11 @@ const BoastCreate = () => {
       <TitleHeader title={'자랑하기'} />
       <Create
         PostHandler={Boastpost}
-        SetContent={SetContent}
+        Setcontent={SetContent}
         content={content}
+        SetImage={SetImage}
         title={title}
-        SetTitle={SetTitle}
+        Settitle={SetTitle}
       />
       ;
     </Container>
