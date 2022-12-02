@@ -22,13 +22,18 @@ const CardBox = styled.li`
 `;
 
 const CardImg = styled.img`
-  width: 100%;
-  height: 80%;
+  max-width: 100%;
+  max-height: 100%;
+  width: 380px;
+  height: 260px;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   background-size: cover;
   background-position: center;
   cursor: pointer;
+  @media ${mobile} {
+    width: 500px;
+  }
 `;
 
 const Word = styled.div`
@@ -74,7 +79,17 @@ const PageBtn = styled.button`
   border-radius: 2rem;
 `;
 
-function TopCard({ title, nickName, likeCount, LikeButton, boastId }) {
+function TopCard({
+  title,
+  nickName,
+  LikeHandler,
+  LikeButton,
+  boastId,
+  fileUrl,
+  checkLike,
+  likeCount,
+  grade,
+}) {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
@@ -87,12 +102,24 @@ function TopCard({ title, nickName, likeCount, LikeButton, boastId }) {
   return (
     <CardBox>
       <PageBtn onClick={() => handleOnClick(boastId)}>
-        <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
+        {fileUrl ? (
+          <CardImg src={fileUrl} alt={'cardImg'} />
+        ) : (
+          <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
+        )}
+
         <Word>{title}</Word>
       </PageBtn>
       <Word2>
-        <div>{nickName}</div>
-        <LikeButton likeCount={likeCount} />
+        <div>
+          {nickName}
+          {grade}
+        </div>
+        <LikeButton
+          LikeHandler={() => LikeHandler(boastId)}
+          checkLike={checkLike}
+          likeCount={likeCount}
+        />
       </Word2>
     </CardBox>
   );
