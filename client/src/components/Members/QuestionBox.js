@@ -5,6 +5,8 @@ import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Container = styled.section`
   display: grid;
@@ -86,7 +88,7 @@ const TopMemberImg = styled.img`
 
 const WordBox = styled.div`
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 `;
 
 const BlockBox = styled.div`
@@ -120,8 +122,9 @@ const BottomBox = styled.ul`
 const BtmMemberBox = styled.li`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  width: 50%;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
   height: 50%;
 
   div {
@@ -146,7 +149,27 @@ const BtnBox = styled.div`
   }
 `;
 
-function QuestionBox({ list }) {
+function QuestionBox() {
+  const [list, setList] = useState([]);
+  const [Count, SetCount] = useState(1);
+  const [Total, SetTotal] = useState();
+  const [Loading, SetLoading] = useState(false);
+
+  useEffect(() => {
+    async function getAllMembers() {
+      const res = await axios.get(
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members'
+      );
+      let data = res.data;
+      setList(data.slice(0, Count * 3));
+      SetTotal(data.length);
+    }
+    try {
+      getAllMembers();
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
