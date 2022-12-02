@@ -147,6 +147,7 @@ const BtnBox = styled.div`
 `;
 
 function AnswerBox({ list }) {
+  console.log(list);
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
@@ -167,7 +168,7 @@ function AnswerBox({ list }) {
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>코코아</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
@@ -181,7 +182,7 @@ function AnswerBox({ list }) {
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>딸기</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
@@ -208,11 +209,11 @@ function AnswerBox({ list }) {
         {list.slice(0, 3).map((item) => {
           return (
             <BtmMemberBox key={item.memberId}>
-              <BtmMemberImg
-                src={''}
-                alt={'cardImg'}
-                onError={onErrorImg}
-              ></BtmMemberImg>
+              {item.fileUrl ? (
+                <BtmMemberImg src={item.fileUrl} alt={'cardImg'} />
+              ) : (
+                <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+              )}
               <WordBox>
                 <span>{item.level}</span>
                 <span>{item.memberGrade}</span>
