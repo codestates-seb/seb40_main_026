@@ -68,10 +68,10 @@ public class Member {
     private Boolean teacher;
 
     @Column()
-    private Long questionCount;
+    private long questionCount;
 
     @Column
-    private Long answerCount;
+    private long answerCount;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)

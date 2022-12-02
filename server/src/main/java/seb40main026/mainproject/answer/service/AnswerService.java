@@ -45,6 +45,7 @@ public class AnswerService {
         if(answerRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
             memberService.addBadge("answer");
         }
+        member.setAnswerCount(member.getAnswerCount()+1);
         memberService.addStickerAndLevelUp(member);
         question.increaseAnswerCount();
         if(image != null) saveAnswerFile(image, answer);

@@ -65,4 +65,22 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK) ;
     }
 
+    @GetMapping("/ranking/answer")
+    public ResponseEntity getMembersByAnswer(){
+        List<Member> sortMembers = memberService.findMembersByAnswer();
+        return new ResponseEntity(sortMembers,HttpStatus.OK);
+    }
+    @GetMapping("/ranking/question")
+    public ResponseEntity getMembersByQuestion(){
+        List<Member> sortMembers = memberService.findMembersByQuestion();
+        return new ResponseEntity(sortMembers,HttpStatus.OK);
+    }
+
+    @GetMapping("/ranking/level")
+    public ResponseEntity getMembersByLevel(){
+        List<Member> sortMembers = memberService.findMembersByLevel();
+        return new ResponseEntity(sortMembers,HttpStatus.OK);
+    }
+
+
 }
