@@ -27,4 +27,9 @@ public interface MemberService {
     void setCurrentBadge(String badgeName);
 
     void addBadge(String badge);
-    }
+    List<Member> findMembersByAnswer();
+    List<Member> findMembersByQuestion();
+    List<Member> findMembersByLevel();
+
+
+}

@@ -14,12 +14,16 @@ const DetailView = ({
   LikeHandler,
   ReportHandler,
   checkLike,
+  Setimage,
+  image,
+  ImgSrc,
+  ImgHandler,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(Data.questionId);
   const textRef = useRef();
   //수정하기 버튼 클릭시 input창으로 변경
-  const EditHandler = (id) => {
+  const EditHandler = (id, url) => {
     if (id === TitleId) {
       setTitleId(0);
       SetEditClick(false);
@@ -29,7 +33,7 @@ const DetailView = ({
       SetEditClick(true);
     }
   };
-  console.log(Data.checkLike);
+
   return (
     <>
       <Detail>
@@ -57,18 +61,32 @@ const DetailView = ({
             <div className="UserWrap"></div>
             <div className="Article">
               {Data.questionId === TitleId ? (
-                <Editor
-                  ref={textRef}
-                  initialEditType="wysiwyg"
-                  initialValue={Data.content}
-                  onChange={() =>
-                    SetContentData(
-                      textRef.current.getInstance().getMarkdown().trim()
-                    )
-                  }
-                />
+                <>
+                  {' '}
+                  <input
+                    type="file"
+                    className="ImgInput"
+                    onChange={ImgHandler}
+                  ></input>
+                  <>
+                    <img src={ImgSrc ? ImgSrc : Image}></img>
+                  </>
+                  <Editor
+                    ref={textRef}
+                    initialEditType="wysiwyg"
+                    initialValue={Data.content}
+                    onChange={() =>
+                      SetContentData(
+                        textRef.current.getInstance().getMarkdown().trim()
+                      )
+                    }
+                  />
+                </>
               ) : (
-                <Viewer initialValue={Data.content} />
+                <>
+                  <img src={ImgSrc ? ImgSrc : Image}></img>
+                  <Viewer initialValue={Data.content} />
+                </>
               )}
 
               <LikeButton
@@ -77,7 +95,9 @@ const DetailView = ({
                 checkLike={checkLike}
               />
               <div className="Workbtn">
-                <button onClick={() => EditHandler(Data.questionId)}>
+                <button
+                  onClick={() => EditHandler(Data.questionId, Data.fileUrl)}
+                >
                   {' '}
                   수정하기{' '}
                 </button>
@@ -157,6 +177,9 @@ const Detail = styled.div`
       > button:hover {
         color: grey;
       }
+    }
+    > img {
+      width: 50%;
     }
   }
   @media ${mobile} {

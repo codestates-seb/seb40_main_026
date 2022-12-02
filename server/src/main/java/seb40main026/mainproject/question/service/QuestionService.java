@@ -43,7 +43,7 @@ public class QuestionService {
         if(questionRepository.countByMember(member) >= 15) { // 질문 15개 넘으면 질문왕 뱃지 추가
             memberService.addBadge("question");
         }
-
+        member.setQuestionCount(member.getQuestionCount()+1);
         memberService.addStickerAndLevelUp(member);
         questionRepository.save(question);
         QuestionLike findQuestionLike = questionLikeRepository.findByQuestionAndMember(question, member);

@@ -15,7 +15,11 @@ const MypageEdit = ({ UserInfo }) => {
           <UserPhotoWrap>
             <img
               alt="userimg"
-              src="https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png"
+              src={
+                UserInfo.fileUrl
+                  ? UserInfo.fileUrl
+                  : 'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png'
+              }
             ></img>
           </UserPhotoWrap>
           <NicknameWrap>
@@ -116,6 +120,7 @@ const NicknameWrap = styled.div`
 `;
 const UserPhotoWrap = styled.div`
   img {
+    border-radius: 50%;
     width: 150px;
   }
 `;

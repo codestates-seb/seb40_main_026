@@ -15,9 +15,25 @@ const QuestionView = ({
 }) => {
   const [QuesData, SetQuesData] = useState([]);
   const [checklike, Setchecklike] = useState();
+  const [ImgSrc, SetImgSrc] = useState(); //미리보기용
+  const [image, Setimage] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
+  const ImgHandler = (event) => {
+    SetSrc(event.target.files[0]);
+    Setimage(event.target.files[0]);
+  };
+  const SetSrc = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        resolve();
+      };
+    });
+  };
 
   //최초 질문 상세페이지 조회시
   useEffect(() => {
@@ -26,16 +42,30 @@ const QuestionView = ({
       url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
     }).then((res) => {
       SetQuesData(res.data);
-      console.log(res.data);
+      SetImgSrc(res.data.fileUrl);
+      SetTitleData(res.data.nickname);
+      SetContentData(res.data.content);
     });
   }, [State]);
   //질문 수정
+
   const EditPatch = () => {
-    axios({
-      method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-      data: { title: TitleData, content: ContentData },
-    })
+    const formData = new FormData();
+    if (image) {
+      formData.append('image', image === undefined ? ImgSrc : image);
+    }
+    formData.append('title', TitleData);
+    formData.append('content', ContentData);
+    axios
+      .patch(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then(function (response) {
         SetState(State + 1);
       })
@@ -43,6 +73,7 @@ const QuestionView = ({
         console.log(err);
       });
   };
+  console.log(ImgSrc, TitleData, ContentData, image);
   const ReportHandler = () => {
     axios({
       method: 'post',
@@ -100,6 +131,10 @@ const QuestionView = ({
         LikeHandler={LikeHandler}
         ReportHandler={ReportHandler}
         checkLike={checklike}
+        Setimage={Setimage}
+        image={image}
+        ImgSrc={ImgSrc}
+        ImgHandler={ImgHandler}
       />
     </>
   );

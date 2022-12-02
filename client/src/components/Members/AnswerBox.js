@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { CgAdd } from 'react-icons/cg';
+import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
@@ -132,7 +134,23 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-function AnswerBox({ UserData }) {
+const BtnBox = styled.div`
+  margin: 0 auto;
+
+  button {
+    width: 4rem;
+    font-size: 2.5rem;
+    color: #c7c7c7;
+    background-color: white;
+    cursor: pointer;
+  }
+`;
+
+function AnswerBox({ list }) {
+  console.log(list);
+  const onErrorImg = (e) => {
+    e.target.src = cardDefaultImg;
+  };
   return (
     <Container>
       <TitleBox>
@@ -142,27 +160,39 @@ function AnswerBox({ UserData }) {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>코코아</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>딸기</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
-            <TopMemberImg src="https://archivetip.com/wp-content/uploads/2021/08/%EC%A1%B8%EB%A6%B0-%ED%91%9C%EC%A0%95.jpg"></TopMemberImg>
+            <TopMemberImg
+              src={''}
+              alt={'cardImg'}
+              onError={onErrorImg}
+            ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
@@ -176,19 +206,28 @@ function AnswerBox({ UserData }) {
         <RankBlockR></RankBlockR>
       </BlockBox>
       <BottomBox>
-        {UserData.map((item) => {
+        {list.slice(0, 3).map((item) => {
           return (
             <BtmMemberBox key={item.memberId}>
-              <BtmMemberImg src={item.path}></BtmMemberImg>
+              {item.fileUrl ? (
+                <BtmMemberImg src={item.fileUrl} alt={'cardImg'} />
+              ) : (
+                <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+              )}
               <WordBox>
                 <span>{item.level}</span>
+                <span>{item.memberGrade}</span>
                 <span>{item.nickname}</span>
               </WordBox>
             </BtmMemberBox>
           );
         })}
       </BottomBox>
-      <button>더보기</button>
+      <BtnBox>
+        <button>
+          <CgAdd />
+        </button>
+      </BtnBox>
     </Container>
   );
 }

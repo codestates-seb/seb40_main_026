@@ -11,33 +11,57 @@ const Answer = ({ SetState, State }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
   const [Answer, setAnswer] = useState([]);
+  const [image, Setimage] = useState();
+  const [ImgSrc, SetImgSrc] = useState();
   const [EditData, SetEditData] = useState();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
-  console.log(EditData);
 
-  const EditHandler = (id) => {
-    if (id === TitleId) {
-      axios({
-        method: 'patch',
-        url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
-        data: { content: EditData },
-        headers: {
-          Authorization: token,
-        },
-      })
-        .then(function (response) {
+  const textRef = useRef();
+  const ImgHandler = (event) => {
+    SetSrc(event.target.files[0]);
+    Setimage(event.target.files[0]);
+  };
+  const SetSrc = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        resolve();
+      };
+    });
+  };
+
+  const EditHandler = (item) => {
+    if (item.answerId === TitleId) {
+      const formData = new FormData();
+      if (image) {
+        formData.append('image', image);
+      }
+      formData.append('content', EditData);
+      axios
+        .patch(
+          `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${item.answerId}`,
+          formData,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((response) => {
           SetState(State + 1);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
       setTitleId(0);
       SetEditClick(false);
     } else {
-      setTitleId(id);
+      setTitleId(item.answerId);
       SetEditClick(true);
+      SetEditData(item.content);
+      SetImgSrc(item.fileUrl);
     }
   };
   const DeleteHandler = (id) => {
@@ -57,7 +81,6 @@ const Answer = ({ SetState, State }) => {
 
   useEffect(() => {
     axios
-      ///questions/${id}
       .get(
         `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`
       )
@@ -75,9 +98,7 @@ const Answer = ({ SetState, State }) => {
       .then(() => {
         SetState(State + 1);
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch((err) => {});
   };
 
   return (
@@ -90,15 +111,14 @@ const Answer = ({ SetState, State }) => {
                 <div>
                   <div className="AnswerUserinfo ">
                     {' '}
+                    {items.teacher ? <span>🌟</span> : null}
                     <span> {items.nickname} </span>
                     <span> {items.grade} </span>
                     <span> {items.class} </span>
                     <span> {items.date} </span>
                   </div>{' '}
                   <BtnWrap>
-                    <button onClick={() => EditHandler(items.answerId)}>
-                      수정하기
-                    </button>
+                    <button onClick={() => EditHandler(items)}>수정하기</button>
                     <button onClick={() => DeleteHandler(items.answerId)}>
                       삭제하기
                     </button>
@@ -116,22 +136,34 @@ const Answer = ({ SetState, State }) => {
               </AnswerTop>
               <AnswerBot>
                 {items.answerId === TitleId ? (
-                  // <Editor
-                  //   ref={textRef}
-                  //   initialEditType="wysiwyg"
-                  //   initialValue={items.content}
-                  //   onChange={() =>
-                  //     SetEditData(
-                  //       textRef.current.getInstance().getMarkdown().trim()
-                  //     )
-                  //   }
-                  // />
-                  <input
-                    defaultValue={items.content}
-                    onChange={(e) => SetEditData(e.target.value)}
-                  />
+                  <>
+                    <img src={ImgSrc ? ImgSrc : image}></img>
+                    <br />
+                    <input
+                      type="file"
+                      className="ImgInput"
+                      onChange={ImgHandler}
+                    ></input>
+                    <Editor
+                      ref={textRef}
+                      initialEditType="wysiwyg"
+                      initialValue={items.content}
+                      onChange={() =>
+                        SetEditData(
+                          textRef.current.getInstance().getMarkdown().trim()
+                        )
+                      }
+                    />
+                  </>
                 ) : (
-                  <Viewer initialValue={items.content} />
+                  <>
+                    {/* <input
+                   defaultValue={items.content}
+                  onChange={(e) => SetEditData(e.target.value)}
+                   /> */}
+                    <img src={items.fileUrl ? items.fileUrl : image}></img>
+                    <Viewer initialValue={items.content} />
+                  </>
                 )}
               </AnswerBot>
             </AnswerMainWrap>

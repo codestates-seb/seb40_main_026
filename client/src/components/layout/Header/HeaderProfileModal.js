@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+const { Kakao } = window;
+
 const HeaderProfileModal = ({ setOpen }) => {
   //const logout = useLogout();
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    Kakao.Auth.logout();
     alert('로그아웃되었습니다');
-    setOpen(false);
     navigate('/');
+    setOpen(false);
     window.location.reload();
   };
   return (
@@ -16,6 +19,7 @@ const HeaderProfileModal = ({ setOpen }) => {
       <button
         onClick={() => {
           navigate('/mypage');
+          setOpen(false);
         }}
       >
         마이페이지
@@ -30,8 +34,8 @@ export default HeaderProfileModal;
 
 const Container = styled.div`
   position: absolute;
-  top: 110px;
-  right: 100px;
+  top: 90px;
+  right: 50px;
   background-color: var(--gold);
   cursor: pointer;
   background-color: var(--gold);
@@ -46,7 +50,7 @@ const Container = styled.div`
   height: 200px;
 
   > button {
-    font-size: 30px;
+    font-size: 1rem;
     font-weight: 500;
     color: black;
     background-color: var(--gold);
@@ -60,5 +64,5 @@ const HrLine = styled.div`
   border-top: 1px;
   height: 1px;
   width: 50px;
-  margin: 10px 10px;
+  margin: 1rem;
 `;

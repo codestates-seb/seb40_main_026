@@ -17,7 +17,6 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
   //상세페이지 네비게이션 연결
   const Titlehandler = (id) => {
     navigate(`/questions/${id}`);
-    console.log(id);
   };
 
   //필터 쿼리 구분용 함수
@@ -33,7 +32,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
       SetCount(1);
     }
   }, [TitleId]);
-  console.log(TitleId);
+
   //질문 리스트  api요청
   useEffect(() => {
     axios
@@ -45,6 +44,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
         SetTotal(res.data.length);
       });
   }, [Count, Filter]);
+
   //게시글 더보기 요청시 Count증가 시키는 함수
   const CountHandler = () => {
     if (Total >= Count && Total !== QuesData.length) {
@@ -89,10 +89,10 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
 
                     <SectionBot>
                       <BotUserWrap>
-                        <span>{items.date}</span>
                         <span> {items.nickname} </span>
                         <span> {items.class} </span>
                         <span> {items.grade} </span>
+                        <span>{items.createdAt}</span>
                         <span className="mobileAnswer">
                           답변 {items.answerCount}
                         </span>
@@ -131,10 +131,10 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
 
                     <SectionBot>
                       <BotUserWrap>
-                        <span>{items.date}</span>
                         <span> {items.nickname} </span>
                         <span> {items.class} </span>
                         <span> {items.grade} </span>
+                        <span>{items.createdAt} </span>
                         <span className="mobileAnswer">
                           답변 {items.answerCount}
                         </span>
@@ -250,11 +250,11 @@ const Sectionleft = styled.div`
   text-align: left;
   > p {
     margin-top: 1rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   > h3 > button {
     background-color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
     cursor: pointer;
     text-align: left;
@@ -296,7 +296,7 @@ const SectionBot = styled.div`
 `;
 const BotUserWrap = styled.div`
   margin-left: 1rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 const MoreBtnWrap = styled.div`
   width: 100%;
