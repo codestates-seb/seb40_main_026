@@ -70,10 +70,10 @@ public class Member {
     private Boolean teacher;
 
     @Column()
-    private Long questionCount;
+    private long questionCount;
 
     @Column
-    private Long answerCount;
+    private long answerCount;
 
     @Column
     private ArrayList<String> study = new ArrayList<>();

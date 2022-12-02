@@ -87,11 +87,11 @@ public class BoastService {
         findBoast.setNickName(findBoast.getMember().getNickname());
         findBoast.setGrade(findBoast.getMember().getMemberGrade().getGrade());
         findBoast.setBadge(findBoast.getMember().getCurrentBadge());
-        System.out.println("findMember = " + findMember);
+
         if(findMember.isPresent()){
             Member authMember = memberService.getLoginMember();
             Optional<BoastLike> findBoastLike = boastLikeRepository.findByBoastIdAndMemberId(boastId,authMember.getMemberId());
-            if(findBoastLike == null) {
+            if(findBoastLike.isEmpty()) {
                 findBoast.setCheckLike(false);
             }
             else{

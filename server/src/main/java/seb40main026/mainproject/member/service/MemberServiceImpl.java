@@ -1,6 +1,7 @@
 package seb40main026.mainproject.member.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -192,4 +193,18 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> optionalMember = memberRepository.findByEmail(principal.toString());
         return optionalMember;
     }
+    @Override
+    public List<Member> findMembersByAnswer(){
+        return memberRepository.findAll(Sort.by(Sort.Direction.DESC,"answerCount"));
+    }
+
+    @Override
+    public List<Member> findMembersByQuestion(){
+        return memberRepository.findAll(Sort.by(Sort.Direction.DESC,"questionCount"));
+    }
+    @Override
+    public List<Member> findMembersByLevel(){
+        return memberRepository.findAll(Sort.by(Sort.Direction.DESC,"sticker"));
+    }
+
 }
