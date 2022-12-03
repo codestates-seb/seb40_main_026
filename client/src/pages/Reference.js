@@ -29,6 +29,7 @@ const ListBox = styled.ul`
   grid-gap: 2.5rem;
   place-items: center;
   margin: auto;
+  margin-top: 2rem;
   width: 70%;
 
   @media ${tablet} {
