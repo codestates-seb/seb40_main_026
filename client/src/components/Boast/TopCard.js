@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../utils/api';
+import { useState } from 'react';
+import axios from 'axios';
 
 const CardBox = styled.li`
   display: flex;
@@ -38,8 +41,9 @@ const CardImg = styled.img`
 
 const Word = styled.div`
   margin-left: 0.5rem;
+  margin-top: 1rem;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   background: #ffc149;
   cursor: pointer;
 
@@ -82,14 +86,32 @@ const PageBtn = styled.button`
 function TopCard({
   title,
   nickName,
-  LikeHandler,
   LikeButton,
   boastId,
   fileUrl,
-  checkLike,
   likeCount,
   grade,
 }) {
+  const [checkLike, SetCheckLike] = useState();
+  const [state, SetState] = useState(0);
+  const access = localStorage.getItem('accessToken');
+
+  const LikeHandler = (id) => {
+    axios({
+      method: 'post',
+      url: `${BASE_URL}boasts/${id}/like`,
+      headers: { Authorization: access },
+    })
+      .then((res) => {
+        SetState(state + 1);
+        SetCheckLike(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
