@@ -14,11 +14,9 @@ const CardBox = styled.li`
   box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
   transform: scale(1);
   transition: all 0.5s;
-
   :hover {
     transform: scale(1.1);
   }
-
   @media ${mobile} {
     width: 100%;
   }
@@ -46,11 +44,9 @@ const Word = styled.div`
   font-size: 1.4rem;
   background: #ffc149;
   cursor: pointer;
-
   @media ${mobile} {
     font-size: 2.3rem;
   }
-
   @media ${tablet} {
     font-size: 1.3rem;
   }
@@ -104,8 +100,7 @@ function TopCard({
     })
       .then((res) => {
         SetState(state + 1);
-        SetCheckLike(res.data);
-        console.log(res.data);
+        SetCheckLike(res.data.checkLike);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -129,7 +124,6 @@ function TopCard({
         ) : (
           <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
         )}
-
         <Word>{title}</Word>
       </PageBtn>
       <Word2>

@@ -13,7 +13,6 @@ function BoastViewMain() {
   const [checkLike, SetCheckLike] = useState();
   const [state, SetState] = useState(0);
   const [image, SetImage] = useState();
-
   const access = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
@@ -61,7 +60,6 @@ function BoastViewMain() {
       })
       .then((res) => {
         navigate('/boast');
-        console.log(res);
       });
   };
 
@@ -74,13 +72,11 @@ function BoastViewMain() {
     })
       .then((res) => {
         SetState(state + 1);
-        SetCheckLike(res.data);
-        console.log(res.data);
+        SetCheckLike(res.data.checkLike);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
-    console.log(checkLike);
   };
 
   return (

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router';
 import { BASE_URL } from '../../utils/api';
 import { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 const CardBox = styled.li`
   display: flex;
@@ -18,7 +17,6 @@ const CardBox = styled.li`
   :hover {
     transform: scale(1.1);
   }
-
   @media ${mobile} {
     width: 100%;
   }
@@ -94,8 +92,6 @@ function Card({
   const [checkLike, SetCheckLike] = useState();
   const [state, SetState] = useState(0);
   const access = localStorage.getItem('accessToken');
-  let { id } = useParams();
-
   const LikeHandler = (id) => {
     axios({
       method: 'post',
@@ -104,7 +100,7 @@ function Card({
     })
       .then((res) => {
         SetState(state + 1);
-        SetCheckLike(res);
+        SetCheckLike(res.data.checkLike);
       })
       .catch((err) => {
         console.log(err.response.data);
