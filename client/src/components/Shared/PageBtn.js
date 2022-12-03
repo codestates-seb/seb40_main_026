@@ -4,6 +4,7 @@ const PageBox = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 15px;
+  margin-bottom: 15px;
 
   button {
     display: inline-block;
