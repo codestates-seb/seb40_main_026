@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CgAdd } from 'react-icons/cg';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
@@ -7,6 +6,7 @@ import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Container = styled.section`
   display: grid;
@@ -158,7 +158,7 @@ function AnswerBox() {
   useEffect(() => {
     async function getAllMembers() {
       const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members'
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/ranking/answer'
       );
       let data = res.data;
       setList(data.slice(0, Count * 3));
@@ -184,9 +184,10 @@ function AnswerBox() {
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/0f/07/9d/0f079d45ddba1af2798432dd61e67599.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
@@ -198,28 +199,30 @@ function AnswerBox() {
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/736x/16/f3/8d/16f38ddb005226e72dcb94f44a6f3df5.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>딸기</span>
+            <span>🐓</span>
+            <span>딸기맛</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/23/b3/63/23b363b77c6bdb974a1354b52c8ed035.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
+            <span>🐓</span>
+            <span>둘리야</span>
           </WordBox>
         </TopMemberBox>
       </TopBox>
@@ -237,20 +240,17 @@ function AnswerBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <WordBox>
-                <span>{item.level}</span>
-                <span>{item.memberGrade}</span>
-                <span>{item.nickname}</span>
-              </WordBox>
+              <Link to={`/members/${item.memberId}`}>
+                <WordBox>
+                  <span>{item.level}</span>
+                  <span>{item.memberGrade}</span>
+                  <span>{item.nickname}</span>
+                </WordBox>
+              </Link>
             </BtmMemberBox>
           );
         })}
       </BottomBox>
-      <BtnBox>
-        <button>
-          <CgAdd />
-        </button>
-      </BtnBox>
     </Container>
   );
 }

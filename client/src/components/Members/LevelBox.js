@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
-import { CgAdd } from 'react-icons/cg';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
@@ -151,9 +150,7 @@ const BtnBox = styled.div`
 
 function LevelBox() {
   const [list, setList] = useState([]);
-  const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState();
-  const [Loading, SetLoading] = useState(false);
+
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
@@ -161,28 +158,18 @@ function LevelBox() {
   useEffect(() => {
     async function getAllMembers() {
       const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members'
+        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/ranking/level'
       );
       let data = res.data;
-      setList(data.slice(0, Count * 3));
-      SetTotal(data.length);
+      setList(data.slice(0, 3));
     }
     try {
       getAllMembers();
     } catch (err) {
       console.error(err);
     }
-  }, [Count]);
+  });
 
-  const CountHandler = () => {
-    if (Total >= Count && Total !== list.length) {
-      SetLoading(true);
-      setTimeout(() => {
-        SetCount(Count + 1);
-        SetLoading(false);
-      }, 1000);
-    }
-  };
   return (
     <Container>
       <TitleBox>
@@ -193,42 +180,45 @@ function LevelBox() {
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://cdn.imweb.me/upload/S201807025b39d1981b0b0/16b98d3e3d30e.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
+            <span>🐓</span>
+            <span>나는천재</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/280px-Golde33443.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
+            <span>🐓</span>
+            <span>코딩왕</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/4e/4d/a1/4e4da156c3bfe41eb1de21df964a82a2.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
+            <span>🐓</span>
+            <span>쵸코렛</span>
           </WordBox>
         </TopMemberBox>
       </TopBox>
@@ -255,18 +245,6 @@ function LevelBox() {
           );
         })}
       </BottomBox>
-      <BtnBox>
-        <button
-          className={
-            list.length === 0 || Loading || Total === list.length
-              ? 'non-loading'
-              : 'MoreBtn'
-          }
-          onClick={CountHandler}
-        >
-          <CgAdd />
-        </button>
-      </BtnBox>
     </Container>
   );
 }
