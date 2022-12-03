@@ -7,6 +7,7 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../utils/api';
 
 const Container = styled.section`
   display: grid;
@@ -17,6 +18,7 @@ const Container = styled.section`
   width: 100%;
   height: 40rem;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   justify-content: center;
@@ -49,7 +51,6 @@ const TopBox = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   place-items: center;
-
   li:nth-child(1) {
     position: relative;
   }
@@ -73,6 +74,7 @@ const ImgBox = styled.div`
   flex-direction: column;
   align-content: center;
 `;
+
 const CrownImg = styled.img`
   position: relative;
   width: 55px;
@@ -126,7 +128,6 @@ const BtmMemberBox = styled.li`
   margin-bottom: 1rem;
   width: 100%;
   height: 50%;
-
   div {
     margin: 0.9rem 0 0 0.5rem;
   }
@@ -137,32 +138,14 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-const BtnBox = styled.div`
-  margin: 0 auto;
-
-  button {
-    width: 4rem;
-    font-size: 2.5rem;
-    color: #c7c7c7;
-    background-color: white;
-    cursor: pointer;
-  }
-`;
-
 function AnswerBox() {
   const [list, setList] = useState([]);
-  const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState();
-  const [Loading, SetLoading] = useState(false);
 
   useEffect(() => {
     async function getAllMembers() {
-      const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/ranking/answer'
-      );
+      const res = await axios.get(`${BASE_URL}members/ranking/answer`);
       let data = res.data;
-      setList(data.slice(0, Count * 3));
-      SetTotal(data.length);
+      setList(data(0, 3));
     }
     try {
       getAllMembers();
@@ -174,6 +157,7 @@ function AnswerBox() {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
+
   return (
     <Container>
       <TitleBox>

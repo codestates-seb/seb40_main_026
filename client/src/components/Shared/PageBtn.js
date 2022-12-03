@@ -5,7 +5,6 @@ const PageBox = styled.div`
   justify-content: center;
   margin-top: 15px;
   margin-bottom: 15px;
-
   button {
     display: inline-block;
     width: 30px;
@@ -17,7 +16,6 @@ const PageBox = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-
     :hover {
       background-color: #ffc149;
       color: white;

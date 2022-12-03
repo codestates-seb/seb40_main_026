@@ -48,7 +48,6 @@ const BoastDetailView = ({
                   <h3>{Data.title}</h3>
                 )}
               </div>
-
               <div className="Userinfo">
                 <span>{Data.nickName} </span>
                 <span>{Data.class}</span>
@@ -99,7 +98,6 @@ const BoastDetailView = ({
                   <Viewer initialValue={Data.content} />
                 </>
               )}
-
               <LikeButton
                 likeCount={Data.likeCount}
                 LikeHandler={() => LikeHandler(Data.boastId)}
@@ -126,11 +124,9 @@ const BoastDetailView = ({
 const Detail = styled.div`
   width: 100%;
   margin-top: 1rem;
-
   .DetailViewWrap {
     width: 70%;
     margin: auto;
-
     .TitleWrap {
       display: flex;
       flex-direction: row;
@@ -140,7 +136,6 @@ const Detail = styled.div`
       border-radius: 0.5rem;
       padding: 1rem;
     }
-
     .DetailTitle {
       width: 80%;
       font-size: 1rem;
@@ -157,7 +152,6 @@ const Detail = styled.div`
       justify-content: space-between;
       align-items: center;
       width: 100%;
-
       margin-bottom: 1rem;
       color: grey;
       .Workbtn {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
+
 const BoastCommentlist = ({
   CommentData,
   DeleteHandler,

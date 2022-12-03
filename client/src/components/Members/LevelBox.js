@@ -6,6 +6,7 @@ import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/api';
 
 const Container = styled.section`
   display: grid;
@@ -136,18 +137,6 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-const BtnBox = styled.div`
-  margin: 0 auto;
-
-  button {
-    width: 4rem;
-    font-size: 2.5rem;
-    color: #c7c7c7;
-    background-color: white;
-    cursor: pointer;
-  }
-`;
-
 function LevelBox() {
   const [list, setList] = useState([]);
 
@@ -157,9 +146,7 @@ function LevelBox() {
 
   useEffect(() => {
     async function getAllMembers() {
-      const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/ranking/level'
-      );
+      const res = await axios.get(`${BASE_URL}members/ranking/level`);
       let data = res.data;
       setList(data.slice(0, 3));
     }
