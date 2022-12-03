@@ -10,7 +10,7 @@ function BoastViewMain() {
   const [titleData, SetTitleData] = useState();
   const [contentData, SetContentData] = useState();
   const [list, SetList] = useState([]);
-  const [checklike, Setchecklike] = useState();
+  const [checkLike, SetCheckLike] = useState();
   const [state, SetState] = useState(0);
   const [image, SetImage] = useState();
 
@@ -74,12 +74,13 @@ function BoastViewMain() {
     })
       .then((res) => {
         SetState(state + 1);
-        Setchecklike(res.data);
+        SetCheckLike(res.data);
         console.log(res.data);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
+    console.log(checkLike);
   };
 
   return (
@@ -91,7 +92,7 @@ function BoastViewMain() {
         EditPatch={EditPatch}
         DeleteHandler={DeleteHandler}
         LikeHandler={LikeHandler}
-        checkLike={checklike}
+        checkLike={checkLike}
         SetImage={SetImage}
         image={image}
       />

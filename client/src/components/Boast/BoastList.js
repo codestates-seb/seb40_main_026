@@ -115,12 +115,9 @@ const ListBox = styled.ul`
 
 function BoastList() {
   // axios
-  const [list, setList] = useState([]);
-  const [topList, setTopList] = useState([]);
-  const [checklike, Setchecklike] = useState();
+  const [list, SetList] = useState([]);
+  const [topList, SetTopList] = useState([]);
   const [state, SetState] = useState(0);
-  const access = localStorage.getItem('accessToken');
-  let { id } = useParams();
 
   // Pagination
   const location = useLocation();
@@ -147,27 +144,12 @@ function BoastList() {
       .then(
         axios.spread((res1, res2) => {
           console.log(res1, res2);
-          setTopList(res1.data);
-          setList(res2.data);
+          SetTopList(res1.data);
+          SetList(res2.data);
         })
       )
       .catch((err) => console.log(err));
   }, [location.search, state]);
-
-  const LikeHandler = (id) => {
-    axios({
-      method: 'post',
-      url: `${BASE_URL}boasts/${id}/like`,
-      headers: { Authorization: access },
-    })
-      .then((res) => {
-        SetState(state + 1);
-        Setchecklike(res);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  };
 
   return (
     <Container>
@@ -186,9 +168,7 @@ function BoastList() {
               boastId={item.boastId}
               grade={item.grade}
               fileUrl={item.fileUrl}
-              checkLike={checklike}
               likeCount={item.likeCount}
-              LikeHandler={LikeHandler}
             />
           );
         })}
@@ -201,13 +181,11 @@ function BoastList() {
               likeButton={true}
               title={item.title}
               nickName={item.nickName}
-              LikeHandler={LikeHandler}
               LikeButton={LikeButton}
               boastId={item.boastId}
               grade={item.grade}
               key={item.boastId}
               fileUrl={item.fileUrl}
-              checkLike={checklike}
               likeCount={item.likeCount}
               clickable={true}
             />
