@@ -32,7 +32,7 @@ const Title = styled.div`
   height: 55%;
   font-size: 1.8rem;
   text-align: center;
-  padding-top: 0.4rem;
+  padding-top: 0.8rem;
   margin-top: 1rem;
   @media ${tablet} {
     font-size: 1.5rem;

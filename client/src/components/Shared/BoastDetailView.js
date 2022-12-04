@@ -124,6 +124,9 @@ const BoastDetailView = ({
 const Detail = styled.div`
   width: 100%;
   margin-top: 1rem;
+  img {
+    width: 100%;
+  }
   .DetailViewWrap {
     width: 70%;
     margin: auto;
@@ -196,4 +199,5 @@ const Detail = styled.div`
     }
   }
 `;
+
 export default BoastDetailView;

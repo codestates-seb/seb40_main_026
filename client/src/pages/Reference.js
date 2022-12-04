@@ -21,6 +21,9 @@ const Container = styled.div`
   .Word {
     margin-bottom: 0.5rem;
   }
+  .click {
+    cursor: not-allowed;
+  }
 `;
 
 const ListBox = styled.ul`
@@ -67,6 +70,7 @@ function Reference() {
               <Card
                 key={item.id}
                 classNameD="Word"
+                classNameA="click"
                 title={item.title}
                 fileUrl={item.fileUrl}
               />

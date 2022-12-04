@@ -34,7 +34,7 @@ const Title = styled.div`
   height: 55%;
   font-size: 1.8rem;
   text-align: center;
-  padding-top: 0.4rem;
+  padding-top: 0.8rem;
   margin-top: 1rem;
   @media ${tablet} {
     font-size: 1.5rem;
@@ -145,7 +145,7 @@ function AnswerBox() {
     async function getAllMembers() {
       const res = await axios.get(`${BASE_URL}members/ranking/answer`);
       let data = res.data;
-      setList(data(0, 3));
+      setList(data.slice(0, 3));
     }
     try {
       getAllMembers();
@@ -224,7 +224,7 @@ function AnswerBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <Link to={`/members/${item.memberId}`}>
+              <Link to={`/friendinfo/${item.memberId}`}>
                 <WordBox>
                   <span>{item.level}</span>
                   <span>{item.memberGrade}</span>

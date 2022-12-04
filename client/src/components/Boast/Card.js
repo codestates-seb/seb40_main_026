@@ -78,6 +78,7 @@ const Word2 = styled.div`
 `;
 
 function Card({
+  classNameA,
   classNameD,
   likeButton,
   title,
@@ -119,11 +120,16 @@ function Card({
     <CardBox>
       <PageBtn onClick={() => handleOnClick(boastId)}>
         {fileUrl ? (
-          <CardImg src={fileUrl} alt={'cardImg'} />
+          <CardImg className={classNameA} src={fileUrl} alt={'cardImg'} />
         ) : (
-          <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
+          <CardImg
+            className={classNameA}
+            src={''}
+            alt={'cardImg'}
+            onError={onErrorImg}
+          />
         )}
-        <Word>{title}</Word>
+        <Word className={classNameA}>{title}</Word>
       </PageBtn>
 
       <Word2 className={classNameD}>
