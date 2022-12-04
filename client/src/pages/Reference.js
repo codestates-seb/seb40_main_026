@@ -31,8 +31,7 @@ const ListBox = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2.5rem;
   place-items: center;
-  margin: auto;
-  margin-top: 2rem;
+  margin: 2rem auto 1.5rem auto;
   width: 70%;
 
   @media ${tablet} {
