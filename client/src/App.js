@@ -90,6 +90,7 @@ function App() {
           }
         />
         <Route path="/members" element={<Members />} />
+        <Route path={`/friendinfo/:id`} element={<Mypage />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
 

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
-import { CgAdd } from 'react-icons/cg';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/api';
 
 const Container = styled.section`
   display: grid;
@@ -32,7 +32,7 @@ const Title = styled.div`
   height: 55%;
   font-size: 1.8rem;
   text-align: center;
-  padding-top: 0.4rem;
+  padding-top: 0.8rem;
   margin-top: 1rem;
   @media ${tablet} {
     font-size: 1.5rem;
@@ -135,31 +135,14 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-const BtnBox = styled.div`
-  margin: 0 auto;
-  button {
-    width: 4rem;
-    font-size: 2.5rem;
-    color: #c7c7c7;
-    background-color: white;
-    cursor: pointer;
-  }
-`;
-
 function QuestionBox() {
   const [list, setList] = useState([]);
-  const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState();
-  const [Loading, SetLoading] = useState(false);
 
   useEffect(() => {
     async function getAllMembers() {
-      const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members'
-      );
+      const res = await axios.get(`${BASE_URL}members/ranking/question`);
       let data = res.data;
-      setList(data.slice(0, Count * 3));
-      SetTotal(data.length);
+      setList(data.slice(0, 3));
     }
     try {
       getAllMembers();
@@ -180,42 +163,45 @@ function QuestionBox() {
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/fd/36/56/fd3656aeed8e33a83df20a7cc0dc56bc.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>얌얌이</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/b7/e3/12/b7e312d8be728acecc43d22ebf99dcab.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>구우웃</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/736x/1e/f8/45/1ef8450987aab4ac96064a9b53b2b8dc.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
             <span>🐥</span>
-            <span>둘리</span>
+            <span>외계인</span>
           </WordBox>
         </TopMemberBox>
       </TopBox>
@@ -243,11 +229,6 @@ function QuestionBox() {
             );
           })}
       </BottomBox>
-      <BtnBox>
-        <button>
-          <CgAdd />
-        </button>
-      </BtnBox>
     </Container>
   );
 }

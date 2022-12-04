@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../utils/api';
+import { useState } from 'react';
+import axios from 'axios';
 
 const CardBox = styled.li`
   display: flex;
@@ -14,7 +17,6 @@ const CardBox = styled.li`
   :hover {
     transform: scale(1.1);
   }
-
   @media ${mobile} {
     width: 100%;
   }
@@ -42,7 +44,8 @@ const CardImg = styled.img`
 const Word = styled.div`
   margin-left: 0.5rem;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  margin-top: 1rem;
   cursor: pointer;
 
   @media ${mobile} {
@@ -75,6 +78,7 @@ const Word2 = styled.div`
 `;
 
 function Card({
+  classNameA,
   classNameD,
   likeButton,
   title,
@@ -83,11 +87,27 @@ function Card({
   LikeButton,
   boastId,
   fileUrl,
-  checkLike,
-  LikeHandler,
   clickable,
   grade,
 }) {
+  const [checkLike, SetCheckLike] = useState();
+  const [state, SetState] = useState(0);
+  const access = localStorage.getItem('accessToken');
+  const LikeHandler = (id) => {
+    axios({
+      method: 'post',
+      url: `${BASE_URL}boasts/${id}/like`,
+      headers: { Authorization: access },
+    })
+      .then((res) => {
+        SetState(state + 1);
+        SetCheckLike(res.data.checkLike);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
@@ -100,11 +120,16 @@ function Card({
     <CardBox>
       <PageBtn onClick={() => handleOnClick(boastId)}>
         {fileUrl ? (
-          <CardImg src={fileUrl} alt={'cardImg'} />
+          <CardImg className={classNameA} src={fileUrl} alt={'cardImg'} />
         ) : (
-          <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
+          <CardImg
+            className={classNameA}
+            src={''}
+            alt={'cardImg'}
+            onError={onErrorImg}
+          />
         )}
-        <Word>{title}</Word>
+        <Word className={classNameA}>{title}</Word>
       </PageBtn>
 
       <Word2 className={classNameD}>

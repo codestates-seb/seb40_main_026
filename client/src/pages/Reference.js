@@ -21,6 +21,9 @@ const Container = styled.div`
   .Word {
     margin-bottom: 0.5rem;
   }
+  .click {
+    cursor: not-allowed;
+  }
 `;
 
 const ListBox = styled.ul`
@@ -29,6 +32,7 @@ const ListBox = styled.ul`
   grid-gap: 2.5rem;
   place-items: center;
   margin: auto;
+  margin-top: 2rem;
   width: 70%;
 
   @media ${tablet} {
@@ -66,6 +70,7 @@ function Reference() {
               <Card
                 key={item.id}
                 classNameD="Word"
+                classNameA="click"
                 title={item.title}
                 fileUrl={item.fileUrl}
               />

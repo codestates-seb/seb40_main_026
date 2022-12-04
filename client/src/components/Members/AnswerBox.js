@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CgAdd } from 'react-icons/cg';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
@@ -7,6 +6,8 @@ import ranklogo3 from '../../assets/images/ranklogo3.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../utils/api';
 
 const Container = styled.section`
   display: grid;
@@ -17,6 +18,7 @@ const Container = styled.section`
   width: 100%;
   height: 40rem;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   justify-content: center;
@@ -32,7 +34,7 @@ const Title = styled.div`
   height: 55%;
   font-size: 1.8rem;
   text-align: center;
-  padding-top: 0.4rem;
+  padding-top: 0.8rem;
   margin-top: 1rem;
   @media ${tablet} {
     font-size: 1.5rem;
@@ -72,6 +74,7 @@ const ImgBox = styled.div`
   flex-direction: column;
   align-content: center;
 `;
+
 const CrownImg = styled.img`
   position: relative;
   width: 55px;
@@ -135,31 +138,14 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-const BtnBox = styled.div`
-  margin: 0 auto;
-  button {
-    width: 4rem;
-    font-size: 2.5rem;
-    color: #c7c7c7;
-    background-color: white;
-    cursor: pointer;
-  }
-`;
-
 function AnswerBox() {
   const [list, setList] = useState([]);
-  const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState();
-  const [Loading, SetLoading] = useState(false);
 
   useEffect(() => {
     async function getAllMembers() {
-      const res = await axios.get(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members'
-      );
+      const res = await axios.get(`${BASE_URL}members/ranking/answer`);
       let data = res.data;
-      setList(data.slice(0, Count * 3));
-      SetTotal(data.length);
+      setList(data.slice(0, 3));
     }
     try {
       getAllMembers();
@@ -171,6 +157,7 @@ function AnswerBox() {
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
+
   return (
     <Container>
       <TitleBox>
@@ -181,9 +168,10 @@ function AnswerBox() {
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/0f/07/9d/0f079d45ddba1af2798432dd61e67599.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
@@ -195,28 +183,30 @@ function AnswerBox() {
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/736x/16/f3/8d/16f38ddb005226e72dcb94f44a6f3df5.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>딸기</span>
+            <span>🐓</span>
+            <span>딸기맛</span>
           </WordBox>
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
             <TopMemberImg
-              src={''}
+              src={
+                'https://i.pinimg.com/564x/23/b3/63/23b363b77c6bdb974a1354b52c8ed035.jpg'
+              }
               alt={'cardImg'}
-              onError={onErrorImg}
             ></TopMemberImg>
           </ImgBox>
           <WordBox>
-            <span>🐥</span>
-            <span>둘리</span>
+            <span>🐓</span>
+            <span>둘리야</span>
           </WordBox>
         </TopMemberBox>
       </TopBox>
@@ -234,20 +224,17 @@ function AnswerBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <WordBox>
-                <span>{item.level}</span>
-                <span>{item.memberGrade}</span>
-                <span>{item.nickname}</span>
-              </WordBox>
+              <Link to={`/friendinfo/${item.memberId}`}>
+                <WordBox>
+                  <span>{item.level}</span>
+                  <span>{item.memberGrade}</span>
+                  <span>{item.nickname}</span>
+                </WordBox>
+              </Link>
             </BtmMemberBox>
           );
         })}
       </BottomBox>
-      <BtnBox>
-        <button>
-          <CgAdd />
-        </button>
-      </BtnBox>
     </Container>
   );
 }

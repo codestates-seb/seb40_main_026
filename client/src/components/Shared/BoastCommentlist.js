@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState } from 'react';
+
 const BoastCommentlist = ({
   CommentData,
   DeleteHandler,
@@ -28,6 +29,7 @@ const BoastCommentlist = ({
             return (
               <CommentWrap key={item.boastReplyId}>
                 <NickNameWrap>
+                  <span>{item.grade}</span>
                   <span>{item.nickName}</span>
                 </NickNameWrap>
                 <BodyWrap>
@@ -109,7 +111,6 @@ const CommentWrap = styled.li`
   }
 `;
 const NickNameWrap = styled.div`
-  width: 20%;
   text-align: center;
 `;
 const BodyWrap = styled.div`
@@ -132,7 +133,7 @@ const BodyWrap = styled.div`
 `;
 const DateWrap = styled.div`
   width: 20%;
-  text-align: center;
+  text-align: right;
 
   @media ${tablet} {
     div > span {
@@ -157,6 +158,7 @@ const BtnWrap = styled.div`
     border-radius: 0.5rem;
     margin-top: 0.5rem;
     color: #fff;
+    cursor: pointer;
   }
   .Canclebtn {
     background-color: #ff9fd7;
