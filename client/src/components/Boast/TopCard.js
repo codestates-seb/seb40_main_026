@@ -25,7 +25,7 @@ const CardBox = styled.li`
 const CardImg = styled.img`
   max-width: 100%;
   max-height: 100%;
-  width: 380px;
+  width: 500px;
   height: 260px;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
