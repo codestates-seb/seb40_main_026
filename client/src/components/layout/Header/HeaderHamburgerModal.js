@@ -39,7 +39,7 @@ const HeaderHamburgerModal = ({ setOpen }) => {
           <button onClick={handleClick} value={'/members'}>
             친구들
           </button>
-          <button onClick={handleClick} value={'/'}>
+          <button onClick={handleClick} value={'/contents'}>
             배울래요
           </button>
           <button onClick={handleClick} value={'/study'}>
