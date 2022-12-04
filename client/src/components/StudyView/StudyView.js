@@ -26,7 +26,7 @@ const StudyView = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/studies/${id}`)
+      .get(`${BASE_URL}studies/${id}`)
       .then((res) => {
         console.log('응답', res.data);
         setData(res.data);
