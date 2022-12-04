@@ -3,7 +3,8 @@
 
 ### 안녕하세요!  🛫 교육에 26하다 입니다.
 
-![logo](http://localhost:3000/static/media/codingLogo.88c49a9d88d67d247fa4.png)
+![image](https://user-images.githubusercontent.com/97659846/205476547-835c4047-0b68-4c84-bf4b-eba319b43766.png)
+
 
 #### 📅 프로젝트 기간 : 22.11.08 ~ 22.12.04
 
