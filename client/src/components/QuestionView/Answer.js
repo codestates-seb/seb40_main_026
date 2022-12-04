@@ -6,7 +6,7 @@ import { Viewer, Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import jwt_decode from 'jwt-decode';
 const Answer = ({ SetState, State }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
@@ -17,6 +17,9 @@ const Answer = ({ SetState, State }) => {
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
+  const [UserInfo, SetUserInfo] = useState([]);
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
 
   const textRef = useRef();
   const ImgHandler = (event) => {
@@ -33,7 +36,17 @@ const Answer = ({ SetState, State }) => {
       };
     });
   };
-
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
   const EditHandler = (item) => {
     if (item.answerId === TitleId) {
       const formData = new FormData();
@@ -117,12 +130,16 @@ const Answer = ({ SetState, State }) => {
                     <span> {items.class} </span>
                     <span> {items.date} </span>
                   </div>{' '}
-                  <BtnWrap>
-                    <button onClick={() => EditHandler(items)}>수정하기</button>
-                    <button onClick={() => DeleteHandler(items.answerId)}>
-                      삭제하기
-                    </button>
-                  </BtnWrap>
+                  {items.nickname === UserInfo.nickname ? (
+                    <BtnWrap>
+                      <button onClick={() => EditHandler(items)}>
+                        수정하기
+                      </button>
+                      <button onClick={() => DeleteHandler(items.answerId)}>
+                        삭제하기
+                      </button>
+                    </BtnWrap>
+                  ) : null}
                 </div>
                 <div>
                   <div>

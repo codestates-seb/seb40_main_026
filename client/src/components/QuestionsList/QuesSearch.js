@@ -83,6 +83,7 @@ const SearchbarWrap = styled.div`
       margin-right: 1rem;
       padding: 1rem;
       border-radius: 1rem;
+      cursor: pointer;
     }
   }
 

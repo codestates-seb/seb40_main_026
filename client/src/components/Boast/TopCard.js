@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../utils/api';
+import { useState } from 'react';
+import axios from 'axios';
 
 const CardBox = styled.li`
   display: flex;
@@ -11,11 +14,9 @@ const CardBox = styled.li`
   box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
   transform: scale(1);
   transition: all 0.5s;
-
   :hover {
     transform: scale(1.1);
   }
-
   @media ${mobile} {
     width: 100%;
   }
@@ -38,15 +39,14 @@ const CardImg = styled.img`
 
 const Word = styled.div`
   margin-left: 0.5rem;
+  margin-top: 1rem;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   background: #ffc149;
   cursor: pointer;
-
   @media ${mobile} {
     font-size: 2.3rem;
   }
-
   @media ${tablet} {
     font-size: 1.3rem;
   }
@@ -82,14 +82,31 @@ const PageBtn = styled.button`
 function TopCard({
   title,
   nickName,
-  LikeHandler,
   LikeButton,
   boastId,
   fileUrl,
-  checkLike,
   likeCount,
   grade,
 }) {
+  const [checkLike, SetCheckLike] = useState();
+  const [state, SetState] = useState(0);
+  const access = localStorage.getItem('accessToken');
+
+  const LikeHandler = (id) => {
+    axios({
+      method: 'post',
+      url: `${BASE_URL}boasts/${id}/like`,
+      headers: { Authorization: access },
+    })
+      .then((res) => {
+        SetState(state + 1);
+        SetCheckLike(res.data.checkLike);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+
   const onErrorImg = (e) => {
     e.target.src = cardDefaultImg;
   };
@@ -107,7 +124,6 @@ function TopCard({
         ) : (
           <CardImg src={''} alt={'cardImg'} onError={onErrorImg} />
         )}
-
         <Word>{title}</Word>
       </PageBtn>
       <Word2>

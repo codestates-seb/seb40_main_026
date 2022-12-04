@@ -1,13 +1,11 @@
 import BoastCommentlist from '../Shared/BoastCommentlist';
 import CommentCreate from '../Shared/CommentCreate';
 import PageBtn from '../Shared/PageBtn';
-import styled from 'styled-components';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useParams } from 'react-router-dom';
-
-const CommentBox = styled.section``;
+import { BASE_URL } from '../../utils/api';
 
 function BoastComment() {
   const [list, SetList] = useState([]);
@@ -33,7 +31,7 @@ function BoastComment() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}${
+      url: `${BASE_URL}boastReplies/${id}${
         location.search || `?page=1&size=${SIZE}`
       }`,
     }).then((res) => {
@@ -45,7 +43,7 @@ function BoastComment() {
   const postHandler = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}`,
+      url: `${BASE_URL}boastReplies/${id}`,
       data: { content },
       headers: {
         Authorization: access,
@@ -64,7 +62,7 @@ function BoastComment() {
   const EditPatch = (id) => {
     axios({
       method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}`,
+      url: `${BASE_URL}boastReplies/${id}`,
       data: { content },
       headers: {
         Authorization: access,
@@ -81,14 +79,11 @@ function BoastComment() {
   // 댓글 삭제
   const DeleteHandler = (id) => {
     axios
-      .delete(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}`,
-        {
-          headers: {
-            Authorization: access,
-          },
-        }
-      )
+      .delete(`${BASE_URL}boastReplies/${id}`, {
+        headers: {
+          Authorization: access,
+        },
+      })
       .then((res) => {
         SetState(!state);
         console.log(res);
@@ -96,7 +91,7 @@ function BoastComment() {
   };
 
   return (
-    <CommentBox>
+    <>
       <CommentCreate postHandler={postHandler} Setcontent={SetContent} />
       <BoastCommentlist
         CommentData={list}
@@ -105,7 +100,7 @@ function BoastComment() {
         SetContent={SetContent}
       />
       <PageBtn updateOffset={updateOffset} />
-    </CommentBox>
+    </>
   );
 }
 

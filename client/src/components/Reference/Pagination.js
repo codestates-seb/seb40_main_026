@@ -47,7 +47,6 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-
   :hover {
     background-color: #ffc149;
     color: white;

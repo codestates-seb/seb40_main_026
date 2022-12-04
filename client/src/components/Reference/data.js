@@ -23,7 +23,7 @@ export const data = [
   },
   {
     id: 5,
-    title: '주말엔 하루종일 코딩이랑 놀아보기!',
+    title: '학교안가는 주말엔 하루종일 코딩이랑 놀아보기!',
     fileUrl:
       'https://cfnimage.commutil.kr/phpwas/restmb_allidxmake.php?idx=3&simg=2018082719141105121dd55077bc212323473.jpg&nmt=18',
   },
@@ -40,7 +40,7 @@ export const data = [
   },
   {
     id: 8,
-    title: '수학을 잘하면 코딩도 과연 잘할까 ?',
+    title: '수학을 잘하면 코딩도 과연 잘할까 ??? - 수학과 코딩',
     fileUrl:
       'https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/pd/v2/2/3/5/3/1/5/mgQxJ/4355235315_B.jpg',
   },
