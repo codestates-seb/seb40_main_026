@@ -33,7 +33,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
 
     axios
       .post(
-        `${BASE_URL}/studies/${id}/recruitment`,
+        `${BASE_URL}studies${id}/recruitment`,
         {
           'study-id': '{ id }',
         },
