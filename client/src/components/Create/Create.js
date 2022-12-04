@@ -11,15 +11,29 @@ const Create = ({
   Setcontent,
   PostHandler,
   SetImage,
+  image,
 }) => {
   const navigate = useNavigate();
   const textRef = useRef();
+  const [ImgSrc, SetImgSrc] = useState();
   const BackClick = (event) => {
     event.preventDefault();
     navigate(-1);
   };
+
   const ImgHandler = (event) => {
+    SetSrc(event.target.files[0]);
     SetImage(event.target.files[0]);
+  };
+  const SetSrc = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        resolve();
+      };
+    });
   };
   const handleChangeTitle = (event) => {
     Settitle(event.target.value);
@@ -41,6 +55,7 @@ const Create = ({
           ></input>
         </div>
         <input type="file" className="ImgInput" onChange={ImgHandler}></input>
+        {ImgSrc ? <img src={ImgSrc}></img> : null}
         <div className="CreateBot">
           {/* <h3>내용</h3> */}
           <Editor
@@ -49,6 +64,13 @@ const Create = ({
             initialEditType="wysiwyg"
             initialValue=" "
             onChange={handleChangeInput}
+            toolbarItems={[
+              // 툴바 옵션 설정
+              ['bold', 'italic', 'strike'],
+              ['code', 'codeblock'],
+              ['hr', 'quote'],
+              ['ul', 'ol', 'task'],
+            ]}
           />
         </div>
         <div className="CreateBtnWrap">
@@ -77,6 +99,10 @@ const CreateWrap = styled.div`
       box-shadow: grey 0px 0px 3px;
       padding: 0.8rem;
       margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    img {
+      width: 30%;
       margin-bottom: 1rem;
     }
     .ContentInput {

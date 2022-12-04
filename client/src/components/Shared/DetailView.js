@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 const DetailView = ({
   Data,
   SetContentData,
@@ -21,7 +22,13 @@ const DetailView = ({
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(Data.questionId);
+  const [UserInfo, SetUserInfo] = useState([]);
   const textRef = useRef();
+  const token = localStorage.getItem('accessToken');
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
+
+  //멤버 아이디 가져와서 데이터 조회후 닉네임 일치하는지 확인 해야함
   //수정하기 버튼 클릭시 input창으로 변경
   const EditHandler = (id, url) => {
     if (id === TitleId) {
@@ -33,7 +40,18 @@ const DetailView = ({
       SetEditClick(true);
     }
   };
-
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+  console.log(UserInfo);
   return (
     <>
       <Detail>
@@ -84,7 +102,7 @@ const DetailView = ({
                 </>
               ) : (
                 <>
-                  <img src={ImgSrc ? ImgSrc : Image}></img>
+                  {ImgSrc ? <img src={ImgSrc ? ImgSrc : Image}></img> : null}
                   <Viewer initialValue={Data.content} />
                 </>
               )}
@@ -94,16 +112,20 @@ const DetailView = ({
                 LikeHandler={() => LikeHandler(Data.questionId)}
                 checkLike={checkLike}
               />
-              <div className="Workbtn">
-                <button
-                  onClick={() => EditHandler(Data.questionId, Data.fileUrl)}
-                >
-                  {' '}
-                  수정하기{' '}
-                </button>
-                <button onClick={DeleteHandler}> 삭제하기 </button>
-                <button onClick={ReportHandler}> 신고하기 </button>
-              </div>
+              {Data.nickname === UserInfo.nickname ? (
+                <>
+                  <div className="Workbtn">
+                    <button
+                      onClick={() => EditHandler(Data.questionId, Data.fileUrl)}
+                    >
+                      {' '}
+                      수정하기{' '}
+                    </button>
+                    <button onClick={DeleteHandler}> 삭제하기 </button>
+                    <button onClick={ReportHandler}> 신고하기 </button>
+                  </div>
+                </>
+              ) : null}
             </div>
             <div></div>
           </div>

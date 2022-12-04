@@ -10,12 +10,12 @@ const QuestionCreate = () => {
   const [content, Setcontent] = useState();
   const [image, SetImage] = useState();
   const [title, Settitle] = useState();
-  const [Data, setData] = useState(JSON.stringify({ title, content }));
+  const [ImgSrc, SetImgSrc] = useState();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   const url = `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions`;
 
-  let questionPostDto = [{ title, content }];
+  console.log(ImgSrc, image);
 
   const questionpost = (e) => {
     e.preventDefault();
@@ -52,6 +52,7 @@ const QuestionCreate = () => {
         title={title}
         Settitle={Settitle}
         SetImage={SetImage}
+        image={image}
       />
       ;
     </Container>

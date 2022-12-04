@@ -75,6 +75,7 @@ const EduWrap = styled.div`
   margin-bottom: 4rem;
   border-radius: 1rem;
   box-shadow: grey 0rem 0rem 0.2rem;
+  margin-top: 3rem;
   .BtnWrap {
     a > button {
       width: 200px;
@@ -103,6 +104,7 @@ const EduWrap = styled.div`
   }
   > div {
     text-align: center;
+    padding-left: 2rem;
     > span {
       .Lapimg {
         width: 220px;
@@ -114,7 +116,7 @@ const EduWrap = styled.div`
         width: 260px;
         position: absolute;
         top: 45%;
-        left: 5%;
+        left: 8%;
       }
       .Quesimg {
         width: 290px;

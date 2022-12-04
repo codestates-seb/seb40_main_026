@@ -7,7 +7,9 @@ import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 const MypageEditContainer = () => {
   const [UserInfo, SetUserInfo] = useState([]);
-  const [ImgSrc, SetImgSrc] = useState(); //미리보기용
+  const [ImgSrc, SetImgSrc] = useState(
+    'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png'
+  ); //미리보기용
   const [Image, SetImage] = useState(); //서버 전송용
   const [nickname, SetNickname] = useState();
   const [introduce, SetIntro] = useState();
@@ -19,6 +21,7 @@ const MypageEditContainer = () => {
     SetSrc(event.target.files[0]);
     SetImage(event.target.files[0]);
   };
+  console.log(UserInfo);
   const SetSrc = (e) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);
@@ -65,12 +68,15 @@ const MypageEditContainer = () => {
       },
     }).then((res) => {
       SetUserInfo(res.data);
-      SetImgSrc(res.data.fileUrl);
+      if (res.data.fileUrl) {
+        SetImgSrc(res.data.fileUrl);
+      }
+
       SetNickname(res.data.nickname);
       SetIntro(res.data.introduce);
     });
   }, []);
-
+  console.log(ImgSrc, Image);
   return (
     <EditContainer>
       <TitleHeader title={'회원정보 수정'} />
