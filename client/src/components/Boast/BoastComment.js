@@ -9,6 +9,7 @@ function BoastComment() {
   const [list, SetList] = useState([]);
   const [content, SetContent] = useState('');
   const [state, SetState] = useState(0);
+  const [UserInfo, SetUserInfo] = useState([]);
   const access = localStorage.getItem('accessToken');
   const { id } = useParams();
 
@@ -83,6 +84,18 @@ function BoastComment() {
       });
   };
 
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}?page=1&size=6`,
+      headers: {
+        Authorization: access,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
@@ -93,6 +106,7 @@ function BoastComment() {
         EditPatch={EditPatch}
         SetContent={SetContent}
         currentCards={currentCards}
+        UserInfo={UserInfo}
       />
       <Pagination
         paginate={paginate}
