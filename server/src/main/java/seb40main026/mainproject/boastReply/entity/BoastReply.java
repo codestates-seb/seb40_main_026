@@ -53,6 +53,9 @@ public class BoastReply {
     @Column
     private String nickName;
 
+    @Column
+    private String grade;
+
     @PrePersist
     public void onPrePersist(){
         this.replyCreatedAt = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));

@@ -43,6 +43,8 @@ public class BoastReplyDto {
 
         private String nickName;
 
+        private String grade;
+
         private String replyCreatedAt;
 
         private String replyModifiedAt;
