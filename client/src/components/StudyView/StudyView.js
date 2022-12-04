@@ -11,7 +11,7 @@ import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import Map from './Map';
 import StudyViewButtons from './StudyViewButtons';
-
+import { BASE_URL } from '../../utils/api';
 const StudyView = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -26,7 +26,7 @@ const StudyView = () => {
 
   useEffect(() => {
     axios
-      .get(`/studies/${id}`)
+      .get(`${BASE_URL}/studies/${id}`)
       .then((res) => {
         console.log('응답', res.data);
         setData(res.data);

@@ -6,7 +6,7 @@ import { desktop, mobile, tablet } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
 import Pagination from './Pagination';
 import StudyCard from './StudyCard';
-
+import { BASE_URL } from '../../utils/api';
 const StudyList = () => {
   const [filterActive, setFilterActive] = useState('All'); //필터링 버튼
   const [data, setData] = useState([]); //axios로 받아온 데이터
@@ -17,7 +17,11 @@ const StudyList = () => {
   useEffect(() => {
     const sort = filterActive;
     axios
-      .get(`/studies${sort === 'All' ? `?size=100` : `?sort=${sort}&size=100`}`)
+      .get(
+        `${BASE_URL}studies${
+          sort === 'All' ? `?size=100` : `?sort=${sort}&size=100`
+        }`
+      )
       .then((res) => {
         console.log('응답', res.data.length);
         setData(res.data);
