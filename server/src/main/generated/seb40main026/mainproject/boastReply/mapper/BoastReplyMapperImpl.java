@@ -7,7 +7,7 @@ import seb40main026.mainproject.boastReply.entity.BoastReply;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-02T11:01:48+0900",
+    date = "2022-12-04T13:50:56+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -50,7 +50,7 @@ public class BoastReplyMapperImpl implements BoastReplyMapper {
 
         response.setBoastReplyId( boastReply.getBoastReplyId() );
         response.setContent( boastReply.getContent() );
-        response.setNickName( boastReply.getNickName() );
+        response.setNickName( boastReply.getMember().getNickname());
         response.setReplyCreatedAt( boastReply.getReplyCreatedAt() );
         response.setReplyModifiedAt( boastReply.getReplyModifiedAt() );
 
