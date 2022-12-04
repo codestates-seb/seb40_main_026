@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseFill } from 'react-icons/ri';
@@ -5,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-import axios from '../../api/axios';
 import MediumButton from '../Shared/MediumButton';
 import SelectButton from '../Shared/SelectButton';
 
@@ -64,18 +64,21 @@ const Signup = () => {
     console.log('패스워드', password);
 
     return axios
-      .post(`/members`, {
-        teacher: teacher,
-        nickname: nickname,
-        email: email,
-        password: password,
-      })
+      .post(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members`,
+        {
+          teacher: teacher,
+          nickname: nickname,
+          email: email,
+          password: password,
+        }
+      )
       .then((res) => {
         if (res) {
           console.log(res);
           axios
             .post(
-              `/members/login`,
+              `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/login`,
               { username: email, password: password },
               { headers: { 'Content-Type': 'application/json' } }
             )
