@@ -10,10 +10,9 @@ function BoastViewMain() {
   const [titleData, SetTitleData] = useState();
   const [contentData, SetContentData] = useState();
   const [list, SetList] = useState([]);
-  const [checklike, Setchecklike] = useState();
+  const [checkLike, SetCheckLike] = useState();
   const [state, SetState] = useState(0);
   const [image, SetImage] = useState();
-
   const access = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
@@ -61,7 +60,6 @@ function BoastViewMain() {
       })
       .then((res) => {
         navigate('/boast');
-        console.log(res);
       });
   };
 
@@ -74,8 +72,7 @@ function BoastViewMain() {
     })
       .then((res) => {
         SetState(state + 1);
-        Setchecklike(res.data);
-        console.log(res.data);
+        SetCheckLike(res.data.checkLike);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -91,7 +88,7 @@ function BoastViewMain() {
         EditPatch={EditPatch}
         DeleteHandler={DeleteHandler}
         LikeHandler={LikeHandler}
-        checkLike={checklike}
+        checkLike={checkLike}
         SetImage={SetImage}
         image={image}
       />

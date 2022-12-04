@@ -7,7 +7,6 @@ const CommentCreate = ({ Setcontent, postHandler }) => {
       <ComInputWrap>
         <input
           className="CommentInput"
-          placeholder="댓글을 입력해주세요"
           defaultValue={Setcontent}
           onChange={(e) => Setcontent(e.target.value)}
         ></input>{' '}
@@ -54,6 +53,7 @@ const ComInputWrap = styled.div`
     border-radius: 1rem;
     background-color: #00d2ff;
     color: #fff;
+    cursor: pointer;
   }
 `;
 export default CommentCreate;

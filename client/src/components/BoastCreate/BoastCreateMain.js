@@ -14,8 +14,8 @@ const BoastCreate = () => {
   const navigate = useNavigate();
   const access = localStorage.getItem('accessToken');
 
-  const Boastpost = (e) => {
-    e.preventdefault();
+  const boastpost = (e) => {
+    e.preventDefault();
     const formData = new FormData();
 
     if (image) {
@@ -25,7 +25,7 @@ const BoastCreate = () => {
     formData.append('content', content);
 
     axios
-      .post(`${BASE_URL}/boasts`, formData, {
+      .post(`${BASE_URL}boasts`, formData, {
         headers: { Authorization: access },
       })
       .then((res) => {
@@ -38,7 +38,7 @@ const BoastCreate = () => {
     <Container>
       <TitleHeader title={'자랑하기'} />
       <Create
-        PostHandler={Boastpost}
+        PostHandler={boastpost}
         Setcontent={SetContent}
         content={content}
         SetImage={SetImage}

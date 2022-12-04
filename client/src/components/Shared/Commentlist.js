@@ -106,7 +106,6 @@ const CommentWrap = styled.li`
   }
 `;
 const NickNameWrap = styled.div`
-  width: 20%;
   text-align: center;
 `;
 const BodyWrap = styled.div`
@@ -129,7 +128,7 @@ const BodyWrap = styled.div`
 `;
 const DateWrap = styled.div`
   width: 20%;
-  text-align: center;
+  text-align: right;
 
   @media ${tablet} {
     div > span {
