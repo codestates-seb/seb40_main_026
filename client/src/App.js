@@ -8,7 +8,6 @@ import MypageEdit from './components/Mypage/MypageEdit';
 //import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
-import KakaoRedirectPage from './pages/KakaoRedirectPage';
 import BoastView from './pages/BoastView';
 import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
@@ -96,7 +95,6 @@ function App() {
         <Route path="/study" element={<StudyListPage />} />
 
         <Route path={`/study/:id`} element={<StudyViewPage />} />
-        <Route path="/kakaoredirect" element={<KakaoRedirectPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
