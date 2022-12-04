@@ -14,10 +14,8 @@ import StudyViewButtons from './StudyViewButtons';
 
 const StudyView = () => {
   const { id } = useParams();
-  console.log('파람스 컴포넌트에서', id);
   const [data, setData] = useState([]);
-  // const splitRec = data.recommendation?.split('\n');
-  // console.log('88', splitRec);
+
   let mapLocation = data.place;
   if (data.online === 'online') {
     mapLocation = '서울특별시 서초구 서초동 서초대로 396';
@@ -206,9 +204,13 @@ const ContentItem = styled.div`
     @media ${mobile} {
       width: 100%;
     }
+    display: flex;
     > span {
       color: #ffc149;
       margin-left: 5px;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
     }
   }
 `;

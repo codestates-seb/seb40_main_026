@@ -18,7 +18,7 @@ const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
         />
         <img src={img} alt={'cardImg'} onError={onErrorImg} />
       </CardWrapper>
-      <TextBlock>
+      <TextBlock className={count === recruitment ? 'completedText' : ''}>
         <div>
           <RegisterCondition>
             <div>등록 현황</div>
@@ -41,6 +41,9 @@ const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
 export default StudyCard;
 
 const Container = styled.div`
+  .completedText {
+    opacity: 0.5;
+  }
   :hover {
     transform: scale(1.1);
   }
