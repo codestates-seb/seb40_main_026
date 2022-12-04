@@ -34,7 +34,7 @@ const QuestionView = ({
       };
     });
   };
-
+  console.log(ImgSrc, image);
   //최초 질문 상세페이지 조회시
   useEffect(() => {
     axios({

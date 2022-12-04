@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 //멤버 id 띄어야함
-const MypageEdit = ({ UserInfo }) => {
+const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
   return (
     <MypageContainer>
       <MypageMainwrap>
@@ -50,7 +50,7 @@ const MypageEdit = ({ UserInfo }) => {
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">등급</span>
-              <span> {UserInfo.memberGrade}</span>
+              <span>🐓</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
@@ -63,15 +63,22 @@ const MypageEdit = ({ UserInfo }) => {
             </IntroWrap>
             <BtnWrap>
               <CommDisplay>
-                <span>가입일 : {UserInfo.createdAt}</span>
+                <span className="CreateWrap">
+                  가입일 : {UserInfo.createdAt}
+                </span>
 
-                <span>최근 접속일 : recent</span>
+                <span>
+                  활동 여부 :
+                  {UserInfo.memberStatus ? '현재 활동중' : '로그아웃'}
+                </span>
               </CommDisplay>
               <div>
                 <button className="Canclebtn">
                   <Link to="/mypage/edit">수정하기</Link>
                 </button>
-                <button className="Outbtn">탈퇴하기</button>
+                <button className="Outbtn" onClick={MemberDeleteHandler}>
+                  탈퇴하기
+                </button>
               </div>
             </BtnWrap>
           </UserIntro>
@@ -178,6 +185,9 @@ const CommDisplay = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  .CreateWrap {
+    margin-bottom: 1rem;
+  }
   .MypageTitle {
     font-size: 1.4rem;
     color: #ffa800;
@@ -218,6 +228,9 @@ const IntroWrap = styled.div`
   > h4 {
     color: #ffa800;
   }
+  > p {
+    margin-top: 1rem;
+  }
   @media ${tablet} {
     box-shadow: grey 0px 0px 3px;
     border-radius: 1rem;
@@ -245,9 +258,11 @@ const BtnWrap = styled.div`
   }
   .Canclebtn {
     background-color: #ff9fd7;
+    cursor: pointer;
   }
   .Outbtn {
     background-color: #00d2ff;
+    cursor: pointer;
   }
   @media ${tablet} {
     display: flex;

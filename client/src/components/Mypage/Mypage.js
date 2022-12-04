@@ -4,8 +4,8 @@ import CommentCreate from '../Shared/CommentCreate';
 import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { useParams } from 'react-router-dom';
 
 //멤버 id 띄어야함
 
@@ -34,7 +34,21 @@ const MypageContainer = () => {
       SetUserInfo(res.data);
     });
   }, []);
+  //회원탈퇴
+  const MemberDeleteHandler = () => {
+    axios({
+      method: 'post',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
 
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        SetCount(!Count);
+      })
+      .catch((err) => {});
+  };
   //방명록 post 요청 함수
   const postHandler = () => {
     axios({
@@ -96,7 +110,10 @@ const MypageContainer = () => {
   return (
     <>
       <TitleHeader title={'회원정보'} />
-      <MypageMain UserInfo={UserInfo} />
+      <MypageMain
+        UserInfo={UserInfo}
+        MemberDeleteHandler={MemberDeleteHandler}
+      />
       <TitleHeader title={'방명록'} />
       <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
       <Commentlist

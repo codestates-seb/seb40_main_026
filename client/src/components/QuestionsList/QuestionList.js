@@ -186,13 +186,14 @@ const QuesListContainer = styled.div`
     text-align: center;
     float: right;
     position: fixed;
-    bottom: 50%;
+    bottom: 60%;
     right: 8%;
     > button {
       padding: 1rem;
       border-radius: 1rem;
       background-color: #ff62be;
       color: #fff;
+      cursor: pointer;
     }
   }
 
@@ -315,6 +316,7 @@ const MoreBtnWrap = styled.div`
     background-color: #ff62be;
     border-radius: 1rem;
     color: #fff;
+    cursor: pointer;
   }
   .LoaderWrap {
     width: 100%;
