@@ -3,13 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-// import axios from '../../api/axios';
-import axios from 'axios';
+import axios from '../../api/axios';
 //import useAuth from '../../hooks/useAuth';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseFill } from 'react-icons/ri';
 
-import kakaoLoginIcon from '../../assets/icons/kakaoLoginIcon.png';
+// import kakaoLoginIcon from '../../assets/icons/kakaoLoginIcon.png';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
@@ -45,7 +44,7 @@ const Login = () => {
 
     axios
       .post(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/login`,
+        `/members/login`,
         { username: email, password: password },
         { headers: { 'Content-Type': 'application/json' } }
       )
@@ -70,13 +69,13 @@ const Login = () => {
     //setAuth({ email, password, teacher, accessToken });
   };
 
-  const { Kakao } = window;
-  const loginWithKakao = () => {
-    console.log('hello');
-    Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:3000/kakaoredirect',
-    });
-  };
+  // const { Kakao } = window;
+  // const loginWithKakao = () => {
+  //   console.log('hello');
+  //   Kakao.Auth.authorize({
+  //     redirectUri: 'http://localhost:3000/kakaoredirect',
+  //   });
+  // };
 
   return (
     <Container>
@@ -113,16 +112,11 @@ const Login = () => {
           navigate('/signup');
         }}
       />
-      <HorizonLine text={'소셜 로그인'} />
-      {/* <MediumButton
-        text={'카카오톡 로그인'}
-        color={'rgb(247,221,51)'}
-        className={'btn'}
-        onClick={loginWithKakao}
-      /> */}
+      {/* <HorizonLine text={'소셜 로그인'} />
+
       <button onClick={loginWithKakao} className="kakao">
         <img src={kakaoLoginIcon} alt="kakao" className="kakaoLoginIcon" />
-      </button>
+      </button> */}
     </Container>
   );
 };
@@ -142,7 +136,8 @@ const Container = styled.div`
   }
 
   width: 400px;
-  height: 500px;
+  /* height: 500px; */
+  height: 400px;
   background-color: var(--gold);
   display: flex;
   flex-direction: column;

@@ -28,9 +28,7 @@ const StudyView = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}`
-      )
+      .get(`/studies/${id}`)
       .then((res) => {
         console.log('응답', res.data);
         setData(res.data);
