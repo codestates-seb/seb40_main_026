@@ -206,7 +206,7 @@ function AnswerBox() {
           </ImgBox>
           <WordBox>
             <span>🐓</span>
-            <span>둘리야</span>
+            <span>크로롱</span>
           </WordBox>
         </TopMemberBox>
       </TopBox>
