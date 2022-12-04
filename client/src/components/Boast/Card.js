@@ -47,6 +47,7 @@ const Word = styled.div`
   font-size: 1.4rem;
   margin-top: 1rem;
   cursor: pointer;
+  font-size: 1.3rem;
 
   @media ${mobile} {
     font-size: 2.3rem;
@@ -54,6 +55,10 @@ const Word = styled.div`
 
   @media ${tablet} {
     font-size: 1.3rem;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
