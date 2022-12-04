@@ -7,11 +7,13 @@ const Pagination = ({ cardPerPage, totalPosts, paginate }) => {
   }
   return (
     <Container>
+      <button>&lt;</button>
       {pageNumbers.map((number) => (
         <div key={number}>
           <button onClick={() => paginate(number)}>{number}</button>
         </div>
       ))}
+      <button>&gt;</button>
     </Container>
   );
 };
@@ -24,27 +26,25 @@ const Container = styled.nav`
   margin: 1rem;
   align-items: center;
   justify-content: center;
-  > div {
-    > button {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border: 1px solid #e2e2e2;
-      background-color: white;
-      color: #ffc149;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1rem;
+  button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e2e2e2;
+    background-color: white;
+    color: #ffc149;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
 
-      :hover {
-        background-color: #ffc149;
-        color: white;
-      }
-      :focus {
-        background-color: #ffc149;
-        color: white;
-      }
+    :hover {
+      background-color: #ffc149;
+      color: white;
+    }
+    :focus {
+      background-color: #ffc149;
+      color: white;
     }
   }
 `;
