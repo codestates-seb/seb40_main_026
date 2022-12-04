@@ -87,7 +87,7 @@ function BoastComment() {
   useEffect(() => {
     axios({
       mathod: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boastReplies/${id}?page=1&size=6`,
+      url: `${BASE_URL}boastReplies/${id}?page=1&size=6`,
       headers: {
         Authorization: access,
       },
