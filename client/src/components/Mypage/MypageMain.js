@@ -3,11 +3,22 @@ import { MdEmojiPeople } from 'react-icons/md';
 import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 //멤버 id 띄어야함
 const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
+  const [Grade, SetGrade] = useState();
+  useEffect(() => {
+    if (UserInfo.memberGrade === 'EGG') {
+      SetGrade('🥚');
+    } else if (UserInfo.memberGrade === 'BROKEN_EGG') {
+      SetGrade('🐣');
+    } else if (UserInfo.memberGrade === 'CHICK') {
+      SetGrade('🐥');
+    } else if (UserInfo.memberGrade === 'CHICKEN') {
+      SetGrade('🐓');
+    }
+  }, [UserInfo]);
   return (
     <MypageContainer>
       <MypageMainwrap>
@@ -50,7 +61,7 @@ const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">등급</span>
-              <span>🐓</span>
+              <span>{Grade}</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
