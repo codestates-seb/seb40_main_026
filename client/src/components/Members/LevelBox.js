@@ -7,6 +7,7 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.section`
   display: grid;
@@ -221,11 +222,13 @@ function LevelBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <WordBox>
-                <span>{item.level}</span>
-                <span>{item.memberGrade}</span>
-                <span>{item.nickname}</span>
-              </WordBox>
+              <Link to={`/friendinfo/${item.memberId}`}>
+                <WordBox>
+                  <span>{item.level}</span>
+                  <span>{item.memberGrade}</span>
+                  <span>{item.nickname}</span>
+                </WordBox>
+              </Link>
             </BtmMemberBox>
           );
         })}

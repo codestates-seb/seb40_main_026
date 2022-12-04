@@ -23,6 +23,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
 import ScrollToTop from './utils/ScrollToTop';
 import LandingPage from './pages/LandingPage';
+import FriendInfo from './components/Mypage/FriendInfo';
 //import { useEffect } from 'react';
 
 function App() {
@@ -90,7 +91,7 @@ function App() {
           }
         />
         <Route path="/members" element={<Members />} />
-        <Route path={`/friendinfo/:id`} element={<Mypage />} />
+        <Route path={`/friendinfo/:id`} element={<FriendInfo />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
 
