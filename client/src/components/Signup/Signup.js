@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseFill } from 'react-icons/ri';
@@ -6,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
+import axios from '../../api/axios';
 import MediumButton from '../Shared/MediumButton';
 import SelectButton from '../Shared/SelectButton';
 
@@ -64,19 +64,37 @@ const Signup = () => {
     console.log('패스워드', password);
 
     return axios
-      .post(
-        'http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members',
-        {
-          teacher: teacher,
-          nickname: nickname,
-          email: email,
-          password: password,
-        }
-      )
+      .post(`/members`, {
+        teacher: teacher,
+        nickname: nickname,
+        email: email,
+        password: password,
+      })
       .then((res) => {
         if (res) {
           console.log(res);
-          navigate('/login');
+          axios
+            .post(
+              `/members/login`,
+              { username: email, password: password },
+              { headers: { 'Content-Type': 'application/json' } }
+            )
+            .then((res) => {
+              console.log('확인');
+              console.log(res.headers.authorization);
+              let accessToken = res.headers.authorization;
+              localStorage.setItem('accessToken', accessToken);
+              setEmail('');
+              setPassword('');
+              navigate(`/`);
+              window.location.reload();
+            })
+            .catch((error) => {
+              if (error.response.status === 401) {
+                errorAlarm('등록되지 않은 회원입니다');
+                return;
+              }
+            });
         }
       })
       .catch((error) => {

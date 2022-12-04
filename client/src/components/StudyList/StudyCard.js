@@ -18,7 +18,7 @@ const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
         />
         <img src={img} alt={'cardImg'} onError={onErrorImg} />
       </CardWrapper>
-      <TextBlock>
+      <TextBlock className={count === recruitment ? 'completedText' : ''}>
         <div>
           <RegisterCondition>
             <div>등록 현황</div>
@@ -41,6 +41,14 @@ const StudyCard = ({ img, count, period, price, recruitment, studyName }) => {
 export default StudyCard;
 
 const Container = styled.div`
+  .completedText {
+    opacity: 0.5;
+  }
+  :hover {
+    transform: scale(1.1);
+  }
+  transform: scale(1);
+  transition: all 0.5s;
   box-shadow: 0 0.1rem 0.4rem rgb(0 0 0 / 12%);
 
   display: flex;
@@ -77,6 +85,7 @@ const CardWrapper = styled.div`
 `;
 
 const TextBlock = styled.div`
+  color: gray;
   font-size: 1rem;
   text-align: center;
   padding: 0.3rem;
@@ -89,12 +98,13 @@ const TextBlock = styled.div`
     margin: 0 1rem;
     > div.price {
       font-size: 1rem;
-      font-weight: 100;
     }
   }
   > div.title {
+    color: white;
     font-weight: 700;
     justify-content: center;
+    font-size: 1.5rem;
   }
   > div.date {
     justify-content: center;

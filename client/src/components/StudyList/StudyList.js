@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from '../../api/axios';
 import { desktop, mobile, tablet } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
 import Pagination from './Pagination';
@@ -17,11 +17,7 @@ const StudyList = () => {
   useEffect(() => {
     const sort = filterActive;
     axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies${
-          sort === 'All' ? `?size=100` : `?sort=${sort}&size=100`
-        }`
-      )
+      .get(`/studies${sort === 'All' ? `?size=100` : `?sort=${sort}&size=100`}`)
       .then((res) => {
         console.log('응답', res.data.length);
         setData(res.data);

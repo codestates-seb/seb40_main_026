@@ -33,7 +33,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
 
     axios
       .post(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}/recruitment`,
+        `/studies/${id}/recruitment`,
         {
           'study-id': '{ id }',
         },
