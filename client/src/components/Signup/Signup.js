@@ -73,7 +73,28 @@ const Signup = () => {
       .then((res) => {
         if (res) {
           console.log(res);
-          navigate('/login');
+          axios
+            .post(
+              `/members/login`,
+              { username: email, password: password },
+              { headers: { 'Content-Type': 'application/json' } }
+            )
+            .then((res) => {
+              console.log('확인');
+              console.log(res.headers.authorization);
+              let accessToken = res.headers.authorization;
+              localStorage.setItem('accessToken', accessToken);
+              setEmail('');
+              setPassword('');
+              navigate(`/`);
+              window.location.reload();
+            })
+            .catch((error) => {
+              if (error.response.status === 401) {
+                errorAlarm('등록되지 않은 회원입니다');
+                return;
+              }
+            });
         }
       })
       .catch((error) => {
