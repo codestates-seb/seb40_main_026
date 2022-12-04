@@ -60,6 +60,7 @@ public class BoastReplyService {
         for(int i=0;i<boastReplyList.size();i++){
             Member findMember = boastReplyList.get(i).getMember();
             boastReplyList.get(i).setNickName(findMember.getNickname());
+            boastReplyList.get(i).setGrade(findBoast.getGrade());
         }
         return boastReplyRepository.findByBoast(findBoast,pageable);
     }

@@ -22,8 +22,7 @@ public class BoastLikeService {
     private final BoastRepository boastRepository;
     private final MemberServiceImpl memberService;
 
-    @Transactional
-    public Long modifiedLike(long boastId){
+    public BoastLike modifiedLike(long boastId){
         Boast findBoast = boastService.findVerifiedBoast(boastId);
 
         Member authMember = memberService.getLoginMember();
@@ -33,15 +32,29 @@ public class BoastLikeService {
         if(findLike.isEmpty()){
             BoastLike boastLike = BoastLike.of(findBoast.getBoastId(),memberId);
             boastLike.setCheckLike(true);
-            boastLikeRepository.save(boastLike);
             findBoast.setLikeCount(findBoast.getLikeCount()+1);
+            boastLike.setLikeCount(findBoast.getLikeCount());
+            boastLikeRepository.save(boastLike);
+            return boastLike;
+        }
+        else if(findLike.get().getCheckLike()==true){
+            findLike.get().setCheckLike(false);
+            findBoast.setLikeCount(findBoast.getLikeCount()-1);
+//            boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
+//            findBoast.setLikeCount(findBoast.getLikeCount()-1);
+            findLike.get().setLikeCount(findBoast.getLikeCount());
+            boastRepository.save(findBoast);
+            BoastLike boastLike = findLike.get();
+            return boastLike;
         }
         else{
-            boastLikeRepository.deleteById(findLike.get().getBoastLikeId());
-            findBoast.setLikeCount(findBoast.getLikeCount()-1);
+            findLike.get().setCheckLike(true);
+            findBoast.setLikeCount(findBoast.getLikeCount()+1);
+            findLike.get().setLikeCount(findBoast.getLikeCount());
+            boastRepository.save(findBoast);
+            BoastLike boastLike = findLike.get();
+            return boastLike;
 
         }
-        boastRepository.save(findBoast);
-        return findBoast.getLikeCount();
     }
 }

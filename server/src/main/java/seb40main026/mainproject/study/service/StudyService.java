@@ -13,7 +13,11 @@ import seb40main026.mainproject.member.entity.Member;
 import seb40main026.mainproject.member.repository.MemberRepository;
 import seb40main026.mainproject.member.service.MemberServiceImpl;
 import seb40main026.mainproject.s3.S3Service;
+import seb40main026.mainproject.study.dto.StudyDto;
+import seb40main026.mainproject.study.entity.MemberStudy;
 import seb40main026.mainproject.study.entity.Study;
+import seb40main026.mainproject.study.mapper.StudyMapper;
+import seb40main026.mainproject.study.repository.MemberStudyRepository;
 import seb40main026.mainproject.study.repository.StudyRepository;
 
 import java.io.IOException;
@@ -28,30 +32,39 @@ public class StudyService {
     private final StudyRepository studyRepository;
     private final FileService fileService;
     private final MemberServiceImpl memberService;
-    private final MemberRepository memberRepository;
+    private final MemberStudyRepository memberStudyRepository;
     private final S3Service s3Service;
+    private final StudyMapper mapper;
 
     // 스터디 작성
-    public Study createStudy(Study study, MultipartFile image) throws IOException {
+    public StudyDto.Response createStudy(StudyDto.Post studyPostDto, MultipartFile image) throws IOException {
+        Study study = mapper.studyPostDtoToStudy(studyPostDto);
         if(image != null) saveStudyFile(image, study);
-        return studyRepository.save(study);
+        return mapper.studyToStudyResponse(studyRepository.save(study), null);
     }
 
     // 전체 스터디 조회
-    public List<Study> findStudies(String sort, int page, int size) {
-        if(sort == null) return studyRepository.findAll(PageRequest.of(page, size)).getContent();
-        return studyRepository.findAll(PageRequest.of(page, size)).stream().filter(
+    public List<StudyDto.Response> findStudies(String sort, int page, int size) {
+        if(sort == null) return mapper.studiesToStudyResponses(
+                studyRepository.findAll(PageRequest.of(page, size)).getContent()
+        );
+        List<Study> studies = studyRepository.findAll(PageRequest.of(page, size)).stream().filter(
                 study -> study.getOnline().equals(sort)
         ).collect(Collectors.toList());
+        return mapper.studiesToStudyResponses(studies);
     }
 
     // 개별 스터디 조회
-    public Study findStudy(long studyId) {
-        return findVerifiedStudy(studyId);
+    public StudyDto.Response findStudy(long studyId) {
+        Study study = findVerifiedStudy(studyId);
+        Member member = memberService.getLoginMember(); // 현재 로그인한 멤버
+        MemberStudy findMemberStudy = memberStudyRepository.findByMemberAndStudy(member, study);
+        return mapper.studyToStudyResponse(study, findMemberStudy);
     }
 
     // 스터디 수정
-    public Study updateStudy(Study study, MultipartFile image) throws IOException {
+    public StudyDto.Response updateStudy(StudyDto.Patch studyPatchDto, MultipartFile image) throws IOException {
+        Study study = mapper.studyPatchDtoToStudy(studyPatchDto);
         Study findStudy = findVerifiedStudy(study.getStudyId());
         Optional.ofNullable(study.getStudyName())
                 .ifPresent(findStudy::setStudyName); // 스터디 이름 수정
@@ -82,7 +95,7 @@ public class StudyService {
             }
             saveStudyFile(image, findStudy);
         }
-        return studyRepository.save(findStudy);
+        return mapper.studyToStudyResponse(studyRepository.save(findStudy), null);
     }
 
     public void saveStudyFile(MultipartFile image, Study study) throws IOException {
@@ -93,19 +106,23 @@ public class StudyService {
         study.setFile(file);
     }
 
-    // 스터디 인원수 증가
-    public Study addRecruitment(long studyId) {
+    // 스터디 인원수 증가 (수강신청)
+    public StudyDto.Response addRecruitment(long studyId) {
         Study study = findVerifiedStudy(studyId);
         Member member = memberService.getLoginMember(); // 현재 로그인한 멤버
-        // 만약 로그인한 멤버가 해당 study를 갖고 있으면 decreaseCount()
-        if(member.getStudy().contains(study.getStudyName())) {
+
+        MemberStudy findMemberStudy = memberStudyRepository.findByMemberAndStudy(member, study);
+
+        if(findMemberStudy == null) { // 수강신청
+            MemberStudy memberStudy = MemberStudy.builder()
+                    .member(member).study(study).registered(true).build();
+            study.increaseCount();
+            memberStudyRepository.save(memberStudy);
+        } else { // 수강신청 취소
+            memberStudyRepository.delete(findMemberStudy);
             study.decreaseCount();
-            member.deleteStudy(study); // 해당 멤버에서 study 삭제
-        } else { // 해당 study를 갖고 있지 않으면 increaseCount()
-            study.increaseCount(); // 정원이 다 차면 인원수가 증가되지 않음
-            member.setStudy(study); // 해당 멤버에서 study 추가
         }
-        return study;
+        return mapper.studyToStudyResponse(study, null);
     }
 
     // 스터디 삭제

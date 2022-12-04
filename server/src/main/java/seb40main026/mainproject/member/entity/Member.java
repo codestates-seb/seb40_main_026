@@ -8,10 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb40main026.mainproject.File.File;
-import seb40main026.mainproject.answer.entity.Answer;
 import seb40main026.mainproject.boast.entity.Boast;
 import seb40main026.mainproject.boastReply.entity.BoastReply;
-import seb40main026.mainproject.study.entity.Study;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -69,22 +67,11 @@ public class Member {
     @Column(nullable = false)
     private Boolean teacher;
 
-    @Column()
-    private long questionCount;
+    @Column
+    private Long questionCount;
 
     @Column
-    private long answerCount;
-
-    @Column
-    private ArrayList<String> study = new ArrayList<>();
-
-    public void setStudy(Study study) {
-        this.study.add(study.getStudyName());
-    }
-
-    public void deleteStudy(Study study) {
-        this.study.remove(study.getStudyName());
-    }
+    private Long answerCount;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
