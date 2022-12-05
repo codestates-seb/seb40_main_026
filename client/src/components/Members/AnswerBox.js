@@ -138,7 +138,7 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-function AnswerBox() {
+function AnswerBox({ token }) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -224,13 +224,25 @@ function AnswerBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <Link to={`/friendinfo/${item.memberId}`}>
-                <WordBox>
+              {token ? (
+                <Link to={`/friendinfo/${item.memberId}`}>
+                  <WordBox>
+                    <span>{item.level}</span>
+                    <span>{item.memberGrade}</span>
+                    <span>{item.nickname}</span>
+                  </WordBox>
+                </Link>
+              ) : (
+                <WordBox
+                  onClick={() =>
+                    alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+                  }
+                >
                   <span>{item.level}</span>
                   <span>{item.memberGrade}</span>
                   <span>{item.nickname}</span>
                 </WordBox>
-              </Link>
+              )}
             </BtmMemberBox>
           );
         })}
