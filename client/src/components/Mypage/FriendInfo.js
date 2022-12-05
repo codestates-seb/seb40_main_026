@@ -7,6 +7,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
+import Pagination from '../Reference/Pagination';
 
 //멤버 id 띄어야함
 
@@ -16,6 +17,12 @@ const FriendInfo = () => {
   const [content, Setcontent] = useState('');
   const [CommentData, SetCommentData] = useState([]);
   const [Count, SetCount] = useState(false);
+
+  // 페이지네이션
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+
   const [UserInfo, SetUserInfo] = useState([]);
   const token = localStorage.getItem('accessToken');
   const parse = token ? jwt_decode(token) : '';
@@ -26,7 +33,7 @@ const FriendInfo = () => {
 
   //회원정보 조회
 
-  let { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     axios({
@@ -46,7 +53,7 @@ const FriendInfo = () => {
     axios({
       method: 'post',
       url: `${BASE_URL}guestBooks?memberId=${id}`,
-      data: { memberId: UserId, content },
+      data: { memberId: id, content },
       headers: {
         Authorization: token,
       },
@@ -103,10 +110,16 @@ const FriendInfo = () => {
       <TitleHeader title={'방명록'} />
       <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
       <Commentlist
-        CommentData={CommentData}
+        CommentData={CommentData.slice(offset, offset + limit)}
         DeleteHandler={DeleteHandler}
         EditPatch={EditPatch}
         Setcontent={Setcontent}
+      />
+      <Pagination
+        total={CommentData.length}
+        limit={limit}
+        page={page}
+        setPage={setPage}
       />
     </>
   );

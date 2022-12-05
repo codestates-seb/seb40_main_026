@@ -112,6 +112,8 @@ function BoastComment() {
         paginate={paginate}
         cardPerPage={cardPerPage}
         totalPosts={list.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
       />
     </>
   );

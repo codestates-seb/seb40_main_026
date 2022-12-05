@@ -1,19 +1,35 @@
 import styled from 'styled-components';
 
-const Pagination = ({ cardPerPage, totalPosts, paginate }) => {
+const Pagination = ({
+  cardPerPage,
+  totalPosts,
+  paginate,
+  setCurrentPage,
+  currentPage,
+}) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / cardPerPage); i++) {
     pageNumbers.push(i);
   }
   return (
     <Container>
-      <button>&lt;</button>
+      <button
+        onClick={() => setCurrentPage(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        &lt;
+      </button>
       {pageNumbers.map((number) => (
         <div key={number}>
           <button onClick={() => paginate(number)}>{number}</button>
         </div>
       ))}
-      <button>&gt;</button>
+      <button
+        onClick={() => setCurrentPage(currentPage + 1)}
+        disabled={currentPage === Math.ceil(totalPosts / cardPerPage)}
+      >
+        &gt;
+      </button>
     </Container>
   );
 };
