@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
 import Pagination from '../StudyList/Pagination';
 
-function BoastComment({ UserInfo }) {
+function BoastComment({ UserInfo, token }) {
   const [list, SetList] = useState([]);
   const [content, SetContent] = useState('');
   const [state, SetState] = useState(0);
@@ -88,7 +88,12 @@ function BoastComment({ UserInfo }) {
 
   return (
     <>
-      <CommentCreate postHandler={postHandler} Setcontent={SetContent} />
+      <CommentCreate
+        postHandler={postHandler}
+        Setcontent={SetContent}
+        UserInfo={UserInfo}
+        token={token}
+      />
       <BoastCommentlist
         CommentData={list}
         DeleteHandler={DeleteHandler}

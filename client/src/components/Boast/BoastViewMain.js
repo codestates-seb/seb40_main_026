@@ -113,7 +113,7 @@ function BoastViewMain() {
         image={image}
         UserInfo={UserInfo}
       />
-      <BoastComment UserInfo={UserInfo} />
+      <BoastComment UserInfo={UserInfo} token={token} />
     </>
   );
 }
