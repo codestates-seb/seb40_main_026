@@ -2,14 +2,14 @@ import TopCard from './TopCard';
 import Card from './Card';
 import { BASE_URL } from '../../utils/api';
 import LikeButton from '../Shared/LikeButton';
-import PageBtn from '../Shared/PageBtn';
 import PostBtn from '../Shared/PostBtn';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+
+import Pagination from '../StudyList/Pagination';
 
 const Container = styled.main`
   display: flex;
@@ -120,36 +120,32 @@ function BoastList() {
   const [state, SetState] = useState(0);
 
   // Pagination
-  const location = useLocation();
-  const navigate = useNavigate();
-  const SIZE = 6; // 첫페이지에서 랜더링되는 카드 갯수
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardPerPage, setCardPerPage] = useState(6);
 
-  const updateOffset = (buttonIndex) => {
-    const size = 6; // 다른페이지에서 랜더링되는 카드 갯수
-    const page = buttonIndex + 1;
-    const queryString = `?page=${page}&size=${size}`;
+  const indexOfLastCard = currentPage * cardPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardPerPage;
+  const currentCards = list.slice(indexOfFirstCard, indexOfLastCard);
 
-    navigate(`${queryString}`);
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // 멀티 리퀘스트
   useEffect(() => {
     axios
       .all([
         axios.get(`${BASE_URL}boasts/populars`),
-        axios.get(
-          `${BASE_URL}boasts${location.search || `?page=1&size=${SIZE}`}`
-        ),
+        axios.get(`${BASE_URL}boasts?page=1&size=100`),
       ])
       .then(
         axios.spread((res1, res2) => {
           console.log(res1, res2);
           SetTopList(res1.data);
           SetList(res2.data);
+          setCurrentPage(1);
         })
       )
       .catch((err) => console.log(err));
-  }, [location.search, state]);
+  }, [state]);
 
   return (
     <Container>
@@ -175,7 +171,7 @@ function BoastList() {
       </TopListBox>
 
       <ListBox>
-        {list.map((item) => {
+        {currentCards.map((item) => {
           return (
             <Card
               likeButton={true}
@@ -193,7 +189,13 @@ function BoastList() {
         })}
       </ListBox>
 
-      <PageBtn updateOffset={updateOffset} />
+      <Pagination
+        paginate={paginate}
+        cardPerPage={cardPerPage}
+        totalPosts={list.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Container>
   );
 }

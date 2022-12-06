@@ -5,14 +5,16 @@
 
 ![image](https://user-images.githubusercontent.com/97659846/205476547-835c4047-0b68-4c84-bf4b-eba319b43766.png)
 
-
+<br><br>
 #### 📅 프로젝트 기간 : 22.11.08 ~ 22.12.04
 
 #### 배포 주소 : [http://flytothecoding.s3-website.ap-northeast-2.amazonaws.com/](http://flytothecoding.s3-website.ap-northeast-2.amazonaws.com/ "http://flytothecoding.s3-website.ap-northeast-2.amazonaws.com/")
 
 #### 노션주소 : https://www.notion.so/codestates/26-2388e70c8e014032bc5b7ee2f55fcde1
 
-<br>
+#### 와이어프레임 : https://www.figma.com/file/tIcJe6aFVtDcE2LIaR3kzD/main_project_wireFrame?node-id=0%3A1&t=ZCth408vvK6S8Vqt-0
+
+<br><br>
 
 ## 💙프로젝트 소개
 
@@ -27,7 +29,11 @@
 
 이렇게 코딩을 배우는 어린이들이 코딩에 좀 더 쉽게 다가갈 수 있도록 하는 것이 저희 서비스의 목표입니다.
 
-<br>
+글을 작성하고 답변을 달거나 댓글을 달아보세요. 스티커 점수가 부과되고 이 점수로 등급이 올라가게 됩니다.   
+
+지금부터 여러가지 활동을 하면서 스티커를 모아 달걀을 닭으로 성장시켜보세요 !
+
+<br><br>
 
 
 ## 🐶 팀원 소개
@@ -57,6 +63,8 @@
 </tr>
 
 </table>
+
+<br><br>
 
 ## 🔧 기술스택
 
@@ -88,6 +96,7 @@
 ![](https://camo.githubusercontent.com/51cdb8859fcc127c2afb5dc513a42445203e049bd27d818f7f805f8ad10e43e8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f616d617a6f6e4543322d4646393930303f7374796c653d666f722d7468652d6261646765266c6f676f3d616d617a6f6e454332266c6f676f436f6c6f723d7768697465)
 ![](https://camo.githubusercontent.com/322657f7e52de88f873ac7935c5ddfad3d765fae61c9e9509bf6cf06c8cc82e6/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f416d617a6f6e2053332d3536394133313f7374796c653d666f722d7468652d6261646765266c6f676f3d416d617a6f6e5333266c6f676f436f6c6f723d7768697465)
 
+<br><br>
 
 ## 🌟 커밋 컨벤션
 

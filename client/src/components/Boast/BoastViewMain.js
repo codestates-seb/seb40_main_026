@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
+import jwt_decode from 'jwt-decode';
 
 function BoastViewMain() {
   let { id } = useParams();
@@ -15,6 +16,25 @@ function BoastViewMain() {
   const [image, SetImage] = useState();
   const access = localStorage.getItem('accessToken');
   const navigate = useNavigate();
+
+  const [UserInfo, SetUserInfo] = useState([]);
+  const token = localStorage.getItem('accessToken');
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
+
+  // 유저정보 가져오기
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+  console.log(UserInfo);
 
   // 조회요청
   useEffect(() => {
@@ -91,8 +111,9 @@ function BoastViewMain() {
         checkLike={checkLike}
         SetImage={SetImage}
         image={image}
+        UserInfo={UserInfo}
       />
-      <BoastComment />
+      <BoastComment UserInfo={UserInfo} />
     </>
   );
 }

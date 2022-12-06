@@ -48,7 +48,7 @@ const BoastCommentlist = ({
                   <div>
                     <span>{item.replyCreatedAt}</span>
                   </div>
-                  {item.nickName === UserInfo.nickName ? (
+                  {item.nickName === UserInfo.nickname ? (
                     <BtnWrap>
                       <button
                         className="Canclebtn"

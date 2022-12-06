@@ -86,6 +86,8 @@ const StudyList = () => {
         paginate={paginate}
         cardPerPage={cardPerPage}
         totalPosts={data.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </Container>
   );

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
+import profile from '../../assets/images/profile.png';
 import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -89,6 +89,7 @@ const TopMemberImg = styled.img`
 const WordBox = styled.div`
   display: flex;
   font-size: 1.1rem;
+  cursor: pointer;
 `;
 
 const BlockBox = styled.div`
@@ -136,18 +137,24 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-function LevelBox() {
+function LevelBox({ token }) {
   const [list, setList] = useState([]);
+  const [first, setFirst] = useState({});
+  const [second, setSecond] = useState({});
+  const [third, setThird] = useState({});
 
   const onErrorImg = (e) => {
-    e.target.src = cardDefaultImg;
+    e.target.src = profile;
   };
 
   useEffect(() => {
     async function getAllMembers() {
       const res = await axios.get(`${BASE_URL}members/ranking/level`);
       let data = res.data;
-      setList(data.slice(0, 3));
+      setList(data.slice(3, 6));
+      setFirst(data[0]);
+      setSecond(data[1]);
+      setThird(data[2]);
     }
     try {
       getAllMembers();
@@ -165,47 +172,95 @@ function LevelBox() {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://cdn.imweb.me/upload/S201807025b39d1981b0b0/16b98d3e3d30e.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {second.fileUrl ? (
+              <TopMemberImg src={second.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐓</span>
-            <span>나는천재</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${second.memberId}`}>
+              <WordBox>
+                <span>
+                  {second.memberGrade}
+                  {second.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {second.memberGrade}
+                {second.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/280px-Golde33443.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {first.fileUrl ? (
+              <TopMemberImg src={first.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐓</span>
-            <span>코딩왕</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${first.memberId}`}>
+              <WordBox>
+                <span>
+                  {first.memberGrade}
+                  {first.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {first.memberGrade}
+                {first.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://i.pinimg.com/564x/4e/4d/a1/4e4da156c3bfe41eb1de21df964a82a2.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {third.fileUrl ? (
+              <TopMemberImg src={third.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐓</span>
-            <span>쵸코렛</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${third.memberId}`}>
+              <WordBox>
+                <span>
+                  {third.memberGrade}
+                  {third.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {third.memberGrade}
+                {third.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
       </TopBox>
       <BlockBox>
@@ -222,13 +277,27 @@ function LevelBox() {
               ) : (
                 <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
               )}
-              <Link to={`/friendinfo/${item.memberId}`}>
-                <WordBox>
-                  <span>{item.level}</span>
-                  <span>{item.memberGrade}</span>
-                  <span>{item.nickname}</span>
+              {token ? (
+                <Link to={`/friendinfo/${item.memberId}`}>
+                  <WordBox>
+                    <span>
+                      {item.memberGrade}
+                      {item.nickname}
+                    </span>
+                  </WordBox>
+                </Link>
+              ) : (
+                <WordBox
+                  onClick={() =>
+                    alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+                  }
+                >
+                  <span>
+                    {item.memberGrade}
+                    {item.nickname}
+                  </span>
                 </WordBox>
-              </Link>
+              )}
             </BtmMemberBox>
           );
         })}

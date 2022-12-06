@@ -3,6 +3,7 @@ package seb40main026.mainproject.member.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import seb40main026.mainproject.member.entity.Member;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -53,8 +54,9 @@ public class MemberDto {
         }
     }
 
-    @Getter
+    @Getter @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long memberId;
         private String email;
@@ -67,7 +69,8 @@ public class MemberDto {
         private List<String> haveBadgeList;
         private String currentBadge;
         private Member.MemberStatus memberStatus;
-        private Member.MemberGrade memberGrade;
+//        private Member.MemberGrade memberGrade;
+        private String memberGrade;
         private Long questionCount;
         private Long answerCount;
         private String fileUrl;

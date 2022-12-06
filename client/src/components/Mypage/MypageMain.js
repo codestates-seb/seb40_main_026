@@ -1,23 +1,9 @@
 import styled from 'styled-components';
 import { MdEmojiPeople } from 'react-icons/md';
-import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
-  const [Grade, SetGrade] = useState();
-  useEffect(() => {
-    if (UserInfo.memberGrade === 'EGG') {
-      SetGrade('🥚');
-    } else if (UserInfo.memberGrade === 'BROKEN_EGG') {
-      SetGrade('🐣');
-    } else if (UserInfo.memberGrade === 'CHICK') {
-      SetGrade('🐥');
-    } else if (UserInfo.memberGrade === 'CHICKEN') {
-      SetGrade('🐓');
-    }
-  }, [UserInfo]);
   return (
     <MypageContainer>
       <MypageMainwrap>
@@ -60,7 +46,7 @@ const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">등급</span>
-              <span>{Grade}</span>
+              <span>{UserInfo.memberGrade}</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
