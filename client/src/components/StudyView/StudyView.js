@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { BiMap } from 'react-icons/bi';
@@ -6,12 +7,10 @@ import { MdTagFaces } from 'react-icons/md';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from '../../api/axios';
 import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import Map from './Map';
 import StudyViewButtons from './StudyViewButtons';
-import { BASE_URL } from '../../utils/api';
 const StudyView = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -26,7 +25,9 @@ const StudyView = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}studies/${id}`)
+      .get(
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}`
+      )
       .then((res) => {
         console.log('응답', res.data);
         setData(res.data);

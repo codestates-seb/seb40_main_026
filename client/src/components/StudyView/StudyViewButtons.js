@@ -1,11 +1,10 @@
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
-import axios from '../../api/axios';
 import { mobile, tablet } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import SortBtn from '../Shared/SortBtn';
-import { BASE_URL } from '../../utils/api';
 const StudyViewButtons = ({ count, recruitment }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('accessToken');
@@ -33,7 +32,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
 
     axios
       .post(
-        `${BASE_URL}studies${id}/recruitment`,
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}/recruitment`,
         {
           'study-id': '{ id }',
         },
