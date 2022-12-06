@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Card from '../components/Boast/Card';
-import { tablet, mobile } from '../styles/Responsive';
-import TitleHeader from '../components/Shared/TitleHeader';
 import { data } from '../components/Reference/data';
 import Pagination from '../components/Reference/Pagination';
-import { useState } from 'react';
+import TitleHeader from '../components/Shared/TitleHeader';
+import { mobile, tablet } from '../styles/Responsive';
 
 const Container = styled.div`
   display: flex;
