@@ -30,5 +30,6 @@ public class GuestBookDto {
         private String writer;
         private String createdAt;
         private String modifiedAt;
+        private String memberGrade;
     }
 }
