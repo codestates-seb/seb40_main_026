@@ -4,7 +4,6 @@ import CommentCreate from '../Shared/CommentCreate';
 import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
 import Pagination from '../Reference/Pagination';
@@ -17,16 +16,13 @@ const FriendInfo = () => {
   const [content, Setcontent] = useState('');
   const [CommentData, SetCommentData] = useState([]);
   const [Count, SetCount] = useState(false);
+  const [UserInfo, SetUserInfo] = useState([]);
+  const token = localStorage.getItem('accessToken');
 
   // 페이지네이션
   const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-
-  const [UserInfo, SetUserInfo] = useState([]);
-  const token = localStorage.getItem('accessToken');
-  const parse = token ? jwt_decode(token) : '';
-  const UserId = parse.memberId;
 
   //만약 로컬에 토큰이 있다면 함수 실행
   //함수는
