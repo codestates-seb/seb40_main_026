@@ -5,7 +5,6 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-//멤버 id 띄어야함
 const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
   const [Grade, SetGrade] = useState();
   useEffect(() => {
