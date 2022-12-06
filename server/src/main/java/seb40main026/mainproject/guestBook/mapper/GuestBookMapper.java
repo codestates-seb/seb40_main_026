@@ -24,6 +24,7 @@ public interface GuestBookMapper {
         response.setWriter(writer.getNickname()); // nickname
         response.setCreatedAt(guestBook.getCreatedAt());
         response.setModifiedAt(guestBook.getModifiedAt());
+        response.setMemberGrade(writer.getMemberGrade().getGrade());
         return response;
     }
 

@@ -11,7 +11,6 @@ import { mobile, tablet } from '../../styles/Responsive';
 import ScrollToTopBtn from '../Shared/ScrollToTopBtn';
 import Map from './Map';
 import StudyViewButtons from './StudyViewButtons';
-
 const StudyView = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);

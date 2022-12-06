@@ -6,7 +6,7 @@ export const data = [
   },
   {
     id: 2,
-    title: '어린이를 위한 온라인 코딩 사이트 6가지',
+    title: '어린이를 위한 온라인 코딩 사이트 6가지를 알려드려요',
     fileUrl:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fditto-phinf.pstatic.net%2F20210430_103%2F1619769361899Yt819_PNG%2F9c1495cd2e4d94ad80ab14603901b27c.png&type=o&size=556x564&ttype=input',
   },
@@ -46,7 +46,7 @@ export const data = [
   },
   {
     id: 9,
-    title: '나만의 멋진 웹사이트를 만들어 볼까요?',
+    title: '나만의 멋진 웹사이트를 만들어 볼까요? - 초등학생편',
     fileUrl:
       'https://blog.addthiscdn.com/wp-content/uploads/2018/05/11124555/3-Things-Great-Websites-Have-in-Common1.png',
   },
@@ -70,7 +70,7 @@ export const data = [
   },
   {
     id: 13,
-    title: '코드짜면서 용돈 버는 방법, 여기 다 있다',
+    title: '코딩하면서 재밌게 용돈 버는 방법, 여기 다 있다. ',
     fileUrl:
       'https://cdn.pixabay.com/photo/2016/08/10/14/33/computer-1583432_1280.jpg',
   },

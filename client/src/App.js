@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/layout/Footer/Footer';
 import Header from './components/layout/Header/Header';
+import FriendInfo from './components/Mypage/FriendInfo';
 import Mypage from './components/Mypage/Mypage';
 import MypageEdit from './components/Mypage/MypageEdit';
 import Boast from './pages/Boast';
@@ -20,6 +21,7 @@ import StudyViewPage from './pages/StudyViewPage';
 import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
 import ScrollToTop from './utils/ScrollToTop';
+//import { useEffect } from 'react';
 
 function App() {
   return (
@@ -73,7 +75,7 @@ function App() {
           }
         />
         <Route path="/members" element={<Members />} />
-        <Route path={`/friendinfo/:id`} element={<Mypage />} />
+        <Route path={`/friendinfo/:id`} element={<FriendInfo />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
 

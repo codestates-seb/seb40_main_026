@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import SortBtn from '../Shared/SortBtn';
-
 const StudyViewButtons = ({ count, recruitment }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('accessToken');

@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 const Commentlist = ({ CommentData, DeleteHandler, EditPatch, Setcontent }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);
+  const [UserInfo, SetUserInfo] = useState([]);
+  const token = localStorage.getItem('accessToken');
+  const parse = token ? jwt_decode(token) : '';
+  const UserId = parse.memberId;
+
   const EditHandler = (id) => {
     if (id === TitleId) {
       setTitleId(0);
@@ -15,6 +22,18 @@ const Commentlist = ({ CommentData, DeleteHandler, EditPatch, Setcontent }) => {
     }
   };
 
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+
   return (
     <CommentContainer>
       <ComInputWrap>
@@ -24,7 +43,10 @@ const Commentlist = ({ CommentData, DeleteHandler, EditPatch, Setcontent }) => {
               <>
                 <CommentWrap key={items.guestBookId}>
                   <NickNameWrap>
-                    <span>{items.writer}</span>
+                    <span>
+                      {items.memberGrade}
+                      {items.writer}
+                    </span>
                   </NickNameWrap>
                   <BodyWrap>
                     {items.guestBookId === TitleId ? (
@@ -36,26 +58,29 @@ const Commentlist = ({ CommentData, DeleteHandler, EditPatch, Setcontent }) => {
                       <p>{items.content}</p>
                     )}
                   </BodyWrap>
+
                   <DateWrap>
                     <div>
                       <span>{items.createdAt}</span>
                     </div>
-                    <BtnWrap>
-                      <button
-                        className="Canclebtn"
-                        onClick={() => {
-                          EditHandler(items.guestBookId);
-                        }}
-                      >
-                        수정하기
-                      </button>{' '}
-                      <button
-                        className="Deletebtn"
-                        onClick={() => DeleteHandler(items.guestBookId)}
-                      >
-                        삭제하기
-                      </button>
-                    </BtnWrap>
+                    {items.writer === UserInfo.nickname ? (
+                      <BtnWrap>
+                        <button
+                          className="Canclebtn"
+                          onClick={() => {
+                            EditHandler(items.guestBookId);
+                          }}
+                        >
+                          수정하기
+                        </button>{' '}
+                        <button
+                          className="Deletebtn"
+                          onClick={() => DeleteHandler(items.guestBookId)}
+                        >
+                          삭제하기
+                        </button>
+                      </BtnWrap>
+                    ) : null}
                   </DateWrap>
                 </CommentWrap>
               </>
@@ -166,11 +191,11 @@ const BtnWrap = styled.div`
       font-size: 0.5rem;
     }
   }
-  @media ${mobile} { 
-    width:100%;
-    >button{
-    font-size:0.5rem
-    
+  @media ${mobile} {
+    width: 100%;
+    > button {
+      font-size: 0.5rem;
+    }
   }
 `;
 export default Commentlist;

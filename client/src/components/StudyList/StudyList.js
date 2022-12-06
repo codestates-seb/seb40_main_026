@@ -6,7 +6,6 @@ import { desktop, mobile, tablet } from '../../styles/Responsive';
 import SortBtn from '../Shared/SortBtn';
 import Pagination from './Pagination';
 import StudyCard from './StudyCard';
-
 const StudyList = () => {
   const [filterActive, setFilterActive] = useState('All'); //필터링 버튼
   const [data, setData] = useState([]); //axios로 받아온 데이터
@@ -88,6 +87,8 @@ const StudyList = () => {
         paginate={paginate}
         cardPerPage={cardPerPage}
         totalPosts={data.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </Container>
   );

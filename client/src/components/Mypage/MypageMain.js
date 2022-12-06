@@ -1,24 +1,10 @@
 import styled from 'styled-components';
 import { MdEmojiPeople } from 'react-icons/md';
-import { FaSchool } from 'react-icons/fa';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 //멤버 id 띄어야함
-const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
-  const [Grade, SetGrade] = useState();
-  useEffect(() => {
-    if (UserInfo.memberGrade === 'EGG') {
-      SetGrade('🥚');
-    } else if (UserInfo.memberGrade === 'BROKEN_EGG') {
-      SetGrade('🐣');
-    } else if (UserInfo.memberGrade === 'CHICK') {
-      SetGrade('🐥');
-    } else if (UserInfo.memberGrade === 'CHICKEN') {
-      SetGrade('🐓');
-    }
-  }, [UserInfo]);
+const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
   return (
     <MypageContainer>
       <MypageMainwrap>
@@ -61,7 +47,7 @@ const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
             </CommDisplay>
             <CommDisplay>
               <span className="MypageTitle">등급</span>
-              <span>{Grade}</span>
+              <span>{UserInfo.memberGrade}</span>
             </CommDisplay>
           </Userinfo>
           <UserIntro>
@@ -83,20 +69,26 @@ const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
                   {UserInfo.memberStatus ? '현재 활동중' : '로그아웃'}
                 </span>
               </CommDisplay>
-              <div>
-                <button className="Canclebtn">
-                  <Link to="/mypage/edit">수정하기</Link>
-                </button>
-                <button className="Outbtn" onClick={MemberDeleteHandler}>
-                  탈퇴하기
-                </button>
-              </div>
+              {editButton && (
+                <div>
+                  <button className="Canclebtn">
+                    <Link to="/mypage/edit">수정하기</Link>
+                  </button>
+                  <button className="Outbtn" onClick={MemberDeleteHandler}>
+                    탈퇴하기
+                  </button>
+                </div>
+              )}
             </BtnWrap>
           </UserIntro>
         </MypageRight>
       </MypageMainwrap>
     </MypageContainer>
   );
+};
+
+MypageEdit.defaultProps = {
+  editButton: true,
 };
 
 const MypageContainer = styled.div`

@@ -29,13 +29,14 @@ const ListBox = styled.div`
 `;
 
 function Members() {
+  const token = localStorage.getItem('accessToken');
   return (
     <Container>
       <TitleHeader title={'친구들'} />
       <ListBox>
-        <LevelBox />
-        <QuestionBox />
-        <AnswerBox />
+        <LevelBox token={token} />
+        <QuestionBox token={token} />
+        <AnswerBox token={token} />
       </ListBox>
     </Container>
   );

@@ -89,13 +89,13 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
 
                     <SectionBot>
                       <BotUserWrap>
-                        <span> {items.nickname} </span>
-                        <span> {items.class} </span>
-                        <span> {items.grade} </span>
-                        <span>{items.createdAt}</span>
                         <span className="mobileAnswer">
                           답변 {items.answerCount}
                         </span>
+                        <span> {items.nickname} </span>
+                        <span> {items.class} </span>
+                        <span> {items.grade} </span>
+                        <span> {items.createdAt} </span>
                       </BotUserWrap>
                       <div>
                         <span className="Likebtn">
@@ -198,17 +198,20 @@ const QuesListContainer = styled.div`
   }
 
   @media ${tablet} {
-    min-width: 400px;
     .TopNavWrap {
       right: 3%;
+      bottom: 55%;
+      > button {
+        padding: 0.8rem;
+      }
     }
   }
   @media ${mobile} {
-    min-width: 400px;
     .TopNavWrap {
       right: 1%;
+      bottom: 54%;
       > button {
-        padding: 0;
+        padding: 0.5rem;
       }
     }
   }
@@ -298,6 +301,13 @@ const SectionBot = styled.div`
 const BotUserWrap = styled.div`
   margin-left: 1rem;
   font-size: 1rem;
+  display: flex;
+  @media ${mobile} {
+    font-size: 0.8rem;
+    .mobileAnswer {
+      margin-left: 0.5rem;
+    }
+  }
 `;
 const MoreBtnWrap = styled.div`
   width: 100%;

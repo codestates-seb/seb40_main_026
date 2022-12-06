@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import cardDefaultImg from '../../assets/images/cardDefaultImg.png';
+import profile from '../../assets/images/profile.png';
 import ranklogo1 from '../../assets/images/ranklogo1.png';
 import ranklogo2 from '../../assets/images/ranklogo2.png';
 import ranklogo3 from '../../assets/images/ranklogo3.png';
@@ -7,6 +7,7 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.section`
   display: grid;
@@ -49,7 +50,6 @@ const TopBox = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   place-items: center;
-
   li:nth-child(1) {
     position: relative;
   }
@@ -89,6 +89,7 @@ const TopMemberImg = styled.img`
 const WordBox = styled.div`
   display: flex;
   font-size: 1.1rem;
+  cursor: pointer;
 `;
 
 const BlockBox = styled.div`
@@ -126,7 +127,6 @@ const BtmMemberBox = styled.li`
   margin-bottom: 1rem;
   width: 100%;
   height: 50%;
-
   div {
     margin: 0.9rem 0 0 0.5rem;
   }
@@ -137,14 +137,20 @@ const BtmMemberImg = styled.img`
   border-radius: 50%;
 `;
 
-function QuestionBox() {
+function QuestionBox({ token }) {
   const [list, setList] = useState([]);
+  const [first, setFirst] = useState({});
+  const [second, setSecond] = useState({});
+  const [third, setThird] = useState({});
 
   useEffect(() => {
     async function getAllMembers() {
       const res = await axios.get(`${BASE_URL}members/ranking/question`);
       let data = res.data;
-      setList(data.slice(0, 3));
+      setList(data.slice(3, 6));
+      setFirst(data[0]);
+      setSecond(data[1]);
+      setThird(data[2]);
     }
     try {
       getAllMembers();
@@ -153,7 +159,7 @@ function QuestionBox() {
     }
   }, []);
   const onErrorImg = (e) => {
-    e.target.src = cardDefaultImg;
+    e.target.src = profile;
   };
   return (
     <Container>
@@ -164,47 +170,95 @@ function QuestionBox() {
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo2} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://i.pinimg.com/564x/fd/36/56/fd3656aeed8e33a83df20a7cc0dc56bc.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {second.fileUrl ? (
+              <TopMemberImg src={second.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐥</span>
-            <span>얌얌이</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${second.memberId}`}>
+              <WordBox>
+                <span>
+                  {second.memberGrade}
+                  {second.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {second.memberGrade}
+                {second.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo1} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://i.pinimg.com/564x/b7/e3/12/b7e312d8be728acecc43d22ebf99dcab.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {first.fileUrl ? (
+              <TopMemberImg src={first.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐥</span>
-            <span>구우웃</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${first.memberId}`}>
+              <WordBox>
+                <span>
+                  {first.memberGrade}
+                  {first.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {first.memberGrade}
+                {first.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
         <TopMemberBox>
           <ImgBox>
             <CrownImg src={ranklogo3} alt="logo" />
-            <TopMemberImg
-              src={
-                'https://i.pinimg.com/736x/1e/f8/45/1ef8450987aab4ac96064a9b53b2b8dc.jpg'
-              }
-              alt={'cardImg'}
-            ></TopMemberImg>
+            {third.fileUrl ? (
+              <TopMemberImg src={third.fileUrl} alt={'cardImg'} />
+            ) : (
+              <TopMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
+            )}
           </ImgBox>
-          <WordBox>
-            <span>🐥</span>
-            <span>외계인</span>
-          </WordBox>
+          {token ? (
+            <Link to={`/friendinfo/${third.memberId}`}>
+              <WordBox>
+                <span>
+                  {third.memberGrade}
+                  {third.nickname}
+                </span>
+              </WordBox>
+            </Link>
+          ) : (
+            <WordBox
+              onClick={() =>
+                alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+              }
+            >
+              <span>
+                {third.memberGrade}
+                {third.nickname}
+              </span>
+            </WordBox>
+          )}
         </TopMemberBox>
       </TopBox>
       <BlockBox>
@@ -222,11 +276,27 @@ function QuestionBox() {
                 ) : (
                   <BtmMemberImg src={''} alt={'cardImg'} onError={onErrorImg} />
                 )}
-                <WordBox>
-                  <span>{item.level}</span>
-                  <span>{item.memberGrade}</span>
-                  <span>{item.nickname}</span>
-                </WordBox>
+                {token ? (
+                  <Link to={`/friendinfo/${item.memberId}`}>
+                    <WordBox>
+                      <span>
+                        {item.memberGrade}
+                        {item.nickname}
+                      </span>
+                    </WordBox>
+                  </Link>
+                ) : (
+                  <WordBox
+                    onClick={() =>
+                      alert('로그인을 하면 친구의 페이지에 놀러 갈 수 있어요!')
+                    }
+                  >
+                    <span>
+                      {item.memberGrade}
+                      {item.nickname}
+                    </span>
+                  </WordBox>
+                )}
               </BtmMemberBox>
             );
           })}
