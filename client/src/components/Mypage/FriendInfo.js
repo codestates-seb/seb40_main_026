@@ -39,7 +39,7 @@ const FriendInfo = () => {
       SetUserInfo(res.data);
       console.log(res.data);
     });
-  });
+  }, []);
 
   //방명록 post 요청 함수
   const postHandler = () => {
@@ -67,7 +67,7 @@ const FriendInfo = () => {
     }).then((res) => {
       SetCommentData(res.data);
     });
-  }, [Count]);
+  }, []);
 
   //방명록 수정
   const EditPatch = (id) => {
