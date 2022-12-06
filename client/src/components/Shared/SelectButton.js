@@ -1,5 +1,3 @@
-//로그인, 회원가입 화면에서 학생, 선생님을 고르는 버튼
-
 import styled from 'styled-components';
 
 const SelectButton = ({ teacher, setTeacher }) => {

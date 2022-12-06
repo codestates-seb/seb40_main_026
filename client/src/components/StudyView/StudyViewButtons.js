@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
-import axios from '../../api/axios';
 import { mobile, tablet } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import SortBtn from '../Shared/SortBtn';
@@ -33,7 +33,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
 
     axios
       .post(
-        `/studies/${id}/recruitment`,
+        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/studies/${id}/recruitment`,
         {
           'study-id': '{ id }',
         },
