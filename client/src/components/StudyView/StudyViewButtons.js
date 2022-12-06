@@ -5,7 +5,7 @@ import axios from '../../api/axios';
 import { mobile, tablet } from '../../styles/Responsive';
 import PostBtn from '../Shared/PostBtn';
 import SortBtn from '../Shared/SortBtn';
-
+import { BASE_URL } from '../../utils/api';
 const StudyViewButtons = ({ count, recruitment }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('accessToken');
@@ -33,7 +33,7 @@ const StudyViewButtons = ({ count, recruitment }) => {
 
     axios
       .post(
-        `/studies/${id}/recruitment`,
+        `${BASE_URL}studies${id}/recruitment`,
         {
           'study-id': '{ id }',
         },

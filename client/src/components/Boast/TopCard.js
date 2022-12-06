@@ -25,8 +25,8 @@ const CardBox = styled.li`
 const CardImg = styled.img`
   max-width: 100%;
   max-height: 100%;
-  width: 380px;
-  height: 260px;
+  width: 500px;
+  height: 230px;
   border-radius: 2rem 2rem 0rem 0rem;
   box-shadow: 0 0.1rem 0.8rem rgb(0 0 0 / 12%);
   background-size: cover;
@@ -49,6 +49,10 @@ const Word = styled.div`
   }
   @media ${tablet} {
     font-size: 1.3rem;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 

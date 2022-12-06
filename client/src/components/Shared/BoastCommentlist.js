@@ -7,6 +7,8 @@ const BoastCommentlist = ({
   DeleteHandler,
   EditPatch,
   SetContent,
+  currentCards,
+  UserInfo,
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [titleId, SetTitleId] = useState(0);
@@ -25,7 +27,7 @@ const BoastCommentlist = ({
     <CommentContainer>
       <ComInputWrap>
         <CommentUl className={CommentData.length > 0 ? null : 'none-display'}>
-          {CommentData.map((item) => {
+          {currentCards.map((item) => {
             return (
               <CommentWrap key={item.boastReplyId}>
                 <NickNameWrap>
@@ -46,22 +48,24 @@ const BoastCommentlist = ({
                   <div>
                     <span>{item.replyCreatedAt}</span>
                   </div>
-                  <BtnWrap>
-                    <button
-                      className="Canclebtn"
-                      onClick={() => {
-                        EditHandler(item.boastReplyId);
-                      }}
-                    >
-                      수정하기
-                    </button>{' '}
-                    <button
-                      className="Deletebtn"
-                      onClick={() => DeleteHandler(item.boastReplyId)}
-                    >
-                      삭제하기
-                    </button>
-                  </BtnWrap>
+                  {item.nickName === UserInfo.nickName ? (
+                    <BtnWrap>
+                      <button
+                        className="Canclebtn"
+                        onClick={() => {
+                          EditHandler(item.boastReplyId);
+                        }}
+                      >
+                        수정하기
+                      </button>{' '}
+                      <button
+                        className="Deletebtn"
+                        onClick={() => DeleteHandler(item.boastReplyId)}
+                      >
+                        삭제하기
+                      </button>
+                    </BtnWrap>
+                  ) : null}
                 </DateWrap>
               </CommentWrap>
             );

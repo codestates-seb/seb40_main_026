@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { mobile } from '../../styles/Responsive';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 const BoastDetailView = ({
   Data,
@@ -18,7 +20,12 @@ const BoastDetailView = ({
 }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [titleId, SetTitleId] = useState(Data.boastId);
+  const [UserInfo, SetUserInfo] = useState([]);
   const textRef = useRef();
+  const access = localStorage.getItem('accessToken');
+  const parse = access ? jwt_decode(access) : '';
+  const UserId = parse.memberId;
+
   //수정하기 버튼 클릭시 input창으로 변경
   const EditHandler = (id, url) => {
     if (id === titleId) {
@@ -31,6 +38,17 @@ const BoastDetailView = ({
       SetImage(url);
     }
   };
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/boasts/${UserId}`,
+      headers: {
+        Authorization: access,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
 
   return (
     <>
@@ -103,16 +121,19 @@ const BoastDetailView = ({
                 LikeHandler={() => LikeHandler(Data.boastId)}
                 checkLike={checkLike}
               />
-              <div className="Workbtn">
-                <button onClick={() => EditHandler(Data.boastId, Data.fileUrl)}>
-                  {' '}
-                  수정하기{' '}
-                </button>
-                <button onClick={() => DeleteHandler(Data.boastId)}>
-                  {' '}
-                  삭제하기{' '}
-                </button>
-              </div>
+              {Data.nickName === UserInfo.nickName ? (
+                <>
+                  <div className="Workbtn">
+                    <button
+                      onClick={() => EditHandler(Data.boastId, Data.fileUrl)}
+                    >
+                      {' '}
+                      수정하기{' '}
+                    </button>
+                    <button onClick={DeleteHandler}> 삭제하기 </button>
+                  </div>
+                </>
+              ) : null}
             </div>
             <div></div>
           </div>

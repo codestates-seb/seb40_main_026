@@ -8,7 +8,6 @@ import MypageEdit from './components/Mypage/MypageEdit';
 //import useRefreshToken from './hooks/useRefreshToken';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
-import KakaoRedirectPage from './pages/KakaoRedirectPage';
 import BoastView from './pages/BoastView';
 import LoginPage from './pages/LoginPage';
 import Members from './pages/Members';
@@ -23,6 +22,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import GlobalStyle from './styles/GlobalStyle';
 import ScrollToTop from './utils/ScrollToTop';
 import LandingPage from './pages/LandingPage';
+import FriendInfo from './components/Mypage/FriendInfo';
 //import { useEffect } from 'react';
 
 function App() {
@@ -90,12 +90,11 @@ function App() {
           }
         />
         <Route path="/members" element={<Members />} />
-        <Route path={`/friendinfo/:id`} element={<Mypage />} />
+        <Route path={`/friendinfo/:id`} element={<FriendInfo />} />
         <Route path="/contents" element={<Reference />} />
         <Route path="/study" element={<StudyListPage />} />
 
         <Route path={`/study/:id`} element={<StudyViewPage />} />
-        <Route path="/kakaoredirect" element={<KakaoRedirectPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,43 +1,37 @@
 import BoastCommentlist from '../Shared/BoastCommentlist';
 import CommentCreate from '../Shared/CommentCreate';
-import PageBtn from '../Shared/PageBtn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
-
+import Pagination from '../StudyList/Pagination';
 function BoastComment() {
   const [list, SetList] = useState([]);
   const [content, SetContent] = useState('');
   const [state, SetState] = useState(0);
+  const [UserInfo, SetUserInfo] = useState([]);
   const access = localStorage.getItem('accessToken');
   const { id } = useParams();
 
   // Pagination
-  const location = useLocation();
-  const navigate = useNavigate();
-  const SIZE = 3; // 첫페이지에서 랜더링되는 카드 갯수
-
-  const updateOffset = (buttonIndex) => {
-    const size = 3; // 다른페이지에서 랜더링되는 카드 갯수
-    const page = buttonIndex + 1;
-    const queryString = `?page=${page}&size=${size}`;
-
-    navigate(`${queryString}`);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardPerPage, setCardPerPage] = useState(3);
 
   // 댓글 조회
   useEffect(() => {
     axios({
       method: 'get',
-      url: `${BASE_URL}boastReplies/${id}${
-        location.search || `?page=1&size=${SIZE}`
-      }`,
+      url: `${BASE_URL}boastReplies/${id}?page=1&size=6
+      `,
     }).then((res) => {
       SetList(res.data.content);
+      setCurrentPage(1);
     });
-  }, [location.search, state]);
+  }, [state]);
+
+  const indexOfLastCard = currentPage * cardPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardPerPage;
+  const currentCards = list.slice(indexOfFirstCard, indexOfLastCard);
 
   // 댓글 작성
   const postHandler = () => {
@@ -90,6 +84,19 @@ function BoastComment() {
       });
   };
 
+  useEffect(() => {
+    axios({
+      mathod: 'get',
+      url: `${BASE_URL}boastReplies/${id}?page=1&size=6`,
+      headers: {
+        Authorization: access,
+      },
+    }).then((res) => {
+      SetUserInfo(res.data);
+    });
+  }, []);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
       <CommentCreate postHandler={postHandler} Setcontent={SetContent} />
@@ -98,8 +105,14 @@ function BoastComment() {
         DeleteHandler={DeleteHandler}
         EditPatch={EditPatch}
         SetContent={SetContent}
+        currentCards={currentCards}
+        UserInfo={UserInfo}
       />
-      <PageBtn updateOffset={updateOffset} />
+      <Pagination
+        paginate={paginate}
+        cardPerPage={cardPerPage}
+        totalPosts={list.length}
+      />
     </>
   );
 }

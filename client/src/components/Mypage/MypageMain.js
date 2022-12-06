@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 //멤버 id 띄어야함
-const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
+const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
   const [Grade, SetGrade] = useState();
   useEffect(() => {
     if (UserInfo.memberGrade === 'EGG') {
@@ -83,20 +83,26 @@ const MypageEdit = ({ UserInfo, MemberDeleteHandler }) => {
                   {UserInfo.memberStatus ? '현재 활동중' : '로그아웃'}
                 </span>
               </CommDisplay>
-              <div>
-                <button className="Canclebtn">
-                  <Link to="/mypage/edit">수정하기</Link>
-                </button>
-                <button className="Outbtn" onClick={MemberDeleteHandler}>
-                  탈퇴하기
-                </button>
-              </div>
+              {editButton && (
+                <div>
+                  <button className="Canclebtn">
+                    <Link to="/mypage/edit">수정하기</Link>
+                  </button>
+                  <button className="Outbtn" onClick={MemberDeleteHandler}>
+                    탈퇴하기
+                  </button>
+                </div>
+              )}
             </BtnWrap>
           </UserIntro>
         </MypageRight>
       </MypageMainwrap>
     </MypageContainer>
   );
+};
+
+MypageEdit.defaultProps = {
+  editButton: true,
 };
 
 const MypageContainer = styled.div`
