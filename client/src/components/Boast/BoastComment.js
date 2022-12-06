@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/api';
 import Pagination from '../StudyList/Pagination';
-function BoastComment() {
+
+function BoastComment({ UserInfo }) {
   const [list, SetList] = useState([]);
   const [content, SetContent] = useState('');
   const [state, SetState] = useState(0);
-  const [UserInfo, SetUserInfo] = useState([]);
   const access = localStorage.getItem('accessToken');
   const { id } = useParams();
 
@@ -84,19 +84,8 @@ function BoastComment() {
       });
   };
 
-  useEffect(() => {
-    axios({
-      mathod: 'get',
-      url: `${BASE_URL}boastReplies/${id}?page=1&size=6`,
-      headers: {
-        Authorization: access,
-      },
-    }).then((res) => {
-      SetUserInfo(res.data);
-    });
-  }, []);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <CommentCreate postHandler={postHandler} Setcontent={SetContent} />
@@ -112,6 +101,8 @@ function BoastComment() {
         paginate={paginate}
         cardPerPage={cardPerPage}
         totalPosts={list.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
       />
     </>
   );
