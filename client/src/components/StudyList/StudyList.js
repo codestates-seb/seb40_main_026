@@ -67,9 +67,7 @@ const StudyList = () => {
       <StudyListBlock>
         {currentCards.map((ele) => (
           <div key={ele.studyId}>
-            <Link
-              to={`http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/study/${ele.studyId}`}
-            >
+            <Link to={`/study/${ele.studyId}`}>
               <StudyCard
                 img={ele.fileUrl}
                 studyName={ele.studyName}

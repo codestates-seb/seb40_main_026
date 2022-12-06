@@ -1,20 +1,17 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { MdRemoveRedEye } from 'react-icons/md';
+import { RiEyeCloseFill } from 'react-icons/ri';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
-//import useAuth from '../../hooks/useAuth';
-import { MdRemoveRedEye } from 'react-icons/md';
-import { RiEyeCloseFill } from 'react-icons/ri';
 
-// import kakaoLoginIcon from '../../assets/icons/kakaoLoginIcon.png';
 import HorizonLine from '../Shared/HorizonLine';
 import MediumButton from '../Shared/MediumButton.js';
 import SelectButton from '../Shared/SelectButton.js';
 
 const Login = () => {
-  //const { setAuth } = useAuth();
   const [teacher, setTeacher] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +29,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //인풋요소 유효성검사...util로 만들기!
     if (!(email.includes('@') && email.includes('.'))) {
       console.log('이메일 유효성검사: @랑 .이 없음');
       errorAlarm('유효하지 않은 이메일주소입니다.');
@@ -49,9 +45,7 @@ const Login = () => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       .then((res) => {
-        console.log('확인');
-        console.log(res.headers.authorization);
-        let accessToken = res.headers.authorization;
+        const accessToken = res.headers.authorization;
         localStorage.setItem('accessToken', accessToken);
         setEmail('');
         setPassword('');
@@ -64,18 +58,7 @@ const Login = () => {
           return;
         }
       });
-    //const accessToken = response?.data?.accessToken;
-
-    //setAuth({ email, password, teacher, accessToken });
   };
-
-  // const { Kakao } = window;
-  // const loginWithKakao = () => {
-  //   console.log('hello');
-  //   Kakao.Auth.authorize({
-  //     redirectUri: 'http://localhost:3000/kakaoredirect',
-  //   });
-  // };
 
   return (
     <Container>
@@ -112,11 +95,6 @@ const Login = () => {
           navigate('/signup');
         }}
       />
-      {/* <HorizonLine text={'소셜 로그인'} />
-
-      <button onClick={loginWithKakao} className="kakao">
-        <img src={kakaoLoginIcon} alt="kakao" className="kakaoLoginIcon" />
-      </button> */}
     </Container>
   );
 };

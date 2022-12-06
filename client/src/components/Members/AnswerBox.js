@@ -56,7 +56,7 @@ const TopBox = styled.ul`
   }
   li:nth-child(2) {
     position: relative;
-    bottom: 1rem;
+    bottom: 2rem;
   }
   li:nth-child(3) {
     position: relative;
@@ -67,6 +67,7 @@ const TopBox = styled.ul`
 const TopMemberBox = styled.li`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const ImgBox = styled.div`
