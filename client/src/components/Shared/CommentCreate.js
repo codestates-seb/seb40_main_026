@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
 
-const CommentCreate = ({ Setcontent, postHandler }) => {
+const CommentCreate = ({ Setcontent, postHandler, token }) => {
   return (
     <CreateWrap>
-      <ComInputWrap>
-        <input
-          className="CommentInput"
-          defaultValue={Setcontent}
-          onChange={(e) => Setcontent(e.target.value)}
-        ></input>{' '}
-        <button className="CommentBtn" onClick={() => postHandler(8)}>
-          입력
-        </button>{' '}
-      </ComInputWrap>
+      {token ? (
+        <ComInputWrap>
+          <input
+            className="CommentInput"
+            defaultValue={Setcontent}
+            onChange={(e) => Setcontent(e.target.value)}
+          ></input>{' '}
+          <button className="CommentBtn" onClick={() => postHandler(8)}>
+            입력
+          </button>{' '}
+        </ComInputWrap>
+      ) : (
+        ''
+      )}
       <div> </div>
     </CreateWrap>
   );
