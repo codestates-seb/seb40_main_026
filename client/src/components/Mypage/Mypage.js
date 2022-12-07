@@ -5,7 +5,6 @@ import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { useParams } from 'react-router-dom';
 
 //멤버 id 띄어야함
 

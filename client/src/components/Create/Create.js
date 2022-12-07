@@ -35,9 +35,8 @@ const Create = ({
       };
     });
   };
-  const handleChangeTitle = (event) => {
-    Settitle(event.target.value);
-  };
+
+  //내용 저장용 함수
   const handleChangeInput = () => {
     Setcontent(textRef.current.getInstance().getMarkdown().trim());
   };
@@ -51,7 +50,9 @@ const Create = ({
           {/* <h3>제목</h3> */}
           <input
             placeholder="제목을 입력해주세요"
-            onChange={handleChangeTitle}
+            onChange={(event) => {
+              Settitle(event.target.value);
+            }}
           ></input>
         </div>
         <input type="file" className="ImgInput" onChange={ImgHandler}></input>

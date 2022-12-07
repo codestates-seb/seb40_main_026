@@ -20,9 +20,6 @@ const QuestionCreate = () => {
   const questionpost = (e) => {
     e.preventDefault();
 
-    // if (image) {
-    //   formData.append('image', image);
-    // }
     const formData = new FormData();
     if (image) {
       formData.append('image', image);
