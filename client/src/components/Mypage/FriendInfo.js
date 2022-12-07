@@ -42,7 +42,7 @@ const FriendInfo = () => {
       SetUserInfo(res.data);
       console.log(res.data);
     });
-  });
+  }, []);
 
   //방명록 post 요청 함수
   const postHandler = () => {
@@ -70,7 +70,7 @@ const FriendInfo = () => {
     }).then((res) => {
       SetCommentData(res.data);
     });
-  }, [Count]);
+  }, []);
 
   //방명록 수정
   const EditPatch = (id) => {
@@ -104,7 +104,11 @@ const FriendInfo = () => {
       <TitleHeader title={'회원정보'} />
       <MypageMain UserInfo={UserInfo} editButton={false} />
       <TitleHeader title={'방명록'} />
-      <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
+      <CommentCreate
+        postHandler={postHandler}
+        Setcontent={Setcontent}
+        token={token}
+      />
       <Commentlist
         CommentData={CommentData.slice(offset, offset + limit)}
         DeleteHandler={DeleteHandler}

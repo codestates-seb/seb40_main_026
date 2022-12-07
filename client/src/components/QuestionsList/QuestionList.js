@@ -96,10 +96,16 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
                         <span> {items.class} </span>
                         <span> {items.grade} </span>
                         <span> {items.createdAt} </span>
+                        <span className="mobileAnswer">
+                          답변 {items.answerCount}
+                        </span>
                       </BotUserWrap>
                       <div>
                         <span className="Likebtn">
-                          <LikeButton likeCount={items.likeCount} />{' '}
+                          <LikeButton
+                            likeCount={items.likeCount}
+                            checkLike={items.checkLike}
+                          />{' '}
                         </span>
                       </div>
                     </SectionBot>

@@ -3,7 +3,6 @@ import { MdEmojiPeople } from 'react-icons/md';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 
-//멤버 id 띄어야함
 const MypageEdit = ({ UserInfo, MemberDeleteHandler, editButton }) => {
   return (
     <MypageContainer>

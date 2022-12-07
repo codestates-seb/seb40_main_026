@@ -5,7 +5,6 @@ import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { useParams } from 'react-router-dom';
 
 //멤버 id 띄어야함
 
@@ -116,7 +115,11 @@ const MypageContainer = () => {
         MemberDeleteHandler={MemberDeleteHandler}
       />
       <TitleHeader title={'방명록'} />
-      <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
+      <CommentCreate
+        postHandler={postHandler}
+        Setcontent={Setcontent}
+        token={token}
+      />
       <Commentlist
         CommentData={CommentData}
         DeleteHandler={DeleteHandler}
