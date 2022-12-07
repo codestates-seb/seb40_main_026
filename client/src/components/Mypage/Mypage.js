@@ -115,7 +115,11 @@ const MypageContainer = () => {
         MemberDeleteHandler={MemberDeleteHandler}
       />
       <TitleHeader title={'방명록'} />
-      <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
+      <CommentCreate
+        postHandler={postHandler}
+        Setcontent={Setcontent}
+        token={token}
+      />
       <Commentlist
         CommentData={CommentData}
         DeleteHandler={DeleteHandler}

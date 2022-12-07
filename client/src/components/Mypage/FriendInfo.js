@@ -104,7 +104,11 @@ const FriendInfo = () => {
       <TitleHeader title={'회원정보'} />
       <MypageMain UserInfo={UserInfo} editButton={false} />
       <TitleHeader title={'방명록'} />
-      <CommentCreate postHandler={postHandler} Setcontent={Setcontent} />
+      <CommentCreate
+        postHandler={postHandler}
+        Setcontent={Setcontent}
+        token={token}
+      />
       <Commentlist
         CommentData={CommentData.slice(offset, offset + limit)}
         DeleteHandler={DeleteHandler}
