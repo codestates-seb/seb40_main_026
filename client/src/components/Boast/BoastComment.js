@@ -21,7 +21,7 @@ function BoastComment({ UserInfo, token }) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `${BASE_URL}boastReplies/${id}?page=1&size=6
+      url: `${BASE_URL}boastReplies/${id}?page=1&size=100
       `,
     }).then((res) => {
       SetList(res.data.content);
