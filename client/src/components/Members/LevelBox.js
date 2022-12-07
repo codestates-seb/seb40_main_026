@@ -161,7 +161,7 @@ function LevelBox({ token }) {
     } catch (err) {
       console.error(err);
     }
-  });
+  }, []);
 
   return (
     <Container>
