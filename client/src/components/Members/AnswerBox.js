@@ -91,7 +91,7 @@ const TopMemberImg = styled.img`
 
 const WordBox = styled.div`
   display: flex;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
 `;
 
