@@ -15,7 +15,7 @@ function BoastComment({ UserInfo, token }) {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardPerPage, setCardPerPage] = useState(3);
+  const [cardPerPage, setCardPerPage] = useState(10);
 
   // 댓글 조회
   useEffect(() => {
