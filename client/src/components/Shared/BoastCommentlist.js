@@ -26,7 +26,7 @@ const BoastCommentlist = ({
   return (
     <CommentContainer>
       <ComInputWrap>
-        <CommentUl className={CommentData.length > 0 ? null : 'none-display'}>
+        <CommentUl className={currentCards.length > 0 ? null : 'none-display'}>
           {currentCards.map((item) => {
             return (
               <CommentWrap key={item.boastReplyId}>
