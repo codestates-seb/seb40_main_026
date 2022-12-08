@@ -20,7 +20,7 @@ const FriendInfo = () => {
   const token = localStorage.getItem('accessToken');
 
   // 페이지네이션
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
@@ -70,7 +70,7 @@ const FriendInfo = () => {
     }).then((res) => {
       SetCommentData(res.data);
     });
-  }, []);
+  }, [Count]);
 
   //방명록 수정
   const EditPatch = (id) => {
