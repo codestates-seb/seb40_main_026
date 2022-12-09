@@ -48,8 +48,12 @@
 * ![image](https://user-images.githubusercontent.com/97659846/201456889-8a8ec98e-a4f2-4f4e-a9ae-afeea0825f4f.png)
 
 ### 백엔드
-
-
+* ![image](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white)
+* ![image](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+* ![image](https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white)
+* ![image](https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+* ![image](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+* ![image](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
 
 ## 🌟 커밋 컨벤션
 
