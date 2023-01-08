@@ -12,6 +12,7 @@ const Header = () => {
   useEffect(() => {
     console.log('겟 액세슽토큰', localStorage.getItem('accessToken'));
   }, [isLogin]);
+  console.log(isLogin);
   return (
     <Container>
       <HeaderLogo />

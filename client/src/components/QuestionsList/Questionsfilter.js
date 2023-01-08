@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import SortBtn from '../Shared/SortBtn';
-
+import { BASE_URL } from '../../utils/api';
 const Quesfilter = ({ TitleId, SetTitleId }) => {
   const filterdata = [
     {
