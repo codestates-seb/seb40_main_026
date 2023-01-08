@@ -6,6 +6,7 @@ import LikeButton from '../Shared/LikeButton';
 import axios from 'axios';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { FaAngleUp } from 'react-icons/fa';
+import { BASE_URL } from '../../utils/api';
 function QuestionView({ SearchData, SearchOn, TitleId }) {
   const navigate = useNavigate();
   const [QuesData, SetQuesData] = useState([]);

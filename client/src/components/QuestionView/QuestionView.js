@@ -5,6 +5,7 @@ import DetailView from '../Shared/DetailView';
 import { useNavigate, useParams } from 'react-router';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/api';
 const QuestionView = ({
   ContentData,
   TitleData,

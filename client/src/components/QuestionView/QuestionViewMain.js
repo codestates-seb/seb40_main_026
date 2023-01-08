@@ -2,6 +2,7 @@ import QuestionView from './QuestionView';
 import AnswerCreate from './AnswerCreate';
 import Answer from './Answer';
 import { useState } from 'react';
+import { BASE_URL } from '../../utils/api';
 const QuestionViewMain = () => {
   const [TitleData, SetTitleData] = useState();
   const [ContentData, SetContentData] = useState();

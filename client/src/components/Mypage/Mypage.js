@@ -5,7 +5,7 @@ import Commentlist from '../Shared/Commentlist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-
+import { BASE_URL } from '../../utils/api';
 //멤버 id 띄어야함
 
 //방명록 주인용 id app.js에서 마이페이지 주소 :id로 수정 해야 함.

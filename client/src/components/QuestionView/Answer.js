@@ -7,6 +7,7 @@ import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../utils/api';
 const Answer = ({ SetState, State }) => {
   const [EditClick, SetEditClick] = useState(false);
   const [TitleId, setTitleId] = useState(0);

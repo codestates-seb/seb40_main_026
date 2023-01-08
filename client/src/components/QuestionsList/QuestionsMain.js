@@ -5,6 +5,7 @@ import TitleHeader from '../Shared/TitleHeader';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/api';
 const Container = styled.div``;
 const QuestionsMain = () => {
   const [SearchOn, SetSearchOn] = useState(false);
