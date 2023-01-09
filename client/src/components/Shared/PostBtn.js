@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PostBtn = ({ className, text, onClick }) => {
+const PostBtn = ({ className, text, onClick, children }) => {
   return (
     <Button className={className} onClick={onClick}>
       {text}

@@ -1,12 +1,17 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import PostBtn from '../Shared/PostBtn';
 import { FaSearch } from 'react-icons/fa';
 import { BASE_URL } from '../../utils/api';
-const QuesSearch = ({ SearchOn, SetSearchOn, SetSearchtitle, Searchtitle }) => {
-  const SearchChange = (event) => {
+
+interface Prop {
+  SetSearchOn: Dispatch<SetStateAction<boolean>>;
+  SetSearchtitle: Dispatch<SetStateAction<string>>;
+}
+const QuesSearch = ({ SetSearchOn, SetSearchtitle }: Prop) => {
+  const SearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     SetSearchtitle(event.target.value);
     SetSearchOn(true);
   };
@@ -26,7 +31,7 @@ const QuesSearch = ({ SearchOn, SetSearchOn, SetSearchtitle, Searchtitle }) => {
         </SearchbarWrap>
         <ButtonWrap>
           <Link to="/ask">
-            <PostBtn text={'질문하기'} className={'AskBtn'}>
+            <PostBtn text={'질문하기'} className={'AskBtn'} onClick={''}>
               {' '}
             </PostBtn>
           </Link>

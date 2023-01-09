@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 const QuestionCreate = () => {
   const [content, Setcontent] = useState('');
-  const [image, SetImage] = useState();
+  const [image, SetImage] = useState('');
   const [title, Settitle] = useState('');
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
