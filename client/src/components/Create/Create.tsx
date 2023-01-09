@@ -2,18 +2,19 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Dispatch, SetStateAction } from 'react';
+
 export interface Prop {
-  Settitle: any;
+  Settitle: Dispatch<SetStateAction<string>>;
   Setcontent: any;
   SetImage: any;
-  PostHandler: any;
+  PostHandler: (e: React.FormEvent) => void;
 }
 
 const Create = ({ Settitle, Setcontent, SetImage, PostHandler }: Prop) => {
   const navigate = useNavigate();
   const textRef = useRef<Editor>(null);
-  const [ImgSrc, SetImgSrc] = useState<string | null>();
+  const [ImgSrc, SetImgSrc] = useState<string>();
   const BackClick = (event: React.FormEvent) => {
     event.preventDefault();
     navigate(-1);

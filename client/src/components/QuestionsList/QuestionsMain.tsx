@@ -27,12 +27,7 @@ const QuestionsMain = () => {
   return (
     <Container>
       <TitleHeader title={'궁금해요'} />
-      <QuesSearch
-        SearchOn={SearchOn}
-        SetSearchOn={SetSearchOn}
-        SetSearchtitle={SetSearchtitle}
-        Searchtitle={Searchtitle}
-      />
+      <QuesSearch SetSearchOn={SetSearchOn} SetSearchtitle={SetSearchtitle} />
       <Quesfilter TitleId={TitleId} SetTitleId={SetTitleId} />
       <QuestionsList
         TitleId={TitleId}
