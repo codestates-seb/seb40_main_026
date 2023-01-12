@@ -6,6 +6,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/api';
 const AnswerCreate = ({ State, SetState, image, SetImage }) => {
   const textRef = useRef();
   const [BodyData, SetBodyData] = useState();

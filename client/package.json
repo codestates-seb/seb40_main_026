@@ -8,7 +8,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@toast-ui/react-editor": "^3.2.2",
+    "@types/jest": "^29.2.5",
+    "@typescript-eslint/parser": "^5.48.0",
     "axios": "^1.2.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
     "jwt-decode": "^3.1.2",
     "loaders.css": "^0.1.2",
     "react": "^18.2.0",
@@ -29,6 +32,7 @@
     "react-typing-effect": "^2.0.5",
     "redux": "^4.2.0",
     "styled-components": "^5.3.6",
+    "typescript": "^4.9.4",
     "typing-effect-reactjs": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
@@ -57,6 +61,10 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.26",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",

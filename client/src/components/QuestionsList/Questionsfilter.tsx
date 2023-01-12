@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import SortBtn from '../Shared/SortBtn';
-
-const Quesfilter = ({ TitleId, SetTitleId }) => {
+import { BASE_URL } from '../../utils/api';
+interface Prop {
+  TitleId: number;
+  SetTitleId: Dispatch<SetStateAction<number>>;
+}
+const Quesfilter = ({ TitleId, SetTitleId }: Prop) => {
   const filterdata = [
     {
       id: 1,
@@ -17,7 +21,7 @@ const Quesfilter = ({ TitleId, SetTitleId }) => {
       title: '최신순',
     },
   ];
-  const filterOn = (id) => {
+  const filterOn = (id: number) => {
     if (id === TitleId) {
       SetTitleId(0);
     } else {

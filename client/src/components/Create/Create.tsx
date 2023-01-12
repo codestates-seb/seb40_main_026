@@ -2,35 +2,35 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { useState, useRef } from 'react';
+import React, { useState, useRef, Dispatch, SetStateAction } from 'react';
 
-const Create = ({
-  title,
-  Settitle,
-  content,
-  Setcontent,
-  PostHandler,
-  SetImage,
-  image,
-}) => {
+export interface Prop {
+  Settitle: Dispatch<SetStateAction<string>>;
+  Setcontent: any;
+  SetImage: any;
+  PostHandler: (e: React.FormEvent) => void;
+}
+
+const Create = ({ Settitle, Setcontent, SetImage, PostHandler }: Prop) => {
   const navigate = useNavigate();
-  const textRef = useRef();
-  const [ImgSrc, SetImgSrc] = useState();
-  const BackClick = (event) => {
+  const textRef = useRef<Editor>(null);
+  const [ImgSrc, SetImgSrc] = useState<string>();
+  const BackClick = (event: React.FormEvent) => {
     event.preventDefault();
     navigate(-1);
   };
-
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-    SetImage(event.target.files[0]);
+  //서버 열리면 테스트 해볼것.
+  const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetSrc(event.target.files);
+    SetImage(event.target.files);
   };
-  const SetSrc = (e) => {
+  const SetSrc = (file: any) => {
     const reader = new FileReader();
-    reader.readAsDataURL(e);
-    return new Promise((resolve) => {
+    reader.readAsDataURL(file);
+    //테스트해보고 다시 수정할것.
+    return new Promise((resolve: any) => {
       reader.onload = () => {
-        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        SetImgSrc(reader.result as string); //미리보기,서버에 보내줄 새로운 사진데이터
         resolve();
       };
     });
@@ -38,16 +38,13 @@ const Create = ({
 
   //내용 저장용 함수
   const handleChangeInput = () => {
-    Setcontent(textRef.current.getInstance().getMarkdown().trim());
+    Setcontent(textRef?.current?.getInstance().getMarkdown().trim());
   };
-  //코드 재활용 할 것
-  console.log(title, content);
 
   return (
     <CreateWrap>
       <form>
         <div className="CreateTop">
-          {/* <h3>제목</h3> */}
           <input
             placeholder="제목을 입력해주세요"
             onChange={(event) => {
@@ -56,9 +53,8 @@ const Create = ({
           ></input>
         </div>
         <input type="file" className="ImgInput" onChange={ImgHandler}></input>
-        {ImgSrc ? <img src={ImgSrc}></img> : null}
+        {ImgSrc ? <img alt="userimage" src={ImgSrc}></img> : null}
         <div className="CreateBot">
-          {/* <h3>내용</h3> */}
           <Editor
             ref={textRef}
             height="500px"

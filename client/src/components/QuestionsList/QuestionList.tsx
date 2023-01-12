@@ -1,21 +1,28 @@
 import { useNavigate } from 'react-router';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import axios from 'axios';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { FaAngleUp } from 'react-icons/fa';
-function QuestionView({ SearchData, SearchOn, TitleId }) {
+import { BASE_URL } from '../../utils/api';
+
+interface Prop {
+  SearchData: any;
+  SearchOn: boolean;
+  TitleId: number;
+}
+function QuestionView({ SearchData, SearchOn, TitleId }: Prop) {
   const navigate = useNavigate();
-  const [QuesData, SetQuesData] = useState([]);
-  const [Filter, SetFilter] = useState([]);
+  const [QuesData, SetQuesData] = useState<any>([]);
+  const [Filter, SetFilter] = useState('');
   const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState();
+  const [Total, SetTotal] = useState(0);
   const [Loading, SetLoading] = useState(false);
 
   //상세페이지 네비게이션 연결
-  const Titlehandler = (id) => {
+  const Titlehandler = (id: number) => {
     navigate(`/questions/${id}`);
   };
 
@@ -64,7 +71,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
       <QuesListMain>
         <QuestionsList>
           {SearchOn
-            ? SearchData.map((items) => {
+            ? SearchData.map((items: any) => {
                 return (
                   <QuesListWrap key={items.questionId}>
                     <DisplayWrap>
@@ -105,6 +112,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
                           <LikeButton
                             likeCount={items.likeCount}
                             checkLike={items.checkLike}
+                            LikeHandler={() => {}}
                           />{' '}
                         </span>
                       </div>
@@ -112,7 +120,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
                   </QuesListWrap>
                 );
               })
-            : QuesData.map((items) => {
+            : QuesData.map((items: any) => {
                 return (
                   <QuesListWrap key={items.questionId}>
                     <DisplayWrap>
@@ -150,6 +158,7 @@ function QuestionView({ SearchData, SearchOn, TitleId }) {
                           <LikeButton
                             likeCount={items.likeCount}
                             checkLike={items.checkLike}
+                            LikeHandler={() => {}}
                           />{' '}
                         </span>
                       </div>
