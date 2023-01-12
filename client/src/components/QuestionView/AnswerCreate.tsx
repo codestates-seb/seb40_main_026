@@ -1,33 +1,39 @@
 import styled from 'styled-components';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, Dispatch, SetStateAction } from 'react';
 import { mobile } from '../../styles/Responsive';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../utils/api';
-const AnswerCreate = ({ State, SetState, image, SetImage }) => {
-  const textRef = useRef();
-  const [BodyData, SetBodyData] = useState();
-  const [ImgSrc, SetImgSrc] = useState();
+import { useParams } from 'react-router-dom';
+
+export interface Props {
+  State: number;
+  SetState: Dispatch<SetStateAction<number>>;
+  image: string;
+  SetImage: Dispatch<SetStateAction<any>>;
+}
+const AnswerCreate = ({ State, SetState, image, SetImage }: Props) => {
+  const textRef = useRef<Editor>(null);
+  const [BodyData, SetBodyData] = useState<any>();
+  const [ImgSrc, SetImgSrc] = useState('');
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
-  const navigate = useNavigate();
+
   // const { id } = useParams();
   const handleChangeInput = () => {
-    SetBodyData(textRef.current.getInstance().getMarkdown().trim());
+    SetBodyData(textRef?.current?.getInstance().getMarkdown().trim());
   };
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-    SetImage(event.target.files[0]);
+  const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetSrc(event.target.files);
+    SetImage(event.target.files);
   };
-  const SetSrc = (e) => {
+  const SetSrc = (e: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);
-    return new Promise((resolve) => {
+    return new Promise((resolve: any) => {
       reader.onload = () => {
-        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        SetImgSrc(reader.result as string); //미리보기,서버에 보내줄 새로운 사진데이터
         resolve();
       };
     });
@@ -64,7 +70,7 @@ const AnswerCreate = ({ State, SetState, image, SetImage }) => {
       <CreateView>
         <Createinput>
           {' '}
-          <img src={ImgSrc ? ImgSrc : null}></img>
+          <img src={ImgSrc ? ImgSrc : undefined} alt="AnswerImage"></img>
           <input type="file" className="ImgInput" onChange={ImgHandler}></input>
           <Editor
             ref={textRef}

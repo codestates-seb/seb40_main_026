@@ -1,39 +1,41 @@
 import styled from 'styled-components';
 import { tablet, mobile } from '../../styles/Responsive';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/api';
+
 const MypageEditContainer = () => {
-  const [UserInfo, SetUserInfo] = useState([]);
+  const [UserInfo, SetUserInfo] = useState<any>([]);
   const [ImgSrc, SetImgSrc] = useState(
     'https://user-images.githubusercontent.com/107850055/202369291-3485bbf5-5880-405f-bb2f-996da606e7d5.png'
   ); //미리보기용
-  const [Image, SetImage] = useState(); //서버 전송용
-  const [nickname, SetNickname] = useState();
-  const [introduce, SetIntro] = useState();
+  const [Image, SetImage] = useState<any>(); //서버 전송용
+  const [nickname, SetNickname] = useState('');
+  const [introduce, SetIntro] = useState('');
   const token = localStorage.getItem('accessToken');
-  const parse = token ? jwt_decode(token) : '';
+  const parse: any = token ? jwt_decode(token) : '';
   const UserId = parse.memberId;
   const navigate = useNavigate();
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-    SetImage(event.target.files[0]);
+  const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetSrc(event.target.files);
+    SetImage(event.target.files);
   };
   console.log(UserInfo);
-  const SetSrc = (e) => {
+  const SetSrc = (e: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);
-    return new Promise((resolve) => {
+    return new Promise((resolve: any) => {
       reader.onload = () => {
-        SetImgSrc(reader.result);
+        SetImgSrc(reader.result as string);
         resolve();
       };
     });
   };
 
-  const EditPatch = (e) => {
+  const EditPatch = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
     if (ImgSrc) {
@@ -42,15 +44,11 @@ const MypageEditContainer = () => {
     formData.append('introduce', introduce);
     formData.append('nickname', nickname);
     axios
-      .patch(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-        formData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .patch(`${BASE_URL}members/${UserId}`, formData, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then(function (response) {
         navigate('/mypage');
       })
@@ -60,21 +58,21 @@ const MypageEditContainer = () => {
   };
 
   useEffect(() => {
-    axios({
-      mathod: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      SetUserInfo(res.data);
-      if (res.data.fileUrl) {
-        SetImgSrc(res.data.fileUrl);
-      }
+    axios
+      .get(`${BASE_URL}members/${UserId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        SetUserInfo(res.data);
+        if (res.data.fileUrl) {
+          SetImgSrc(res.data.fileUrl);
+        }
 
-      SetNickname(res.data.nickname);
-      SetIntro(res.data.introduce);
-    });
+        SetNickname(res.data.nickname);
+        SetIntro(res.data.introduce);
+      });
   }, []);
   console.log(ImgSrc, Image);
   return (

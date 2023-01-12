@@ -2,12 +2,12 @@ import QuestionView from './QuestionView';
 import AnswerCreate from './AnswerCreate';
 import Answer from './Answer';
 import { useState } from 'react';
-import { BASE_URL } from '../../utils/api';
+
 const QuestionViewMain = () => {
-  const [TitleData, SetTitleData] = useState();
-  const [ContentData, SetContentData] = useState();
+  const [TitleData, SetTitleData] = useState('');
+  const [ContentData, SetContentData] = useState('');
   const [State, SetState] = useState(0);
-  const [image, SetImage] = useState();
+  const [image, SetImage] = useState('');
 
   return (
     <>
@@ -19,12 +19,7 @@ const QuestionViewMain = () => {
         SetState={SetState}
         State={State}
       />
-      <Answer
-        State={State}
-        SetState={SetState}
-        image={image}
-        SetImage={SetImage}
-      />
+      <Answer State={State} SetState={SetState} />
       <AnswerCreate
         SetState={SetState}
         State={State}

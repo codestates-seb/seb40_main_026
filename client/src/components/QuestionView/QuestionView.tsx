@@ -1,11 +1,17 @@
-import styled from 'styled-components';
-import { useState, useEffect, useMemo } from 'react';
-import { tablet, mobile } from '../../styles/Responsive';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import DetailView from '../Shared/DetailView';
 import { useNavigate, useParams } from 'react-router';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/api';
+interface Prop {
+  ContentData: string;
+  TitleData: string;
+  SetTitleData: Dispatch<SetStateAction<string>>;
+  SetContentData: Dispatch<SetStateAction<string>>;
+  SetState: Dispatch<SetStateAction<number>>;
+  State: number;
+}
 const QuestionView = ({
   ContentData,
   TitleData,
@@ -13,24 +19,24 @@ const QuestionView = ({
   SetContentData,
   SetState,
   State,
-}) => {
+}: Prop) => {
   const [QuesData, SetQuesData] = useState([]);
   const [checklike, Setchecklike] = useState();
-  const [ImgSrc, SetImgSrc] = useState(); //미리보기용
-  const [image, Setimage] = useState();
+  const [ImgSrc, SetImgSrc] = useState(''); //미리보기용
+  const [image, Setimage] = useState<any>();
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-    Setimage(event.target.files[0]);
+  const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetSrc(event.target.files);
+    Setimage(event.target.files);
   };
-  const SetSrc = (e) => {
+  const SetSrc = (e: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);
-    return new Promise((resolve) => {
+    return new Promise((resolve: any) => {
       reader.onload = () => {
-        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        SetImgSrc(reader.result as string); //미리보기,서버에 보내줄 새로운 사진데이터
         resolve();
       };
     });
@@ -40,7 +46,7 @@ const QuestionView = ({
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+      url: `${BASE_URL}questions/${id}`,
     }).then((res) => {
       SetQuesData(res.data);
       SetImgSrc(res.data.fileUrl);
@@ -58,15 +64,11 @@ const QuestionView = ({
     formData.append('title', TitleData);
     formData.append('content', ContentData);
     axios
-      .patch(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .patch(`${BASE_URL}questions/${id}`, formData, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then(function (response) {
         SetState(State + 1);
       })
@@ -78,7 +80,7 @@ const QuestionView = ({
   const ReportHandler = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/report`,
+      url: `${BASE_URL}questions/${id}/report`,
       data: { id },
       headers: {
         Authorization: token,
@@ -94,22 +96,19 @@ const QuestionView = ({
   };
   const DeleteHandler = () => {
     axios
-      .delete(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .delete(`${BASE_URL}questions/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         navigate('/questions');
       });
   };
-  const LikeHandler = (id) => {
+  const LikeHandler = (id: number) => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/like`,
+      url: `${BASE_URL}questions/${id}/like`,
       headers: { Authorization: token },
     })
       .then((res) => {

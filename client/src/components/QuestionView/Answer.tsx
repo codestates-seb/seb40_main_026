@@ -5,50 +5,50 @@ import LikeButton from '../Shared/LikeButton';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { BASE_URL } from '../../utils/api';
-const Answer = ({ SetState, State }) => {
-  const [EditClick, SetEditClick] = useState(false);
+import { Props } from './AnswerCreate';
+const Answer = ({ SetState, State }: Props) => {
   const [TitleId, setTitleId] = useState(0);
   const [Answer, setAnswer] = useState([]);
-  const [image, Setimage] = useState();
-  const [ImgSrc, SetImgSrc] = useState();
-  const [EditData, SetEditData] = useState();
+  const [image, Setimage] = useState<any>();
+  const [ImgSrc, SetImgSrc] = useState('');
+  const [EditData, SetEditData] = useState<any>('');
   const { id } = useParams();
   const token = localStorage.getItem('accessToken');
-  const navigate = useNavigate();
-  const [UserInfo, SetUserInfo] = useState([]);
-  const parse = token ? jwt_decode(token) : '';
-  const UserId = parse.memberId;
+  const [UserInfo, SetUserInfo] = useState<any>([]);
+  const parse: any = token ? jwt_decode(token) : '';
+  const UserId: number = parse.memberId;
 
-  const textRef = useRef();
-  const ImgHandler = (event) => {
-    SetSrc(event.target.files[0]);
-    Setimage(event.target.files[0]);
+  const textRef = useRef<Editor>(null);
+  const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetSrc(event.target.files);
+    Setimage(event.target.files);
   };
-  const SetSrc = (e) => {
+  const SetSrc = (e: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(e);
-    return new Promise((resolve) => {
+    return new Promise((resolve: any) => {
       reader.onload = () => {
-        SetImgSrc(reader.result); //미리보기,서버에 보내줄 새로운 사진데이터
+        SetImgSrc(reader.result as string); //미리보기,서버에 보내줄 새로운 사진데이터
         resolve();
       };
     });
   };
   useEffect(() => {
-    axios({
-      mathod: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      SetUserInfo(res.data);
-    });
+    axios
+      .get(`${BASE_URL}members/${UserId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        SetUserInfo(res.data);
+      });
   }, []);
-  const EditHandler = (item) => {
+
+  const EditHandler = (item: any) => {
     if (item.answerId === TitleId) {
       const formData = new FormData();
       if (image) {
@@ -56,56 +56,44 @@ const Answer = ({ SetState, State }) => {
       }
       formData.append('content', EditData);
       axios
-        .patch(
-          `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${item.answerId}`,
-          formData,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        )
+        .patch(`${BASE_URL}answers/${item.answerId}`, formData, {
+          headers: {
+            Authorization: token,
+          },
+        })
         .then((response) => {
           SetState(State + 1);
         })
         .catch((err) => {});
       setTitleId(0);
-      SetEditClick(false);
     } else {
       setTitleId(item.answerId);
-      SetEditClick(true);
+
       SetEditData(item.content);
       SetImgSrc(item.fileUrl);
     }
   };
-  const DeleteHandler = (id) => {
+  const DeleteHandler = (id: number) => {
     axios
-      .delete(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .delete(`${BASE_URL}answers/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         SetState(State + 1);
       });
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`
-      )
-      .then((res) => {
-        setAnswer(res.data);
-      });
+    axios.get(`${BASE_URL}answers/${id}`).then((res) => {
+      setAnswer(res.data);
+    });
   }, [State]);
-  const LikeHandler = (id) => {
+  const LikeHandler = (id: number) => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}/like`,
+      url: `${BASE_URL}answers/${id}/like`,
       data: { id },
       headers: { Authorization: token },
     })
@@ -118,7 +106,7 @@ const Answer = ({ SetState, State }) => {
   return (
     <AnswerView>
       <AnswerViewWrap className={Answer.length > 0 ? '' : 'none-display'}>
-        {Answer.map((items) => {
+        {Answer.map((items: any) => {
           return (
             <AnswerMainWrap key={items.answerId}>
               <AnswerTop>
@@ -155,7 +143,7 @@ const Answer = ({ SetState, State }) => {
               <AnswerBot>
                 {items.answerId === TitleId ? (
                   <>
-                    <img src={ImgSrc ? ImgSrc : image}></img>
+                    <img src={ImgSrc ? ImgSrc : image} alt="AnswerImage"></img>
                     <br />
                     <input
                       type="file"
@@ -168,7 +156,7 @@ const Answer = ({ SetState, State }) => {
                       initialValue={items.content}
                       onChange={() =>
                         SetEditData(
-                          textRef.current.getInstance().getMarkdown().trim()
+                          textRef?.current?.getInstance().getMarkdown().trim()
                         )
                       }
                     />
@@ -179,7 +167,10 @@ const Answer = ({ SetState, State }) => {
                    defaultValue={items.content}
                   onChange={(e) => SetEditData(e.target.value)}
                    /> */}
-                    <img src={items.fileUrl ? items.fileUrl : image}></img>
+                    <img
+                      src={items.fileUrl ? items.fileUrl : image}
+                      alt="AnswerImage"
+                    ></img>
                     <Viewer initialValue={items.content} />
                   </>
                 )}

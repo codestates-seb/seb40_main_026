@@ -14,9 +14,9 @@ const MypageContainer = () => {
   const [content, Setcontent] = useState('');
   const [CommentData, SetCommentData] = useState([]);
   const [Count, SetCount] = useState(false);
-  const [UserInfo, SetUserInfo] = useState([]);
+  const [UserInfo, SetUserInfo] = useState<any>([]);
   const token = localStorage.getItem('accessToken');
-  const parse = token ? jwt_decode(token) : '';
+  const parse: any = token ? jwt_decode(token) : '';
   const UserId = parse.memberId;
 
   //만약 로컬에 토큰이 있다면 함수 실행
@@ -24,21 +24,21 @@ const MypageContainer = () => {
 
   //회원정보 조회
   useEffect(() => {
-    axios({
-      mathod: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      SetUserInfo(res.data);
-    });
+    axios
+      .get(`${BASE_URL}members/${UserId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        SetUserInfo(res.data);
+      });
   }, []);
   //회원탈퇴
   const MemberDeleteHandler = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/members/${UserId}`,
+      url: `${BASE_URL}members/${UserId}`,
 
       headers: {
         Authorization: token,
@@ -53,7 +53,7 @@ const MypageContainer = () => {
   const postHandler = () => {
     axios({
       method: 'post',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks`,
+      url: `${BASE_URL}guestBooks`,
       data: { memberId: UserId, content },
       headers: {
         Authorization: token,
@@ -68,7 +68,7 @@ const MypageContainer = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks?memberId=${UserId}`,
+      url: `${BASE_URL}guestBooks?memberId=${UserId}`,
       headers: {
         Authorization: token,
       },
@@ -78,10 +78,10 @@ const MypageContainer = () => {
   }, [Count]);
 
   //방명록 수정
-  const EditPatch = (id) => {
+  const EditPatch = (id: number) => {
     axios({
       method: 'patch',
-      url: `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks/${id}`,
+      url: `${BASE_URL}guestBooks/${id}`,
       data: { content },
       headers: {
         Authorization: token,
@@ -93,16 +93,13 @@ const MypageContainer = () => {
       .catch((err) => {});
   };
   //방명록 삭제
-  const DeleteHandler = (id) => {
+  const DeleteHandler = (id: number) => {
     axios
-      .delete(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/guestBooks/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .delete(`${BASE_URL}guestBooks/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         SetCount(!Count);
       });

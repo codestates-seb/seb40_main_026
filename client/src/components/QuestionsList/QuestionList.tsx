@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
