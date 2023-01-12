@@ -15,9 +15,7 @@ const QuestionsMain = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions/search?keyWord=${Searchtitle}`
-      )
+      .get(`${BASE_URL}questions/search?keyWord=${Searchtitle}`)
       .then((res) => {
         SetSearchData(res.data);
       });

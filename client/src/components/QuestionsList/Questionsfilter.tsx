@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import SortBtn from '../Shared/SortBtn';
-import { BASE_URL } from '../../utils/api';
+
 interface Prop {
   TitleId: number;
   SetTitleId: Dispatch<SetStateAction<number>>;

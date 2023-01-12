@@ -42,14 +42,10 @@ function QuestionView({ SearchData, SearchOn, TitleId }: Prop) {
 
   //질문 리스트  api요청
   useEffect(() => {
-    axios
-      .get(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/questions?sort=${Filter}`
-      )
-      .then((res) => {
-        SetQuesData(res.data.slice(0, Count * 5));
-        SetTotal(res.data.length);
-      });
+    axios.get(`${BASE_URL}questions?sort=${Filter}`).then((res) => {
+      SetQuesData(res.data.slice(0, Count * 5));
+      SetTotal(res.data.length);
+    });
   }, [Count, Filter]);
 
   //게시글 더보기 요청시 Count증가 시키는 함수

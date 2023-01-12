@@ -4,7 +4,6 @@ import { tablet, mobile } from '../../styles/Responsive';
 import { Link } from 'react-router-dom';
 import PostBtn from '../Shared/PostBtn';
 import { FaSearch } from 'react-icons/fa';
-import { BASE_URL } from '../../utils/api';
 
 interface Prop {
   SetSearchOn: Dispatch<SetStateAction<boolean>>;
