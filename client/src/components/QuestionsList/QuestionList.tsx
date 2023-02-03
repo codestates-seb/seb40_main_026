@@ -341,8 +341,7 @@ const MoreBtnWrap = styled.div`
   }
   .LoaderWrap {
     width: 100%;
-
-    text-algin: center;
+    text-align: center;
   }
 `;
 export default QuestionView;
