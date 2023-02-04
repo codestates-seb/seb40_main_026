@@ -4,6 +4,7 @@ import { BASE_URL } from './api';
 
 const useFetch = (
   url: string,
+  state?: number,
   id?: string | string[] | number,
   token?: any
 ) => {
@@ -22,7 +23,7 @@ const useFetch = (
       })
       .catch((err) => {});
     return () => abortCont.abort();
-  }, [url, id]);
+  }, [url, id, state]);
 
   return [data];
 };

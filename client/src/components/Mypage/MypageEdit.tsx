@@ -159,7 +159,7 @@ const EditformWrap = styled.div`
     margin: auto;
     flex-direction: column;
   }
-  }
+
   @media ${tablet} {
     flex-direction: column;
   }

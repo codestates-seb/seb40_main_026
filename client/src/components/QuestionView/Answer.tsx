@@ -4,23 +4,23 @@ import { mobile } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
 import { Viewer, Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { useParams } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { BASE_URL } from '../../utils/api';
 import { Props } from './AnswerCreate';
+import useFetch from 'utils/useFetch';
+
 const Answer = ({ SetState, State }: Props) => {
   const [TitleId, setTitleId] = useState(0);
-  const [Answer, setAnswer] = useState([]);
+  const { id } = useParams();
+  const [Answer] = useFetch(`answers/${id}`, State);
   const [image, Setimage] = useState<any>();
   const [ImgSrc, SetImgSrc] = useState('');
   const [EditData, SetEditData] = useState<any>('');
-  const { id } = useParams();
   const token = localStorage.getItem('accessToken');
-  const [UserInfo, SetUserInfo] = useState<any>([]);
   const parse: any = token ? jwt_decode(token) : '';
   const UserId: number = parse.memberId;
-
+  const [UserInfo]: any = useFetch(`members/${UserId}`);
   const textRef = useRef<Editor>(null);
   const ImgHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     SetSrc(event.target.files);
@@ -36,17 +36,6 @@ const Answer = ({ SetState, State }: Props) => {
       };
     });
   };
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}members/${UserId}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        SetUserInfo(res.data);
-      });
-  }, []);
 
   const EditHandler = (item: any) => {
     if (item.answerId === TitleId) {
@@ -85,11 +74,6 @@ const Answer = ({ SetState, State }: Props) => {
       });
   };
 
-  useEffect(() => {
-    axios.get(`${BASE_URL}answers/${id}`).then((res) => {
-      setAnswer(res.data);
-    });
-  }, [State]);
   const LikeHandler = (id: number) => {
     axios({
       method: 'post',
