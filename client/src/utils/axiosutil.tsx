@@ -1,10 +1,28 @@
-const BASE_URL = 'http://localhost:3001/';
-
+import { BASE_URL } from './api';
+import axios from 'axios';
+import { useState } from 'react';
 export const fetchCreate = (
   url: string,
-  data: {},
-  id?: string | string[]
-) => {};
+  token: any,
+  content: string,
+  image?: string,
+  title?: string
+) => {
+  const formData = new FormData();
+  if (image) {
+    formData.append('image', image);
+  }
+  formData.append('title', title);
+  formData.append('content', content);
+  axios
+    .post(`${BASE_URL}${url}`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {})
+    .catch((err) => {});
+};
 
 export const fetchDelete = (
   url: string,

@@ -4,14 +4,17 @@ import { BASE_URL } from './api';
 
 const useFetch = (
   url: string,
-  state?: number,
-  id?: string | string[] | number,
-  token?: any
+  state?: any,
+  token?: any,
+  id?: string | string[] | number
 ) => {
   const [data, setData] = useState([]);
+  const [Total, SetTotal] = useState([]);
+  const [ImgSrc, SetImgSrc] = useState([]);
+  const [TitleData, SetTitleData] = useState([]);
+  const [ContentData, SetContentData] = useState([]);
 
   useEffect(() => {
-    const abortCont = new AbortController();
     axios
       .get(`${BASE_URL}${url}`, {
         headers: {
@@ -20,12 +23,15 @@ const useFetch = (
       })
       .then((res) => {
         setData(res.data);
+        SetTotal(res.data.slice(0, state * 5));
+        SetImgSrc(res.data.fileUrl);
+        SetTitleData(res.data.nickname);
+        SetContentData(res.data.content);
       })
       .catch((err) => {});
-    return () => abortCont.abort();
-  }, [url, id, state]);
+  }, [state]);
 
-  return [data];
+  return [data, Total, ImgSrc, TitleData, ContentData];
 };
 
 export default useFetch;

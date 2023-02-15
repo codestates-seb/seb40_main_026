@@ -6,6 +6,8 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import TitleHeader from '../Shared/TitleHeader';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+// eslint-disable-next-line import/no-unresolved
+import { fetchCreate } from 'utils/axiosutil';
 
 export interface Props {
   State: number;
@@ -39,29 +41,7 @@ const AnswerCreate = ({ State, SetState, image, SetImage }: Props) => {
     });
   };
   const Answerpost = () => {
-    const formData = new FormData();
-    if (image) {
-      formData.append('image', image);
-    }
-    formData.append('content', BodyData);
-    axios
-      .post(
-        `http://ec2-3-34-95-255.ap-northeast-2.compute.amazonaws.com:8080/answers/${id}`,
-        formData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-
-      .then((res) => {
-        SetState(State + 1);
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    fetchCreate(`answers/${id}`, token, BodyData, image);
   };
 
   return (
@@ -123,8 +103,7 @@ const CreateView = styled.div`
 `;
 const CreateWrap = styled.div`
   margin-top: 2rem;
-  @media ${mobile};
-   {
+  @media ${mobile} {
     .CreateBtn {
       width: 80px;
       padding: 0.5rem;

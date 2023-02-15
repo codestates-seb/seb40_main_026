@@ -1,12 +1,12 @@
+/* eslint-disable import/no-unresolved */
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { mobile, tablet } from '../../styles/Responsive';
 import LikeButton from '../Shared/LikeButton';
-import axios from 'axios';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { FaAngleUp } from 'react-icons/fa';
-import { BASE_URL } from '../../utils/api';
+import useFetch from 'utils/useFetch';
 
 interface Prop {
   SearchData: any;
@@ -15,10 +15,9 @@ interface Prop {
 }
 function QuestionView({ SearchData, SearchOn, TitleId }: Prop) {
   const navigate = useNavigate();
-  const [QuesData, SetQuesData] = useState<any>([]);
   const [Filter, SetFilter] = useState('');
   const [Count, SetCount] = useState(1);
-  const [Total, SetTotal] = useState(0);
+  const [Total, QuesData] = useFetch(`questions?sort=${Filter}`, Count);
   const [Loading, SetLoading] = useState(false);
 
   //상세페이지 네비게이션 연결
@@ -41,16 +40,10 @@ function QuestionView({ SearchData, SearchOn, TitleId }: Prop) {
   }, [TitleId]);
 
   //질문 리스트  api요청
-  useEffect(() => {
-    axios.get(`${BASE_URL}questions?sort=${Filter}`).then((res) => {
-      SetQuesData(res.data.slice(0, Count * 5));
-      SetTotal(res.data.length);
-    });
-  }, [Count, Filter]);
 
   //게시글 더보기 요청시 Count증가 시키는 함수
   const CountHandler = () => {
-    if (Total >= Count && Total !== QuesData.length) {
+    if (Total.length >= Count && Total.length !== QuesData.length) {
       SetLoading(true);
       setTimeout(() => {
         SetCount(Count + 1);
@@ -169,7 +162,9 @@ function QuestionView({ SearchData, SearchOn, TitleId }: Prop) {
           </div>
           <button
             className={
-              QuesData.length === 0 || Loading || Total === QuesData.length
+              QuesData.length === 0 ||
+              Loading ||
+              Total.length === QuesData.length
                 ? 'non-loading'
                 : 'MoreBtn'
             }

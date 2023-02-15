@@ -9,6 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { BASE_URL } from '../../utils/api';
 import { Props } from './AnswerCreate';
 import useFetch from 'utils/useFetch';
+import { fetchCreate } from 'utils/axiosutil';
 
 const Answer = ({ SetState, State }: Props) => {
   const [TitleId, setTitleId] = useState(0);

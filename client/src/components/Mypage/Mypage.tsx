@@ -18,9 +18,15 @@ const MypageContainer = () => {
   const parse: any = token ? jwt_decode(token) : '';
   const UserId = parse.memberId;
   const [content, Setcontent] = useState('');
-  const [CommentData, SetCommentData] = useState([]);
   const [Count, SetCount] = useState(false);
-  const [UserInfo]: any = useFetch(`members/${UserId}`, token);
+  const [CommentData]: any = useFetch(
+    `guestBooks?memberId=${UserId}`,
+    Count,
+    token
+  );
+
+  const [UserInfo]: any = useFetch(`members/${UserId}`, Count, token);
+  //방명록 조회용 함수
 
   //만약 로컬에 토큰이 있다면 함수 실행
   //함수는
@@ -56,18 +62,6 @@ const MypageContainer = () => {
       })
       .catch((err) => {});
   };
-  //방명록 조회용 함수
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: `${BASE_URL}guestBooks?memberId=${UserId}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      SetCommentData(res.data);
-    });
-  }, [Count]);
 
   //방명록 수정
   const EditPatch = (id: number) => {
